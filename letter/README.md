@@ -4,6 +4,7 @@
 
 - [Overview](#overview)
   - [Screenshot](#screenshot)
+    - [Expected Result](#expected-result)
     - [First Result](#first-result)
     - [Final Result](#final-result)
   - [Links](#links)
@@ -23,6 +24,10 @@ Mark up a letter that needs to be hosted on a university intranet. The letter is
 
 ### Screenshot
 
+### Expected Result
+
+![expected result](result/expected_screenshot.bmp)
+
 #### First Result
 
 Using only TODO list
@@ -37,8 +42,6 @@ Using TODO list and screenshot of expected result
 ![part 1](result/final_result1.png)
 ![part 2](result/final_result2.png)
 ![part 2](result/final_result3.png)
-
-![expected result](result/expected_screenshot.bmp)
 
 ### Links
 
