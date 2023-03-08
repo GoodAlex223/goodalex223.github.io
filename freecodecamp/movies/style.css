@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+    /* font-size: 100%; */
+}
+
+body {
+    background-color: #131720;
+    font-family: sans-serif;
+    color: white;
+}
+
+h3 {
+    font-size: 100%;
+}
+
+a {
+    color: white;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #131720;
+    padding: 10px;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.topnav .search-container {
+    float: right;
+}
+
+#section {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+}
+
+#section::after {
+    content: "";
+    width: 300px;
+}
+
+.thumbnail {
+    display: block;
+    margin: 0 auto;
+    height: 85%;
+    max-height: 350px;
+    width: 100%;
+    max-width: 300px;
+    border-radius: 19px;
+}
+
+#form {
+    background-color: #151f30;
+    width: 300px;
+    height: 43px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+}
+
+#form input {
+    all: unset;
+    font: 15px system-ui;
+    height: 100%;
+    width: 100%;
+    padding: 6px 9px;
+    color: #ffff;
+}
+
+.card-input {
+    width: 100%;
+    padding: 6px 9px;
+    max-width: 250px;
+}
+
+.review-text {
+    line-break: strict;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+textarea {
+    position: relative;
+    font: 15px system-ui;
+    height: 100%;
+    width: 100%;
+    max-width: 250px;
+    max-height: 250px;
+    padding: 6px 9px;
+}
+
+.card {
+    border-radius: 19px;
+    padding: 15px;
+    text-align: center;
+    background-color: #151f30;
+    height: 430px;
+    width: 300px;
+}
+
+label {
+    font-weight: bold;
+}

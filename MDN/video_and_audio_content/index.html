@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, html{
+            box-sizing: border-box;
+        }
+        figure {
+            display: flex;
+            background-color: black;
+            color: white;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+            min-width: 340px
+        }
+    </style>
+</head>
+<body>
+    <figure>
+        <video controls poster="videos/posters/poster.png" preload="auto">
+            <source src="videos/rabbit320.mp4" type="video/mp4"/>
+            <source src="videos/rabbit320.webm" type="video/webm"/>
+            <track kind="captions" src="videos/cues/test.vtt" srclang="en" label="English">
+            <p>
+                Your browser doesn't support this video file. Here is a <a href="videos/rabbit320.mp4">link to the video</a> instead.
+            </p>
+        </video>
+        <figcaption>
+            Video example
+        </figcaption>
+    </figure>
+    <figure>
+        <audio controls preload="auto">
+            <source src="audios/viper.mp3" type="audio/mpeg" />
+            <source src="audios/viper.ogg" type="audio/ogg" />
+            <p>
+                Your browser doesn't support this audio file. Here is a <a href="audios/viper.mp3">link to the audio</a>
+                instead.
+            </p>
+        </audio>
+        <figcaption>
+            Audio example
+        </figcaption>
+    </figure>
+</body>
+</html>

@@ -1,0 +1,111 @@
+/* General styles */
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+dd {
+    margin-bottom: 1rem;
+}
+
+dl {
+    margin-left: 2rem;
+}
+
+section p,
+section address {
+    margin-left: 2rem;
+}
+
+
+/* Liks */
+
+a:link {
+    text-decoration: none;
+}
+
+a:focus {
+    outline: none;
+    border-bottom: 2px solid;
+}
+
+a:hover {
+    opacity: 0.5;
+}
+
+
+/* Text decoration */
+
+.underline {
+    text-decoration: underline;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.right {
+    float: inline-end;
+}
+
+
+
+figure {
+    min-width: 199px;
+    width: 50vw;
+}
+
+figcaption {
+    text-align: center;
+}
+
+/* Images */
+
+img {
+    /* width: 50vw;
+    min-width: 199px; */
+    width: 100%;
+    min-width: 199px;
+    border: 1px solid black;
+    object-fit: cover;
+}
+
+/* .multiple-imgs {
+    min-width: 199px;
+    width: 50vw;
+} */
+
+/* .multiple-imgs a img {
+    min-width: 199px;
+} */
+
+.multiple-imgs a {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.multiple-imgs a img{
+    flex: 1 25%;
+}
+
+.multiple-imgs img:nth-of-type(3) {
+    flex: 1 50%;
+}
+
+
+/* Other */
+
+.contacts address ul {
+    width: 300px;
+}
+
+.about-me p {
+    text-indent: 1.5rem;
+}
