@@ -2,6 +2,8 @@
 
 Number of related exercises that must be completed in order to create the final design — a business card/gamer card/social media profile.
 
+__Objective__:  To test comprehension of fundamental CSS theory, syntax and mechanics.
+
 ## [Starting point](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Fundamental_CSS_comprehension#starting_point)
 
 * Go and grab the [HTML file for the exercise](https://github.com/mdn/learning-area/blob/main/css/introduction-to-css/fundamental-css-comprehension/index.html), and the [associated image file](https://github.com/mdn/learning-area/blob/main/css/introduction-to-css/fundamental-css-comprehension/chris.jpg), and save them in a new directory on your local computer. If you want to use your own image file and fill your own name in, you are welcome to — just make sure the image is square.
@@ -60,4 +62,7 @@ The following screenshot shows an example of what the finished design should loo
 ![Example of result](imgs/business-card.png)
 
 ## Result
+
 ![Example of result](imgs/result.png)
+
+## [Live result](https://goodalex223.github.io/MDN/fun_css_compreh/index.html)

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Memes and jokes</title>
+</head>
+<body>
+    <div class="container">
+
+        <div class="conteiner-1">
+            <nav class="navbar">
+                <h1>Actions</h1>
+                <button id="meme-btn" type="button" onclick="showMeme()">Show a Meme</button>
+                <button id="joke-btn" type="button" onclick="showJoke()">Tell Me a Joke</button>
+                <button id="quote-btn" type="button" onclick="showQuote()">Random Quote</button>
+                <button id="riddle-btn" type="button" onclick="showRiddle()">Riddle me</button>
+                <button id="riddle-answer-btn" type="button" onclick="showRiddleAnswer()">Reveal Riddle Answer</button>
+            </nav>
+        </div>
+
+        <footer id="footer">
+            <p>Made by <a href="#">GoodAlex223</a></p>
+        </footer>
+
+    </div>
+
+    <!-- main section -->
+    <main class="output">
+        <h1>Output</h1>
+
+        <h2 id="meme-h">Memes</h2>
+        <section id="meme-s"></section>
+
+        <h2>Tell me something funny!</h2>
+        <section id="joke-s"></section>
+
+        <h2>Give me some wisdom...</h2>
+        <section id="quote-s"></section>
+
+        <h2>I want a riddle!</h2>
+        <section id="riddle-s"></section>
+    </main>
+
+    <script type="text/javascript" src="script.js" type="module"></script>
+</body>
+</html>

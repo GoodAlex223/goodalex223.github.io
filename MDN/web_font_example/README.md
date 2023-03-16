@@ -1,5 +1,7 @@
 # [Active learning: A web font example](https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Web_fonts#active_learning_a_web_font_example)
 
+__Objective__: Build up a basic web font example from first principles.
+
 With this in mind, let's build up a basic web font example from first principles. It's difficult to demonstrate this using an embedded live example. So instead we would like you to follow the steps detailed in the below sections to get an idea of the process.
 
 You should use the [web-font-start.html](https://github.com/mdn/learning-area/blob/main/css/styling-text/web-fonts/web-font-start.html) and [web-font-start.css](https://github.com/mdn/learning-area/blob/main/css/styling-text/web-fonts/web-font-start.css) files as a starting point to add your code to (see the [live example](https://mdn.github.io/learning-area/css/styling-text/web-fonts/web-font-start.html)). Make a copy of these files in a new directory on your computer now. In the `web-font-start.css` file, you'll find some minimal CSS to deal with the basic layout and typesetting of the example.
@@ -51,3 +53,5 @@ You should end up with a demo page with some nice fonts implemented on them. Bec
 ## Result
 
 ![Result](./imgs/result.png)
+
+## [Live result](https://goodalex223.github.io/MDN/web_font_example/index.html)

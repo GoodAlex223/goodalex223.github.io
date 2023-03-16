@@ -1,6 +1,6 @@
 # [Test your skills: Selectors](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Selectors_Tasks)
 
-The aim of this skill test is to assess whether you understand CSS selectors.
+Objective: Assess whether you understand CSS selectors.
 
 ## [Task 1](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Selectors_Tasks#task_1)
 
@@ -103,3 +103,5 @@ In this task, add CSS using attribute selectors to do the following:
 
 Part of the screen with the result
 ![Result](./screenshots/task5_result.png)
+
+## [Live result](https://goodalex223.github.io/MDN/selectors/index.html)

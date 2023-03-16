@@ -17,10 +17,13 @@
   - [What I learned](#what-i-learned)
   - [Useful resources](#useful-resources)
 - [Author](#author)
+- [Live result](#live-result)
 
 ## Overview
 
 Mark up a letter that needs to be hosted on a university intranet. The letter is a response from a research fellow to a prospective PhD student concerning their application to the university.
+
+__Objective__:  Test basic and advanced HTML text formatting, use of hyperlinks, and use of HTML `<head>`.
 
 ### Screenshot
 
@@ -113,3 +116,5 @@ Resources that helps me:
 - GitHub - [github.com/GoodAlex223](https://github.com/GoodAlex223)
 - Website - [goodalex223.github.io](https://goodalex223.github.io/)
 - Gmail - [alexminak32@gmail.com](mailto:alexminak32@gmail.com)
+
+## [Live result](https://goodalex223.github.io/MDN/letter/index.html)

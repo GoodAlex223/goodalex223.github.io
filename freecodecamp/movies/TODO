@@ -1,9 +1,10 @@
-- "Validate user input.How to do this ? (User can input </div> or something like this)"
+# TODO?
+
+- "Validate user input.How to do this ? (User can input `</div>` or something like this)"
 - "Add some space between label text, input areas and submit button"
 - "Label text is required for input areas of edit forms"
 - "Center the card items of shown reviews"
 - "Decrease space between 'Reviews for:' and 'MOVIES CITE' names"
-
 
 - "Add a score on a ten-point scale"
 - "One user can create only one review per movie"

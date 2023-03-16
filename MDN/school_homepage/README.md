@@ -58,3 +58,5 @@ Navigation menu:
 ## Result
 
 ![screenshot shows a result](imgs/result.png)
+
+## [Live result](https://goodalex223.github.io/MDN/school_homepage/index.html)

@@ -1,0 +1,110 @@
+/* General */
+
+*, html {
+    color: #a57331;
+    font-family: 'Courier New', Courier, monospace;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #19180c;
+    display: flex;
+    /* justify-content: bottom; */
+    flex-direction: row-reverse;
+    /* padding: 10px; */
+    height: 100vh;
+    padding: 10px 10px;
+}
+
+
+/* Main sections */
+
+.container {
+    width: 30vw;
+    height: 100vh;
+}
+
+.container-1 {
+    margin: 10px 0px;
+    width: 30vw;
+    height: 100vh;
+}
+
+.navbar {
+    width: 100%;
+    height: 89%;
+    padding: 10px 5px;
+    border: 1px #a57331 solid;
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+    margin: 0 0 10px 0;
+
+}
+
+.output {
+    width: 100%;
+    padding-right: 10px;
+    /* padding: 10px 10px; */
+}
+
+footer {
+    /* float: right; */
+    text-align: center;
+    border: 1px #a57331 solid;
+    padding: 10px;
+}
+
+
+/* Buttons */
+
+/* .buttons {
+    padding: 10px 0;
+} */
+
+button {
+    display: block;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    height: 40px;
+    cursor: pointer;
+    /* margin: 0px; */
+}
+
+button:hover {
+    border: 3px #a57331 solid;
+}
+
+button:active {
+    border: 5px #a57331 solid;
+    padding: 0;
+}
+
+#riddle-answer-btn {
+    display: none;
+    height: 20px;
+    border: none;
+    font-size: 10px;
+}
+
+#riddle-answer-btn:hover {
+    text-decoration: underline;
+}
+
+
+/* Images */
+
+img {
+    /* display: inline; */
+    width: 100%;
+    max-width: 500px;
+    max-height: 80vh;
+}
+
+img[src=""] {
+    display: block;
+    margin: -10px 0px;
+}
