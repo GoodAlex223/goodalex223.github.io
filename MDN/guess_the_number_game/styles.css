@@ -1,0 +1,44 @@
+/* General styles */
+
+html {
+    font-size: 10px;
+}
+
+body {
+    font-size: 1.6rem;
+}
+
+main {
+    max-width: 50rem;
+    margin: 0 auto;
+}
+
+label {
+    text-decoration: underline;
+}
+
+p {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* Game styles */
+
+/* some space for number input */
+#user-guess {
+    margin: 0 0.5rem;
+}
+
+/* restart button is hiden by default */
+#restart-game {
+    display: none;
+}
+
+#guess-accuracy {
+    padding: 1rem 0;
+    text-align: center;
+}
+
+button:focus {
+    /* outline: 1px blue; */
+}

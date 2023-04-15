@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        link(rel="stylesheet", href="styles.css")
+    body 
+        main 
+            header 
+                h1 Number guessing game 
+            p We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer. We'll tell you if your guess was too high or too low.
+            div#guess-form
+                label(for="user-guess") Enter a guess:
+                    input#user-guess(type="number", name="user-guess", min="0", max="100")
+                    input#n-submit(type="button", value="Submit guess", accesskey="enter")
+                p#prev-guesses 
+                p#guess-accuracy 
+                input#restart-game(type="button", value="Restart game", disabled=true)
+    script(src="script.js")

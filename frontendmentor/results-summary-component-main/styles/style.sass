@@ -1,0 +1,240 @@
+@import "_variables"
+
+// Hanken Grotesk - variable version
+@font-face
+  font-family: "Hanken Grotesk VF"
+  src: url("../assets/fonts/HankenGrotesk-VariableFont_wght.ttf") format("truetype")
+  // I only use weights in this range
+  font-weight: $weightMedium $weightExtraBold
+  font-style: normal
+
+// Hanken Grotesk static version as fallback for older browsers
+@font-face
+  font-family: "Hanken Grotesk"
+  src: url("../assets/fonts/static/HankenGrotesk-Medium.ttf") format("truetype")
+  font-weight: $weightMedium
+  font-style: normal
+
+@font-face
+  font-family: "Hanken Grotesk"
+  src: url("../assets/fonts/static/HankenGrotesk-Bold.ttf") format("truetype")
+  font-weight: $weightBold
+  font-style: normal
+
+@font-face
+  font-family: "Hanken Grotesk"
+  src: url("../assets/fonts/static/HankenGrotesk-ExtraBold.ttf") format("truetype")
+  font-weight: $weightExtraBold
+  font-style: normal
+
+
+// General styles
+
+html
+    font-size: 10px
+    font-family: $fontHankenFamilies
+    font-weight: $weightMedium
+    box-sizing: border-box
+
+*, ::after, ::before
+    box-sizing: inherit
+    font-weight: inherit
+    font-family: inherit
+
+body
+    background-color: $white
+    font-size: $paraFontSize
+    margin: 0
+
+// General user score section
+
+#user-score
+    background: linear-gradient($lightSlateBlue-background, $lightRoyalBlue-background)
+    color: $lightLavender
+    text-align: center
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-direction: column
+    border-bottom-left-radius: 3rem
+    border-bottom-right-radius: 3rem
+    width: 100%
+
+    h1
+        font-size: 2rem
+
+    #circle
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        height: 15rem
+        background: linear-gradient($violetBlue-circle, $persianBlue-circle)
+        width: 15rem
+        border-radius: 8rem
+
+        #number
+            font-size: 6rem
+            color: $white
+            font-weight: $weightBold
+
+    #congrats-section
+        width: 75%
+        margin-bottom: 4rem
+
+        h2
+            color: $white
+            margin: 0 0 1rem 0
+
+        p
+            margin: 0
+
+// User summary section
+
+.material-symbols-outlined
+    margin-right: 1rem
+    font-weight: 300 !important
+
+#summmary-section
+    padding: 3rem 3rem 0 3rem
+    font-size: 1.5rem
+    font-weight: $weightBold
+    width: 100%
+
+    h2
+        // Additionally highlight the section heading
+        margin: 0 0 3rem 0
+        font-size: 2rem
+        color: $darkGrayBlue
+
+    // For some margin around list and button
+    #list-container
+        margin: 1rem 0 0rem 0
+
+    ul
+        padding: 0
+        width: 100%
+        height: 100%
+        overflow: scroll
+        // height of 4 items with padding and margin with default root font-size(10px)
+        max-height: 26rem
+        margin: 0
+
+        li
+            display: flex
+            justify-content: space-between
+            align-items: center
+            list-style-type: none
+            padding: 1.5rem 1rem
+            margin-top: 2rem
+            border-radius: 1rem
+            // Make color from transparent to $paleBlue(hsla(221, 100%, 96%, n))
+            // Where n = (100 - user_category_score) / 100
+            // background-color: hsla(221, 100%, 96%, 0.01)
+            width: 100%
+            border: none
+            box-shadow: 0px 0px 0.1px 0.3px rgba(0, 0, 0, 0.1) inset
+            color: $lightRed
+
+            &:first-child  
+                margin-top: 0
+            
+            &:nth-of-type(2n)
+                color: $orangeyYellow
+            
+            &:nth-of-type(3n)
+                color: $greenTeal
+            
+            &:nth-of-type(4n)
+                color: $cobaltBlue
+
+            .category-result
+                color: $lightLavender
+
+                .user-category-score
+                    color: $darkGrayBlue
+
+            .summary-category
+                display: flex
+                align-items: center
+
+                img
+                    margin-right: 1rem
+
+    .button-container
+        display: flex
+        align-items: center
+        height: 30%
+        min-height: 10rem
+
+    .continue-button
+        background-color: $darkGrayBlue
+        color: $white
+        font-size: 1.1em
+        width: 100%
+        padding: 1.5rem 0
+        border-radius: 2.5rem
+        border: none
+
+        &:hover
+            // back-gradient for hover state of this button
+            background: linear-gradient($lightSlateBlue-background, $lightRoyalBlue-background)
+            cursor: pointer
+
+        &:focus
+            // back-gradient for hover state of this button
+            background: linear-gradient($lightSlateBlue-background, $lightRoyalBlue-background)
+
+// Attribution
+
+.attribution
+    font-size: 1.1rem
+    text-align: center
+    a
+        color: hsl(228, 45%, 44%)
+
+
+@media screen and (min-width: 700px)
+    body
+        margin: 0
+        padding: 0
+    
+    #container
+        width: 100vw
+        height: 100vh
+        /* min height for correct view at small screen*/
+        display: flex
+        justify-content: center
+
+    main
+        display: grid
+        grid-template-columns: 35rem 35rem
+        box-shadow: 0px 30px 50px 1px hsla(224, 30%, 27%, 20%)
+        height: 50rem
+        margin: auto
+        border-radius: 3rem    
+    
+    #user-score
+        border-radius: 3rem
+
+    #summary-section
+
+        h2
+            margin: 3rem 0
+
+// "5: some browsers unnecessarily download all the font files
+//  if you write the font stack like..." font-family: 'Hanken Grotesk VF', 'Hanken Grotesk', sans-serif;
+
+// "5: I only want to style my text with the variable font 
+// if the browser supports it. This means writing 
+// another font-family declaration inside a 
+// feature query. I put it after the first one 
+// so it will override the fallback styling."
+@supports (font-variation-settings: normal)
+    html
+        font-family: 'Hanken Grotesk VF', sans-serif
+    // "5: @supports is the secret ingredient that makes 
+    // it possible to style things differently when 
+    // variable fonts work in the browser. Now Firefox 
+    // 62 will only download variable font and Edge 16 
+    // will only download the static fonts."
