@@ -1,3 +1,5 @@
+/* 1. Thanks for great recommendation to https://www.frontendmentor.io/profile/0xAbdulKhalid (more about on my solution page)*/
+
 /* Hanken Grotesk - variable version */
 @font-face {
   font-family: "Hanken Grotesk VF";
@@ -204,13 +206,19 @@ body {
     margin: 0;
     padding: 0;
   }
+
   #container {
-    width: 100vw;
-    height: 100vh;
+    /* Full width of the page by default */
+    /* width: 100vw */
+
+    /* Setting the height: 100vh may result in the component being cut off on smaller screens. */
+    min-height: 100vh;
+
     /* min height for correct view at small screen*/
     display: flex;
     justify-content: center;
   }
+
   main {
     display: grid;
     grid-template-columns: 35rem 35rem;
