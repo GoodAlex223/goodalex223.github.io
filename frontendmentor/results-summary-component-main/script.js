@@ -11,10 +11,10 @@ const categoryList = document.querySelector("#list-container ul");
  * @param {number} categoryScore
  * @return {string}
  */
-function createCategoryLi(iconSrc, categoryName, categoryScore){
+function createCategoryLi(iconSrc, categoryName, categoryScore) {
   return `
   <span class="summary-category">
-    <img src="${iconSrc}" rel="icon">
+    <img src="${iconSrc}" alt="cat-icon">
     <span>${categoryName}</span>
   </span>
   <span class="category-result">
@@ -27,18 +27,18 @@ fetch('./data.json')
   .then(response => response.json())
   .then(data => {
     for (category of data) {
-        const category_li = document.createElement("li")
-        category_li.id = `${category.category}`
-        category_li.innerHTML = createCategoryLi(
-          category.icon,
-          category.category,
-          category.score
-          )
-        // Make color from transparent to $paleBlue(hsla(221, 100%, 96%, n))
-        // Where n = (100 - user_category_score) / 100
-        // To slightly focus on the user's low scores
-        category_li.style.backgroundColor = `hsla(221, 100%, 96%, ${(100 - category.score) / 100})`
-        categoryList.appendChild(category_li)
+      const category_li = document.createElement("li")
+      category_li.id = `${category.category}`
+      category_li.innerHTML = createCategoryLi(
+        category.icon,
+        category.category,
+        category.score
+      )
+      // Make color from transparent to $paleBlue(hsla(221, 100%, 96%, n))
+      // Where n = (100 - user_category_score) / 100
+      // To slightly focus on the user's low scores
+      category_li.style.backgroundColor = `hsla(221, 100%, 96%, ${(100 - category.score) / 100})`
+      categoryList.appendChild(category_li)
     }
 
 
