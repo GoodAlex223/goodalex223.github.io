@@ -1,878 +1,640 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GoodAlex223 | Web Developer Student</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta
+      name="description"
+      content="Alexey Minakov - Software Developer. Backend systems, IoT/hardware integration, and web development."
+    />
+    <meta name="theme-color" content="#0f0f23" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Alexey Minakov | Software Developer" />
+    <meta
+      property="og:description"
+      content="Backend, IoT, and Web Development"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://goodalex223.github.io" />
+
+    <title>Alexey Minakov | Software Developer</title>
+    <link rel="canonical" href="https://goodalex223.github.io" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <header>
-      <h1>Hi, I am Alex</h1>
-      <p>internee/junior web developer</p>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header">
+      <nav class="nav container" aria-label="Main navigation">
+        <ul class="nav__list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
     </header>
 
-    <main>
-      <div class="container">
-        <!-- About me -->
-        <section class="about-me multicol">
-          <h2>About me</h2>
-          <p>
-            My name is Alexey, born in 2002. I live in Odessa, Ukraine, and I am
-            a beginner developer.<br />
+    <main id="main-content">
+      <!-- Hero Section -->
+      <section id="hero" class="hero">
+        <div class="container">
+          <h1 class="hero__title">Alexey Minakov</h1>
+          <p class="hero__subtitle">Software Developer</p>
+          <p class="hero__tagline">
+            Building practical solutions with Python, Arduino, and Web
+            technologies
           </p>
-          <p>
-            I study programming, in particular web development, but not limited
-            to it. Constantly interested in other related fields such as game
-            development, applications, etc., and unrelated ones - web design,
-            level design, etc.
-          </p>
-          <p>
-            I almost never get tired and do not rest, because I like what I do.
-          </p>
-          <p>
-            Since the time of the coronavirus, he has been constantly engaged in
-            self-organization and self-development, paying attention to himself
-            and his surroundings.
-          </p>
-          <p>
-            I really have very little knowledge and experience, but I am
-            constantly working to increase them. I want and always strive to
-            write code that will be well appreciated and useful to every person.
-          </p>
-          <p>
-            At the first communication, I may seem not sociable, but in fact I
-            like to listen more, and I start talking when I am asked.
-          </p>
-          <p>
-            I think that the world is not divided into black and white and
-            everything needs to be looked at from different angles. I believe
-            that providing all the conditions for increasing knowledge and
-            developing the awareness of each person will lead humanity to
-            prosperity.
-          </p>
-          <p>
-            I want to develop comprehensively and be useful to other people in
-            their life/work, and I think that programming will help me a lot in
-            this.
-          </p>
-        </section>
-
-        <!-- Full name -->
-        <section class="multicol">
-          <h2>Full name/ПІБ/ФИО:</h2>
-          <p>
-            Aleksei Minakov/Мінаков Олексій Іванович/Минаков Алексей Иванович
-          </p>
-        </section>
-
-        <!-- Goals -->
-        <section class="multicol">
-          <h2>Goals</h2>
-          <ul>
-            <li>
-              Create something that will be useful to people and help/make their
-              life/activities easier.
-            </li>
-            <li>
-              Learn new technologies, tools and any opportunities to improve
-              your efficiency and productivity.
-            </li>
-            <li>
-              Quenching the thirst for new knowledge and solving complex
-              problems.
-            </li>
-          </ul>
-        </section>
-
-        <!-- Work experience: -->
-        <section class="multicol">
-          <h2>Work experience</h2>
-          <p>No experience.</p>
-        </section>
-
-        <!-- Hard skills -->
-        <section class="multicol">
-          <h2>Base hard skills(knowledge)</h2>
-          <p>
-            Knowledge and skills are not very much and they are not deep, but I
-            am always working on increasing and deepening them.
-          </p>
-          <dl>
-            <dt><span class="bold underline">HTML</span></dt>
-            <dd>
-              Basic knowledge. I study/studied on MDN and freecodecamp.
-              **перечислить знания, усвоенные на MDN(примерно такие как,
-              Accessability и тп.)**
-            </dd>
-            <dt><span class="bold underline">CSS</span></dt>
-            <dd>
-              Basic knowledge. I study/studied on MDN and freecodecamp.
-              **перечислить знания, усвоенные на MDN(примерно такие как,
-              Accessability и тп.)**
-            </dd>
-            <dt><span class="bold underline">JavaScript</span></dt>
-            <dd>
-              Basic knowledge. I study/studied on MDN and freecodecamp. I think
-              that knowledge of Python will help you easily and quickly master
-              it deeper.**перечислить знания, усвоенные на MDN(примерно такие
-              как, Accessability и тп.)**
-            </dd>
-            <dt><span class="bold underline">Python</span></dt>
-            <dd>
-              First language. Solved simple mathematical problems, wrote parsers
-              using requests, regex and beautifulsoup; studied Django. Now I am
-              writing an entertaining telegram bot with a recommender system on
-              a specific topic, with functionality approximately like
-              instagram/tiktok, using the python-telegram-bot v20+, requests,
-              beautifulsoup and SQLite libraries with a future extension to a
-              more serious database and the use of machine learning to
-              personalize recommendations.
-            </dd>
-            <dt><span class="bold underline">Git</span></dt>
-            <dd>
-              Knowledge of basic commands and procedures for working with
-              version control systems.
-            </dd>
-            <dt><span class="bold underline">SQL</span></dt>
-            <dd>
-              Basic knowledge of writing queries. Used and understood SQLite and
-              MongoDB documentation.
-            </dd>
-            <dt><span class="bold underline">Linux</span></dt>
-            <dd>Year used Ubuntu as the main system.</dd>
-            <dt><span class="bold underline">Windows</span></dt>
-            <dd>The main system is almost always.</dd>
-            <dt><span class="bold underline">Visual Studio Code</span></dt>
-            <dd>
-              Used PyCharm when I started but switched to VS Code, when I
-              started learning new languages ​​and learning about the
-              possibilities of this development environment.
-            </dd>
-          </dl>
-        </section>
-
-        <!-- Soft skills -->
-        <section class="multicol">
-          <h2>Soft skills</h2>
-          <ul>
-            <li>Honesty</li>
-            <li>Purposefulness</li>
-            <li>Discipline</li>
-            <li>Prioritization</li>
-            <li>Planning</li>
-            <li>Self-motivation</li>
-            <li>Sequential</li>
-          </ul>
-        </section>
-
-        <!-- Education -->
-        <section class="multicol">
-          <h2>Education</h2>
-          <dl>
-            <dt>
-              <span class="bold underline">Degree of higher education:</span>
-            </dt>
-            <dd>Bachelor</dd>
-            <dt><span class="bold underline">University:</span></dt>
-            <dd>Odessa Polytechnic National University</dd>
-            <dt><span class="bold underline">Field of knowledge:</span></dt>
-            <dd>12 Information technologies</dd>
-            <dt><span class="bold underline">Specialty:</span></dt>
-            <dd>126 Information systems and technologies</dd>
-            <dt><span class="bold underline">Educational program:</span></dt>
-            <dd>Information systems and technologies</dd>
-            <dt><span class="bold underline">Entry/exit date:</span></dt>
-            <dd>2019/2023</dd>
-            <dt><span class="bold underline">Disciplines:</span></dt>
-            <dd>
-              <a href="https://op.edu.ua/studies/selective/3264"
-                >https://op.edu.ua/studies/selective/3264</a
-              >
-            </dd>
-            <dt>
-              <span class="bold underline"
-                >Educational and professional program:</span
-              >
-            </dt>
-            <dd>
-              <a href="https://op.edu.ua/education/programs/bac-126-0"
-                >https://op.edu.ua/education/programs/bac-126-0</a
-              >
-            </dd>
-          </dl>
-        </section>
-
-        <!-- Languages -->
-        <section class="multicol">
-          <h2>Languages</h2>
-          <ol>
-            <li>
-              <span class="underline">Russian</span> - I use it almost always
-            </li>
-            <li>
-              <span class="underline">Ukrainian</span> -
-              <a
-                target="_blank"
-                href="https://testportal.gov.ua/zagalna-informatsiya-zno/"
-                >ЗНО</a
-              >
-              178 points
-            </li>
-            <li>
-              <span class="underline">English</span> - Constantly read, listen.
-              I rarely write or talk.
-              <a
-                target="_blank"
-                href="https://testportal.gov.ua/zagalna-informatsiya-zno/"
-                >ЗНО</a
-              >
-              - 173 points
-            </li>
-          </ol>
-        </section>
-
-        <!-- Contact information -->
-        <section class="contacts">
-          <h2>Contacts</h2>
-
-          <address>
-            <ul>
-              <li>
-                Gmail:
-                <span class="right"
-                  ><a href="mailto:alexminak32@gmail.com"
-                    >alexminak32@gmail.com</a
-                  ></span
-                >
-              </li>
-              <li>
-                Telegram:
-                <span class="right"
-                  ><a href="https://t.me/GoodAlex223">@GoodAlex223</a></span
-                >
-              </li>
-              <li>
-                LinkedIn:
-                <span class="right"
-                  ><a
-                    href="https://www.linkedin.com/in/alexey-minakov-302457168"
-                    >Alexey Minakov</a
-                  ></span
-                >
-              </li>
-              <li>
-                GitHub:
-                <span class="right"
-                  ><a href="https://github.com/GoodAlex223"
-                    >GoodAlex223</a
-                  ></span
-                >
-              </li>
-            </ul>
-          </address>
-        </section>
-      </div>
-      <!-- Learning projects -->
-      <section>
-        <h2>Learning projects</h2>
-        <p>
-          <strong>Note:</strong> Most projects used only HTML, CSS and
-          JavaScript without additional libraries. I used more functional
-          programming than object oriented programming as it didn't have needs.
-          I am familiar with asynchronous programming and used it in writing a
-          telegram bot.
-        </p>
-        <section class="multicol">
-          <h3>
-            Frontendmentor(<a
-              href="https://www.frontendmentor.io/profile/GoodAlex223"
-              target="_blank"
-              >profile</a
-            >)
-          </h3>
-
-          <ul class="projects-list">
-            <!-- qr-code -->
-            <li>
-              <figure>
-                <a href="frontendmentor/qr-code/index.html"
-                  ><img
-                    src="frontendmentor\qr-code\screenshots\desktop_result.png"
-                    alt='Result screenshot of "Qr-code" project'
-                /></a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/frontendmentor/qr-code"
-                      >qr-code</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> Build out QR code component and
-                    get it looking as close to the design as possible.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- results-summary-component-main -->
-            <li>
-              <figure>
-                <a
-                  href="frontendmentor/results-summary-component-main/index.html"
-                  ><img
-                    src="frontendmentor\results-summary-component-main\result\desktop.png"
-                    alt='Result screenshot of "results-summary-component-main" project'
-                /></a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/frontendmentor/results-summary-component-main"
-                      >results-summary-component-main</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> View the optimal layout for the
-                    interface depending on their device's screen size. See hover
-                    and focus states for all interactive elements on the page.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-          </ul>
-        </section>
-
-        <!-- Freecodecamp projects section -->
-        <section class="multicol">
-          <h3>
-            Freecodecamp(<a
-              target="_blank"
-              href="https://www.freecodecamp.org/GoodAlex223"
-              >profile</a
-            >)
-          </h3>
-          <div class="list-handler">
-            <ul class="projects-list">
-              <!-- memes -->
-              <li>
-                <figure>
-                  <a href="freecodecamp/memes/index.html">
-                    <img
-                      src="freecodecamp\memes\memes-result1.png"
-                      alt='Result screenshot of "memes" project'
-                    />
-                  </a>
-                  <figcaption>
-                    <p>
-                      <a
-                        href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/freecodecamp/memes"
-                        >memes</a
-                      >
-                    </p>
-                    <p>
-                      <strong>Objective:</strong> Use a DOM to loop in our
-                      javascript into our html and bring it alive into a dynamic
-                      web page.
-                    </p>
-                  </figcaption>
-                </figure>
-              </li>
-
-              <!-- movies -->
-              <li>
-                <figure>
-                  <a class="two-imgs" href="freecodecamp/movies/index.html">
-                    <img
-                      src="freecodecamp\movies\movies-result1.png"
-                      alt='1st result screenshot of "movies" project'
-                    />
-                    <img
-                      src="freecodecamp\movies\movies-result2.png"
-                      alt='2nd result screenshot of "movies" project'
-                    />
-                  </a>
-                  <figcaption class="some-problem">
-                    <p>
-                      <a
-                        href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/freecodecamp/movies"
-                        >movies</a
-                      >(<a
-                        href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/freecodecamp/review-backend"
-                        >review-backend(Node.js) github</a
-                      >)
-                    </p>
-                    <p>
-                      <strong>Objective:</strong> Create a front-end web app
-                      with HTML, CSS and JavaScript
-                    </p>
-                  </figcaption>
-                </figure>
-              </li>
-
-              <!-- rpg -->
-              <li>
-                <figure>
-                  <a href="freecodecamp/rpg/index.html">
-                    <img
-                      src="freecodecamp\rpg\rpg-result1.png"
-                      alt='Result screenshot of "rpg" project'
-                    />
-                  </a>
-                  <figcaption>
-                    <p>
-                      <a
-                        href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/freecodecamp/rpg"
-                        >rpg</a
-                      >
-                    </p>
-                    <p>
-                      <strong>Objective:</strong> Learn all the basics of
-                      JavaScript programming by coding an RPG game line by line.
-                    </p>
-                  </figcaption>
-                </figure>
-              </li>
-            </ul>
+          <div class="hero__cta">
+            <a href="#projects" class="btn btn--primary">View Projects</a>
+            <a href="#contact" class="btn btn--secondary">Get in Touch</a>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="multicol">
-          <h3>Other projects</h3>
+      <!-- About Section -->
+      <section id="about" class="about section">
+        <div class="container">
+          <h2 class="section__title text-center">About Me</h2>
+          <div class="about__content text-center">
+            <p>
+              Software developer with experience in backend systems,
+              IoT/hardware integration, and web development.
+            </p>
+            <p>
+              I build practical solutions: from ML-powered recommendation
+              systems to industrial IoT monitoring and e-commerce platforms.
+            </p>
+            <p>
+              I leverage AI-assisted development workflows to accelerate
+              development while maintaining code quality and best practices.
+            </p>
+          </div>
+        </div>
+      </section>
 
-          <ul class="projects-list">
-            <!-- resume_example -->
-            <li>
-              <figure>
-                <a href="other/resume_example/index.html">
-                  <img
-                    src="other\resume_example\img\resume_example-result1.png"
-                    alt='Result screenshot of "resume_example" project'
-                  />
-                </a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/other/resume_example"
-                      >resume_example</a
+      <!-- Projects Section -->
+      <section id="projects" class="projects section">
+        <div class="container">
+          <h2 class="section__title text-center">Projects</h2>
+
+          <div class="projects__grid">
+            <!-- rating_bot -->
+            <article class="project-card" data-category="backend">
+              <div class="project-card__header">
+                <span class="project-card__category">Backend</span>
+                <div class="project-card__links">
+                  <span
+                    class="project-card__link"
+                    title="Private repository"
+                    aria-label="Private repository"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
                     >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> Learn basics of HTML and CSS.
-                  </p>
-                </figcaption>
-              </figure>
+                      <rect
+                        x="3"
+                        y="11"
+                        width="18"
+                        height="11"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+              <h3 class="project-card__title">rating_bot</h3>
+              <p class="project-card__description">
+                ML-powered Telegram bot with personalized recommendations.
+                Features hexagonal architecture, database migrations, and
+                containerized deployment.
+              </p>
+              <ul class="project-card__tech">
+                <li>Python</li>
+                <li>PostgreSQL</li>
+                <li>Redis</li>
+                <li>Docker</li>
+              </ul>
+            </article>
+
+            <!-- rule_indicators -->
+            <article class="project-card" data-category="iot">
+              <div class="project-card__header">
+                <span class="project-card__category">IoT</span>
+                <div class="project-card__links">
+                  <a
+                    href="https://github.com/GoodAlex223/rule_indicators"
+                    class="project-card__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View source on GitHub"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                      ></path>
+                    </svg>
+                  </a>
+                  <a
+                    href="https://wokwi.com/projects/385460530654015489"
+                    class="project-card__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View simulation on Wokwi"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-card__title">Industrial Rule Indicators</h3>
+              <p class="project-card__description">
+                Multi-mode industrial display system with RTC, temperature monitoring,
+                motor/spindle hour tracking, and 7-segment display. Deployed on real machinery.
+              </p>
+              <ul class="project-card__tech">
+                <li>C++</li>
+                <li>Arduino</li>
+                <li>RTC</li>
+                <li>DS18B20</li>
+              </ul>
+            </article>
+
+            <!-- automatic_machine_lubrication -->
+            <article class="project-card" data-category="iot">
+              <div class="project-card__header">
+                <span class="project-card__category">IoT</span>
+                <div class="project-card__links">
+                  <a
+                    href="https://github.com/GoodAlex223/automatic_machine_lubrication"
+                    class="project-card__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View source on GitHub"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                      ></path>
+                    </svg>
+                  </a>
+                  <a
+                    href="https://wokwi.com/projects/425883091765424129"
+                    class="project-card__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View simulation on Wokwi"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-card__title">Automatic Machine Lubrication</h3>
+              <p class="project-card__description">
+                Industrial IoT lubrication monitoring system. Real-time oil
+                level tracking with display functionality and tank sensor
+                integration.
+              </p>
+              <ul class="project-card__tech">
+                <li>C++</li>
+                <li>Arduino</li>
+                <li>Sensors</li>
+              </ul>
+            </article>
+
+            <!-- 8-HX711-WiFi -->
+            <article class="project-card" data-category="iot">
+              <div class="project-card__header">
+                <span class="project-card__category">IoT</span>
+                <div class="project-card__links">
+                  <a
+                    href="https://github.com/GoodAlex223/8-HX711-to-NANO"
+                    class="project-card__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View source on GitHub"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                      ></path>
+                    </svg>
+                  </a>
+                  <a
+                    href="https://wokwi.com/projects/412452836213719041"
+                    class="project-card__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View simulation on Wokwi"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-card__title">HX711 Multi-Scale System</h3>
+              <p class="project-card__description">
+                8 HX711 load cell amplifiers on single Arduino Nano. Calibration,
+                tare capabilities, and serial communication for multi-point weighing.
+              </p>
+              <ul class="project-card__tech">
+                <li>C++</li>
+                <li>HX711</li>
+                <li>Arduino</li>
+                <li>Serial</li>
+              </ul>
+            </article>
+
+            <!-- dropshipping-test -->
+            <article class="project-card" data-category="web">
+              <div class="project-card__header">
+                <span class="project-card__category">Web</span>
+                <div class="project-card__links">
+                  <a
+                    href="https://github.com/GoodAlex223/dropshipping-test"
+                    class="project-card__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View source on GitHub"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                      ></path>
+                    </svg>
+                  </a>
+                  <a
+                    href="https://dropshipping-test.vercel.app"
+                    class="project-card__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View live demo"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                      ></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-card__title">E-commerce Prototype</h3>
+              <p class="project-card__description">
+                Full-stack e-commerce dropshipping prototype with product
+                catalog, shopping cart, and cloud deployment on Vercel.
+              </p>
+              <ul class="project-card__tech">
+                <li>TypeScript</li>
+                <li>React</li>
+                <li>Docker</li>
+                <li>Vercel</li>
+              </ul>
+            </article>
+
+            <!-- svg_layer_processor -->
+            <article class="project-card" data-category="tools">
+              <div class="project-card__header">
+                <span class="project-card__category">Tools</span>
+                <div class="project-card__links">
+                  <a
+                    href="https://github.com/GoodAlex223/svg_layer_processor"
+                    class="project-card__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View source on GitHub"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                      ></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-card__title">SVG Layer Processor</h3>
+              <p class="project-card__description">
+                Specialized tool for 3D printing workflows. Automatically
+                numbers multi-layer SVG files and converts them to paginated PDF
+                format.
+              </p>
+              <ul class="project-card__tech">
+                <li>Python</li>
+                <li>CairoSVG</li>
+                <li>ReportLab</li>
+              </ul>
+            </article>
+
+            <!-- Frontend Mentor -->
+            <article class="project-card" data-category="web">
+              <div class="project-card__header">
+                <span class="project-card__category">Web</span>
+                <div class="project-card__links">
+                  <a
+                    href="https://www.frontendmentor.io/profile/GoodAlex223"
+                    class="project-card__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View Frontend Mentor profile"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                      ></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-card__title">Frontend Mentor Challenges</h3>
+              <p class="project-card__description">
+                Collection of frontend challenges focusing on responsive design,
+                CSS layouts, and pixel-perfect implementation.
+              </p>
+              <ul class="project-card__tech">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="projects__more">
+            <a
+              href="https://github.com/GoodAlex223?tab=repositories"
+              class="link--external"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              See more projects on GitHub
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills" class="skills section">
+        <div class="container">
+          <h2 class="section__title text-center">Skills</h2>
+
+          <div class="skills__grid">
+            <div class="skill-group">
+              <h3 class="skill-group__title">Languages</h3>
+              <ul class="skill-group__list">
+                <li>Python</li>
+                <li>TypeScript</li>
+                <li>JavaScript</li>
+                <li>C++</li>
+                <li>SQL</li>
+              </ul>
+            </div>
+
+            <div class="skill-group">
+              <h3 class="skill-group__title">Backend</h3>
+              <ul class="skill-group__list">
+                <li>PostgreSQL</li>
+                <li>Redis</li>
+                <li>Docker</li>
+                <li>REST APIs</li>
+                <li>Django</li>
+              </ul>
+            </div>
+
+            <div class="skill-group">
+              <h3 class="skill-group__title">Frontend</h3>
+              <ul class="skill-group__list">
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>React</li>
+                <li>Responsive Design</li>
+              </ul>
+            </div>
+
+            <div class="skill-group">
+              <h3 class="skill-group__title">Tools</h3>
+              <ul class="skill-group__list">
+                <li>Git</li>
+                <li>Linux</li>
+                <li>VS Code</li>
+                <li>Arduino</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact section">
+        <div class="container text-center">
+          <h2 class="section__title">Get in Touch</h2>
+          <p class="contact__intro">Open to opportunities and collaborations.</p>
+
+          <ul class="contact__links">
+            <li>
+              <a href="mailto:alexminak32@gmail.com" class="contact__link">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  ></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                alexminak32@gmail.com
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/GoodAlex223"
+                class="contact__link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                  ></path>
+                </svg>
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/alexey-minakov-302457168"
+                class="contact__link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                  ></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+                LinkedIn
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://t.me/GoodAlex223"
+                class="contact__link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 5L2 12.5l7 1M21 5l-2.5 15L9 13.5M21 5L9 13.5m0 0V19l3.249-3.277"></path>
+                </svg>
+                Telegram
+              </a>
             </li>
           </ul>
-        </section>
-
-        <section class="multicol">
-          <h3>MDN</h3>
-
-          <ul class="projects-list">
-            <!-- fancy_letterheaded_paper -->
-            <li>
-              <figure>
-                <a href="MDN/fancy_letterheaded_paper/index.html">
-                  <img
-                    src="MDN/fancy_letterheaded_paper/imgs/letterhead_result.png"
-                    alt='Result screenshot of "Fancy letterheaded paper" project'
-                  />
-                </a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/fancy_letterheaded_paper"
-                      >fancy letterheaded paper</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> To test comprehension of CSS box
-                    model, and other box-related features such as implementing
-                    backgrounds.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- school_homepage -->
-            <li>
-              <figure>
-                <a href="MDN/school_homepage/index.html"
-                  ><img
-                    src="MDN\school_homepage\imgs\result.png"
-                    alt='Result screenshot of "school_homepage" project'
-                /></a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/school_homepage"
-                    >
-                      school_homepage</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> To test comprehension of CSS
-                    text styling techniques.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- biografy -->
-            <li>
-              <figure>
-                <a href="MDN/biografy/index.html"
-                  ><img
-                    src="MDN\biografy\biografy-result.png"
-                    alt='Result screenshot of "Biografy" project'
-                /></a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/biografy"
-                      >biografy</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> To have a play with some CSS and
-                    test your new-found knowledge.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- coool_looking_box -->
-            <li>
-              <figure>
-                <a href="MDN/cool_looking_box/index.html">
-                  <img
-                    src="MDN/cool_looking_box/imgs/result.png"
-                    alt='Result screenshot of "Coool looking box" project'
-                  />
-                </a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/cool_looking_box"
-                      >cool looking box</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> To test comprehension of the CSS
-                    box model and other box-related features such as borders and
-                    backgrounds.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- fun_css_comprehension -->
-            <li>
-              <figure>
-                <a href="MDN/fun_css_compreh/index.html">
-                  <img
-                    src="MDN/fun_css_compreh/imgs/result.png"
-                    alt='Result screenshot of "Fun css comprehension" project'
-                  />
-                </a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/fun_css_compreh"
-                      >fun_css_compreh</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> To test comprehension of
-                    fundamental CSS theory, syntax and mechanics.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- letter -->
-            <li>
-              <figure>
-                <a class="three-imgs" href="MDN/letter/index.html">
-                  <img
-                    src="MDN/letter/result/final_result1.png"
-                    alt='1st result screenshot of "Letter" project'
-                  />
-                  <img
-                    src="MDN/letter/result/final_result2.png"
-                    alt='2nd result screenshot of "Letter" project'
-                  />
-                  <img
-                    src="MDN/letter/result/final_result3.png"
-                    alt='3rd result screenshot of "Letter" project'
-                  />
-                </a>
-                <figcaption class="some-problem">
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/letter"
-                      >letter</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> Test basic and advanced HTML
-                    text formatting, use of hyperlinks, and use of HTML
-                    &lt;head&gt;.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- mozilla-splash-page -->
-            <li>
-              <figure>
-                <a class="two-imgs" href="MDN/mozilla-splash-page/index.html">
-                  <img
-                    src="MDN\mozilla-splash-page\imgs\mozilla-splash-page-result1.png"
-                    alt='1st result screenshot of "mozilla-splash-page" project'
-                  />
-                  <img
-                    src="MDN\mozilla-splash-page\imgs\mozilla-splash-page-result2.png"
-                    alt='2nd result screenshot of "mozilla-splash-page" project'
-                  />
-                </a>
-                <figcaption class="some-problem">
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/mozilla-splash-page"
-                      >mozilla-splash-page</a
-                    >(result while resizing)
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> To test knowledge around
-                    embedding images and video in web pages, frames, and HTML
-                    responsive image techniques.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- responsive_images -->
-            <li>
-              <figure>
-                <a href="MDN/responsive_images/index.html">
-                  <img
-                    src="MDN\responsive_images\imgs\responsive_images-result1.png"
-                    alt='Result screenshot of "responsive_images" project'
-                  />
-                </a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/responsive_images"
-                      >responsive_images</a
-                    >(result while resizing)
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> Learn how to use features like
-                    srcset and the &lt;picture&gt; element to implement
-                    responsive image solutions on websites.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- selectors -->
-            <li>
-              <figure>
-                <a class="five-imgs" href="MDN/selectors/index.html">
-                  <img
-                    src="MDN\selectors\screenshots\task2_result.png"
-                    alt='2nd result screenshot of "selectors" project'
-                  />
-                  <img
-                    src="MDN\selectors\screenshots\task3_result.png"
-                    alt='3rd result screenshot of "selectors" project'
-                  />
-                  <img
-                    src="MDN\selectors\screenshots\task5_result.png"
-                    alt='5th result screenshot of "selectors" project'
-                  />
-                  <img
-                    src="MDN\selectors\screenshots\task1_result.png"
-                    alt='1st result screenshot of "selectors" project'
-                  />
-                  <img
-                    src="MDN\selectors\screenshots\task4_result.png"
-                    alt='4th result screenshot of "selectors" project'
-                  />
-                </a>
-                <figcaption class="some-problem">
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/selectors"
-                      >selectors</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> Assess whether you understand
-                    CSS selectors.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- styling_table -->
-            <li>
-              <figure>
-                <a href="MDN/styling_table/index.html">
-                  <img
-                    src="MDN\styling_table\imgs\styling_table-result1.png"
-                    alt='Result screenshot of "styling_table" project'
-                  />
-                </a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/styling_table"
-                      >styling_table</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> To learn how to effectively
-                    style HTML tables.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- table -->
-            <li>
-              <figure>
-                <a href="MDN/table/index.html">
-                  <img
-                    src="MDN\table\table-result1.png"
-                    alt='Result screenshot of "table" project'
-                  />
-                </a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/table"
-                      >table</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> To test comprehension of HTML
-                    tables and associated features.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- video_and_audio_content -->
-            <li>
-              <figure>
-                <a href="MDN/video_and_audio_content/index.html">
-                  <img
-                    src="MDN\video_and_audio_content\video_and_audio_content-result1.png"
-                    alt='Result screenshot of "video_and_audio_content" project'
-                  />
-                </a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/video_and_audio_content"
-                      >video_and_audio_content</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> To learn how to embed video and
-                    audio content into a webpage, and add captions/subtitles to
-                    video.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- web_font_example -->
-            <li>
-              <figure>
-                <a href="MDN/web_font_example/index.html">
-                  <img
-                    src="MDN\web_font_example\imgs\result.png"
-                    alt='Result screenshot of "web_font_example" project'
-                  />
-                </a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/web_font_example"
-                      >web_font_example</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> Build up a basic web font
-                    example from first principles.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- rwd_and_media_queries -->
-            <li>
-              <figure>
-                <a href="MDN/rwd_and_media_queries/index.html">
-                  <img
-                    src="MDN/rwd_and_media_queries/imgs/rwd-result1.png"
-                    alt='Result screenshot of "rwd_and_media_queries" project'
-                  />
-                </a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/rwd_and_media_queries"
-                      >rwd_and_media_queries</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> Assess understanding of media
-                    queries and work with responsive web design with a practical
-                    task.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-
-            <!-- guess_the_number_game -->
-            <li>
-              <figure>
-                <a href="MDN/guess_the_number_game/index.html">
-                  <img
-                    src="MDN/guess_the_number_game/imgs/guess_the_number_game_result.png"
-                    alt='Result screenshot of "guess_the_number_game" project'
-                  />
-                </a>
-                <figcaption>
-                  <p>
-                    <a
-                      href="https://github.com/GoodAlex223/goodalex223.github.io/tree/main/MDN/guess_the_number_game"
-                      >guess_the_number_game</a
-                    >
-                  </p>
-                  <p>
-                    <strong>Objective:</strong> To have a first bit of
-                    experience at writing some JavaScript, and gain at least a
-                    basic understanding of what writing a JavaScript program
-                    involves.
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-          </ul>
-        </section>
+        </div>
       </section>
     </main>
 
-    <footer>
-      <a href="https://github.com/GoodAlex223">Projects on my github</a>
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; <span id="year">2026</span> Alexey Minakov</p>
+      </div>
     </footer>
+
+    <script src="js/main.js" defer></script>
   </body>
 </html>
