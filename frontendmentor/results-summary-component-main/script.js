@@ -4,7 +4,7 @@ const categoryList = document.querySelector("#list-container ul");
 // + 1. Add margin to svg image
 // + 2. Comment links to google icons(more icons from google icons by dynamicaly fetching links and inserting in html)
 // + 3. Make variable fonts from downloaded fonts in project
-// 4. Make dynamic
+// + 4. Make dynamic
 /**
  * @param {string} iconSrc
  * @param {string} categoryName

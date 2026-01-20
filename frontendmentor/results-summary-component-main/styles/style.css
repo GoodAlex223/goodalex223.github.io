@@ -1,14 +1,9 @@
-/* 1. Thanks for great recommendation to https://www.frontendmentor.io/profile/0xAbdulKhalid (more about on my solution page)*/
-
-/* Hanken Grotesk - variable version */
 @font-face {
   font-family: "Hanken Grotesk VF";
   src: url("../assets/fonts/HankenGrotesk-VariableFont_wght.ttf") format("truetype");
-  /* I only use weights in this range */
   font-weight: 500 800;
   font-style: normal;
 }
-/* Hanken Grotesk static version as fallback for older browsers */
 @font-face {
   font-family: "Hanken Grotesk";
   src: url("../assets/fonts/static/HankenGrotesk-Medium.ttf") format("truetype");
@@ -27,9 +22,6 @@
   font-weight: 800;
   font-style: normal;
 }
-
-/* General styles */
-
 html {
   font-size: 10px;
   font-family: "Hanken Grotesk", sans-serif;
@@ -48,8 +40,6 @@ body {
   font-size: 1.8rem;
   margin: 0;
 }
-
-/* General user score section */
 
 #user-score {
   background: linear-gradient(hsl(252, 100%, 67%), hsl(241, 81%, 54%));
@@ -71,13 +61,13 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 20rem;
+  height: 15rem;
   background: linear-gradient(hsl(256, 72%, 46%), hsla(241, 72%, 46%, 0));
-  width: 20rem;
-  border-radius: 10rem;
+  width: 15rem;
+  border-radius: 8rem;
 }
 #user-score #circle #number {
-  font-size: 10rem;
+  font-size: 6rem;
   color: hsl(0, 0%, 100%);
   font-weight: 700;
 }
@@ -93,8 +83,6 @@ body {
   margin: 0;
 }
 
-/* User summary section */
-
 .material-symbols-outlined {
   margin-right: 1rem;
   font-weight: 300 !important;
@@ -107,12 +95,10 @@ body {
   width: 100%;
 }
 #summmary-section h2 {
-  /* Additionally highlight the section heading */
   margin: 0 0 3rem 0;
   font-size: 2rem;
   color: hsl(224, 30%, 27%);
 }
-/* For some margin around list and button */
 #summmary-section #list-container {
   margin: 1rem 0 0rem 0;
 }
@@ -121,7 +107,6 @@ body {
   width: 100%;
   height: 100%;
   overflow: scroll;
-  /* height of 4 items with padding and margin with default root font-size(10px) */
   max-height: 26rem;
   margin: 0;
 }
@@ -133,9 +118,6 @@ body {
   padding: 1.5rem 1rem;
   margin-top: 2rem;
   border-radius: 1rem;
-  /* Make color from transparent to $paleBlue(hsla(221, 100%, 96%, n))
-  Where n = (100 - user_category_score) / 100
-  background-color: hsla(221, 100%, 96%, 0.01) */
   width: 100%;
   border: none;
   box-shadow: 0px 0px 0.1px 0.3px rgba(0, 0, 0, 0.1) inset;
@@ -182,16 +164,12 @@ body {
   border: none;
 }
 #summmary-section .continue-button:hover {
-  /* back-gradient for hover state of this button */
   background: linear-gradient(hsl(252, 100%, 67%), hsl(241, 81%, 54%));
   cursor: pointer;
 }
 #summmary-section .continue-button:focus {
-  /* back-gradient for hover state of this button */
   background: linear-gradient(hsl(252, 100%, 67%), hsl(241, 81%, 54%));
 }
-
-/* Attribution */
 
 .attribution {
   font-size: 1.1rem;
@@ -206,19 +184,13 @@ body {
     margin: 0;
     padding: 0;
   }
-
   #container {
-    /* Full width of the page by default */
-    /* width: 100vw */
-
-    /* Setting the height: 100vh may result in the component being cut off on smaller screens. */
-    min-height: 100vh;
-
+    width: 100vw;
+    height: 100vh;
     /* min height for correct view at small screen*/
     display: flex;
     justify-content: center;
   }
-
   main {
     display: grid;
     grid-template-columns: 35rem 35rem;
@@ -234,23 +206,8 @@ body {
     margin: 3rem 0;
   }
 }
-
-/*"5: some browsers unnecessarily download all the font files
-if you write the font stack like..." font-family: 'Hanken Grotesk VF', 'Hanken Grotesk', sans-serif;
-
-"5: I only want to style my text with the variable font 
-if the browser supports it. This means writing 
-another font-family declaration inside a 
-feature query. I put it after the first one 
-so it will override the fallback styling." */
 @supports (font-variation-settings: normal) {
   html {
     font-family: "Hanken Grotesk VF", sans-serif;
   }
-  /* "5: @supports is the secret ingredient that makes 
-  it possible to style things differently when 
-  variable fonts work in the browser. Now Firefox 
-  62 will only download variable font and Edge 16 
-  will only download the static fonts." */
-}
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */
