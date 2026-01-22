@@ -24,6 +24,26 @@ Future ideas and improvements for the portfolio.
 - Respect `prefers-reduced-motion`
 - Keep animations subtle
 
+### Project Detail Modal (2026-01-22)
+- Click project card (outside links) to open centered overlay
+- Extended description with project "story" (challenges, decisions, results)
+- Screenshots and/or videos demonstrating functionality
+- Requires:
+  - [ ] Data structure decision (JSON file vs data attributes vs JS object)
+  - [ ] Accessibility: focus trap, ESC to close, aria-modal, restore focus
+  - [ ] Lazy-load media to maintain <200KB initial page load
+  - [ ] Mobile-friendly modal UX
+  - [ ] Clear visual hint that cards are clickable (hover state, "View details")
+
+### Project Metadata Badges (2026-01-22)
+- Add "last updated" date to project cards
+- Add "in development" indicator/icon for active projects
+- Shows portfolio is actively maintained (good signal for recruiters)
+- Requires:
+  - [ ] Decide where to store dates (HTML data attributes, JSON, etc.)
+  - [ ] Visual design for badges (subtle, doesn't clutter cards)
+  - [ ] Maintenance process to keep dates current
+
 ### Project Detail Pages
 - Individual pages for major projects
 - More detailed descriptions
@@ -116,7 +136,7 @@ _Extracted from implementation plan:_
 
 ---
 
-*Last updated: 2026-01-20*
+*Last updated: 2026-01-22*
 
 ---
 
