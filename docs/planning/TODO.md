@@ -14,17 +14,6 @@ _None currently_
 
 ## High Priority
 
-### HP-003 - Format media-viewer repository
-**Priority**: High
-**Dependencies**: None
-**Description**: Format, make public, and add as a project — [media-viewer](https://github.com/GoodAlex223/media-viewer)
-**Acceptance criteria**:
-- [ ] Repository formatted and documented
-- [ ] Repository made public
-- [ ] Project card added to portfolio
-
----
-
 ### HP-004 - Format dropshipping-test repository
 **Priority**: High
 **Dependencies**: None

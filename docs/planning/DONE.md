@@ -8,6 +8,33 @@ Completed tasks for the portfolio project.
 
 ## 2026-01-26
 
+### Format media-viewer Repository (HP-003)
+
+**Task Reference**: TODO.md HP-003
+**Plan Document**: None (repository formatting task)
+
+**Implementation**:
+Formatted media-viewer repository with documentation structure and made it public. Added project card to portfolio.
+
+**Key Changes**:
+- Repository formatted with README, CLAUDE.md, PROJECT.md, docs structure
+- Repository made public on GitHub
+- Project card added to portfolio (Tools category)
+
+**Acceptance Criteria Met**:
+- [x] Repository formatted and documented
+- [x] Repository made public
+- [x] Project card added to portfolio
+
+**Project Details**:
+- **Category**: Tools
+- **Tech Stack**: Electron, JavaScript, ML (online logistic regression)
+- **Features**: Media browsing/rating, ML preference learning, visual similarity sorting (perceptual hashing + VP-Tree)
+
+**Follow-up Tasks**: None
+
+---
+
 ### Run Lighthouse Audit (HP-002)
 
 **Task Reference**: TODO.md HP-002
