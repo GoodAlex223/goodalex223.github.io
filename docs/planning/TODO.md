@@ -10,13 +10,22 @@ _None currently_
 
 ---
 
+## Completed (2026-01-26)
+
+- [x] **Add favicon** - Adaptive SVG + .ico + .png + apple-touch-icon + webmanifest
+
+---
+
 ## Up Next
 
 ### High Priority
 
-- [ ] **Add favicon** - Create and add favicon.ico and meta tags
 - [ ] **Test all external links** - Verify all GitHub, Wokwi, Vercel links work
 - [ ] **Run Lighthouse audit** - Check performance and accessibility scores
+- [ ] Format, make public, and add as a project -- [media-viewer](https://github.com/GoodAlex223/media-viewer)
+- [ ] Format(project and repository: 24.01.26 its empty) https://github.com/GoodAlex223/dropshipping-test
+
+
 
 ### Medium Priority
 
@@ -40,4 +49,4 @@ _None currently_
 
 ---
 
-*Last updated: 2026-01-20*
+*Last updated: 2026-01-26*

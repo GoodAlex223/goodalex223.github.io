@@ -27,7 +27,7 @@ Future ideas and improvements for the portfolio.
 ### Project Detail Modal (2026-01-22)
 - Click project card (outside links) to open centered overlay
 - Extended description with project "story" (challenges, decisions, results)
-- Screenshots and/or videos demonstrating functionality
+- Screenshots and/or videos demonstrating functionality — *see "Media & Visual Content" section for media strategy*
 - Requires:
   - [ ] Data structure decision (JSON file vs data attributes vs JS object)
   - [ ] Accessibility: focus trap, ESC to close, aria-modal, restore focus
@@ -86,7 +86,7 @@ Future ideas and improvements for the portfolio.
 
 ### Visual
 
-- [ ] Add project screenshots/thumbnails
+- [ ] Add project screenshots/thumbnails — *see "Media & Visual Content" section for detailed planning*
 - [ ] Create custom favicon
 - [ ] Add Open Graph image for social sharing
 - [ ] Consider adding a profile photo
@@ -108,10 +108,62 @@ Future ideas and improvements for the portfolio.
 
 ### Accessibility
 
-- [ ] Add language toggle (EN/RU/UA)
 - [ ] Improve focus indicators
 - [ ] Test with screen readers
 - [ ] Add aria-live regions for dynamic content
+
+---
+
+## Internationalization (i18n)
+
+### Multi-Language Support (2026-01-23)
+- Add language toggle (EN/RU/UA and other popular languages)
+- **Automatic language detection**:
+  - [ ] Browser language (`navigator.language` / `navigator.languages`)
+  - [ ] Geolocation-based detection (IP-based API or browser geolocation)
+  - [ ] Accept-Language header (if server-side rendering added later)
+  - [ ] Fallback chain: user preference → browser → geo → default (EN)
+- **Language persistence**:
+  - [ ] Store user choice in localStorage
+  - [ ] Respect explicit user override vs auto-detection
+- **Implementation approaches** (decide):
+  - [ ] JSON translation files (scalable, separation of concerns)
+  - [ ] HTML data attributes (simpler, no build step)
+  - [ ] Multiple HTML pages per language (SEO benefits, more maintenance)
+- **Considerations**:
+  - [ ] Which languages to support initially? (EN, RU, UA, DE, ES, ZH?)
+  - [ ] RTL support for future languages (Arabic, Hebrew)?
+  - [ ] URL structure (`/en/`, `?lang=en`, or same URL with toggle)?
+  - [ ] SEO: hreflang tags, separate sitemaps per language?
+
+---
+
+## Media & Visual Content
+
+### Project Media Strategy (2026-01-23)
+- Add photos, screenshots, and videos demonstrating project work
+- **Placement decision** (trade-offs to consider):
+  1. **Main page only** — Greater visibility, but increases clutter
+  2. **Project modal/detail page only** — Clean main page, but requires click to see
+  3. **Hybrid approach** (recommended):
+     - Main page: Single hero image/thumbnail per project (optional, subtle)
+     - Modal/detail: Full gallery with multiple screenshots + video demos
+- **Content types**:
+  - [ ] Static screenshots (before/after, key features)
+  - [ ] GIF animations (short interaction demos)
+  - [ ] Video walkthroughs (embedded YouTube/Vimeo or self-hosted)
+  - [ ] Live embedded demos (iframes for applicable projects)
+- **Technical requirements**:
+  - [ ] Lazy loading to maintain <200KB initial page load
+  - [ ] Responsive images (srcset) for different screen sizes
+  - [ ] Video poster images for instant visual
+  - [ ] Consider CDN for media hosting (Cloudinary, imgix)
+  - [ ] Optimize images (WebP format, compression)
+- **Per-project media needs**:
+  - [ ] Audit each project for best visual representation
+  - [ ] Prioritize projects with visual/interactive output
+  - [ ] IoT projects: circuit diagrams, Wokwi screenshots, demo videos
+  - [ ] Web projects: responsive screenshots, interaction demos
 
 ---
 
@@ -136,7 +188,7 @@ _Extracted from implementation plan:_
 
 ---
 
-*Last updated: 2026-01-22*
+*Last updated: 2026-01-23*
 
 ---
 
