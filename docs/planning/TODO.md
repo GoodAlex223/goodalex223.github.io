@@ -14,13 +14,7 @@ _None currently_
 
 ## High Priority
 
-### HP-004 - Format dropshipping-test repository
-**Priority**: High
-**Dependencies**: None
-**Description**: Format repository (as of 2026-01-26 it's empty) — https://github.com/GoodAlex223/dropshipping-test
-**Acceptance criteria**:
-- [ ] Repository has content and documentation
-- [ ] Decide if ready to showcase on portfolio
+_None currently_
 
 ---
 

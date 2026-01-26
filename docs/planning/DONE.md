@@ -8,6 +8,36 @@ Completed tasks for the portfolio project.
 
 ## 2026-01-26
 
+### Format dropshipping-test Repository (HP-004)
+
+**Task Reference**: TODO.md HP-004
+**Plan Document**: None (repository formatting task)
+
+**Implementation**:
+Formatted dropshipping-test repository with comprehensive documentation and added project card to portfolio as "E-commerce Prototype".
+
+**Key Changes**:
+- Repository formatted with README.md, PROJECT.md, docs/ structure
+- Full Next.js 14+ codebase with TypeScript
+- Complete documentation (architecture, API, database schema)
+- Code quality tools configured (Prettier, ESLint, Husky)
+- Project card added to portfolio (Backend category)
+
+**Acceptance Criteria Met**:
+- [x] Repository has content and documentation
+- [x] Decide if ready to showcase on portfolio (Yes - added)
+
+**Project Details**:
+- **Category**: Backend
+- **Tech Stack**: Next.js 14, TypeScript, Prisma, PostgreSQL, Stripe, Tailwind CSS
+- **Features**: Product management, Stripe payments, admin panel, supplier integrations
+- **Live Demo**: https://dropshipping-test.vercel.app
+- **Repository**: https://github.com/GoodAlex223/dropshipping-test
+
+**Follow-up Tasks**: None
+
+---
+
 ### Format media-viewer Repository (HP-003)
 
 **Task Reference**: TODO.md HP-003
