@@ -1,5 +1,7 @@
 # Plans
 
+**Last Updated**: 2026-01-26
+
 Active implementation plans for the portfolio project.
 
 ---
@@ -17,14 +19,14 @@ Plans follow this naming convention:
 YYYY-MM-DD_task-name.md
 ```
 
-Example: `2026-01-20_add-theme-toggle.md`
+Example: `2026-01-26_add-theme-toggle.md`
 
 ---
 
 ## Creating a New Plan
 
 1. Create file with date prefix
-2. Use template from `.claude/TEMPLATES/plan.md`
+2. Use template from `.claude/TEMPLATES/plan.md` (if available)
 3. Fill in all sections
 4. Update `docs/planning/TODO.md` to reference plan
 
@@ -34,9 +36,5 @@ Example: `2026-01-20_add-theme-toggle.md`
 
 1. Mark all tasks complete in plan
 2. Document results and learnings
-3. Move to `../archive/plans/`
+3. Move to `../../archive/plans/`
 4. Update `docs/planning/DONE.md`
-
----
-
-*Last updated: 2026-01-20*

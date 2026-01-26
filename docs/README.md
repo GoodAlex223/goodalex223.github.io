@@ -1,47 +1,66 @@
 # Documentation Index
 
+**Last Updated**: 2026-01-26
+
 Central hub for all project documentation.
 
 ---
 
-## Quick Links
+## Planning & Tasks
 
-| Document | Purpose |
-|----------|---------|
-| [ARCHITECTURE.md](ARCHITECTURE.md) | CSS/HTML architecture and design decisions |
-| [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) | Project context, patterns, and decisions |
-| [MANUAL_TESTING.md](MANUAL_TESTING.md) | Manual testing scenarios |
-
----
-
-## Planning
-
-| Document | Purpose |
-|----------|---------|
-| [planning/TODO.md](planning/TODO.md) | Active tasks |
-| [planning/DONE.md](planning/DONE.md) | Completed tasks |
-| [planning/BACKLOG.md](planning/BACKLOG.md) | Future ideas |
-| [planning/ROADMAP.md](planning/ROADMAP.md) | Long-term vision |
+| Document | Purpose | Last Updated |
+|----------|---------|--------------|
+| [planning/TODO.md](planning/TODO.md) | Active tasks | 2026-01-26 |
+| [planning/DONE.md](planning/DONE.md) | Completed tasks | 2026-01-26 |
+| [planning/BACKLOG.md](planning/BACKLOG.md) | Future ideas | 2026-01-23 |
+| [planning/ROADMAP.md](planning/ROADMAP.md) | Long-term vision | 2026-01-26 |
 
 ---
 
-## Plans
+## Architecture
 
-Active and completed implementation plans.
+| Document | Purpose | Last Updated |
+|----------|---------|--------------|
+| [ARCHITECTURE.md](ARCHITECTURE.md) | CSS/HTML architecture and design decisions | 2026-01-20 |
+| [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) | Decisions, patterns, context | 2026-01-20 |
+
+---
+
+## Testing
+
+| Document | Purpose | Last Updated |
+|----------|---------|--------------|
+| [MANUAL_TESTING.md](MANUAL_TESTING.md) | Manual testing scenarios | 2026-01-20 |
+
+---
+
+## Implementation Plans
 
 | Location | Purpose |
 |----------|---------|
-| [plans/](plans/) | Active implementation plans |
+| [planning/plans/](planning/plans/) | Active implementation plans |
 | [archive/plans/](archive/plans/) | Completed/archived plans |
+
+**Active Plans:**
+
+| Plan | Task | Status |
+|------|------|--------|
+| _None active_ | — | — |
+
+---
+
+## Archive
+
+See [archive/README.md](archive/README.md) for historical documents.
 
 ---
 
 ## Root Documents
 
-| Document | Purpose |
-|----------|---------|
-| [../README.md](../README.md) | Project overview |
-| [../PROJECT.md](../PROJECT.md) | Project configuration |
+| Document | Purpose | Last Updated |
+|----------|---------|--------------|
+| [../README.md](../README.md) | Project overview | 2026-01-20 |
+| [../PROJECT.md](../PROJECT.md) | Project configuration | 2026-01-20 |
 
 ---
 
@@ -49,7 +68,7 @@ Active and completed implementation plans.
 
 ### When to Create Documentation
 
-- **New feature**: Create plan in `plans/`
+- **New feature**: Create plan in `docs/planning/plans/`
 - **Architecture decision**: Document in `PROJECT_CONTEXT.md`
 - **Task completion**: Move from `TODO.md` to `DONE.md`
 - **Future idea**: Add to `BACKLOG.md`
@@ -58,9 +77,5 @@ Active and completed implementation plans.
 
 ```
 planning/TODO.md → In Progress → planning/DONE.md
-plans/YYYY-MM-DD_name.md → Complete → archive/plans/
+docs/planning/plans/YYYY-MM-DD_name.md → Complete → docs/archive/plans/
 ```
-
----
-
-*Last updated: 2026-01-20*

@@ -1,4 +1,8 @@
-TODO.md
-README-template.md
-README.md
-Compiled-HTML/
+# Root-level files to ignore (use / prefix for root only)
+/TODO.md
+/README-template.md
+/README.md
+/Compiled-HTML/
+
+# Claude Code personal configs (project CLAUDE.md is committed)
+.claude/

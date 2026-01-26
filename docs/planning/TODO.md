@@ -1,5 +1,7 @@
 # TODO
 
+**Last Updated**: 2026-01-26
+
 Active tasks for the portfolio project.
 
 ---
@@ -10,28 +12,120 @@ _None currently_
 
 ---
 
-## Up Next
+## High Priority
 
-### High Priority
+### HP-001 - Test all external links
+**Priority**: High
+**Dependencies**: None
+**Description**: Verify all GitHub, Wokwi, Vercel links work correctly.
+**Acceptance criteria**:
+- [ ] All GitHub repository links accessible
+- [ ] All Wokwi simulation links load correctly
+- [ ] All Vercel demo links work
+- [ ] No broken 404 links
 
-- [ ] **Test all external links** - Verify all GitHub, Wokwi, Vercel links work
-- [ ] **Run Lighthouse audit** - Check performance and accessibility scores
-- [ ] Format, make public, and add as a project -- [media-viewer](https://github.com/GoodAlex223/media-viewer)
-- [ ] Format(project and repository: 24.01.26 its empty) https://github.com/GoodAlex223/dropshipping-test
+---
 
+### HP-002 - Run Lighthouse audit
+**Priority**: High
+**Dependencies**: None
+**Description**: Check performance and accessibility scores against project targets.
+**Acceptance criteria**:
+- [ ] Lighthouse Performance score > 90
+- [ ] Lighthouse Accessibility score > 90
+- [ ] Fix any critical issues found
+- [ ] Document results
 
+---
 
-### Medium Priority
+### HP-003 - Format media-viewer repository
+**Priority**: High
+**Dependencies**: None
+**Description**: Format, make public, and add as a project — [media-viewer](https://github.com/GoodAlex223/media-viewer)
+**Acceptance criteria**:
+- [ ] Repository formatted and documented
+- [ ] Repository made public
+- [ ] Project card added to portfolio
 
-- [ ] **Add project screenshots** - Create thumbnails for project cards
-- [ ] **Add og:image** - Create Open Graph image for social sharing
-- [ ] **Consider theme toggle** - Add dark/light mode switch
+---
 
-### Low Priority
+### HP-004 - Format dropshipping-test repository
+**Priority**: High
+**Dependencies**: None
+**Description**: Format repository (as of 2026-01-26 it's empty) — https://github.com/GoodAlex223/dropshipping-test
+**Acceptance criteria**:
+- [ ] Repository has content and documentation
+- [ ] Decide if ready to showcase on portfolio
 
-- [ ] **Add project filtering** - Filter by category (CSS-only or JS)
-- [ ] **Add scroll animations** - Subtle fade-in on scroll
-- [ ] **Create 404 page** - Custom error page for GitHub Pages
+---
+
+## Medium Priority
+
+### MP-001 - Add project screenshots
+**Priority**: Medium
+**Dependencies**: None
+**Description**: Create thumbnails for project cards.
+**Acceptance criteria**:
+- [ ] Screenshots captured for each project
+- [ ] Images optimized for web
+- [ ] Project cards updated with thumbnails
+
+---
+
+### MP-002 - Add og:image
+**Priority**: Medium
+**Dependencies**: None
+**Description**: Create Open Graph image for social sharing.
+**Acceptance criteria**:
+- [ ] OG image designed and created
+- [ ] Meta tags added to index.html
+- [ ] Social sharing preview works correctly
+
+---
+
+### MP-003 - Consider theme toggle
+**Priority**: Medium
+**Dependencies**: None
+**Description**: Add dark/light mode switch to allow user preference.
+**Acceptance criteria**:
+- [ ] Theme toggle UI implemented
+- [ ] Preference saved to localStorage
+- [ ] Respects `prefers-color-scheme`
+
+---
+
+## Low Priority
+
+### LP-001 - Add project filtering
+**Priority**: Low
+**Dependencies**: None
+**Description**: Filter projects by category (CSS-only or JS solution).
+**Acceptance criteria**:
+- [ ] Category filter UI implemented
+- [ ] Projects filter correctly
+- [ ] Smooth transition animation
+
+---
+
+### LP-002 - Add scroll animations
+**Priority**: Low
+**Dependencies**: None
+**Description**: Subtle fade-in animations on scroll.
+**Acceptance criteria**:
+- [ ] Intersection Observer implemented
+- [ ] Animations respect `prefers-reduced-motion`
+- [ ] Animations are subtle and professional
+
+---
+
+### LP-003 - Create 404 page
+**Priority**: Low
+**Dependencies**: None
+**Description**: Custom error page for GitHub Pages.
+**Acceptance criteria**:
+- [ ] 404.html created matching site design
+- [ ] Navigation back to home page
+- [ ] Tested on GitHub Pages
 
 ---
 
@@ -40,7 +134,3 @@ _None currently_
 - Portfolio rebuild completed 2026-01-20
 - All core functionality working
 - Focus now on polish and enhancements
-
----
-
-*Last updated: 2026-01-26*

@@ -1,5 +1,7 @@
 # Archived Plans
 
+**Last Updated**: 2026-01-26
+
 Completed implementation plans.
 
 ---
@@ -16,7 +18,3 @@ Archived plans retain their original filename:
 ```
 YYYY-MM-DD_task-name.md
 ```
-
----
-
-*Last updated: 2026-01-20*

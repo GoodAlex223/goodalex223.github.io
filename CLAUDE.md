@@ -1,0 +1,129 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code when working with code in this repository.
+
+<!-- AUTO-MANAGED: project-description -->
+## Overview
+
+**Personal Portfolio Website** for Alexey Minakov — a static site showcasing software development projects, built with vanilla HTML, CSS, and JavaScript.
+
+- **Live Site**: [goodalex223.github.io](https://goodalex223.github.io)
+- **Tech Stack**: HTML5, CSS3 (Custom Properties, Grid, Flexbox), Vanilla ES6+
+- **Hosting**: GitHub Pages (auto-deploys on push to `main`)
+
+<!-- END AUTO-MANAGED -->
+
+<!-- AUTO-MANAGED: build-commands -->
+## Build & Development Commands
+
+```bash
+# Start local server (Python)
+python -m http.server 8000
+
+# Start local server (Node)
+npx serve
+
+# Linting (Trunk)
+trunk check              # Check all files
+trunk check index.html   # Check specific file
+trunk fmt                # Format all files
+trunk fmt css/main.css   # Format specific file
+```
+
+**Deployment**: Automatic via GitHub Pages on push to `main` branch.
+
+<!-- END AUTO-MANAGED -->
+
+<!-- AUTO-MANAGED: architecture -->
+## Architecture
+
+```
+goodalex223/
+├── index.html              # Main portfolio page (single-page site)
+├── css/
+│   ├── main.css            # Entry point, imports + layout styles
+│   ├── variables.css       # Design tokens (colors, spacing, typography)
+│   ├── reset.css           # Browser normalization
+│   ├── utilities.css       # Reusable utility classes
+│   └── components.css      # UI components (cards, buttons, links)
+├── js/
+│   └── main.js             # Dynamic copyright year
+├── docs/                   # Project documentation
+├── freecodecamp/           # Learning projects (FreeCodeCamp)
+├── frontendmentor/         # Learning projects (Frontend Mentor)
+├── MDN/                    # Learning projects (MDN tutorials)
+└── other/                  # Miscellaneous experiments
+```
+
+**Key Files**:
+- [index.html](index.html) — Main portfolio page
+- [css/main.css](css/main.css) — CSS entry point (uses `@import`)
+- [css/variables.css](css/variables.css) — Design tokens
+- [PROJECT.md](PROJECT.md) — Project configuration
+
+<!-- END AUTO-MANAGED -->
+
+<!-- AUTO-MANAGED: conventions -->
+## Code Conventions
+
+### CSS Naming
+| Element | Convention | Example |
+|---------|------------|---------|
+| Classes | BEM-like | `.project-card__title`, `.btn--primary` |
+| Variables | kebab-case | `--color-accent`, `--space-4` |
+| Data attributes | kebab-case | `data-category="backend"` |
+
+### CSS Architecture
+CSS uses `@import` in `main.css` to compose modular files:
+1. `variables.css` — Design tokens
+2. `reset.css` — Browser normalization
+3. `utilities.css` — Utility classes
+4. `components.css` — UI components
+5. `main.css` — Layout and section styles
+
+### HTML Structure
+- Semantic elements: `<article>`, `<section>`, `<nav>`, `<header>`, `<footer>`
+- Skip link for accessibility
+- Inline SVG icons for styling flexibility
+
+<!-- END AUTO-MANAGED -->
+
+<!-- AUTO-MANAGED: patterns -->
+## Detected Patterns
+
+### Responsive Design
+- **Mobile-first**: Base styles for mobile, `min-width` media queries for larger screens
+- **Breakpoints**: 37.5em (600px), 56.25em (900px), 75em (1200px)
+
+### Component Patterns
+- **Project Cards**: Use `data-category` attribute for styling (backend, iot, web, tools)
+- **Buttons**: `.btn` base class with `--primary` and `--secondary` modifiers
+- **Accessibility**: `prefers-reduced-motion` media query, focus visible states
+
+### Adding New Projects
+Add project card to `index.html` projects section:
+```html
+<article class="project-card" data-category="backend">
+  <div class="project-card__header">
+    <span class="project-card__category">Backend</span>
+    <div class="project-card__links">
+      <a href="..." class="project-card__link"><!-- GitHub SVG --></a>
+    </div>
+  </div>
+  <h3 class="project-card__title">Project Name</h3>
+  <p class="project-card__description">Description</p>
+  <ul class="project-card__tech">
+    <li>Python</li>
+    <li>FastAPI</li>
+  </ul>
+</article>
+```
+
+<!-- END AUTO-MANAGED -->
+
+<!-- MANUAL -->
+## Custom Notes
+
+Add project-specific notes here. This section is never auto-modified by the memory system.
+
+<!-- END MANUAL -->

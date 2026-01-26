@@ -1,5 +1,7 @@
 # ROADMAP
 
+**Last Updated**: 2026-01-26
+
 Long-term vision for the portfolio project.
 
 ---
@@ -19,7 +21,7 @@ A clean, professional portfolio showcasing:
 
 **Focus**: Polish and optimization
 
-- [ ] Add favicon
+- [x] Add favicon *(completed 2026-01-26)*
 - [ ] Add Open Graph image
 - [ ] Run Lighthouse audit and fix issues
 - [ ] Test all external links
@@ -71,4 +73,4 @@ A clean, professional portfolio showcasing:
 
 ---
 
-*Last updated: 2026-01-20*
+*Last updated: 2026-01-26*

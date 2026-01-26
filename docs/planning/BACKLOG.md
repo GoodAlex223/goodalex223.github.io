@@ -1,5 +1,7 @@
 # BACKLOG
 
+**Last Updated**: 2026-01-26
+
 Future ideas and improvements for the portfolio.
 
 ---
@@ -87,7 +89,7 @@ Future ideas and improvements for the portfolio.
 ### Visual
 
 - [ ] Add project screenshots/thumbnails — *see "Media & Visual Content" section for detailed planning*
-- [ ] Create custom favicon
+- [x] ~~Create custom favicon~~ *(completed 2026-01-26)*
 - [ ] Add Open Graph image for social sharing
 - [ ] Consider adding a profile photo
 - [ ] Add subtle gradient backgrounds
@@ -188,7 +190,7 @@ _Extracted from implementation plan:_
 
 ---
 
-*Last updated: 2026-01-23*
+*Last updated: 2026-01-26*
 
 ---
 
