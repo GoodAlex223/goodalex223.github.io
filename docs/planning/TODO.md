@@ -10,12 +10,6 @@ _None currently_
 
 ---
 
-## Completed (2026-01-26)
-
-- [x] **Add favicon** - Adaptive SVG + .ico + .png + apple-touch-icon + webmanifest
-
----
-
 ## Up Next
 
 ### High Priority

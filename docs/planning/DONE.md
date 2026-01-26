@@ -61,4 +61,19 @@ Completed tasks for the portfolio project.
 
 ---
 
-*Last updated: 2026-01-20*
+## 2026-01-26
+
+### Add Favicon
+
+**Plan**: No formal plan (straightforward task)
+**Summary**: Created adaptive favicon with full browser support, auto-switching colors based on user's theme preference.
+**Key Changes**:
+- Created adaptive SVG favicon (dark bg for light theme, light bg for dark theme)
+- Generated favicon.ico, favicon-96x96.png, apple-touch-icon.png
+- Added site.webmanifest + PWA icons
+- Updated index.html with proper favicon link tags
+**Spawned Tasks**: 0 items added to TODO.md/BACKLOG.md
+
+---
+
+*Last updated: 2026-01-26*
