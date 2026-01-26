@@ -14,18 +14,6 @@ _None currently_
 
 ## High Priority
 
-### HP-001 - Test all external links
-**Priority**: High
-**Dependencies**: None
-**Description**: Verify all GitHub, Wokwi, Vercel links work correctly.
-**Acceptance criteria**:
-- [ ] All GitHub repository links accessible
-- [ ] All Wokwi simulation links load correctly
-- [ ] All Vercel demo links work
-- [ ] No broken 404 links
-
----
-
 ### HP-002 - Run Lighthouse audit
 **Priority**: High
 **Dependencies**: None
