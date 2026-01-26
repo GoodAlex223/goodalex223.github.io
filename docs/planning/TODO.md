@@ -14,18 +14,6 @@ _None currently_
 
 ## High Priority
 
-### HP-002 - Run Lighthouse audit
-**Priority**: High
-**Dependencies**: None
-**Description**: Check performance and accessibility scores against project targets.
-**Acceptance criteria**:
-- [ ] Lighthouse Performance score > 90
-- [ ] Lighthouse Accessibility score > 90
-- [ ] Fix any critical issues found
-- [ ] Document results
-
----
-
 ### HP-003 - Format media-viewer repository
 **Priority**: High
 **Dependencies**: None

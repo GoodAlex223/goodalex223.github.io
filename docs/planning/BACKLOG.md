@@ -100,6 +100,8 @@ Future ideas and improvements for the portfolio.
 - [ ] Consider using `font-display: swap`
 - [ ] Minify CSS for production
 - [ ] Add service worker for offline support
+- [ ] Self-host Google Fonts — Could eliminate external dependency and improve FCP (from HP-002 Lighthouse audit, 2026-01-26)
+- [ ] Bundle CSS files — Replace @import chain with single bundled CSS file for production (from HP-002 Lighthouse audit, 2026-01-26)
 
 ### SEO
 

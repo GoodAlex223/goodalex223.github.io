@@ -8,6 +8,42 @@ Completed tasks for the portfolio project.
 
 ## 2026-01-26
 
+### Run Lighthouse Audit (HP-002)
+
+**Task Reference**: TODO.md HP-002
+**Plan Document**: [docs/archive/plans/2026-01-26_lighthouse-audit.md](../archive/plans/2026-01-26_lighthouse-audit.md)
+
+**Implementation**:
+Ran Lighthouse audit via Chrome DevTools on https://goodalex223.github.io (Mobile simulation).
+
+**Results**:
+- Performance: 100/100
+- Accessibility: 100/100
+- Best Practices: 100/100
+- SEO: 100/100
+
+**Core Web Vitals**:
+- First Contentful Paint: 1.6s
+- Largest Contentful Paint: 1.6s
+- Total Blocking Time: 0ms
+- Cumulative Layout Shift: 0
+- Speed Index: 1.6s
+
+**Acceptance Criteria Met**:
+- [x] Lighthouse Performance score > 90 (Actual: 100)
+- [x] Lighthouse Accessibility score > 90 (Actual: 100)
+- [x] Fix any critical issues found (None found)
+- [x] Document results
+
+**Lessons Learned**:
+- Minimal JavaScript (7 lines) results in zero blocking time
+- Proper HTML structure achieves perfect accessibility
+- CSS @import chain does not significantly impact performance for small sites
+
+**Follow-up Tasks**: 2 improvements added to BACKLOG.md (self-host fonts, bundle CSS)
+
+---
+
 ### Test All External Links (HP-001)
 
 **Task Reference**: TODO.md HP-001
