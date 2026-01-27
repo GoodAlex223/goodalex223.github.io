@@ -1,6 +1,6 @@
 # TODO
 
-**Last Updated**: 2026-01-26
+**Last Updated**: 2026-01-27
 
 Active tasks for the portfolio project.
 
@@ -19,17 +19,6 @@ _None currently_
 ---
 
 ## Medium Priority
-
-### MP-001 - Add project screenshots
-**Priority**: Medium
-**Dependencies**: None
-**Description**: Create thumbnails for project cards.
-**Acceptance criteria**:
-- [ ] Screenshots captured for each project
-- [ ] Images optimized for web
-- [ ] Project cards updated with thumbnails
-
----
 
 ### MP-002 - Add og:image
 **Priority**: Medium

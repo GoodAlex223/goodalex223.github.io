@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-01-26
+**Last Updated**: 2026-01-27
 
 Future ideas and improvements for the portfolio.
 
@@ -36,6 +36,15 @@ Future ideas and improvements for the portfolio.
   - [ ] Lazy-load media to maintain <200KB initial page load
   - [ ] Mobile-friendly modal UX
   - [ ] Clear visual hint that cards are clickable (hover state, "View details")
+
+### Project Content Population (2026-01-27)
+- **Depends on**: Project Detail Modal implementation
+- Populate extended descriptions and media for each project
+- For each project, add:
+  - [ ] Extended description (challenges, decisions, lessons learned)
+  - [ ] Screenshots demonstrating key features
+  - [ ] Demo videos/GIFs where applicable
+  - [ ] Technical highlights and architecture notes
 
 ### Project Metadata Badges (2026-01-22)
 - Add "last updated" date to project cards
@@ -88,7 +97,7 @@ Future ideas and improvements for the portfolio.
 
 ### Visual
 
-- [ ] Add project screenshots/thumbnails — *see "Media & Visual Content" section for detailed planning*
+- [x] ~~Add project screenshots/thumbnails~~ *(completed 2026-01-27, MP-001)*
 - [x] ~~Create custom favicon~~ *(completed 2026-01-26)*
 - [ ] Add Open Graph image for social sharing
 - [ ] Consider adding a profile photo
@@ -96,7 +105,7 @@ Future ideas and improvements for the portfolio.
 
 ### Performance
 
-- [ ] Lazy load project images (when added)
+- [x] ~~Lazy load project images~~ *(completed 2026-01-27, MP-001)*
 - [ ] Consider using `font-display: swap`
 - [ ] Minify CSS for production
 - [ ] Add service worker for offline support
@@ -143,6 +152,10 @@ Future ideas and improvements for the portfolio.
 ---
 
 ## Media & Visual Content
+
+### Project Card Media Enhancements (2026-01-27)
+- [ ] Add multiple project images to project cards (carousel/gallery)
+- [ ] Add ability to embed project work videos in cards
 
 ### Project Media Strategy (2026-01-23)
 - Add photos, screenshots, and videos demonstrating project work
@@ -192,7 +205,7 @@ _Extracted from implementation plan:_
 
 ---
 
-*Last updated: 2026-01-26*
+*Last updated: 2026-01-27*
 
 ---
 

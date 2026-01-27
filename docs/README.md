@@ -1,6 +1,6 @@
 # Documentation Index
 
-**Last Updated**: 2026-01-26
+**Last Updated**: 2026-01-27
 
 Central hub for all project documentation.
 
@@ -10,6 +10,7 @@ Central hub for all project documentation.
 
 | Document | Purpose | Last Updated |
 |----------|---------|--------------|
+| [planning/WEEKLY.md](planning/WEEKLY.md) | Weekly progress tracking | 2026-01-27 |
 | [planning/TODO.md](planning/TODO.md) | Active tasks | 2026-01-26 |
 | [planning/DONE.md](planning/DONE.md) | Completed tasks | 2026-01-26 |
 | [planning/BACKLOG.md](planning/BACKLOG.md) | Future ideas | 2026-01-23 |
@@ -43,9 +44,7 @@ Central hub for all project documentation.
 
 **Active Plans:**
 
-| Plan | Task | Status |
-|------|------|--------|
-| _None active_ | — | — |
+_None currently_
 
 ---
 

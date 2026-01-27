@@ -1,8 +1,55 @@
 # DONE
 
-**Last Updated**: 2026-01-26
+**Last Updated**: 2026-01-27
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-01-27
+
+### Add Project Screenshots (MP-001)
+
+**Task Reference**: TODO.md MP-001
+**Plan Document**: None (plan removed after completion)
+
+**Implementation**:
+Added thumbnail images to all 7 project cards using a masonry-style CSS columns layout.
+
+**Key Changes**:
+- Created `images/projects/` directory with 7 WebP screenshots
+- Added `.project-card__thumbnail` CSS component with hover zoom effect
+- Converted projects grid from CSS Grid to CSS Columns (masonry layout)
+- All images use lazy loading for performance
+- Removed Frontend Mentor card (insufficient content to showcase)
+
+**Screenshots Added**:
+- rating-bot.webp (phone mockup)
+- rule-indicators.webp
+- lubrication.webp
+- hx711-scale.webp
+- dropshipping.webp
+- media-viewer.webp
+- svg-processor.webp
+
+**Technical Decisions**:
+- **Layout**: CSS Columns masonry (not CSS Grid) for flexible card heights
+- **Image sizing**: Natural height (`height: auto`) instead of fixed 16:9 aspect ratio
+- **Phone mockups**: Used for mobile app screenshots (Telegram bot)
+
+**Acceptance Criteria Met**:
+- [x] Screenshots captured for each project
+- [x] Images optimized for web (WebP format)
+- [x] Project cards updated with thumbnails
+- [x] Lazy loading implemented
+- [x] Responsive layout maintained
+
+**Lessons Learned**:
+- CSS Columns work better than Grid for cards with variable heights
+- Phone mockup generators (Shots.so) are effective for mobile app screenshots
+- Natural image sizing preserves content visibility better than forced aspect ratios
+
+**Follow-up Tasks**: None
 
 ---
 

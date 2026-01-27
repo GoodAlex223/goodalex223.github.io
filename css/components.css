@@ -50,6 +50,32 @@
   box-shadow: var(--shadow-card);
 }
 
+/* Project Card Thumbnail */
+.project-card__thumbnail {
+  overflow: hidden;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  margin: calc(var(--space-5) * -1);
+  margin-bottom: var(--space-4);
+  background-color: var(--color-bg-secondary);
+}
+
+.project-card__thumbnail img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform var(--transition-base);
+}
+
+.project-card:hover .project-card__thumbnail img {
+  transform: scale(1.05);
+}
+
+/* Placeholder when image fails to load */
+.project-card__thumbnail img[src=""],
+.project-card__thumbnail img:not([src]) {
+  display: none;
+}
+
 .project-card__header {
   display: flex;
   justify-content: space-between;

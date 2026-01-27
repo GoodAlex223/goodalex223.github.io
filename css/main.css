@@ -84,10 +84,15 @@
   margin-bottom: 0;
 }
 
-/* Projects Grid */
+/* Projects Grid - Masonry layout */
 .projects__grid {
-  display: grid;
-  gap: var(--space-5);
+  columns: 1;
+  column-gap: var(--space-5);
+}
+
+.projects__grid .project-card {
+  break-inside: avoid;
+  margin-bottom: var(--space-5);
 }
 
 .projects__more {
@@ -131,7 +136,7 @@
   }
 
   .projects__grid {
-    grid-template-columns: repeat(2, 1fr);
+    columns: 2;
   }
 
   .skills__grid {
@@ -152,7 +157,7 @@
   }
 
   .projects__grid {
-    grid-template-columns: repeat(3, 1fr);
+    columns: 3;
   }
 
   .skills__grid {
