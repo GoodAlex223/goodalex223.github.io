@@ -12,7 +12,8 @@ body,
 .project-card,
 .skill-group,
 .contact__link,
-.btn {
+.btn,
+.filter-btn {
   transition:
     background-color var(--transition-base),
     border-color var(--transition-base),

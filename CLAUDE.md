@@ -41,7 +41,7 @@ goodalex223/
 │   ├── utilities.css       # Reusable utility classes
 │   └── components.css      # UI components (cards, buttons, links)
 ├── js/
-│   └── main.js             # Theme toggle & dynamic copyright year
+│   └── main.js             # Theme toggle, project filtering & dynamic copyright year
 ├── docs/                   # Project documentation
 ├── freecodecamp/           # Learning projects (FreeCodeCamp)
 ├── frontendmentor/         # Learning projects (Frontend Mentor)
@@ -101,7 +101,11 @@ CSS uses `@import` in `main.css` to compose modular files:
 - **Project Cards**: Use `data-category` attribute for styling (backend, iot, web, tools)
   - Support thumbnails: `.project-card__thumbnail` with hover scale effect
   - Missing images handled gracefully with `display: none`
+  - Hidden state: `.project-card--hidden` with opacity/scale transitions
 - **Buttons**: `.btn` base class with `--primary` and `--secondary` modifiers
+- **Filter Buttons**: `.filter-btn` with rounded borders
+  - Active state: `.filter-btn--active` with accent background
+  - Categories: all, backend, iot, web, tools
 - **Theme Toggle**: `.theme-toggle` button with icon transitions (sun/moon)
   - Icons swap via opacity/transform based on `[data-theme]` attribute
   - Updates `aria-label` dynamically for accessibility
@@ -116,6 +120,15 @@ Light/dark theme implementation:
 5. **Toggle Button**: `.theme-toggle` in header with smooth icon transitions
 6. **Mobile Chrome**: Dynamic `theme-color` meta updates match current theme
 7. **System Sync**: Auto-switches theme when system preference changes (no saved preference)
+
+### Project Filtering Pattern
+Client-side filtering for project portfolio:
+1. **Filter Buttons**: `.projects__filters` container with category buttons
+2. **Data Attributes**: Each `.project-card` has `data-category` matching filter values
+3. **JavaScript**: `initProjectFilter()` in `main.js` handles click events
+4. **Visibility**: Toggle `.project-card--hidden` class for smooth transitions
+5. **Active State**: `.filter-btn--active` indicates current filter
+6. **Show All**: Special "all" filter displays all projects regardless of category
 
 **SEO & Social Sharing**:
 - Open Graph meta tags with `og:image`, `og:title`, `og:description`

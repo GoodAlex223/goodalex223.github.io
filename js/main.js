@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize theme toggle
   initThemeToggle();
+
+  // Initialize project filter
+  initProjectFilter();
 });
 
 /**
@@ -106,4 +109,39 @@ function initThemeToggle() {
         applyTheme(newTheme, false);
       }
     });
+}
+
+/**
+ * Project Filter Functionality
+ * - Filters project cards by category
+ * - Provides smooth opacity/scale transitions
+ * - Accessible via keyboard
+ */
+function initProjectFilter() {
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const projects = document.querySelectorAll(".project-card");
+
+  if (!filterBtns.length) return;
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const filter = btn.dataset.filter;
+
+      // Update active button
+      filterBtns.forEach((b) => b.classList.remove("filter-btn--active"));
+      btn.classList.add("filter-btn--active");
+
+      // Filter projects
+      projects.forEach((project) => {
+        const category = project.dataset.category;
+        const shouldShow = filter === "all" || category === filter;
+
+        if (shouldShow) {
+          project.classList.remove("project-card--hidden");
+        } else {
+          project.classList.add("project-card--hidden");
+        }
+      });
+    });
+  });
 }
