@@ -137,11 +137,11 @@ Client-side category filtering with immediate layout reflow:
 ### Scroll Animation Pattern
 Progressive enhancement with Intersection Observer:
 1. **Classes**: `.scroll-animate` for elements to animate, `.is-visible` when in viewport
-2. **Staggered Delays**: `.scroll-animate--delay-1` through `--delay-4` (0ms, 75ms, 150ms, 225ms)
-3. **Animation**: Fade-in with translateY(20px → 0) on scroll into view
+2. **Staggered Delays**: `.scroll-animate--delay-1` through `--delay-4` (0ms, 100ms, 200ms, 300ms)
+3. **Animation**: Fade-in with translateY(20px → 0) via `fadeInUp` animation (0.5s ease-out)
 4. **Targets**: Section titles, about content, project cards, skill groups, contact links
 5. **Accessibility**: Respects `prefers-reduced-motion` (shows all immediately if enabled)
-6. **Performance**: Uses Intersection Observer, unobserves after animation, double rAF for render timing
+6. **Performance**: Uses Intersection Observer (15% threshold, -60px bottom margin), unobserves after animation, double rAF for render timing
 7. **Graceful Degradation**: Elements visible by default if JS fails or in print/reduced-motion mode
 
 **SEO & Social Sharing**:
