@@ -1,8 +1,50 @@
 # DONE
 
-**Last Updated**: 2026-01-27
+**Last Updated**: 2026-01-28
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-01-28
+
+### Add og:image for Social Sharing (MP-002)
+
+**Task Reference**: TODO.md MP-002
+**Plan Document**: None (straightforward task)
+
+**Implementation**:
+Added Open Graph and Twitter Card meta tags with custom social preview image.
+
+**Key Changes**:
+- Created 1200×630px OG image matching site design (SVG source + PNG)
+- Added `og:image`, `og:image:width`, `og:image:height`, `og:image:alt` meta tags
+- Added Twitter Card meta tags (`summary_large_image`)
+- Extended og:title to 56 characters (optimal: 50-60)
+- Extended og:description to 138 characters (optimal: 110-160)
+- Added CTA button "View Projects →" to image
+
+**Files Changed**:
+- `index.html` - Added OG and Twitter Card meta tags
+- `og-image.png` - Social preview image
+- `og-image.svg` - Source file for future edits
+
+**Acceptance Criteria Met**:
+- [x] OG image designed and created
+- [x] Meta tags added to index.html
+- [x] Social sharing preview works correctly
+
+**Commits**:
+- `7d611f5` - Initial OG/Twitter meta tags + image
+- `9cb9047` - Improved meta tags + CTA button
+
+**Lessons Learned**:
+- Open Graph is the universal standard (Facebook, LinkedIn, WhatsApp, Discord)
+- Twitter has its own format but falls back to OG tags
+- Optimal title: 50-60 chars, description: 110-160 chars
+- SVG source files allow easy future edits
+
+**Follow-up Tasks**: None
 
 ---
 

@@ -1,6 +1,6 @@
 # TODO
 
-**Last Updated**: 2026-01-27
+**Last Updated**: 2026-01-28
 
 Active tasks for the portfolio project.
 
@@ -19,17 +19,6 @@ _None currently_
 ---
 
 ## Medium Priority
-
-### MP-002 - Add og:image
-**Priority**: Medium
-**Dependencies**: None
-**Description**: Create Open Graph image for social sharing.
-**Acceptance criteria**:
-- [ ] OG image designed and created
-- [ ] Meta tags added to index.html
-- [ ] Social sharing preview works correctly
-
----
 
 ### MP-003 - Consider theme toggle
 **Priority**: Medium
