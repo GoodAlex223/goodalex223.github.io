@@ -114,34 +114,63 @@ function initThemeToggle() {
 /**
  * Project Filter Functionality
  * - Filters project cards by category
- * - Provides smooth opacity/scale transitions
- * - Accessible via keyboard
+ * - Immediate layout reflow (hidden cards removed from flow)
+ * - Single-select with toggle-to-reset behavior
  */
 function initProjectFilter() {
-  const filterBtns = document.querySelectorAll(".filter-btn");
-  const projects = document.querySelectorAll(".project-card");
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  const projectCards = document.querySelectorAll(".project-card");
+  const allButton = document.querySelector('.filter-btn[data-filter="all"]');
 
-  if (!filterBtns.length) return;
+  if (!filterButtons.length || !projectCards.length) return;
 
-  filterBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const filter = btn.dataset.filter;
+  let currentFilter = "all";
 
-      // Update active button
-      filterBtns.forEach((b) => b.classList.remove("filter-btn--active"));
-      btn.classList.add("filter-btn--active");
+  /**
+   * Filter projects by category with immediate layout reflow
+   * @param {string} category - Category to filter by, or "all" to show all
+   */
+  function filterProjects(category) {
+    projectCards.forEach((card) => {
+      const cardCategory = card.dataset.category;
+      const shouldShow = category === "all" || cardCategory === category;
 
-      // Filter projects
-      projects.forEach((project) => {
-        const category = project.dataset.category;
-        const shouldShow = filter === "all" || category === filter;
+      if (shouldShow) {
+        card.classList.remove("project-card--hidden");
+      } else {
+        card.classList.add("project-card--hidden");
+      }
+    });
 
-        if (shouldShow) {
-          project.classList.remove("project-card--hidden");
-        } else {
-          project.classList.add("project-card--hidden");
-        }
-      });
+    currentFilter = category;
+  }
+
+  /**
+   * Update active button state
+   * @param {HTMLElement} activeButton - The button to mark as active
+   */
+  function setActiveButton(activeButton) {
+    filterButtons.forEach((btn) => {
+      btn.classList.remove("filter-btn--active");
+      btn.setAttribute("aria-pressed", "false");
+    });
+    activeButton.classList.add("filter-btn--active");
+    activeButton.setAttribute("aria-pressed", "true");
+  }
+
+  // Add click handlers to filter buttons
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const filter = button.dataset.filter;
+
+      // Toggle-to-reset: clicking active filter resets to "all"
+      if (filter === currentFilter && filter !== "all") {
+        setActiveButton(allButton);
+        filterProjects("all");
+      } else {
+        setActiveButton(button);
+        filterProjects(filter);
+      }
     });
   });
 }
