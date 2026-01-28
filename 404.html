@@ -52,8 +52,9 @@
     <header class="site-header">
       <nav class="nav container" aria-label="Main navigation">
         <ul class="nav__list">
-          <li><a href="/">Home</a></li>
+          <li><a href="/#about">About</a></li>
           <li><a href="/#projects">Projects</a></li>
+          <li><a href="/#skills">Skills</a></li>
           <li><a href="/#contact">Contact</a></li>
         </ul>
         <button
@@ -100,15 +101,20 @@
     </header>
 
     <main id="main-content" class="error-page">
-      <div class="container">
-        <div class="error-page__content">
-          <h1 class="error-page__code">404</h1>
-          <h2 class="error-page__title">Page Not Found</h2>
-          <p class="error-page__message">
-            The page you're looking for doesn't exist or has been moved.
-          </p>
-          <a href="/" class="btn btn--primary">Back to Home</a>
-        </div>
+      <div class="container error-page__content">
+        <img
+          src="404.webp"
+          alt="Page not found animation"
+          class="error-page__image"
+          width="300"
+          height="300"
+        />
+        <h1 class="error-page__title">404</h1>
+        <p class="error-page__message">Page Not Found</p>
+        <p class="error-page__description">
+          The page you're looking for doesn't exist or has been moved.
+        </p>
+        <a href="/" class="btn btn--primary error-page__button">Back to Home</a>
       </div>
     </main>
 

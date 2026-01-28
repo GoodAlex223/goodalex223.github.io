@@ -26,14 +26,7 @@ _None currently_
 
 ## Low Priority
 
-### LP-003 - Create 404 page
-**Priority**: Low
-**Dependencies**: None
-**Description**: Custom error page for GitHub Pages.
-**Acceptance criteria**:
-- [ ] 404.html created matching site design
-- [ ] Navigation back to home page
-- [ ] Tested on GitHub Pages
+_None currently_
 
 ---
 
