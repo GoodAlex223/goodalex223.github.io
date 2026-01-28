@@ -180,78 +180,65 @@ function initProjectFilter() {
 
 /**
  * Scroll Animation Functionality
- * - Adds fade-in animations when elements scroll into view
- * - Uses Intersection Observer for performance
- * - Respects prefers-reduced-motion preference
- * - Graceful degradation: elements remain visible if JS fails
+ * - Fade + Slide Up effect when elements enter viewport
+ * - Stagger effect for grouped elements (cards, skills, links)
+ * - Respects prefers-reduced-motion (CSS handles this)
+ * @returns {void}
  */
 function initScrollAnimations() {
-  // Define elements to animate with their selectors
-  const animationTargets = [
-    { selector: ".section__title", stagger: false },
-    { selector: ".about__content", stagger: false },
-    { selector: ".project-card", stagger: true },
-    { selector: ".skill-group", stagger: true },
-    { selector: ".contact__link", stagger: true },
-  ];
-
-  // Check for reduced motion preference early
+  // Skip if user prefers reduced motion (CSS will show elements immediately)
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
+  if (prefersReducedMotion) return;
 
-  // Collect all elements and add animation classes
-  const elements = [];
-
-  animationTargets.forEach(({ selector, stagger }) => {
-    const nodeList = document.querySelectorAll(selector);
-    nodeList.forEach((el, index) => {
-      // Skip hidden project cards (filtered out)
-      if (el.classList.contains("project-card--hidden")) return;
-
-      el.classList.add("scroll-animate");
-
-      // Add staggered delay for grouped elements (cycle through 1-4)
-      if (stagger) {
-        const delayIndex = (index % 4) + 1;
-        el.classList.add(`scroll-animate--delay-${delayIndex}`);
-      }
-
-      elements.push(el);
-    });
-  });
-
-  // If reduced motion preferred, show all immediately
-  if (prefersReducedMotion) {
-    elements.forEach((el) => {
-      el.classList.add("is-visible");
-    });
-    return;
-  }
-
-  // Create Intersection Observer
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.15, // Trigger when 15% of element is visible
-      rootMargin: "0px 0px -60px 0px", // Trigger when element is 60px into viewport
-    }
-  );
-
-  // Wait for browser to paint hidden state, then start observing
-  // Double rAF ensures the hidden state is rendered before we trigger animations
+  // Use double requestAnimationFrame to ensure browser has painted
+  // the initial hidden state before we start observing.
+  // This prevents elements from appearing without animation.
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      elements.forEach((el) => {
-        observer.observe(el);
-      });
+      setupAnimationObserver();
     });
   });
+}
+
+/**
+ * Set up Intersection Observer for scroll animations
+ * @returns {void}
+ */
+function setupAnimationObserver() {
+  const animatedElements = document.querySelectorAll("[data-animate]");
+  if (animatedElements.length === 0) return;
+
+  const observerOptions = {
+    root: null, // viewport
+    rootMargin: "0px 0px -50px 0px", // Trigger 50px before fully entering viewport
+    threshold: 0.1, // Trigger when 10% of element is visible
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const element = entry.target;
+
+        // Skip if element is hidden by project filter
+        if (element.classList.contains("project-card--hidden")) {
+          return;
+        }
+
+        const delay = parseInt(element.dataset.animateDelay || "0", 10);
+
+        // Apply animation with stagger delay
+        setTimeout(() => {
+          element.classList.add("is-visible");
+        }, delay);
+
+        // Stop observing after animation (performance optimization)
+        observer.unobserve(element);
+      }
+    });
+  }, observerOptions);
+
+  // Observe all animated elements
+  animatedElements.forEach((element) => observer.observe(element));
 }

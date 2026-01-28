@@ -142,13 +142,13 @@
       <!-- Hero Section -->
       <section id="hero" class="hero">
         <div class="container">
-          <h1 class="hero__title">Alexey Minakov</h1>
-          <p class="hero__subtitle">Software Developer</p>
-          <p class="hero__tagline">
+          <h1 class="hero__title" data-animate>Alexey Minakov</h1>
+          <p class="hero__subtitle" data-animate data-animate-delay="50">Software Developer</p>
+          <p class="hero__tagline" data-animate data-animate-delay="100">
             Building practical solutions with Python, Arduino, and Web
             technologies
           </p>
-          <div class="hero__cta">
+          <div class="hero__cta" data-animate data-animate-delay="150">
             <a href="#projects" class="btn btn--primary">View Projects</a>
             <a href="#contact" class="btn btn--secondary">Get in Touch</a>
           </div>
@@ -158,8 +158,8 @@
       <!-- About Section -->
       <section id="about" class="about section">
         <div class="container">
-          <h2 class="section__title text-center">About Me</h2>
-          <div class="about__content text-center">
+          <h2 class="section__title text-center" data-animate>About Me</h2>
+          <div class="about__content text-center" data-animate data-animate-delay="50">
             <p>
               Software developer with experience in backend systems,
               IoT/hardware integration, and web development. I leverage
@@ -182,9 +182,9 @@
       <!-- Projects Section -->
       <section id="projects" class="projects section">
         <div class="container">
-          <h2 class="section__title text-center">Projects</h2>
+          <h2 class="section__title text-center" data-animate>Projects</h2>
 
-          <div class="project-filters" role="group" aria-label="Filter projects by category">
+          <div class="project-filters" role="group" aria-label="Filter projects by category" data-animate data-animate-delay="50">
             <button class="filter-btn filter-btn--active" data-filter="all" aria-pressed="true">All</button>
             <button class="filter-btn" data-filter="backend" aria-pressed="false">Backend</button>
             <button class="filter-btn" data-filter="iot" aria-pressed="false">IoT</button>
@@ -194,7 +194,7 @@
 
           <div class="projects__grid">
             <!-- rating_bot -->
-            <article class="project-card" data-category="backend">
+            <article class="project-card" data-category="backend" data-animate data-animate-delay="100">
               <div class="project-card__thumbnail">
                 <img
                   src="images/projects/rating-bot.webp"
@@ -245,7 +245,7 @@
             </article>
 
             <!-- rule_indicators -->
-            <article class="project-card" data-category="iot">
+            <article class="project-card" data-category="iot" data-animate data-animate-delay="150">
               <div class="project-card__thumbnail">
                 <img
                   src="images/projects/rule-indicators.webp"
@@ -314,7 +314,7 @@
             </article>
 
             <!-- automatic_machine_lubrication -->
-            <article class="project-card" data-category="iot">
+            <article class="project-card" data-category="iot" data-animate data-animate-delay="200">
               <div class="project-card__thumbnail">
                 <img
                   src="images/projects/lubrication.webp"
@@ -383,7 +383,7 @@
             </article>
 
             <!-- 8-HX711-WiFi -->
-            <article class="project-card" data-category="iot">
+            <article class="project-card" data-category="iot" data-animate data-animate-delay="250">
               <div class="project-card__thumbnail">
                 <img
                   src="images/projects/hx711-scale.webp"
@@ -452,7 +452,7 @@
             </article>
 
             <!-- dropshipping-test -->
-            <article class="project-card" data-category="web">
+            <article class="project-card" data-category="web" data-animate data-animate-delay="300">
               <div class="project-card__thumbnail">
                 <img
                   src="images/projects/dropshipping.webp"
@@ -525,7 +525,7 @@
             </article>
 
             <!-- media-viewer -->
-            <article class="project-card" data-category="tools">
+            <article class="project-card" data-category="tools" data-animate data-animate-delay="350">
               <div class="project-card__thumbnail">
                 <img
                   src="images/projects/media-viewer.webp"
@@ -574,7 +574,7 @@
             </article>
 
             <!-- svg_layer_processor -->
-            <article class="project-card" data-category="tools">
+            <article class="project-card" data-category="tools" data-animate data-animate-delay="400">
               <div class="project-card__thumbnail">
                 <img
                   src="images/projects/svg-processor.webp"
@@ -641,10 +641,10 @@
       <!-- Skills Section -->
       <section id="skills" class="skills section">
         <div class="container">
-          <h2 class="section__title text-center">Skills</h2>
+          <h2 class="section__title text-center" data-animate>Skills</h2>
 
           <div class="skills__grid">
-            <div class="skill-group">
+            <div class="skill-group" data-animate data-animate-delay="50">
               <h3 class="skill-group__title">Languages</h3>
               <ul class="skill-group__list">
                 <li>Python</li>
@@ -655,7 +655,7 @@
               </ul>
             </div>
 
-            <div class="skill-group">
+            <div class="skill-group" data-animate data-animate-delay="100">
               <h3 class="skill-group__title">Backend</h3>
               <ul class="skill-group__list">
                 <li>PostgreSQL</li>
@@ -666,7 +666,7 @@
               </ul>
             </div>
 
-            <div class="skill-group">
+            <div class="skill-group" data-animate data-animate-delay="150">
               <h3 class="skill-group__title">Frontend</h3>
               <ul class="skill-group__list">
                 <li>HTML5</li>
@@ -676,7 +676,7 @@
               </ul>
             </div>
 
-            <div class="skill-group">
+            <div class="skill-group" data-animate data-animate-delay="200">
               <h3 class="skill-group__title">Tools</h3>
               <ul class="skill-group__list">
                 <li>Git</li>
@@ -693,11 +693,11 @@
       <!-- Contact Section -->
       <section id="contact" class="contact section">
         <div class="container text-center">
-          <h2 class="section__title">Get in Touch</h2>
-          <p class="contact__intro">Open to opportunities and collaborations.</p>
+          <h2 class="section__title" data-animate>Get in Touch</h2>
+          <p class="contact__intro" data-animate data-animate-delay="50">Open to opportunities and collaborations.</p>
 
           <ul class="contact__links">
-            <li>
+            <li data-animate data-animate-delay="100">
               <a href="mailto:alexminak32@gmail.com" class="contact__link">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -716,7 +716,7 @@
                 alexminak32@gmail.com
               </a>
             </li>
-            <li>
+            <li data-animate data-animate-delay="150">
               <a
                 href="https://github.com/GoodAlex223"
                 class="contact__link"
@@ -739,7 +739,7 @@
                 GitHub
               </a>
             </li>
-            <li>
+            <li data-animate data-animate-delay="200">
               <a
                 href="https://www.linkedin.com/in/alexey-minakov-302457168"
                 class="contact__link"
@@ -764,7 +764,7 @@
                 LinkedIn
               </a>
             </li>
-            <li>
+            <li data-animate data-animate-delay="250">
               <a
                 href="https://t.me/GoodAlex223"
                 class="contact__link"
@@ -785,7 +785,7 @@
                 Telegram
               </a>
             </li>
-            <li>
+            <li data-animate data-animate-delay="300">
               <a
                 href="https://wokwi.com/makers/goodalex223"
                 class="contact__link"
