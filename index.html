@@ -184,6 +184,14 @@
         <div class="container">
           <h2 class="section__title text-center">Projects</h2>
 
+          <div class="project-filters" role="group" aria-label="Filter projects by category">
+            <button class="filter-btn filter-btn--active" data-filter="all" aria-pressed="true">All</button>
+            <button class="filter-btn" data-filter="backend" aria-pressed="false">Backend</button>
+            <button class="filter-btn" data-filter="iot" aria-pressed="false">IoT</button>
+            <button class="filter-btn" data-filter="web" aria-pressed="false">Web</button>
+            <button class="filter-btn" data-filter="tools" aria-pressed="false">Tools</button>
+          </div>
+
           <div class="projects__grid">
             <!-- rating_bot -->
             <article class="project-card" data-category="backend">

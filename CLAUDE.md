@@ -41,7 +41,7 @@ goodalex223/
 │   ├── utilities.css       # Reusable utility classes
 │   └── components.css      # UI components (cards, buttons, links)
 ├── js/
-│   └── main.js             # Theme toggle & dynamic copyright year
+│   └── main.js             # Theme toggle, project filtering, dynamic copyright year
 ├── docs/                   # Project documentation
 ├── freecodecamp/           # Learning projects (FreeCodeCamp)
 ├── frontendmentor/         # Learning projects (Frontend Mentor)
@@ -101,11 +101,16 @@ CSS uses `@import` in `main.css` to compose modular files:
 - **Project Cards**: Use `data-category` attribute for styling (backend, iot, web, tools)
   - Support thumbnails: `.project-card__thumbnail` with hover scale effect
   - Missing images handled gracefully with `display: none`
+  - Filterable via category with fade-then-reflow animation
 - **Buttons**: `.btn` base class with `--primary` and `--secondary` modifiers
+- **Filter Buttons**: `.filter-btn` for project filtering
+  - Active state: `.filter-btn--active` class
+  - ARIA attributes: `aria-pressed` for screen readers
+  - Single-select with toggle-to-reset behavior (clicking active filter resets to "all")
 - **Theme Toggle**: `.theme-toggle` button with icon transitions (sun/moon)
   - Icons swap via opacity/transform based on `[data-theme]` attribute
   - Updates `aria-label` dynamically for accessibility
-- **Accessibility**: `prefers-reduced-motion` media query, focus visible states
+- **Accessibility**: `prefers-reduced-motion` media query, focus visible states, ARIA labels
 
 ### Theme System Pattern
 Light/dark theme implementation:
@@ -116,6 +121,16 @@ Light/dark theme implementation:
 5. **Toggle Button**: `.theme-toggle` in header with smooth icon transitions
 6. **Mobile Chrome**: Dynamic `theme-color` meta updates match current theme
 7. **System Sync**: Auto-switches theme when system preference changes (no saved preference)
+
+### Project Filtering Pattern
+Client-side category filtering with smooth animations:
+1. **Filter Buttons**: `.filter-btn` with `data-filter` attribute (all, backend, iot, web, tools)
+2. **Active State**: Single-select with `.filter-btn--active` class
+3. **Animation**: Fade-then-reflow approach
+   - Hiding: Add `.filter-fading` → wait for `transitionend` → add `.filter-hidden`
+   - Showing: Remove both classes immediately for instant appearance
+4. **Toggle Behavior**: Clicking active category filter resets to "all"
+5. **Accessibility**: `aria-pressed` attributes, `role="group"` on filter container
 
 **SEO & Social Sharing**:
 - Open Graph meta tags with `og:image`, `og:title`, `og:description`

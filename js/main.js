@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize theme toggle
   initThemeToggle();
+
+  // Initialize project filter
+  initProjectFilter();
 });
 
 /**
@@ -106,4 +109,82 @@ function initThemeToggle() {
         applyTheme(newTheme, false);
       }
     });
+}
+
+/**
+ * Project Filter Functionality
+ * - Filters project cards by category
+ * - Smooth fade-then-reflow animation
+ * - Single-select with toggle-to-reset behavior
+ */
+function initProjectFilter() {
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  const projectCards = document.querySelectorAll(".project-card");
+  const allButton = document.querySelector('.filter-btn[data-filter="all"]');
+
+  if (!filterButtons.length || !projectCards.length) return;
+
+  let currentFilter = "all";
+
+  /**
+   * Filter projects by category with fade-then-reflow animation
+   * @param {string} category - Category to filter by, or "all" to show all
+   */
+  function filterProjects(category) {
+    projectCards.forEach((card) => {
+      const cardCategory = card.dataset.category;
+      const shouldShow = category === "all" || cardCategory === category;
+
+      if (shouldShow) {
+        // Show: remove both classes immediately
+        card.classList.remove("filter-fading", "filter-hidden");
+      } else if (!card.classList.contains("filter-hidden")) {
+        // Hide: fade first, then hide after transition
+        card.classList.add("filter-fading");
+
+        // After fade completes, fully hide the card
+        card.addEventListener(
+          "transitionend",
+          function handleTransitionEnd(e) {
+            if (e.propertyName === "opacity" && card.classList.contains("filter-fading")) {
+              card.classList.add("filter-hidden");
+              card.classList.remove("filter-fading");
+            }
+            card.removeEventListener("transitionend", handleTransitionEnd);
+          }
+        );
+      }
+    });
+
+    currentFilter = category;
+  }
+
+  /**
+   * Update active button state
+   * @param {HTMLElement} activeButton - The button to mark as active
+   */
+  function setActiveButton(activeButton) {
+    filterButtons.forEach((btn) => {
+      btn.classList.remove("filter-btn--active");
+      btn.setAttribute("aria-pressed", "false");
+    });
+    activeButton.classList.add("filter-btn--active");
+    activeButton.setAttribute("aria-pressed", "true");
+  }
+
+  // Add click handlers to filter buttons
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const filter = button.dataset.filter;
+
+      // Toggle-to-reset: clicking active filter resets to "all"
+      if (filter === currentFilter && filter !== "all") {
+        setActiveButton(allButton);
+        filterProjects("all");
+      } else {
+        setActiveButton(button);
+        filterProjects(filter);
+      }
+    });
+  });
 }
