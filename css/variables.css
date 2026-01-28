@@ -74,3 +74,59 @@
   --z-modal: 400;
   --z-tooltip: 500;
 }
+
+/* ===================
+   LIGHT THEME
+   =================== */
+
+/* System preference fallback (when no explicit choice saved) */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --color-bg-primary: #f8f9fa;
+    --color-bg-secondary: #e9ecef;
+    --color-bg-card: #ffffff;
+    --color-text-primary: #1a1a2e;
+    --color-text-secondary: #495057;
+    --color-text-muted: #868e96;
+    --color-accent: #0277bd;
+    --color-accent-hover: #01579b;
+    --color-border: #dee2e6;
+
+    /* Category colors adjusted for light backgrounds */
+    --color-category-backend: #2e7d32;
+    --color-category-iot: #e65100;
+    --color-category-web: #1565c0;
+    --color-category-tools: #7b1fa2;
+
+    /* Shadows more visible on light backgrounds */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.12);
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Explicit light theme (user selected) */
+[data-theme="light"] {
+  --color-bg-primary: #f8f9fa;
+  --color-bg-secondary: #e9ecef;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #495057;
+  --color-text-muted: #868e96;
+  --color-accent: #0277bd;
+  --color-accent-hover: #01579b;
+  --color-border: #dee2e6;
+
+  /* Category colors adjusted for light backgrounds */
+  --color-category-backend: #2e7d32;
+  --color-category-iot: #e65100;
+  --color-category-web: #1565c0;
+  --color-category-tools: #7b1fa2;
+
+  /* Shadows more visible on light backgrounds */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.1);
+}

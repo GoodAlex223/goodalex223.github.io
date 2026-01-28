@@ -47,7 +47,7 @@ goodalex223/
 │   ├── utilities.css       # Reusable utility classes
 │   └── components.css      # UI components (cards, buttons, links)
 ├── js/
-│   └── main.js             # Dynamic copyright year
+│   └── main.js             # Theme toggle & dynamic copyright year
 ├── docs/                   # Project documentation
 ├── freecodecamp/           # Learning projects (FreeCodeCamp)
 ├── frontendmentor/         # Learning projects (Frontend Mentor)
@@ -86,6 +86,12 @@ CSS uses `@import` in `main.css` to compose modular files:
 - Skip link for accessibility
 - Inline SVG icons for styling flexibility
 
+### Theme System
+- **Data attribute**: `data-theme="light"` or `data-theme="dark"` on `<html>`
+- **Theme variables**: Defined in `variables.css` with fallback to `prefers-color-scheme`
+- **Persistence**: User preference stored in `localStorage.theme`
+- **Initialization**: Inline script in `<head>` prevents flash of wrong theme
+
 <!-- END AUTO-MANAGED -->
 
 <!-- AUTO-MANAGED: patterns -->
@@ -97,8 +103,26 @@ CSS uses `@import` in `main.css` to compose modular files:
 
 ### Component Patterns
 - **Project Cards**: Use `data-category` attribute for styling (backend, iot, web, tools)
+  - Support thumbnails: `.project-card__thumbnail` with hover scale effect
+  - Missing images handled gracefully with `display: none`
 - **Buttons**: `.btn` base class with `--primary` and `--secondary` modifiers
+- **Theme Toggle**: `.theme-toggle` button with icon transitions (sun/moon)
+  - Icons swap via opacity/transform based on `[data-theme]` attribute
+  - Updates `aria-label` dynamically for accessibility
 - **Accessibility**: `prefers-reduced-motion` media query, focus visible states
+
+### Theme System Pattern
+Light/dark theme implementation:
+1. **CSS Variables**: Dual color schemes in `variables.css`
+2. **System Preference**: Fallback to `@media (prefers-color-scheme: light)`
+3. **User Override**: `localStorage.theme` persists explicit choice
+4. **Initialization**: Inline script prevents FOUC (Flash of Unstyled Content)
+5. **Toggle Button**: `.theme-toggle` in header with smooth icon transitions
+
+**SEO & Social Sharing**:
+- Open Graph meta tags with `og:image`, `og:title`, `og:description`
+- Twitter Card support with `twitter:card="summary_large_image"`
+- Structured data for rich previews on social platforms
 
 ### Adding New Projects
 Add project card to `index.html` projects section:
