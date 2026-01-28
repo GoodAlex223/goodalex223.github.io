@@ -20,11 +20,11 @@ Future ideas and improvements for the portfolio.
 - ~~Consider checkboxes or buttons~~ (buttons with toggle-to-reset)
 - ~~Animate filter transitions~~ (opacity + scale with immediate layout reflow)
 
-### Scroll Animations
-- Fade in sections on scroll
-- Use Intersection Observer
-- Respect `prefers-reduced-motion`
-- Keep animations subtle
+### ~~Scroll Animations~~ *(completed 2026-01-28, LP-002)*
+- ~~Fade in sections on scroll~~
+- ~~Use Intersection Observer~~
+- ~~Respect `prefers-reduced-motion`~~
+- ~~Keep animations subtle~~
 
 ### Project Detail Modal (2026-01-22)
 - Click project card (outside links) to open centered overlay

@@ -26,17 +26,6 @@ _None currently_
 
 ## Low Priority
 
-### LP-002 - Add scroll animations
-**Priority**: Low
-**Dependencies**: None
-**Description**: Subtle fade-in animations on scroll.
-**Acceptance criteria**:
-- [ ] Intersection Observer implemented
-- [ ] Animations respect `prefers-reduced-motion`
-- [ ] Animations are subtle and professional
-
----
-
 ### LP-003 - Create 404 page
 **Priority**: Low
 **Dependencies**: None

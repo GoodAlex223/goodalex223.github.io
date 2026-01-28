@@ -8,6 +8,46 @@ Completed tasks for the portfolio project.
 
 ## 2026-01-28
 
+### Scroll Animations (LP-002)
+
+**Task Reference**: TODO.md LP-002
+**Plan Document**: None (implemented via worker2 branch)
+
+**Implementation**:
+Added progressive reveal animations using Intersection Observer with data-attribute based configuration.
+
+**Key Changes**:
+- Elements marked with `data-animate` attribute fade+slide up when entering viewport
+- Stagger effect via `data-animate-delay="N"` attribute (milliseconds)
+- CSS transitions (not keyframes) for smoother performance
+- Combined transition declarations preserve theme transitions on cards/skills
+- Double `requestAnimationFrame` ensures initial hidden state paints before observing
+
+**Files Changed**:
+- `index.html` - Added `data-animate` and `data-animate-delay` attributes to animated elements
+- `css/components.css` - Animation styles with `[data-animate]` selectors
+- `js/main.js` - `initScrollAnimations()` and `setupAnimationObserver()` functions
+- `CLAUDE.md` - Scroll animation pattern documentation
+
+**Acceptance Criteria Met**:
+- [x] Intersection Observer implemented
+- [x] Animations respect `prefers-reduced-motion`
+- [x] Animations are subtle and professional
+
+**Technical Decisions**:
+- **Data attributes over classes**: More explicit in HTML, configurable delays per element
+- **CSS transitions over keyframes**: Simpler, works better with existing theme transitions
+- **Combined transition declarations**: Preserves theme color transitions on `.project-card` and `.skill-group`
+
+**Lessons Learned**:
+- Data-attribute approach (`data-animate`) makes animation configuration visible in HTML
+- Double `requestAnimationFrame` needed to ensure browser paints hidden state before observing
+- Elements with existing transitions need combined declarations to preserve all properties
+
+**Follow-up Tasks**: None
+
+---
+
 ### Project Filtering by Category (LP-001)
 
 **Task Reference**: TODO.md LP-001
