@@ -41,7 +41,7 @@ goodalex223/
 │   ├── utilities.css       # Reusable utility classes
 │   └── components.css      # UI components (cards, buttons, links)
 ├── js/
-│   └── main.js             # Theme toggle, project filtering, dynamic copyright year
+│   └── main.js             # Theme toggle, project filtering, scroll animations, dynamic copyright year
 ├── docs/                   # Project documentation
 ├── freecodecamp/           # Learning projects (FreeCodeCamp)
 ├── frontendmentor/         # Learning projects (Frontend Mentor)
@@ -133,6 +133,16 @@ Client-side category filtering with immediate layout reflow:
    - Smooth opacity + scale transition for visual feedback
 4. **Toggle Behavior**: Clicking active category filter resets to "all"
 5. **Accessibility**: `aria-pressed` attributes, `role="group"` on filter container
+
+### Scroll Animation Pattern
+Progressive enhancement with Intersection Observer:
+1. **Classes**: `.scroll-animate` for elements to animate, `.is-visible` when in viewport
+2. **Staggered Delays**: `.scroll-animate--delay-1` through `--delay-4` (0ms, 75ms, 150ms, 225ms)
+3. **Animation**: Fade-in with translateY(20px → 0) on scroll into view
+4. **Targets**: Section titles, about content, project cards, skill groups, contact links
+5. **Accessibility**: Respects `prefers-reduced-motion` (shows all immediately if enabled)
+6. **Performance**: Uses Intersection Observer, unobserves after animation, double rAF for render timing
+7. **Graceful Degradation**: Elements visible by default if JS fails or in print/reduced-motion mode
 
 **SEO & Social Sharing**:
 - Open Graph meta tags with `og:image`, `og:title`, `og:description`

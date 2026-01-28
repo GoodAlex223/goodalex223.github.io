@@ -238,4 +238,10 @@ body,
   html {
     scroll-behavior: auto;
   }
+
+  /* Ensure scroll-animated elements are visible without animation */
+  .scroll-animate {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

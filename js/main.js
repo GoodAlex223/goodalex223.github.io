@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize project filter
   initProjectFilter();
+
+  // Initialize scroll animations
+  initScrollAnimations();
 });
 
 /**
@@ -171,6 +174,84 @@ function initProjectFilter() {
         setActiveButton(button);
         filterProjects(filter);
       }
+    });
+  });
+}
+
+/**
+ * Scroll Animation Functionality
+ * - Adds fade-in animations when elements scroll into view
+ * - Uses Intersection Observer for performance
+ * - Respects prefers-reduced-motion preference
+ * - Graceful degradation: elements remain visible if JS fails
+ */
+function initScrollAnimations() {
+  // Define elements to animate with their selectors
+  const animationTargets = [
+    { selector: ".section__title", stagger: false },
+    { selector: ".about__content", stagger: false },
+    { selector: ".project-card", stagger: true },
+    { selector: ".skill-group", stagger: true },
+    { selector: ".contact__link", stagger: true },
+  ];
+
+  // Check for reduced motion preference early
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  // Collect all elements and add animation classes
+  const elements = [];
+
+  animationTargets.forEach(({ selector, stagger }) => {
+    const nodeList = document.querySelectorAll(selector);
+    nodeList.forEach((el, index) => {
+      // Skip hidden project cards (filtered out)
+      if (el.classList.contains("project-card--hidden")) return;
+
+      el.classList.add("scroll-animate");
+
+      // Add staggered delay for grouped elements (cycle through 1-4)
+      if (stagger) {
+        const delayIndex = (index % 4) + 1;
+        el.classList.add(`scroll-animate--delay-${delayIndex}`);
+      }
+
+      elements.push(el);
+    });
+  });
+
+  // If reduced motion preferred, show all immediately
+  if (prefersReducedMotion) {
+    elements.forEach((el) => {
+      el.classList.add("is-visible");
+    });
+    return;
+  }
+
+  // Create Intersection Observer
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.15, // Trigger when 15% of element is visible
+      rootMargin: "0px 0px -60px 0px", // Trigger when element is 60px into viewport
+    }
+  );
+
+  // Wait for browser to paint hidden state, then start observing
+  // Double rAF ensures the hidden state is rendered before we trigger animations
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      elements.forEach((el) => {
+        observer.observe(el);
+      });
     });
   });
 }

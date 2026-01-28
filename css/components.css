@@ -419,3 +419,32 @@
   position: absolute;
   visibility: hidden;
 }
+
+/* ===================
+   SCROLL ANIMATIONS
+   =================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-animate {
+  opacity: 0;
+}
+
+.scroll-animate.is-visible {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* Staggered delays for grouped elements */
+.scroll-animate--delay-1.is-visible { animation-delay: 0ms; }
+.scroll-animate--delay-2.is-visible { animation-delay: 100ms; }
+.scroll-animate--delay-3.is-visible { animation-delay: 200ms; }
+.scroll-animate--delay-4.is-visible { animation-delay: 300ms; }
