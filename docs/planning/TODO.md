@@ -20,14 +20,7 @@ _None currently_
 
 ## Medium Priority
 
-### MP-003 - Consider theme toggle
-**Priority**: Medium
-**Dependencies**: None
-**Description**: Add dark/light mode switch to allow user preference.
-**Acceptance criteria**:
-- [ ] Theme toggle UI implemented
-- [ ] Preference saved to localStorage
-- [ ] Respects `prefers-color-scheme`
+_None currently_
 
 ---
 

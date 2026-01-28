@@ -8,6 +8,48 @@ Completed tasks for the portfolio project.
 
 ## 2026-01-28
 
+### Theme Toggle - Light/Dark Mode (MP-003)
+
+**Task Reference**: TODO.md MP-003
+**Plan Document**: [docs/planning/plans/2026-01-28_theme-toggle.md](plans/2026-01-28_theme-toggle.md)
+
+**Implementation**:
+Added light/dark theme toggle with system preference detection, localStorage persistence, and smooth transitions.
+
+**Key Changes**:
+- Created light theme color variables in `css/variables.css`
+- Added `.theme-toggle` component with animated sun/moon icons
+- Implemented theme switching JavaScript with error handling
+- Added inline head script to prevent flash of wrong theme
+- Progressive enhancement: CSS fallback for no-JS users
+
+**Files Changed**:
+- `css/variables.css` - Light theme color variables
+- `css/components.css` - Theme toggle button styles
+- `css/main.css` - Nav positioning and theme transitions
+- `js/main.js` - Theme toggle logic
+- `index.html` - Button HTML and inline script
+- `CLAUDE.md` - Theme system documentation
+
+**Acceptance Criteria Met**:
+- [x] Theme toggle UI implemented
+- [x] Preference saved to localStorage
+- [x] Respects `prefers-color-scheme`
+
+**Commits**:
+- `11dcf26` - feat: Add theme toggle with light/dark mode support
+
+**Lessons Learned**:
+- Inline `<head>` script essential to prevent FOUC
+- `data-theme` attribute pattern scales well for future themes
+- localStorage must be wrapped in try-catch for private browsing
+
+**Follow-up Tasks**:
+- Consider dynamic `<meta name="theme-color">` update
+- Consider three-way toggle (light/dark/auto)
+
+---
+
 ### Add og:image for Social Sharing (MP-002)
 
 **Task Reference**: TODO.md MP-002

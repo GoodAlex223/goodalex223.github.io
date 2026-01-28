@@ -8,11 +8,11 @@ Future ideas and improvements for the portfolio.
 
 ## Features
 
-### Theme Toggle
-- Add dark/light mode switch
-- Persist preference in localStorage
-- Detect `prefers-color-scheme`
-- Animate theme transition
+### ~~Theme Toggle~~ *(completed 2026-01-28, MP-003)*
+- ~~Add dark/light mode switch~~
+- ~~Persist preference in localStorage~~
+- ~~Detect `prefers-color-scheme`~~
+- ~~Animate theme transition~~
 
 ### Project Filtering
 - Filter projects by category
