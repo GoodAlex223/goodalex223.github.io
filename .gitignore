@@ -1,7 +1,3 @@
-# Root-level files to ignore (use / prefix for root only)
-/TODO.md
-/README-template.md
-/Compiled-HTML/
-
 # Claude Code personal configs (project CLAUDE.md is committed)
+# Note: .claude/ must be created separately for each git worktree
 .claude/

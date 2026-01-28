@@ -22,12 +22,6 @@ python -m http.server 8000
 
 # Start local server (Node)
 npx serve
-
-# Linting (Trunk)
-trunk check              # Check all files
-trunk check index.html   # Check specific file
-trunk fmt                # Format all files
-trunk fmt css/main.css   # Format specific file
 ```
 
 **Deployment**: Automatic via GitHub Pages on push to `main` branch.
