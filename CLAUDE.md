@@ -104,7 +104,8 @@ CSS uses `@import` in `main.css` to compose modular files:
   - Filterable via category with fade-then-reflow animation
 - **Buttons**: `.btn` base class with `--primary` and `--secondary` modifiers
 - **Filter Buttons**: `.filter-btn` for project filtering
-  - Active state: `.filter-btn--active` class
+  - Active state: `.filter-btn--active` with category-colored backgrounds
+  - Category colors match project card badges (backend, iot, web, tools)
   - ARIA attributes: `aria-pressed` for screen readers
   - Single-select with toggle-to-reset behavior (clicking active filter resets to "all")
 - **Theme Toggle**: `.theme-toggle` button with icon transitions (sun/moon)
@@ -123,12 +124,13 @@ Light/dark theme implementation:
 7. **System Sync**: Auto-switches theme when system preference changes (no saved preference)
 
 ### Project Filtering Pattern
-Client-side category filtering with smooth animations:
+Client-side category filtering with immediate layout reflow:
 1. **Filter Buttons**: `.filter-btn` with `data-filter` attribute (all, backend, iot, web, tools)
-2. **Active State**: Single-select with `.filter-btn--active` class
-3. **Animation**: Fade-then-reflow approach
-   - Hiding: Add `.filter-fading` → wait for `transitionend` → add `.filter-hidden`
-   - Showing: Remove both classes immediately for instant appearance
+2. **Active State**: Single-select with `.filter-btn--active` class, category-colored backgrounds
+3. **Animation**: Immediate reflow with smooth transitions
+   - Hidden cards: `.project-card--hidden` uses `position: absolute` + `visibility: hidden`
+   - Removes hidden cards from layout flow immediately (visible cards fill gaps)
+   - Smooth opacity + scale transition for visual feedback
 4. **Toggle Behavior**: Clicking active category filter resets to "all"
 5. **Accessibility**: `aria-pressed` attributes, `role="group"` on filter container
 
