@@ -90,7 +90,9 @@ CSS uses `@import` in `main.css` to compose modular files:
 - **Data attribute**: `data-theme="light"` or `data-theme="dark"` on `<html>`
 - **Theme variables**: Defined in `variables.css` with fallback to `prefers-color-scheme`
 - **Persistence**: User preference stored in `localStorage.theme`
-- **Initialization**: Inline script in `<head>` prevents flash of wrong theme
+- **Initialization**: Inline script in `<head>` prevents FOUC (Flash of Unstyled Content)
+- **Dynamic meta**: Updates `theme-color` meta tag for mobile browser chrome
+- **System sync**: Listens for system preference changes when no explicit user choice
 
 <!-- END AUTO-MANAGED -->
 
@@ -116,8 +118,10 @@ Light/dark theme implementation:
 1. **CSS Variables**: Dual color schemes in `variables.css`
 2. **System Preference**: Fallback to `@media (prefers-color-scheme: light)`
 3. **User Override**: `localStorage.theme` persists explicit choice
-4. **Initialization**: Inline script prevents FOUC (Flash of Unstyled Content)
+4. **FOUC Prevention**: Inline `<script>` in `<head>` (before CSS) applies theme immediately
 5. **Toggle Button**: `.theme-toggle` in header with smooth icon transitions
+6. **Mobile Chrome**: Dynamic `theme-color` meta updates match current theme
+7. **System Sync**: Auto-switches theme when system preference changes (no saved preference)
 
 **SEO & Social Sharing**:
 - Open Graph meta tags with `og:image`, `og:title`, `og:description`
