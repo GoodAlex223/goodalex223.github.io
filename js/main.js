@@ -114,7 +114,7 @@ function initThemeToggle() {
 /**
  * Project Filter Functionality
  * - Filters project cards by category
- * - Smooth fade-then-reflow animation
+ * - Immediate layout reflow (hidden cards removed from flow)
  * - Single-select with toggle-to-reset behavior
  */
 function initProjectFilter() {
@@ -127,7 +127,7 @@ function initProjectFilter() {
   let currentFilter = "all";
 
   /**
-   * Filter projects by category with fade-then-reflow animation
+   * Filter projects by category with immediate layout reflow
    * @param {string} category - Category to filter by, or "all" to show all
    */
   function filterProjects(category) {
@@ -136,23 +136,9 @@ function initProjectFilter() {
       const shouldShow = category === "all" || cardCategory === category;
 
       if (shouldShow) {
-        // Show: remove both classes immediately
-        card.classList.remove("filter-fading", "filter-hidden");
-      } else if (!card.classList.contains("filter-hidden")) {
-        // Hide: fade first, then hide after transition
-        card.classList.add("filter-fading");
-
-        // After fade completes, fully hide the card
-        card.addEventListener(
-          "transitionend",
-          function handleTransitionEnd(e) {
-            if (e.propertyName === "opacity" && card.classList.contains("filter-fading")) {
-              card.classList.add("filter-hidden");
-              card.classList.remove("filter-fading");
-            }
-            card.removeEventListener("transitionend", handleTransitionEnd);
-          }
-        );
+        card.classList.remove("project-card--hidden");
+      } else {
+        card.classList.add("project-card--hidden");
       }
     });
 

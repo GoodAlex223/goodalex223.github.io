@@ -8,6 +8,46 @@ Completed tasks for the portfolio project.
 
 ## 2026-01-28
 
+### Project Filtering by Category (LP-001)
+
+**Task Reference**: TODO.md LP-001
+**Plan Document**: None (hybrid implementation from worker branches)
+
+**Implementation**:
+Added client-side project filtering with category buttons, smooth animations, and immediate layout reflow.
+
+**Key Changes**:
+- Created filter button UI with category-colored active states
+- Implemented JavaScript filtering with toggle-to-reset behavior (clicking active filter resets to "All")
+- Hidden cards use `position: absolute` for immediate layout reflow (visible cards fill gaps)
+- Added `aria-pressed` attributes and `role="group"` for accessibility
+- Smooth opacity + scale transition for visual feedback
+
+**Files Changed**:
+- `index.html` - Filter buttons UI with data-filter attributes
+- `css/components.css` - Filter button styles, category colors, hidden card state
+- `js/main.js` - `initProjectFilter()` function with helper methods
+- `CLAUDE.md` - Project filtering pattern documentation
+
+**Acceptance Criteria Met**:
+- [x] Category filter UI implemented
+- [x] Projects filter correctly
+- [x] Smooth transition animation
+
+**Technical Decisions**:
+- **JavaScript over CSS-only**: Enables toggle-to-reset UX and `aria-pressed` updates
+- **Immediate layout reflow**: Hidden cards use `position: absolute` (vs `display: none` delay)
+- **Category-colored buttons**: Active state matches category badge color (backend=cyan, iot=green, web=purple, tools=orange)
+
+**Lessons Learned**:
+- `position: absolute; visibility: hidden` removes element from flow while allowing opacity transition
+- Toggle-to-reset pattern (clicking active filter resets to "All") improves discoverability
+- `aria-pressed` on toggle buttons improves screen reader experience
+
+**Follow-up Tasks**: 3 improvements added to BACKLOG.md (URL hash filtering, count badges, keyboard navigation)
+
+---
+
 ### Theme Toggle - Light/Dark Mode (MP-003)
 
 **Task Reference**: TODO.md MP-003

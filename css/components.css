@@ -361,12 +361,11 @@
   background-color: var(--color-category-tools);
 }
 
-/* Filter states for project cards */
-.project-card.filter-fading {
+/* Filter state - removes card from layout flow immediately */
+.project-card--hidden {
   opacity: 0;
+  transform: scale(0.95);
   pointer-events: none;
-}
-
-.project-card.filter-hidden {
-  display: none;
+  position: absolute;
+  visibility: hidden;
 }

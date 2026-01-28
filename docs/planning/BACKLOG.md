@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-01-27
+**Last Updated**: 2026-01-28
 
 Future ideas and improvements for the portfolio.
 
@@ -14,11 +14,11 @@ Future ideas and improvements for the portfolio.
 - ~~Detect `prefers-color-scheme`~~
 - ~~Animate theme transition~~
 
-### Project Filtering
-- Filter projects by category
-- CSS-only solution preferred
-- Consider checkboxes or buttons
-- Animate filter transitions
+### ~~Project Filtering~~ *(completed 2026-01-28, LP-001)*
+- ~~Filter projects by category~~
+- ~~CSS-only solution preferred~~ (used JS for better UX)
+- ~~Consider checkboxes or buttons~~ (buttons with toggle-to-reset)
+- ~~Animate filter transitions~~ (opacity + scale with immediate layout reflow)
 
 ### Scroll Animations
 - Fade in sections on scroll
@@ -90,6 +90,15 @@ Future ideas and improvements for the portfolio.
 - Use Formspree or similar service
 - Add client-side validation
 - Success/error states
+
+---
+
+## From LP-001: Project Filtering (2026-01-28)
+
+### Filter Enhancements
+- [ ] URL hash-based filtering — Allow shareable links like `#filter=backend`
+- [ ] Filter count badges — Show number of projects per category on buttons
+- [ ] Keyboard navigation — Arrow keys to navigate filters, Enter to select
 
 ---
 

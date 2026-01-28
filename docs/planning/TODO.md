@@ -26,17 +26,6 @@ _None currently_
 
 ## Low Priority
 
-### LP-001 - Add project filtering
-**Priority**: Low
-**Dependencies**: None
-**Description**: Filter projects by category (CSS-only or JS solution).
-**Acceptance criteria**:
-- [ ] Category filter UI implemented
-- [ ] Projects filter correctly
-- [ ] Smooth transition animation
-
----
-
 ### LP-002 - Add scroll animations
 **Priority**: Low
 **Dependencies**: None
