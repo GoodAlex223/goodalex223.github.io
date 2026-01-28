@@ -41,7 +41,7 @@ goodalex223/
 │   ├── utilities.css       # Reusable utility classes
 │   └── components.css      # UI components (cards, buttons, links)
 ├── js/
-│   └── main.js             # Theme toggle, project filtering, dynamic copyright year
+│   └── main.js             # Theme toggle, project filtering, scroll animations, copyright year
 ├── docs/                   # Project documentation
 ├── freecodecamp/           # Learning projects (FreeCodeCamp)
 ├── frontendmentor/         # Learning projects (Frontend Mentor)
@@ -65,7 +65,7 @@ goodalex223/
 |---------|------------|---------|
 | Classes | BEM-like | `.project-card__title`, `.btn--primary` |
 | Variables | kebab-case | `--color-accent`, `--space-4` |
-| Data attributes | kebab-case | `data-category="backend"` |
+| Data attributes | kebab-case | `data-category="backend"`, `data-animate`, `data-animate-delay="50"` |
 
 ### CSS Architecture
 CSS uses `@import` in `main.css` to compose modular files:
@@ -133,6 +133,23 @@ Client-side category filtering with immediate layout reflow:
    - Smooth opacity + scale transition for visual feedback
 4. **Toggle Behavior**: Clicking active category filter resets to "all"
 5. **Accessibility**: `aria-pressed` attributes, `role="group"` on filter container
+
+### Scroll Animation Pattern
+Progressive reveal animations using Intersection Observer:
+1. **HTML Markup**: Add `data-animate` attribute to elements that should animate on scroll
+   - Optional stagger: `data-animate-delay="50"` (milliseconds)
+2. **CSS States**:
+   - Base state: `[data-animate]` with `opacity: 0` and `translateY(24px)`
+   - Visible state: `.is-visible` class added when element enters viewport
+   - Smooth cubic-bezier transition (400ms)
+   - **Specificity handling**: Elements with existing transitions (`.project-card`, `.skill-group`) use combined transition declarations to preserve both theme transitions (background-color, border-color, color) and scroll animation transitions (opacity, transform)
+3. **JavaScript**:
+   - `IntersectionObserver` with 10% threshold, triggers 50px before viewport
+   - Double `requestAnimationFrame` ensures initial hidden state paints before observing
+   - Skips elements with `.project-card--hidden` (filtered out)
+   - Unobserves after animation for performance
+4. **Accessibility**: `@media (prefers-reduced-motion: reduce)` shows elements immediately without animation
+5. **Usage**: Applied to hero elements, section titles, project cards, skill groups, contact links
 
 **SEO & Social Sharing**:
 - Open Graph meta tags with `og:image`, `og:title`, `og:description`

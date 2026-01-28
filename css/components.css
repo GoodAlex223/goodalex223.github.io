@@ -369,3 +369,42 @@
   position: absolute;
   visibility: hidden;
 }
+
+/* ===================
+   SCROLL ANIMATIONS
+   =================== */
+
+/* Base state - hidden before animation */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Elements with their own transitions need combined declarations */
+.project-card[data-animate],
+.skill-group[data-animate] {
+  transition:
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base),
+    opacity 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Visible state - after animation triggers */
+[data-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respect user preferences - show elements immediately without animation */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize project filter
   initProjectFilter();
+
+  // Initialize scroll animations
+  initScrollAnimations();
 });
 
 /**
@@ -173,4 +176,69 @@ function initProjectFilter() {
       }
     });
   });
+}
+
+/**
+ * Scroll Animation Functionality
+ * - Fade + Slide Up effect when elements enter viewport
+ * - Stagger effect for grouped elements (cards, skills, links)
+ * - Respects prefers-reduced-motion (CSS handles this)
+ * @returns {void}
+ */
+function initScrollAnimations() {
+  // Skip if user prefers reduced motion (CSS will show elements immediately)
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  if (prefersReducedMotion) return;
+
+  // Use double requestAnimationFrame to ensure browser has painted
+  // the initial hidden state before we start observing.
+  // This prevents elements from appearing without animation.
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      setupAnimationObserver();
+    });
+  });
+}
+
+/**
+ * Set up Intersection Observer for scroll animations
+ * @returns {void}
+ */
+function setupAnimationObserver() {
+  const animatedElements = document.querySelectorAll("[data-animate]");
+  if (animatedElements.length === 0) return;
+
+  const observerOptions = {
+    root: null, // viewport
+    rootMargin: "0px 0px -50px 0px", // Trigger 50px before fully entering viewport
+    threshold: 0.1, // Trigger when 10% of element is visible
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const element = entry.target;
+
+        // Skip if element is hidden by project filter
+        if (element.classList.contains("project-card--hidden")) {
+          return;
+        }
+
+        const delay = parseInt(element.dataset.animateDelay || "0", 10);
+
+        // Apply animation with stagger delay
+        setTimeout(() => {
+          element.classList.add("is-visible");
+        }, delay);
+
+        // Stop observing after animation (performance optimization)
+        observer.unobserve(element);
+      }
+    });
+  }, observerOptions);
+
+  // Observe all animated elements
+  animatedElements.forEach((element) => observer.observe(element));
 }
