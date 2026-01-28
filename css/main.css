@@ -142,6 +142,39 @@ body,
   font-size: var(--font-size-sm);
 }
 
+/* Error Page (404) */
+.error-page {
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-block: var(--space-12);
+}
+
+.error-page__content {
+  max-width: 500px;
+}
+
+.error-page__code {
+  font-size: clamp(6rem, 20vw, 10rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+
+.error-page__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-4);
+}
+
+.error-page__message {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
+}
+
 /* ===================
    RESPONSIVE
    =================== */
