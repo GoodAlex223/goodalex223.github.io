@@ -53,17 +53,6 @@
     <title>Alexey Minakov | Software Developer</title>
     <link rel="canonical" href="https://goodalex223.github.io" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="css/main.css" />
-
     <!-- Theme initialization (prevents flash of wrong theme) -->
     <script>
       (function () {
@@ -77,8 +66,22 @@
         ).matches;
         var theme = saved || (prefersDark ? "dark" : "light");
         document.documentElement.dataset.theme = theme;
+        // Update theme-color meta for mobile browser chrome
+        var themeColor = theme === "light" ? "#f8f9fa" : "#0f0f23";
+        document.querySelector('meta[name="theme-color"]').content = themeColor;
       })();
     </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
     <!-- Skip link for accessibility -->

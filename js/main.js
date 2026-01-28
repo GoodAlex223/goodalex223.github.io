@@ -59,6 +59,12 @@ function initThemeToggle() {
     const label =
       theme === "light" ? "Switch to dark theme" : "Switch to light theme";
     toggle.setAttribute("aria-label", label);
+
+    // Update theme-color meta for mobile browser chrome
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeColorMeta) {
+      themeColorMeta.content = theme === "light" ? "#f8f9fa" : "#0f0f23";
+    }
   }
 
   /**
