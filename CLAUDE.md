@@ -34,6 +34,8 @@ npx serve
 ```
 goodalex223/
 ├── index.html              # Main portfolio page (single-page site)
+├── robots.txt              # Search engine crawler rules
+├── sitemap.xml             # XML sitemap for search engines
 ├── css/
 │   ├── main.css            # Entry point, imports + layout styles
 │   ├── variables.css       # Design tokens (colors, spacing, typography)
@@ -53,6 +55,8 @@ goodalex223/
 - [index.html](index.html) — Main portfolio page
 - [css/main.css](css/main.css) — CSS entry point (uses `@import`)
 - [css/variables.css](css/variables.css) — Design tokens
+- [robots.txt](robots.txt) — Search engine crawler directives
+- [sitemap.xml](sitemap.xml) — Site structure for SEO
 - [PROJECT.md](PROJECT.md) — Project configuration
 
 <!-- END AUTO-MANAGED -->
@@ -151,10 +155,21 @@ Progressive reveal animations using Intersection Observer:
 4. **Accessibility**: `@media (prefers-reduced-motion: reduce)` shows elements immediately without animation
 5. **Usage**: Applied to hero elements, section titles, project cards, skill groups, contact links
 
-**SEO & Social Sharing**:
-- Open Graph meta tags with `og:image`, `og:title`, `og:description`
-- Twitter Card support with `twitter:card="summary_large_image"`
-- Structured data for rich previews on social platforms
+### SEO Configuration
+**robots.txt**: Controls search engine crawling
+- Allows all crawlers to index main site (`Allow: /`)
+- Blocks learning project directories: `/freecodecamp/`, `/frontendmentor/`, `/MDN/`, `/other/`, `/docs/`
+- References sitemap location: `https://goodalex223.github.io/sitemap.xml`
+
+**sitemap.xml**: XML sitemap for search engines
+- Lists homepage with monthly update frequency
+- Priority: 1.0 (highest)
+- Last modified: 2026-01-28
+
+**Meta tags** (in `index.html`):
+- Open Graph: `og:image`, `og:title`, `og:description`
+- Twitter Card: `twitter:card="summary_large_image"`
+- Structured data for rich social previews
 
 ### Adding New Projects
 Add project card to `index.html` projects section:

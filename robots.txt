@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+Disallow: /freecodecamp/
+Disallow: /frontendmentor/
+Disallow: /MDN/
+Disallow: /other/
+Disallow: /docs/
+
 Sitemap: https://goodalex223.github.io/sitemap.xml

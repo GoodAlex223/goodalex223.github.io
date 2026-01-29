@@ -1,74 +1,106 @@
-# SEO-001: Add robots.txt and sitemap.xml
+# Plan: SEO-001 — Add robots.txt and sitemap.xml
 
-**Status**: Complete
+**Task**: Create `robots.txt` and `sitemap.xml` for proper search engine indexing
 **Priority**: High
-**Created**: 2026-01-29
-**Completed**: 2026-01-29
+**Status**: Complete
+**Date**: 2026-01-29
 
 ---
 
 ## 1. Goal
 
-Create `robots.txt` and `sitemap.xml` at the project root for proper search engine indexing of the portfolio site.
+Add standard SEO files (`robots.txt` and `sitemap.xml`) to the portfolio root so search engines can discover, crawl, and index the site efficiently.
 
-## 2. Implementation
+## 2. Approach
+
+**Chosen**: Static files at project root, served by GitHub Pages.
+
+**Approaches Considered**:
+1. **Static files (chosen)** — Simple, no build step, works with GitHub Pages out of the box.
+2. **Generated via build script** — Overkill for a two-page static site.
+3. **GitHub Pages plugin (Jekyll sitemap)** — Would require Jekyll setup; unnecessary complexity.
+
+**Decision**: Static files are the correct choice for a vanilla HTML site with two public pages.
+
+## 3. Implementation Details
 
 ### robots.txt
-- `User-agent: *` — allows all crawlers
-- `Allow: /` — permits full site access
-- `Sitemap:` directive pointing to `https://goodalex223.github.io/sitemap.xml`
+- Allow all crawlers on main site (`Allow: /`)
+- Block learning project directories from indexing:
+  - `/freecodecamp/`
+  - `/frontendmentor/`
+  - `/MDN/`
+  - `/other/`
+  - `/docs/`
+- Include `Sitemap:` directive pointing to `sitemap.xml`
 
 ### sitemap.xml
-- XML sitemap following sitemaps.org protocol
-- Lists `https://goodalex223.github.io/` (main page)
-- `lastmod: 2026-01-28` (from git history)
-- `changefreq: monthly`, `priority: 1.0`
+- Single `<url>` entry for homepage (`https://goodalex223.github.io/`)
+- `lastmod`: 2026-01-28 (from last git commit touching `index.html`)
+- `changefreq`: monthly
+- `priority`: 1.0
 
-### Decision: Excluded 404.html from sitemap
-The task description mentioned including `404.html`. This was intentionally excluded because GitHub Pages serves `404.html` with an HTTP 404 status code. Including it would cause search engines to repeatedly crawl it, receive a 404 response, and report errors in Search Console.
+### Decisions Made
+- **Block subdirectories**: Learning projects should not appear in search results; keeps search results focused on the portfolio.
+- **Exclude 404.html from sitemap**: Standard SEO practice — error pages are not discoverable content.
+- **Use git commit date for lastmod**: More accurate than hardcoding today's date.
 
-## 3. Files Changed
+## 4. Key Discoveries
 
-- `robots.txt` — New file (4 lines)
-- `sitemap.xml` — New file (9 lines)
+- Site has 31 HTML files total, but only `index.html` is the public portfolio page.
+- Existing SEO setup is strong (Open Graph, Twitter Card, canonical URL, semantic HTML).
+- `robots.txt` and `sitemap.xml` were the main missing pieces for search engine optimization.
 
-## 4. Acceptance Criteria
+## 5. Future Improvements
 
-- [x] `robots.txt` at root with `Sitemap:` directive
-- [x] `sitemap.xml` at root with correct URLs and `lastmod` dates
-- [x] Format follows Google's robots.txt specification
-- [ ] `404.html` listed in sitemap — **Excluded by design** (see Decision above)
-
-## 5. Key Discoveries
-
-- GitHub Pages serves `404.html` with actual 404 status codes, making sitemap inclusion counterproductive
-- Single-page portfolio only needs one URL entry in the sitemap
-
-## 6. Future Improvements
-
-1. **Auto-update lastmod dates** — Add a pre-commit hook or build script to update `sitemap.xml` lastmod dates when `index.html` changes
-2. **Sitemap index for growth** — If the site grows (blog, project detail pages), consider a sitemap index file referencing multiple sitemaps
-3. **Submit sitemap to Google Search Console** — After deploying, manually submit the sitemap URL for faster indexing
-
----
+1. **Automate sitemap lastmod updates** — Consider a pre-commit hook or script that updates `sitemap.xml` lastmod from git history when `index.html` changes.
+2. **Add sitemap entries for future pages** — When blog or project detail pages are added, expand sitemap.xml accordingly.
+3. **Google Search Console verification** — Submit sitemap.xml to Google Search Console for faster indexing and crawl monitoring.
 
 ### Execution Log
 
-#### 2026-01-29 — PHASE: Implementation
-- Created `robots.txt` with standard allow-all configuration
-- Created `sitemap.xml` with single URL entry
-- Used git log dates for accurate `lastmod` values
+#### 2026-01-29 — PHASE: Planning
+- Goal understood: Add robots.txt and sitemap.xml for SEO
+- Approach chosen: Static files at root
+- Risks identified: None significant (standard static files)
 
-#### 2026-01-29 — PHASE: Sub-Item Complete
-- Sub-item: robots.txt and sitemap.xml creation
-- **Results obtained**: Both files created and verified
-- **Lessons learned**: 404.html should not be in sitemaps for GitHub Pages
+#### 2026-01-29 — PHASE: Discovery
+- Explored existing SEO setup (meta tags, OG, Twitter Card — all present)
+- Mapped all 31 HTML files across directories
+- Identified 5 directories to block from crawling
+
+#### 2026-01-29 — PHASE: Clarification
+- User chose: Block learning subdirectories
+- User chose: Exclude 404.html from sitemap
+- User chose: Use git commit date for lastmod
+
+#### 2026-01-29 — PHASE: Implementation
+- Created robots.txt with crawler rules and Sitemap directive
+- Created sitemap.xml with homepage entry and git-derived lastmod
+- Both files validated (RFC 9309 for robots.txt, sitemaps.org schema for sitemap.xml)
+
+#### 2026-01-29 — PHASE: Sub-Item Complete — robots.txt
+- **Results obtained**: robots.txt created, RFC 9309 compliant
+- **Lessons learned**: `Allow: /` is redundant but serves as documentation
 - **Problems encountered**: None
-- **Improvements identified**: Auto-update lastmod dates via pre-commit hook
+- **Improvements identified**: Could add specific bot rules (e.g., block AI scrapers) if needed
 - **Technical debt noted**: None
-- **Related code needing changes**: None
+
+#### 2026-01-29 — PHASE: Sub-Item Complete — sitemap.xml
+- **Results obtained**: sitemap.xml created, sitemaps.org schema compliant
+- **Lessons learned**: Single-page sites still benefit from sitemaps (lastmod + changefreq signals)
+- **Problems encountered**: None
+- **Improvements identified**: Automate lastmod updates via git hook
+- **Technical debt noted**: Manual lastmod update required when index.html changes
 
 #### 2026-01-29 — PHASE: Complete
-- Final approach: Standard robots.txt + minimal sitemap with single URL
-- Tests passing: N/A (static files, format verified manually)
+- Final approach: Two static files at project root
+- Tests passing: N/A (static files, validated via code review)
 - User approval: Received
+
+#### 2026-01-29 — PHASE: Task Completion Documentation
+- **Step 1 EXTRACT**: 3 improvements → BACKLOG.md (automate lastmod, expand sitemap, Google Search Console)
+- **Step 2 ARCHIVE**: Plan moved to docs/archive/plans/
+- **Step 3 TRANSITION**: Task moved TODO.md → DONE.md
+- **Step 4 COMMIT**: Done
+- **Step 5 MEMORY**: Done
