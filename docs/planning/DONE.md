@@ -1,8 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-01-28
+**Last Updated**: 2026-01-29
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-01-29
+
+### Add robots.txt and sitemap.xml (SEO-001)
+
+**Plan**: [docs/archive/plans/2026-01-29_seo-001-robots-sitemap.md](../archive/plans/2026-01-29_seo-001-robots-sitemap.md)
+**Summary**: Created `robots.txt` and `sitemap.xml` at project root for proper search engine indexing. robots.txt allows main site crawling while blocking learning project directories; sitemap.xml lists homepage with git-derived lastmod date.
+**Key Changes**:
+- Created `robots.txt` with crawler rules (allow main site, block `/freecodecamp/`, `/frontendmentor/`, `/MDN/`, `/other/`, `/docs/`)
+- Created `sitemap.xml` with homepage entry (lastmod: 2026-01-28, changefreq: monthly, priority: 1.0)
+- Sitemap directive in robots.txt points to sitemap.xml
+**Spawned Tasks**: 3 items added to BACKLOG.md (automate lastmod, expand sitemap, Google Search Console)
 
 ---
 

@@ -124,9 +124,16 @@ Future ideas and improvements for the portfolio.
 ### SEO
 
 - [ ] Add structured data (JSON-LD)
-- [ ] Create sitemap.xml
-- [ ] Add robots.txt
+- [x] ~~Create sitemap.xml~~ *(completed 2026-01-29, SEO-001)*
+- [x] ~~Add robots.txt~~ *(completed 2026-01-29, SEO-001)*
 - [ ] Improve meta descriptions
+
+### From SEO-001: robots.txt & sitemap.xml (2026-01-29)
+**Origin**: docs/archive/plans/2026-01-29_seo-001-robots-sitemap.md
+
+- [ ] Automate sitemap lastmod updates — Pre-commit hook or script to update `sitemap.xml` lastmod from git history when `index.html` changes
+- [ ] Expand sitemap for future pages — Add entries when blog or project detail pages are created
+- [ ] Google Search Console verification — Submit sitemap.xml for faster indexing and crawl monitoring
 
 ### Accessibility
 
