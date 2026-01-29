@@ -128,6 +128,11 @@ Future ideas and improvements for the portfolio.
 - [x] ~~Add robots.txt~~ *(completed 2026-01-29, SEO-001)*
 - [ ] Improve meta descriptions
 
+### From SEO-002: JSON-LD structured data (2026-01-29)
+
+- [ ] Add profile image for Person schema `image` property — Enables Knowledge Panel photo display (requires profile photo asset)
+- [ ] Add additional schema types — Consider `ItemList` for projects or `BreadcrumbList` for future multi-page navigation
+
 ### From SEO-001: robots.txt & sitemap.xml (2026-01-29)
 **Origin**: docs/archive/plans/2026-01-29_seo-001-robots-sitemap.md
 

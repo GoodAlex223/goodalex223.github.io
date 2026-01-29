@@ -174,8 +174,9 @@ Progressive reveal animations using Intersection Observer:
 
 **JSON-LD Structured Data** (in `index.html` `<head>`):
 - Single `<script type="application/ld+json">` using `@graph` pattern to combine schemas
-- `@type: Person` schema: name, jobTitle, url, email, sameAs (GitHub, LinkedIn)
-- `@type: WebSite` schema: name, url
+- `@type: Person` schema: name, jobTitle, url, email, description, sameAs (GitHub, LinkedIn, Telegram, Wokwi), knowsAbout (10 skills)
+- `@type: WebSite` schema: name, url, cross-referenced to Person via `author` using `@id`
+- Fragment identifiers: `#person` and `#website` for same-page entity references
 - Data sourced from existing HTML content (no duplicated information)
 - Enables rich snippets in search results (knowledge panels, profile cards)
 
