@@ -110,7 +110,7 @@ CSS uses `@import` in `main.css` to compose modular files:
     - Dates use `<time datetime="YYYY-MM">` for semantics, stored as `data-updated` on card
     - Active projects use `data-status="active"` with pulsing dot indicator
     - Status badge: `.project-card__status` with `.project-card__status-dot` (CSS pulse animation)
-    - Footer pinned to card bottom via `margin-top: auto` (card is flex column)
+    - Footer uses explicit `margin-top: var(--space-4)` spacing (card is flex column, but `auto` margins don't work in CSS columns layout)
     - Status colors: `--color-status-active` / `--color-status-active-bg` (theme-aware)
 - **Buttons**: `.btn` base class with `--primary` and `--secondary` modifiers
 - **Filter Buttons**: `.filter-btn` for project filtering
