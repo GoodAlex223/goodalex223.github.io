@@ -96,7 +96,7 @@ Future ideas and improvements for the portfolio.
 ### Filter Enhancements
 - [ ] URL hash-based filtering — Allow shareable links like `#filter=backend`
 - [ ] Filter count badges — Show number of projects per category on buttons
-- [ ] Keyboard navigation — Arrow keys to navigate filters, Enter to select
+- [x] ~~Keyboard navigation~~ *(completed 2026-01-29, FEAT-002)*
 - [ ] Enhanced filter animations — Add animations for project cards during filtering (appearance, disappearance, movement, and other transitions)
 
 ---
@@ -139,6 +139,12 @@ Future ideas and improvements for the portfolio.
 - [ ] Auto-update dates from git history — Script or pre-commit hook to update `data-updated` and display text from last commit
 - [ ] Additional status types — Add "Completed", "Archived", "Beta" variants when needed (new color variables per status)
 - [ ] Date format localization — JavaScript to format dates based on user's locale
+
+### From FEAT-002: Filter Keyboard Navigation (2026-01-29)
+**Origin**: docs/archive/plans/2026-01-29_feat-002-filter-keyboard-nav.md
+
+- [ ] Escape key to reset filter — Add Escape key handler to reset to "All" from any focused filter button
+- [ ] Screen reader testing — Test keyboard navigation with NVDA/VoiceOver to verify live region announcements and roving tabindex behavior
 
 ### From PERF-001: Self-host Google Fonts (2026-01-29)
 **Origin**: docs/archive/plans/2026-01-29_perf-001-self-host-fonts.md

@@ -14,17 +14,7 @@ _None currently_
 
 ## Next — Feature Enhancements
 
-### FEAT-002: Filter keyboard navigation
-- **Priority**: Low
-- **Estimate**: Small
-- **Description**: Add keyboard navigation to project filter buttons. Arrow Left/Right to move between filters, Enter/Space to activate. Improves accessibility for keyboard-only users.
-- **Origin**: BACKLOG.md — Filter Enhancements (LP-001)
-- **Acceptance Criteria**:
-  - [ ] Arrow Left/Right moves focus between filter buttons
-  - [ ] Enter/Space activates the focused filter
-  - [ ] Focus wraps around (last → first, first → last)
-  - [ ] `tabindex` and `aria-` attributes properly set
-  - [ ] Visual focus indicator visible on active button
+_None currently_
 
 ---
 

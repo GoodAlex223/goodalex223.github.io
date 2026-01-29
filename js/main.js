@@ -149,7 +149,34 @@ function initProjectFilter() {
   }
 
   /**
-   * Update active button state
+   * Update roving tabindex - only focused button is tabbable
+   * @param {HTMLElement} focusedButton - The button that should receive tabindex="0"
+   */
+  function updateTabindex(focusedButton) {
+    filterButtons.forEach((btn) => {
+      btn.tabIndex = btn === focusedButton ? 0 : -1;
+    });
+  }
+
+  /**
+   * Announce filter results to screen readers via live region
+   * @param {string} category - The active filter category
+   */
+  function announceFilterResults(category) {
+    const liveRegion = document.getElementById("filter-status");
+    if (!liveRegion) return;
+
+    const visibleCount = Array.from(projectCards).filter(
+      (card) => !card.classList.contains("project-card--hidden")
+    ).length;
+
+    const label = category === "all" ? "all" : category;
+    liveRegion.textContent =
+      `Showing ${visibleCount} ${label} project${visibleCount === 1 ? "" : "s"}`;
+  }
+
+  /**
+   * Update active button state and roving tabindex
    * @param {HTMLElement} activeButton - The button to mark as active
    */
   function setActiveButton(activeButton) {
@@ -159,6 +186,7 @@ function initProjectFilter() {
     });
     activeButton.classList.add("filter-btn--active");
     activeButton.setAttribute("aria-pressed", "true");
+    updateTabindex(activeButton);
   }
 
   // Add click handlers to filter buttons
@@ -170,10 +198,51 @@ function initProjectFilter() {
       if (filter === currentFilter && filter !== "all") {
         setActiveButton(allButton);
         filterProjects("all");
+        announceFilterResults("all");
       } else {
         setActiveButton(button);
         filterProjects(filter);
+        announceFilterResults(filter);
       }
+    });
+  });
+
+  // Keyboard navigation for filter buttons (roving tabindex pattern)
+  filterButtons.forEach((button, index) => {
+    button.addEventListener("keydown", (e) => {
+      const lastIndex = filterButtons.length - 1;
+      let targetIndex;
+
+      switch (e.key) {
+        case "ArrowRight":
+        case "ArrowDown":
+          e.preventDefault();
+          targetIndex = index >= lastIndex ? 0 : index + 1;
+          break;
+
+        case "ArrowLeft":
+        case "ArrowUp":
+          e.preventDefault();
+          targetIndex = index <= 0 ? lastIndex : index - 1;
+          break;
+
+        case "Home":
+          e.preventDefault();
+          targetIndex = 0;
+          break;
+
+        case "End":
+          e.preventDefault();
+          targetIndex = lastIndex;
+          break;
+
+        default:
+          return;
+      }
+
+      const targetButton = filterButtons[targetIndex];
+      updateTabindex(targetButton);
+      targetButton.focus();
     });
   });
 }

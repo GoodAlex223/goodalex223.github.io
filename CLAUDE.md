@@ -116,8 +116,11 @@ CSS uses `@import` in `main.css` to compose modular files:
 - **Filter Buttons**: `.filter-btn` for project filtering
   - Active state: `.filter-btn--active` with category-colored backgrounds
   - Category colors match project card badges (backend, iot, web, tools)
-  - ARIA attributes: `aria-pressed` for screen readers
+  - ARIA attributes: `aria-pressed` for screen readers, `role="toolbar"` on container
   - Single-select with toggle-to-reset behavior (clicking active filter resets to "all")
+  - **Roving tabindex**: Only one button has `tabindex="0"` at a time (WCAG pattern)
+  - **Keyboard navigation**: Arrow keys, Home, End to navigate filter buttons
+  - **Live region**: `#filter-status` with `aria-live="polite"` announces filter results to screen readers
 - **Theme Toggle**: `.theme-toggle` button with icon transitions (sun/moon)
   - Icons swap via opacity/transform based on `[data-theme]` attribute
   - Updates `aria-label` dynamically for accessibility
@@ -142,7 +145,13 @@ Client-side category filtering with immediate layout reflow:
    - Removes hidden cards from layout flow immediately (visible cards fill gaps)
    - Smooth opacity + scale transition for visual feedback
 4. **Toggle Behavior**: Clicking active category filter resets to "all"
-5. **Accessibility**: `aria-pressed` attributes, `role="group"` on filter container
+5. **Accessibility**: WCAG-compliant keyboard and screen reader support
+   - `aria-pressed` attributes for button state
+   - `role="toolbar"` on filter container
+   - **Roving tabindex pattern**: Only one button has `tabindex="0"`, others `tabindex="-1"`
+   - **Keyboard navigation**: Arrow keys (left/right/up/down) cycle through buttons, Home/End jump to first/last
+   - **Live region**: `#filter-status` with `aria-live="polite"` announces "Showing N [category] projects" after filtering
+   - Focus follows keyboard navigation automatically
 
 ### Scroll Animation Pattern
 Progressive reveal animations using Intersection Observer:
