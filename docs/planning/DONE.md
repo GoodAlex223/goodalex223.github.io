@@ -8,6 +8,19 @@ Completed tasks for the portfolio project.
 
 ## 2026-01-29
 
+### Add JSON-LD structured data (SEO-002)
+
+**Plan**: N/A (implemented via feature-dev workflow)
+**Summary**: Added JSON-LD structured data to `index.html` with `Person` and `WebSite` schema types in a single `@graph`. Improves search engine understanding with rich snippets (name, job title, social links, skills).
+**Key Changes**:
+- Added `<script type="application/ld+json">` in `<head>` with `@graph` containing Person + WebSite schemas
+- Person schema: name, jobTitle, url, email, description, sameAs (GitHub, LinkedIn, Telegram, Wokwi), knowsAbout (10 key skills)
+- WebSite schema: name, url, cross-referenced to Person via `author` using `@id`
+- Placed after canonical URL, before theme initialization script
+**Spawned Tasks**: 2 items added to BACKLOG.md (profile image for Person schema, additional schema types)
+
+---
+
 ### Add robots.txt and sitemap.xml (SEO-001)
 
 **Plan**: [docs/archive/plans/2026-01-29_seo-001-robots-sitemap.md](../archive/plans/2026-01-29_seo-001-robots-sitemap.md)

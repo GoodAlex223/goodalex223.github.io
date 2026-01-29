@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-01-28
+**Last Updated**: 2026-01-29
 
 Future ideas and improvements for the portfolio.
 
@@ -123,10 +123,15 @@ Future ideas and improvements for the portfolio.
 
 ### SEO
 
-- [ ] Add structured data (JSON-LD)
+- [x] ~~Add structured data (JSON-LD)~~ *(completed 2026-01-29, SEO-002)*
 - [x] ~~Create sitemap.xml~~ *(completed 2026-01-29, SEO-001)*
 - [x] ~~Add robots.txt~~ *(completed 2026-01-29, SEO-001)*
 - [ ] Improve meta descriptions
+
+### From SEO-002: JSON-LD structured data (2026-01-29)
+
+- [ ] Add profile image for Person schema `image` property — Enables Knowledge Panel photo display (requires profile photo asset)
+- [ ] Add additional schema types — Consider `ItemList` for projects or `BreadcrumbList` for future multi-page navigation
 
 ### From SEO-001: robots.txt & sitemap.xml (2026-01-29)
 **Origin**: docs/archive/plans/2026-01-29_seo-001-robots-sitemap.md

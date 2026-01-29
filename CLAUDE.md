@@ -171,6 +171,13 @@ Progressive reveal animations using Intersection Observer:
 - Twitter Card: `twitter:card="summary_large_image"`
 - Structured data for rich social previews
 
+**JSON-LD Structured Data** (in `index.html` `<head>`):
+- Single `<script type="application/ld+json">` with `@graph` array
+- `Person` schema: name, jobTitle, url, email, description, sameAs (4 profiles), knowsAbout (10 skills)
+- `WebSite` schema: name, url, cross-referenced to Person via `author` using `@id`
+- Fragment identifiers: `#person` and `#website` for same-page entity references
+- Placement: after `<link rel="canonical">`, before theme initialization script
+
 ### Adding New Projects
 Add project card to `index.html` projects section:
 ```html
