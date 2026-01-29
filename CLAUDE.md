@@ -172,9 +172,11 @@ Progressive reveal animations using Intersection Observer:
 - Canonical URL: `<link rel="canonical">`
 - Dynamic theme-color meta for mobile browser chrome
 
-**JSON-LD Structured Data** (in `index.html`):
-- `@type: Person` schema with name, jobTitle, url, email, sameAs (GitHub, LinkedIn)
-- `@type: WebSite` schema with name and url
+**JSON-LD Structured Data** (in `index.html` `<head>`):
+- Single `<script type="application/ld+json">` using `@graph` pattern to combine schemas
+- `@type: Person` schema: name, jobTitle, url, email, sameAs (GitHub, LinkedIn)
+- `@type: WebSite` schema: name, url
+- Data sourced from existing HTML content (no duplicated information)
 - Enables rich snippets in search results (knowledge panels, profile cards)
 
 ### Adding New Projects
