@@ -8,6 +8,19 @@ Completed tasks for the portfolio project.
 
 ## 2026-01-29
 
+### Self-host Google Fonts (PERF-001)
+
+**Plan**: [docs/archive/plans/2026-01-29_perf-001-self-host-fonts.md](../archive/plans/2026-01-29_perf-001-self-host-fonts.md)
+**Summary**: Replaced Google Fonts CDN dependency with self-hosted Inter variable font files (woff2). Eliminates 3 external HTTP requests, improves FCP, and removes privacy concerns.
+**Key Changes**:
+- Downloaded Inter variable font (Latin + Latin Extended subsets) to `fonts/` directory
+- Created `css/fonts.css` with @font-face declarations using unicode-range subsetting
+- Removed Google Fonts `<link>` tags from `index.html` and `404.html`
+- Added `@import "fonts.css"` as first import in `css/main.css`
+**Spawned Tasks**: 2 items added to BACKLOG.md (font preload hint, update PROJECT.md dependencies)
+
+---
+
 ### Add JSON-LD structured data (SEO-002)
 
 **Plan**: N/A (implemented via feature-dev workflow)

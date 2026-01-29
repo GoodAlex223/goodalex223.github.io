@@ -118,8 +118,9 @@ Future ideas and improvements for the portfolio.
 - [ ] Consider using `font-display: swap`
 - [ ] Minify CSS for production
 - [ ] Add service worker for offline support
-- [ ] Self-host Google Fonts — Could eliminate external dependency and improve FCP (from HP-002 Lighthouse audit, 2026-01-26)
+- [x] ~~Self-host Google Fonts~~ *(completed 2026-01-29, PERF-001)*
 - [ ] Bundle CSS files — Replace @import chain with single bundled CSS file for production (from HP-002 Lighthouse audit, 2026-01-26)
+- [ ] Add font preload hint — `<link rel="preload">` for inter-latin.woff2 to start download earlier in critical path (from PERF-001, 2026-01-29)
 
 ### SEO
 
@@ -132,6 +133,12 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Add profile image for Person schema `image` property — Enables Knowledge Panel photo display (requires profile photo asset)
 - [ ] Add additional schema types — Consider `ItemList` for projects or `BreadcrumbList` for future multi-page navigation
+
+### From PERF-001: Self-host Google Fonts (2026-01-29)
+**Origin**: docs/archive/plans/2026-01-29_perf-001-self-host-fonts.md
+
+- [ ] Add font preload hint for inter-latin.woff2 — Start font download earlier in critical rendering path
+- [ ] Update PROJECT.md external dependencies — Remove Google Fonts CDN, document self-hosted fonts
 
 ### From SEO-001: robots.txt & sitemap.xml (2026-01-29)
 **Origin**: docs/archive/plans/2026-01-29_seo-001-robots-sitemap.md
