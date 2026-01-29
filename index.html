@@ -221,13 +221,14 @@
         <div class="container">
           <h2 class="section__title text-center" data-animate>Projects</h2>
 
-          <div class="project-filters" role="group" aria-label="Filter projects by category" data-animate data-animate-delay="50">
-            <button class="filter-btn filter-btn--active" data-filter="all" aria-pressed="true">All</button>
-            <button class="filter-btn" data-filter="backend" aria-pressed="false">Backend</button>
-            <button class="filter-btn" data-filter="iot" aria-pressed="false">IoT</button>
-            <button class="filter-btn" data-filter="web" aria-pressed="false">Web</button>
-            <button class="filter-btn" data-filter="tools" aria-pressed="false">Tools</button>
+          <div class="project-filters" role="toolbar" aria-label="Filter projects by category" data-animate data-animate-delay="50">
+            <button class="filter-btn filter-btn--active" data-filter="all" aria-pressed="true" tabindex="0">All</button>
+            <button class="filter-btn" data-filter="backend" aria-pressed="false" tabindex="-1">Backend</button>
+            <button class="filter-btn" data-filter="iot" aria-pressed="false" tabindex="-1">IoT</button>
+            <button class="filter-btn" data-filter="web" aria-pressed="false" tabindex="-1">Web</button>
+            <button class="filter-btn" data-filter="tools" aria-pressed="false" tabindex="-1">Tools</button>
           </div>
+          <div class="sr-only" role="status" aria-live="polite" aria-atomic="true" id="filter-status"></div>
 
           <div class="projects__grid">
             <!-- rating_bot -->
