@@ -123,7 +123,7 @@ Future ideas and improvements for the portfolio.
 
 ### SEO
 
-- [ ] Add structured data (JSON-LD)
+- [x] ~~Add structured data (JSON-LD)~~ *(completed 2026-01-29, SEO-002)*
 - [x] ~~Create sitemap.xml~~ *(completed 2026-01-29, SEO-001)*
 - [x] ~~Add robots.txt~~ *(completed 2026-01-29, SEO-001)*
 - [ ] Improve meta descriptions
@@ -134,6 +134,12 @@ Future ideas and improvements for the portfolio.
 - [ ] Automate sitemap lastmod updates — Pre-commit hook or script to update `sitemap.xml` lastmod from git history when `index.html` changes
 - [ ] Expand sitemap for future pages — Add entries when blog or project detail pages are created
 - [ ] Google Search Console verification — Submit sitemap.xml for faster indexing and crawl monitoring
+
+### From SEO-002: JSON-LD Structured Data (2026-01-29)
+**Origin**: docs/archive/plans/2026-01-29_seo-002-json-ld.md
+
+- [ ] Add `knowsAbout` property to Person schema — List skills (Python, Arduino, TypeScript) for richer knowledge panel data
+- [ ] Add `ItemList` schema for projects — Structure project cards as CollectionPage with ItemList for better search engine understanding
 
 ### Accessibility
 

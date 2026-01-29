@@ -1,7 +1,7 @@
 # TODO
 
 **Last Updated**: 2026-01-29
-**Last Completed**: SEO-001 (2026-01-29)
+**Last Completed**: SEO-002 (2026-01-29)
 
 Active tasks for the portfolio project.
 
@@ -14,16 +14,6 @@ _None currently_
 ---
 
 ## Today (2026-01-29) — SEO & Performance Polish
-
-### SEO-002: Add JSON-LD structured data
-- **Priority**: High
-- **Estimate**: Small
-- **Description**: Add JSON-LD `<script>` to `index.html` with `Person` and `WebSite` schema types. Improves search result appearance with rich snippets (name, job title, social links).
-- **Acceptance Criteria**:
-  - [ ] JSON-LD script in `<head>` of `index.html`
-  - [ ] `Person` schema with name, jobTitle, url, sameAs (GitHub, LinkedIn)
-  - [ ] `WebSite` schema with name and url
-  - [ ] Validates at schema.org/validator or Google Rich Results Test
 
 ### PERF-001: Self-host Google Fonts
 - **Priority**: Medium
