@@ -98,6 +98,7 @@ Future ideas and improvements for the portfolio.
 - [ ] Filter count badges — Show number of projects per category on buttons
 - [x] ~~Keyboard navigation~~ *(completed 2026-01-29, FEAT-002)*
 - [ ] Enhanced filter animations — Add animations for project cards during filtering (appearance, disappearance, movement, and other transitions)
+- [ ] Fix toggle-to-reset tabindex desync — When clicking an active filter to reset to "All", browser focus stays on the clicked button (`tabindex="-1"`) while "All" gets `tabindex="0"`, breaking the roving tabindex pattern. Fix: add `allButton.focus()` after `setActiveButton(allButton)` in the toggle-to-reset handler
 
 ---
 
