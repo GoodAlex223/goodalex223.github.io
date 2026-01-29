@@ -8,6 +8,19 @@ Completed tasks for the portfolio project.
 
 ## 2026-01-29
 
+### Filter Keyboard Navigation (FEAT-002)
+
+**Plan**: [docs/archive/plans/2026-01-29_feat-002-filter-keyboard-nav.md](../archive/plans/2026-01-29_feat-002-filter-keyboard-nav.md)
+**Summary**: Added WAI-ARIA roving tabindex keyboard navigation to project filter buttons. Arrow keys move focus between filters, Home/End jump to first/last, Enter/Space activates. Live region announces filter results to screen readers.
+**Key Changes**:
+- Changed filter container from `role="group"` to `role="toolbar"` with roving tabindex
+- Added `updateTabindex()`, `announceFilterResults()`, and keydown handler to `initProjectFilter()`
+- Added `#filter-status` live region with `aria-live="polite"` for screen reader announcements
+- No CSS changes needed (existing `:focus-visible` and `.sr-only` styles reused)
+**Spawned Tasks**: 2 items added to BACKLOG.md (Escape key reset, screen reader testing)
+
+---
+
 ### Project Metadata Badges (FEAT-001)
 
 **Plan**: [docs/archive/plans/2026-01-29_feat-001-project-metadata-badges.md](../archive/plans/2026-01-29_feat-001-project-metadata-badges.md)
