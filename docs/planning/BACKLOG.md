@@ -97,6 +97,7 @@ Future ideas and improvements for the portfolio.
 - [ ] URL hash-based filtering — Allow shareable links like `#filter=backend`
 - [ ] Filter count badges — Show number of projects per category on buttons
 - [ ] Keyboard navigation — Arrow keys to navigate filters, Enter to select
+- [ ] Enhanced filter animations — Add animations for project cards during filtering (appearance, disappearance, movement, and other transitions)
 
 ---
 
@@ -214,6 +215,12 @@ Future ideas and improvements for the portfolio.
   - [ ] Prioritize projects with visual/interactive output
   - [ ] IoT projects: circuit diagrams, Wokwi screenshots, demo videos
   - [ ] Web projects: responsive screenshots, interaction demos
+
+---
+
+## Bug Fixes
+
+- [ ] Fix theme switch button overlapping other header buttons — Occurs on both the main page and the 404 page; discovered on mobile (phone)
 
 ---
 
