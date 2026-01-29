@@ -12,23 +12,7 @@ _None currently_
 
 ---
 
-## Today (2026-01-29) — SEO & Performance Polish
-
-### PERF-001: Self-host Google Fonts
-- **Priority**: Medium
-- **Estimate**: Small
-- **Description**: Download Inter font files and serve locally instead of loading from Google Fonts CDN. Eliminates external dependency, improves First Contentful Paint, and removes privacy concerns. Identified in HP-002 Lighthouse audit (2026-01-26).
-- **Origin**: BACKLOG.md — HP-002 Lighthouse audit improvement
-- **Acceptance Criteria**:
-  - [ ] Inter font files (woff2) downloaded to `fonts/` directory
-  - [ ] `@font-face` declarations in CSS with `font-display: swap`
-  - [ ] Google Fonts `<link>` tags removed from `index.html` and `404.html`
-  - [ ] Preconnect hints removed (no longer needed)
-  - [ ] Visual parity with current font rendering
-
----
-
-## Tomorrow (2026-01-30) — Feature Enhancements
+## Next — Feature Enhancements
 
 ### FEAT-001: Project Metadata Badges
 - **Priority**: Medium
