@@ -1,8 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-01-28
+**Last Updated**: 2026-01-29
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-01-29
+
+### Add robots.txt and sitemap.xml (SEO-001)
+
+**Plan**: [docs/archive/plans/2026-01-29_seo-001-robots-sitemap.md](../archive/plans/2026-01-29_seo-001-robots-sitemap.md)
+**Summary**: Created `robots.txt` (allow all crawlers, Sitemap directive) and `sitemap.xml` (single URL entry with git-based lastmod date) for proper search engine indexing.
+**Key Changes**:
+- `robots.txt` at root — allows all crawlers, references sitemap
+- `sitemap.xml` at root — lists main page with `lastmod: 2026-01-28`
+- Excluded `404.html` from sitemap (returns HTTP 404 on GitHub Pages)
+**Spawned Tasks**: 3 items added to BACKLOG.md (auto-update lastmod, sitemap index, Search Console submission)
 
 ---
 

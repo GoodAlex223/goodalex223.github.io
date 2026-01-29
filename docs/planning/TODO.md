@@ -1,6 +1,7 @@
 # TODO
 
 **Last Updated**: 2026-01-29
+**Last Completed**: SEO-001 (2026-01-29)
 
 Active tasks for the portfolio project.
 
@@ -13,15 +14,6 @@ _None currently_
 ---
 
 ## Today (2026-01-29) — SEO & Performance Polish
-
-### SEO-001: Add robots.txt and sitemap.xml
-- **Priority**: High
-- **Estimate**: Small
-- **Description**: Create `robots.txt` allowing all crawlers and `sitemap.xml` listing all public pages (`index.html`, `404.html`). Essential for proper search engine indexing.
-- **Acceptance Criteria**:
-  - [ ] `robots.txt` at root with `Sitemap:` directive
-  - [ ] `sitemap.xml` at root with correct URLs and `lastmod` dates
-  - [ ] Validate with Google's robots.txt tester format
 
 ### SEO-002: Add JSON-LD structured data
 - **Priority**: High

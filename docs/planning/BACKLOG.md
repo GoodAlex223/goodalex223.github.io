@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-01-28
+**Last Updated**: 2026-01-29
 
 Future ideas and improvements for the portfolio.
 
@@ -124,8 +124,8 @@ Future ideas and improvements for the portfolio.
 ### SEO
 
 - [ ] Add structured data (JSON-LD)
-- [ ] Create sitemap.xml
-- [ ] Add robots.txt
+- [x] ~~Create sitemap.xml~~ *(completed 2026-01-29, SEO-001)*
+- [x] ~~Add robots.txt~~ *(completed 2026-01-29, SEO-001)*
 - [ ] Improve meta descriptions
 
 ### Accessibility
@@ -190,6 +190,15 @@ Future ideas and improvements for the portfolio.
   - [ ] Prioritize projects with visual/interactive output
   - [ ] IoT projects: circuit diagrams, Wokwi screenshots, demo videos
   - [ ] Web projects: responsive screenshots, interaction demos
+
+---
+
+## From SEO-001: robots.txt and sitemap.xml (2026-01-29)
+
+### Sitemap Maintenance
+- [ ] Auto-update sitemap lastmod dates — Add pre-commit hook or build script to update `sitemap.xml` when `index.html` changes
+- [ ] Sitemap index for growth — If site grows (blog, project detail pages), use sitemap index file
+- [ ] Submit sitemap to Google Search Console — Manual submission for faster initial indexing
 
 ---
 
