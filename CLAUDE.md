@@ -69,7 +69,7 @@ goodalex223/
 |---------|------------|---------|
 | Classes | BEM-like | `.project-card__title`, `.btn--primary` |
 | Variables | kebab-case | `--color-accent`, `--space-4` |
-| Data attributes | kebab-case | `data-category="backend"`, `data-animate`, `data-animate-delay="50"` |
+| Data attributes | kebab-case | `data-category="backend"`, `data-animate`, `data-animate-delay="50"`, `data-updated="2026-01"`, `data-status="active"` |
 
 ### CSS Architecture
 CSS uses `@import` in `main.css` to compose modular files:
@@ -106,6 +106,12 @@ CSS uses `@import` in `main.css` to compose modular files:
   - Support thumbnails: `.project-card__thumbnail` with hover scale effect
   - Missing images handled gracefully with `display: none`
   - Filterable via category with fade-then-reflow animation
+  - **Metadata footer**: `.project-card__footer` with last-updated date and optional status badge
+    - Dates use `<time datetime="YYYY-MM">` for semantics, stored as `data-updated` on card
+    - Active projects use `data-status="active"` with pulsing dot indicator
+    - Status badge: `.project-card__status` with `.project-card__status-dot` (CSS pulse animation)
+    - Footer uses explicit `margin-top: var(--space-4)` spacing (card is flex column, but `auto` margins don't work in CSS columns layout)
+    - Status colors: `--color-status-active` / `--color-status-active-bg` (theme-aware)
 - **Buttons**: `.btn` base class with `--primary` and `--secondary` modifiers
 - **Filter Buttons**: `.filter-btn` for project filtering
   - Active state: `.filter-btn--active` with category-colored backgrounds
@@ -181,7 +187,7 @@ Progressive reveal animations using Intersection Observer:
 ### Adding New Projects
 Add project card to `index.html` projects section:
 ```html
-<article class="project-card" data-category="backend">
+<article class="project-card" data-category="backend" data-updated="2026-01" data-status="active">
   <div class="project-card__header">
     <span class="project-card__category">Backend</span>
     <div class="project-card__links">
@@ -194,6 +200,14 @@ Add project card to `index.html` projects section:
     <li>Python</li>
     <li>FastAPI</li>
   </ul>
+  <footer class="project-card__footer">
+    <time class="project-card__updated" datetime="2026-01">Updated Jan 2026</time>
+    <!-- Optional: only for active projects -->
+    <span class="project-card__status" aria-label="Project status: In Development">
+      <span class="project-card__status-dot" aria-hidden="true"></span>
+      In Development
+    </span>
+  </footer>
 </article>
 ```
 

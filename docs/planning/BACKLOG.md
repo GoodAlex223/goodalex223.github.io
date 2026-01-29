@@ -46,14 +46,12 @@ Future ideas and improvements for the portfolio.
   - [ ] Demo videos/GIFs where applicable
   - [ ] Technical highlights and architecture notes
 
-### Project Metadata Badges (2026-01-22)
-- Add "last updated" date to project cards
-- Add "in development" indicator/icon for active projects
-- Shows portfolio is actively maintained (good signal for recruiters)
-- Requires:
-  - [ ] Decide where to store dates (HTML data attributes, JSON, etc.)
-  - [ ] Visual design for badges (subtle, doesn't clutter cards)
-  - [ ] Maintenance process to keep dates current
+### ~~Project Metadata Badges~~ *(completed 2026-01-29, FEAT-001)*
+- ~~Add "last updated" date to project cards~~
+- ~~Add "in development" indicator/icon for active projects~~
+- ~~Shows portfolio is actively maintained (good signal for recruiters)~~
+- ~~Dates stored as HTML data attributes + `<time>` elements~~
+- ~~Visual design: subtle footer with border separator, pulse dot for active status~~
 
 ### Project Detail Pages
 - Individual pages for major projects
@@ -133,6 +131,13 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Add profile image for Person schema `image` property — Enables Knowledge Panel photo display (requires profile photo asset)
 - [ ] Add additional schema types — Consider `ItemList` for projects or `BreadcrumbList` for future multi-page navigation
+
+### From FEAT-001: Project Metadata Badges (2026-01-29)
+**Origin**: docs/archive/plans/2026-01-29_feat-001-project-metadata-badges.md
+
+- [ ] Auto-update dates from git history — Script or pre-commit hook to update `data-updated` and display text from last commit
+- [ ] Additional status types — Add "Completed", "Archived", "Beta" variants when needed (new color variables per status)
+- [ ] Date format localization — JavaScript to format dates based on user's locale
 
 ### From PERF-001: Self-host Google Fonts (2026-01-29)
 **Origin**: docs/archive/plans/2026-01-29_perf-001-self-host-fonts.md

@@ -16,6 +16,10 @@
   --color-category-web: #2196f3;
   --color-category-tools: #9c27b0;
 
+  /* Status colors */
+  --color-status-active: #4caf50;
+  --color-status-active-bg: rgba(76, 175, 80, 0.15);
+
   /* Typography */
   --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, sans-serif;
@@ -98,6 +102,10 @@
     --color-category-web: #1565c0;
     --color-category-tools: #7b1fa2;
 
+    /* Status colors adjusted for light backgrounds */
+    --color-status-active: #2e7d32;
+    --color-status-active-bg: rgba(46, 125, 50, 0.12);
+
     /* Shadows more visible on light backgrounds */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -123,6 +131,10 @@
   --color-category-iot: #e65100;
   --color-category-web: #1565c0;
   --color-category-tools: #7b1fa2;
+
+  /* Status colors adjusted for light backgrounds */
+  --color-status-active: #2e7d32;
+  --color-status-active-bg: rgba(46, 125, 50, 0.12);
 
   /* Shadows more visible on light backgrounds */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);

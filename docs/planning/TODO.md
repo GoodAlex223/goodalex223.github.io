@@ -14,19 +14,6 @@ _None currently_
 
 ## Next — Feature Enhancements
 
-### FEAT-001: Project Metadata Badges
-- **Priority**: Medium
-- **Estimate**: Medium
-- **Description**: Add "last updated" date and "in development" status indicator to project cards. Shows portfolio is actively maintained — good signal for recruiters. Dates stored as `data-updated` attributes on card elements.
-- **Origin**: BACKLOG.md — Project Metadata Badges
-- **Acceptance Criteria**:
-  - [ ] Each project card shows last updated date (subtle, bottom of card)
-  - [ ] Active projects show "In Development" badge/indicator
-  - [ ] Dates stored in HTML `data-updated` attributes
-  - [ ] Visual design is subtle and doesn't clutter cards
-  - [ ] Responsive — works on mobile and desktop
-  - [ ] Respects theme (light/dark colors)
-
 ### FEAT-002: Filter keyboard navigation
 - **Priority**: Low
 - **Estimate**: Small
