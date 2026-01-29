@@ -8,6 +8,19 @@ Completed tasks for the portfolio project.
 
 ## 2026-01-29
 
+### Project Metadata Badges (FEAT-001)
+
+**Plan**: [docs/archive/plans/2026-01-29_feat-001-project-metadata-badges.md](../archive/plans/2026-01-29_feat-001-project-metadata-badges.md)
+**Summary**: Added "last updated" dates and "In Development" status badges to all 7 project cards. Semantic HTML (`<footer>`, `<time>`), dedicated status color variables, CSS pulse animation on status dot, theme-aware transitions.
+**Key Changes**:
+- Added `--color-status-active` / `--color-status-active-bg` design tokens (3 theme contexts)
+- Added `.project-card__footer`, `.project-card__status`, `.project-card__status-dot` CSS components
+- Added `<footer>` metadata markup to all 7 project cards (3 active, 4 date-only)
+- Updated CLAUDE.md with new patterns and "Adding New Projects" template
+**Spawned Tasks**: 3 items added to BACKLOG.md (auto-update dates, additional statuses, date localization)
+
+---
+
 ### Self-host Google Fonts (PERF-001)
 
 **Plan**: [docs/archive/plans/2026-01-29_perf-001-self-host-fonts.md](../archive/plans/2026-01-29_perf-001-self-host-fonts.md)
