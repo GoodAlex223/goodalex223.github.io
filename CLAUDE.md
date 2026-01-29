@@ -167,9 +167,15 @@ Progressive reveal animations using Intersection Observer:
 - Last modified: 2026-01-28
 
 **Meta tags** (in `index.html`):
-- Open Graph: `og:image`, `og:title`, `og:description`
+- Open Graph: `og:image`, `og:title`, `og:description`, `og:type`, `og:url`
 - Twitter Card: `twitter:card="summary_large_image"`
-- Structured data for rich social previews
+- Canonical URL: `<link rel="canonical">`
+- Dynamic theme-color meta for mobile browser chrome
+
+**JSON-LD Structured Data** (in `index.html`):
+- `@type: Person` schema with name, jobTitle, url, email, sameAs (GitHub, LinkedIn)
+- `@type: WebSite` schema with name and url
+- Enables rich snippets in search results (knowledge panels, profile cards)
 
 ### Adding New Projects
 Add project card to `index.html` projects section:
