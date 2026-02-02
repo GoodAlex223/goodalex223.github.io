@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-02 (BUG-001 completed)
+**Last Updated**: 2026-02-02 (BUG-002 completed)
 
 ---
 
@@ -13,20 +13,6 @@ _None currently_
 ---
 
 ## High Priority
-
-### [BUG-002] - Fix toggle-to-reset tabindex desync
-**Priority**: High
-**Dependencies**: None
-**Origin**: BACKLOG.md (Filter Enhancements)
-
-**Description**: When clicking an active filter to reset to "All", browser focus stays on the clicked button (`tabindex="-1"`) while "All" gets `tabindex="0"`, breaking the roving tabindex pattern. Fix: add `allButton.focus()` after `setActiveButton(allButton)` in the toggle-to-reset handler.
-
-**Acceptance Criteria**:
-- [ ] Focus moves to "All" button when active filter is clicked to reset
-- [ ] Roving tabindex state stays in sync with focused element
-- [ ] Keyboard navigation continues to work after toggle-to-reset
-
----
 
 ## Medium Priority
 

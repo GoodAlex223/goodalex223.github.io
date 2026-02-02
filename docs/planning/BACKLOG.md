@@ -98,7 +98,7 @@ Future ideas and improvements for the portfolio.
 - [ ] Filter count badges — Show number of projects per category on buttons
 - [x] ~~Keyboard navigation~~ *(completed 2026-01-29, FEAT-002)*
 - [ ] Enhanced filter animations — Add animations for project cards during filtering (appearance, disappearance, movement, and other transitions)
-- [ ] Fix toggle-to-reset tabindex desync — When clicking an active filter to reset to "All", browser focus stays on the clicked button (`tabindex="-1"`) while "All" gets `tabindex="0"`, breaking the roving tabindex pattern. Fix: add `allButton.focus()` after `setActiveButton(allButton)` in the toggle-to-reset handler
+- [x] ~~Fix toggle-to-reset tabindex desync~~ *(completed 2026-02-02, BUG-002)*
 
 ---
 
@@ -230,6 +230,14 @@ Future ideas and improvements for the portfolio.
 
 - [ ] CSS Grid 3-column nav centering — Switch `.nav` to `grid-template-columns: 1fr auto 1fr` if perfect centering becomes important after adding more header elements
 - [ ] Hamburger menu at very narrow widths — Collapse nav to hamburger below 375px if more nav items are added in the future
+
+---
+
+## From BUG-002: Toggle-to-Reset Tabindex Desync (2026-02-02)
+**Origin**: docs/archive/plans/2026-02-02_bug-002-tabindex-desync.md
+
+- [ ] Centralize filter activation logic — Single `activateFilter(button, category)` function to reduce risk of future desync between toggle-to-reset and normal click paths
+- [ ] Automated accessibility regression tests — Playwright tests verifying focus/tabindex sync after all filter interactions
 
 ---
 
