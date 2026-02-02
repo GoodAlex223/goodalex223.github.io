@@ -1,3 +1,6 @@
-# Claude Code personal configs (project CLAUDE.md is committed)
-# Note: .claude/ must be created separately for each git worktree
-.claude/
+# Claude Code machine-specific files
+.claude/settings.local.json
+.claude/auto-memory/dirty-files
+
+# MCP server config (contains machine-specific paths)
+.mcp.json

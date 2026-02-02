@@ -151,7 +151,7 @@ Client-side category filtering with immediate layout reflow:
    - **Roving tabindex pattern**: Only one button has `tabindex="0"`, others `tabindex="-1"`
    - **Keyboard navigation**: Arrow keys (left/right/up/down) cycle through buttons, Home/End jump to first/last
    - **Live region**: `#filter-status` with `aria-live="polite"` announces "Showing N [category] projects" after filtering
-   - Focus follows keyboard navigation automatically
+   - **Focus management**: `setActiveButton()` calls `updateTabindex()` to sync tabindex with active state; toggle-to-reset explicitly moves focus to "all" button
 
 ### Scroll Animation Pattern
 Progressive reveal animations using Intersection Observer:
