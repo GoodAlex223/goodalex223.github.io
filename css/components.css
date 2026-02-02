@@ -276,13 +276,12 @@
 
 /* Theme Toggle */
 .theme-toggle {
-  position: absolute;
-  right: var(--container-padding);
-  top: 50%;
-  transform: translateY(-50%);
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  margin-left: var(--space-2);
   width: 2rem;
   height: 2rem;
   padding: 0;

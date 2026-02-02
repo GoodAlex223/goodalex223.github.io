@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-01-29
+**Last Updated**: 2026-02-02
 
 Future ideas and improvements for the portfolio.
 
@@ -225,9 +225,17 @@ Future ideas and improvements for the portfolio.
 
 ---
 
+## From BUG-001: Theme Button Overlap Fix (2026-02-02)
+**Origin**: docs/archive/plans/2026-02-02_bug-001-theme-button-overlap.md
+
+- [ ] CSS Grid 3-column nav centering — Switch `.nav` to `grid-template-columns: 1fr auto 1fr` if perfect centering becomes important after adding more header elements
+- [ ] Hamburger menu at very narrow widths — Collapse nav to hamburger below 375px if more nav items are added in the future
+
+---
+
 ## Bug Fixes
 
-- [ ] Fix theme switch button overlapping other header buttons — Occurs on both the main page and the 404 page; discovered on mobile (phone)
+- [x] ~~Fix theme switch button overlapping other header buttons~~ *(completed 2026-02-02, BUG-001)*
 
 ---
 

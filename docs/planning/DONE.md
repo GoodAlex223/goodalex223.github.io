@@ -1,8 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-01-29
+**Last Updated**: 2026-02-02
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-02
+
+### Fix Theme Button Overlapping Header on Mobile (BUG-001)
+
+**Plan**: [docs/archive/plans/2026-02-02_bug-001-theme-button-overlap.md](../archive/plans/2026-02-02_bug-001-theme-button-overlap.md)
+**Summary**: Fixed theme toggle button overlapping navigation links on mobile by changing nav from absolute-positioned toggle to flexbox layout with toggle in normal document flow.
+**Key Changes**:
+- Changed `.nav` from `position: relative` to `display: flex; align-items: center`
+- Changed `.theme-toggle` from `position: absolute` to `position: relative; flex-shrink: 0` (in-flow)
+- Reduced `.nav__list` gap on mobile (`--space-3`), restored at tablet breakpoint (`--space-6`)
+**Spawned Tasks**: 2 items added to BACKLOG.md (CSS Grid centering, hamburger menu)
 
 ---
 
