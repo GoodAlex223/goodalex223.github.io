@@ -120,7 +120,7 @@ Future ideas and improvements for the portfolio.
 - [ ] Add service worker for offline support
 - [x] ~~Self-host Google Fonts~~ *(completed 2026-01-29, PERF-001)*
 - [ ] Bundle CSS files — Replace @import chain with single bundled CSS file for production (from HP-002 Lighthouse audit, 2026-01-26)
-- [ ] Add font preload hint — `<link rel="preload">` for inter-latin.woff2 to start download earlier in critical path (from PERF-001, 2026-01-29)
+- [x] ~~Add font preload hint~~ *(completed 2026-02-02, PERF-002)*
 
 ### SEO
 
@@ -150,8 +150,14 @@ Future ideas and improvements for the portfolio.
 ### From PERF-001: Self-host Google Fonts (2026-01-29)
 **Origin**: docs/archive/plans/2026-01-29_perf-001-self-host-fonts.md
 
-- [ ] Add font preload hint for inter-latin.woff2 — Start font download earlier in critical rendering path
+- [x] ~~Add font preload hint for inter-latin.woff2~~ *(completed 2026-02-02, PERF-002)*
 - [ ] Update PROJECT.md external dependencies — Remove Google Fonts CDN, document self-hosted fonts
+
+### From PERF-002: Font Preload Hint (2026-02-02)
+**Origin**: docs/archive/plans/2026-02-02_perf-002-font-preload-hint.md
+
+- [ ] Inline critical CSS — Inline above-the-fold styles in `<head>` and load full CSS asynchronously for faster first paint
+- [ ] Monitor with Lighthouse CI — Set up automated Lighthouse checks to catch performance regressions
 
 ### From SEO-001: robots.txt & sitemap.xml (2026-01-29)
 **Origin**: docs/archive/plans/2026-01-29_seo-001-robots-sitemap.md

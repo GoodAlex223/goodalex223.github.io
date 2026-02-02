@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-02 (BUG-002 completed)
+**Last Updated**: 2026-02-02 (PERF-002 completed)
 
 ---
 
@@ -15,20 +15,6 @@ _None currently_
 ## High Priority
 
 ## Medium Priority
-
-### [PERF-002] - Add font preload hint
-**Priority**: Medium
-**Dependencies**: None
-**Origin**: BACKLOG.md (From PERF-001)
-
-**Description**: Add `<link rel="preload">` for `inter-latin.woff2` to start font download earlier in the critical rendering path.
-
-**Acceptance Criteria**:
-- [ ] Preload link added to `index.html` and `404.html`
-- [ ] Font loads earlier in waterfall (verify in DevTools Network tab)
-- [ ] No duplicate font downloads
-
----
 
 ### [PERF-003] - Bundle CSS files
 **Priority**: Medium

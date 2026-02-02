@@ -34,6 +34,7 @@ npx serve
 ```
 goodalex223/
 ├── index.html              # Main portfolio page (single-page site)
+├── 404.html                # Custom 404 error page
 ├── robots.txt              # Search engine crawler rules
 ├── sitemap.xml             # XML sitemap for search engines
 ├── css/
@@ -44,6 +45,9 @@ goodalex223/
 │   └── components.css      # UI components (cards, buttons, links)
 ├── js/
 │   └── main.js             # Theme toggle, project filtering, scroll animations, copyright year
+├── fonts/
+│   ├── inter-latin.woff2     # Self-hosted Inter font (Latin subset)
+│   └── inter-latin-ext.woff2 # Self-hosted Inter font (Latin Extended subset)
 ├── docs/                   # Project documentation
 ├── freecodecamp/           # Learning projects (FreeCodeCamp)
 ├── frontendmentor/         # Learning projects (Frontend Mentor)
@@ -83,6 +87,10 @@ CSS uses `@import` in `main.css` to compose modular files:
 - Semantic elements: `<article>`, `<section>`, `<nav>`, `<header>`, `<footer>`
 - Skip link for accessibility
 - Inline SVG icons for styling flexibility
+- **Font preloading**: `<link rel="preload">` for critical fonts (Inter variants) in `<head>`
+  - Preloads `fonts/inter-latin.woff2` and `fonts/inter-latin-ext.woff2`
+  - Uses `type="font/woff2"` and `crossorigin` attribute
+  - Reduces render-blocking and improves LCP (Largest Contentful Paint)
 
 ### Theme System
 - **Data attribute**: `data-theme="light"` or `data-theme="dark"` on `<html>`
@@ -169,6 +177,16 @@ Progressive reveal animations using Intersection Observer:
    - Unobserves after animation for performance
 4. **Accessibility**: `@media (prefers-reduced-motion: reduce)` shows elements immediately without animation
 5. **Usage**: Applied to hero elements, section titles, project cards, skill groups, contact links
+
+### Performance Optimization Pattern
+**Self-hosted fonts**: Replaced Google Fonts CDN with local font files
+- **Location**: `fonts/` directory with WOFF2 files (Inter font, Latin and Latin Extended subsets)
+- **Benefits**: Eliminates external DNS lookup, reduces latency, improves privacy
+- **Preloading**: Critical fonts preloaded in `<head>` with `<link rel="preload">`
+  - `fonts/inter-latin.woff2` — Base Latin character set
+  - `fonts/inter-latin-ext.woff2` — Extended Latin characters
+  - Uses `type="font/woff2"` and `crossorigin` for proper CORS handling
+- **Applied to**: Both `index.html` and `404.html` for consistent performance
 
 ### SEO Configuration
 **robots.txt**: Controls search engine crawling

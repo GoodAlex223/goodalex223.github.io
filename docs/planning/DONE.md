@@ -1,12 +1,24 @@
 # DONE
 
-**Last Updated**: 2026-02-02 (BUG-002 completed)
+**Last Updated**: 2026-02-02 (PERF-002 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-02
+
+### Add Font Preload Hints (PERF-002)
+
+**Plan**: [docs/archive/plans/2026-02-02_perf-002-font-preload-hint.md](../archive/plans/2026-02-02_perf-002-font-preload-hint.md)
+**Summary**: Added `<link rel="preload">` for both Inter WOFF2 font files (latin and latin-ext) in `index.html` and `404.html` to start font downloads earlier in the critical rendering path, reducing FOUT and improving LCP.
+**Key Changes**:
+- Added two `<link rel="preload">` tags in `<head>` of both `index.html` and `404.html`
+- Placed early in `<head>` (after favicons) for maximum benefit
+- Includes `crossorigin` attribute (required per spec for font preloads)
+**Spawned Tasks**: 2 items added to BACKLOG.md (inline critical CSS, Lighthouse CI)
+
+---
 
 ### Fix Toggle-to-Reset Tabindex Desync (BUG-002)
 
