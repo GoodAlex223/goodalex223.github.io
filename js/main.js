@@ -197,6 +197,7 @@ function initProjectFilter() {
       // Toggle-to-reset: clicking active filter resets to "all"
       if (filter === currentFilter && filter !== "all") {
         setActiveButton(allButton);
+        allButton.focus();
         filterProjects("all");
         announceFilterResults("all");
       } else {
