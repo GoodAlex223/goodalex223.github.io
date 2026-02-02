@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-02
+**Last Updated**: 2026-02-02 (BUG-001 completed)
 
 ---
 
@@ -13,20 +13,6 @@ _None currently_
 ---
 
 ## High Priority
-
-### [BUG-001] - Fix theme switch button overlapping header buttons on mobile
-**Priority**: High
-**Dependencies**: None
-**Origin**: BACKLOG.md (Bug Fixes)
-
-**Description**: Theme toggle button overlaps other header buttons on mobile viewport. Reported on both the main page and the 404 page.
-
-**Acceptance Criteria**:
-- [ ] Theme toggle does not overlap nav buttons on mobile (main page)
-- [ ] Theme toggle does not overlap nav buttons on mobile (404 page)
-- [ ] Layout remains correct on all breakpoints (mobile, tablet, desktop)
-
----
 
 ### [BUG-002] - Fix toggle-to-reset tabindex desync
 **Priority**: High
