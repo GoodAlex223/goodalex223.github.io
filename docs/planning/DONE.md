@@ -1,12 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-02-02
+**Last Updated**: 2026-02-02 (BUG-002 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-02
+
+### Fix Toggle-to-Reset Tabindex Desync (BUG-002)
+
+**Plan**: [docs/archive/plans/2026-02-02_bug-002-tabindex-desync.md](../archive/plans/2026-02-02_bug-002-tabindex-desync.md)
+**Summary**: Fixed focus/tabindex desync when clicking an active filter to reset to "All". Added `allButton.focus()` after `setActiveButton(allButton)` in the toggle-to-reset click handler to keep focus in sync with the roving tabindex state.
+**Key Changes**:
+- Added `allButton.focus()` at `js/main.js:200` in the toggle-to-reset branch
+**Spawned Tasks**: 2 items added to BACKLOG.md (centralize filter activation, accessibility regression tests)
+
+---
 
 ### Fix Theme Button Overlapping Header on Mobile (BUG-001)
 
