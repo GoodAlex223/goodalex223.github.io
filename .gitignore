@@ -1,3 +1,9 @@
+# Build output
+dist/
+
+# Node.js
+node_modules/
+
 # Claude Code machine-specific files
 .claude/settings.local.json
 .claude/auto-memory/dirty-files
