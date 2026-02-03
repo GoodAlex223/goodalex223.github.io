@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-03 (FEAT-003 completed)
+**Last Updated**: 2026-02-03 (FEAT-004 completed)
 
 ---
 
@@ -15,21 +15,6 @@ _None currently_
 ## High Priority
 
 ## Medium Priority
-
-### [FEAT-004] - URL hash-based filtering
-**Priority**: Medium
-**Dependencies**: None
-**Origin**: BACKLOG.md (Filter Enhancements)
-
-**Description**: Allow shareable filter links like `#filter=backend`. Apply filter on page load from URL hash, and update hash when filter changes.
-
-**Acceptance Criteria**:
-- [ ] URL hash updates when filter is selected
-- [ ] Page loads with correct filter applied from URL hash
-- [ ] Browser back/forward navigates filter states
-- [ ] Hash is removed or set to `#filter=all` when filter is reset
-
----
 
 ### [FEAT-005] - Escape key to reset filter
 **Priority**: Medium

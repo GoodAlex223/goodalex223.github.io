@@ -1,12 +1,26 @@
 # DONE
 
-**Last Updated**: 2026-02-03 (FEAT-003 completed)
+**Last Updated**: 2026-02-03 (FEAT-004 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-03
+
+### URL Hash-Based Filtering (FEAT-004)
+
+**Plan**: N/A (implemented via PR workflow)
+**Summary**: Added shareable filter links with URL hash integration (`#filter=backend`, etc.). Filter state persists in URL, browser back/forward navigation works, and focus management respects user context.
+**Key Changes**:
+- Added `getCategoryFromHash()`, `updateHash()`, `applyHashFilter()` functions in `js/main.js`
+- URL hash updates when filter is clicked, removed when reset to "all"
+- `popstate` event listener syncs filter with browser navigation
+- Conditional focus: only moves focus to active button if user was already in filter toolbar (prevents jarring focus jumps on page load)
+- Updated CLAUDE.md with URL Hash Integration pattern documentation
+**Spawned Tasks**: None
+
+---
 
 ### Enhanced Filter Animations (FEAT-003)
 
