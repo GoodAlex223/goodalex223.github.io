@@ -2,13 +2,13 @@
 
 Project-specific configuration for the portfolio website.
 
-**Last Updated**: 2026-01-20
+**Last Updated**: 2026-02-03
 
 ---
 
 ## Project Overview
 
-Personal portfolio website showcasing software development projects. Built with vanilla HTML, CSS, and JavaScript for simplicity, performance, and demonstrating frontend fundamentals.
+Personal portfolio website showcasing software development projects. Built with HTML, CSS, and JavaScript for simplicity, performance, and demonstrating frontend fundamentals.
 
 ### Tech Stack
 
@@ -16,9 +16,10 @@ Personal portfolio website showcasing software development projects. Built with 
 |-----------|------------|
 | Markup | HTML5 |
 | Styling | CSS3 (Custom Properties, Grid, Flexbox) |
-| JavaScript | Vanilla ES6+ |
-| Hosting | GitHub Pages |
-| Fonts | Inter (Google Fonts) |
+| JavaScript | ES6+ |
+| Build Tools | PostCSS (CSS bundling via postcss-import) |
+| Hosting | GitHub Pages (via GitHub Actions) |
+| Fonts | Inter (self-hosted WOFF2) |
 
 ---
 
@@ -27,8 +28,12 @@ Personal portfolio website showcasing software development projects. Built with 
 | Component | Location | Purpose |
 |-----------|----------|---------|
 | Entry Point | `index.html` | Main portfolio page |
-| Styles | `css/` | Modular CSS architecture |
-| Scripts | `js/main.js` | Dynamic year, future enhancements |
+| CSS Source | `css/` | Modular CSS architecture (source files) |
+| CSS Output | `dist/style.css` | Bundled CSS (built, gitignored) |
+| Scripts | `js/main.js` | Theme toggle, filtering, animations |
+| Fonts | `fonts/` | Self-hosted Inter WOFF2 files |
+| Build Config | `package.json`, `postcss.config.js` | PostCSS build configuration |
+| CI/CD | `.github/workflows/deploy.yml` | GitHub Actions deployment |
 | Projects | `frontendmentor/`, `freecodecamp/`, `MDN/` | Learning projects |
 | Docs | `docs/` | Documentation |
 
@@ -36,9 +41,22 @@ Personal portfolio website showcasing software development projects. Built with 
 
 ## Commands
 
+### Setup
+
+```bash
+# Install dependencies (required once)
+npm install
+```
+
 ### Development
 
 ```bash
+# Build CSS (bundles css/*.css → dist/style.css)
+npm run build
+
+# Watch mode (auto-rebuild on CSS changes)
+npm run watch
+
 # Start local server (Python)
 python -m http.server 8000
 
@@ -52,11 +70,14 @@ open http://localhost:8000
 ### Deployment
 
 ```bash
-# Deploy to GitHub Pages (automatic on push to main)
+# Deploy to GitHub Pages (via GitHub Actions)
+# Push to main triggers: npm ci → npm run build → deploy
 git add .
 git commit -m "Update portfolio"
 git push origin main
 ```
+
+**Note**: `dist/` is gitignored. CSS is built by GitHub Actions during deployment.
 
 ---
 
@@ -75,13 +96,18 @@ git push origin main
 
 ### CSS Architecture
 
+Source files in `css/` are bundled by PostCSS into `dist/style.css`:
+
 | File | Purpose |
 |------|---------|
+| `main.css` | Entry point, imports other files, layout styles |
+| `fonts.css` | @font-face declarations for Inter |
 | `variables.css` | Design tokens (colors, spacing, typography) |
 | `reset.css` | Browser normalization |
 | `utilities.css` | Reusable utility classes |
 | `components.css` | UI components (cards, buttons) |
-| `main.css` | Layout, responsive styles |
+
+**Build**: `npm run build` bundles all `@import` statements into single file.
 
 ### Naming Conventions
 
@@ -104,9 +130,12 @@ git push origin main
 
 ### Fonts
 
-| Service | Purpose | URL |
-|---------|---------|-----|
-| Google Fonts | Inter font family | fonts.googleapis.com |
+Fonts are self-hosted in `fonts/` directory (no external CDN):
+
+| File | Purpose |
+|------|---------|
+| `inter-latin.woff2` | Inter font (Latin subset) |
+| `inter-latin-ext.woff2` | Inter font (Latin Extended subset) |
 
 ### External Links
 
@@ -157,16 +186,26 @@ git push origin main
 
 ### Environments
 
-| Environment | URL | Branch |
-|-------------|-----|--------|
-| Production | goodalex223.github.io | main |
-| Local Dev | localhost:8000 | any |
+| Environment | URL | Trigger |
+|-------------|-----|---------|
+| Production | goodalex223.github.io | Push to `main` (via GitHub Actions) |
+| Local Dev | localhost:8000 | Manual (`npm run build` + server) |
+
+### CI/CD Pipeline
+
+GitHub Actions workflow (`.github/workflows/deploy.yml`):
+1. Checkout code
+2. Setup Node.js 20
+3. `npm ci` (install dependencies)
+4. `npm run build` (bundle CSS)
+5. Deploy to GitHub Pages
 
 ### Pre-deployment Checklist
 
 - [ ] All links working
 - [ ] Responsive design tested (375px, 768px, 1920px)
 - [ ] No console errors
+- [ ] CSS builds without errors (`npm run build`)
 - [ ] HTML validates (W3C)
 - [ ] Lighthouse score > 90
 

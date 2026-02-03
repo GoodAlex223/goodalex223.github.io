@@ -56,6 +56,7 @@ goodalex223/
 │       └── deploy.yml      # GitHub Actions CI/CD pipeline
 ├── css/
 │   ├── main.css            # Entry point, imports + layout styles
+│   ├── fonts.css           # @font-face declarations for Inter
 │   ├── variables.css       # Design tokens (colors, spacing, typography)
 │   ├── reset.css           # Browser normalization
 │   ├── utilities.css       # Reusable utility classes
@@ -99,11 +100,12 @@ goodalex223/
 
 ### CSS Architecture
 CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/style.css`:
-1. `variables.css` — Design tokens
-2. `reset.css` — Browser normalization
-3. `utilities.css` — Utility classes
-4. `components.css` — UI components
-5. `main.css` — Layout and section styles
+1. `fonts.css` — @font-face declarations for Inter
+2. `variables.css` — Design tokens
+3. `reset.css` — Browser normalization
+4. `utilities.css` — Utility classes
+5. `components.css` — UI components
+6. `main.css` — Layout and section styles
 
 **Build Process**: PostCSS with `postcss-import` plugin resolves all `@import` statements and outputs single bundled file to `dist/style.css`. HTML files reference the built file, not source files.
 
