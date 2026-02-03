@@ -416,6 +416,17 @@ function initProjectFilter() {
           targetIndex = lastIndex;
           break;
 
+        case "Escape":
+          e.preventDefault();
+          // Reset to "all" filter (only if not already showing all)
+          if (currentFilter !== "all") {
+            setActiveButton(allButton);
+            allButton.focus();
+            filterProjects("all");
+            updateHash("all");
+          }
+          return;
+
         default:
           return;
       }
