@@ -116,9 +116,10 @@ function initThemeToggle() {
 
 /**
  * Project Filter Functionality
- * - Filters project cards by category
- * - Immediate layout reflow (hidden cards removed from flow)
+ * - Filters project cards by category with staggered animations
+ * - Choreographed entrance/exit transitions with fade + scale effects
  * - Single-select with toggle-to-reset behavior
+ * - Respects prefers-reduced-motion preference
  */
 function initProjectFilter() {
   const filterButtons = document.querySelectorAll(".filter-btn");
