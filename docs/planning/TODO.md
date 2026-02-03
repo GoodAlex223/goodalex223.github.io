@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-03 (FEAT-004 completed)
+**Last Updated**: 2026-02-03 (FEAT-005 completed)
 
 ---
 
@@ -15,20 +15,6 @@ _None currently_
 ## High Priority
 
 ## Medium Priority
-
-### [FEAT-005] - Escape key to reset filter
-**Priority**: Medium
-**Dependencies**: None
-**Origin**: BACKLOG.md (From FEAT-002)
-
-**Description**: Add Escape key handler to reset filter to "All" from any focused filter button.
-
-**Acceptance Criteria**:
-- [ ] Pressing Escape while a filter button is focused resets to "All"
-- [ ] Focus moves to "All" button after reset
-- [ ] Live region announces the reset
-
----
 
 ### [FEAT-006] - Filter count badges
 **Priority**: Medium
