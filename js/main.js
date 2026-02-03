@@ -120,6 +120,8 @@ function initThemeToggle() {
  * - Choreographed entrance/exit transitions with fade + scale effects
  * - Single-select with toggle-to-reset behavior
  * - Respects prefers-reduced-motion preference
+ * - URL hash integration for shareable filter links (#filter=backend)
+ * - Browser back/forward navigation support
  */
 function initProjectFilter() {
   const filterButtons = document.querySelectorAll(".filter-btn");
@@ -134,6 +136,47 @@ function initProjectFilter() {
   let isAnimating = false;
   let animationTimeouts = [];
   let animationFrame = null;
+
+  // Valid filter categories (single source of truth)
+  const VALID_CATEGORIES = ["all", "backend", "iot", "web", "tools"];
+
+  /**
+   * Parse and validate URL hash to get filter category
+   * @returns {string} Valid category or "all" for invalid/missing hash
+   */
+  function getCategoryFromHash() {
+    const hash = window.location.hash; // e.g., "#filter=backend"
+    const match = hash.match(/^#filter=([a-z]+)$/);
+    if (!match) return "all";
+
+    const category = match[1];
+    return VALID_CATEGORIES.includes(category) ? category : "all";
+  }
+
+  /**
+   * Update URL hash to match filter state
+   * Uses pushState for browser history navigation support
+   * @param {string} category - Active filter category
+   */
+  function updateHash(category) {
+    const newHash = category === "all" ? "" : `#filter=${category}`;
+    const newUrl = window.location.pathname + window.location.search + newHash;
+    history.pushState(null, "", newUrl);
+  }
+
+  /**
+   * Apply filter from URL hash (on page load or browser navigation)
+   * Does NOT update hash to prevent circular updates
+   */
+  function applyHashFilter() {
+    const category = getCategoryFromHash();
+    const targetButton = document.querySelector(`[data-filter="${category}"]`);
+
+    if (!targetButton) return; // Defensive: should never happen with validation
+
+    setActiveButton(targetButton);
+    filterProjects(category);
+  }
 
   /**
    * Cancel any pending filter animations
@@ -326,11 +369,11 @@ function initProjectFilter() {
         setActiveButton(allButton);
         allButton.focus();
         filterProjects("all");
-        // announceFilterResults is called after animation completes in filterProjects()
+        updateHash("all");
       } else {
         setActiveButton(button);
         filterProjects(filter);
-        // announceFilterResults is called after animation completes in filterProjects()
+        updateHash(filter);
       }
     });
   });
@@ -373,6 +416,17 @@ function initProjectFilter() {
       targetButton.focus();
     });
   });
+
+  // Handle browser back/forward navigation
+  window.addEventListener("popstate", () => {
+    applyHashFilter();
+  });
+
+  // Apply initial filter from URL hash on page load
+  const initialCategory = getCategoryFromHash();
+  if (initialCategory !== "all") {
+    applyHashFilter();
+  }
 }
 
 /**
