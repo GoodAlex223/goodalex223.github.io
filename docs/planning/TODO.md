@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-03 (PERF-003 completed)
+**Last Updated**: 2026-02-03 (FEAT-003 completed)
 
 ---
 
@@ -15,21 +15,6 @@ _None currently_
 ## High Priority
 
 ## Medium Priority
-
-### [FEAT-003] - Enhanced filter animations
-**Priority**: Medium
-**Dependencies**: None
-**Origin**: BACKLOG.md (Filter Enhancements)
-
-**Description**: Add richer animations for project cards during filtering — appearance, disappearance, movement, and other transitions beyond the current opacity + scale.
-
-**Acceptance Criteria**:
-- [ ] Cards animate smoothly when appearing/disappearing
-- [ ] Animation respects `prefers-reduced-motion`
-- [ ] No layout jank during transitions
-- [ ] Performance stays smooth on mobile
-
----
 
 ### [FEAT-004] - URL hash-based filtering
 **Priority**: Medium

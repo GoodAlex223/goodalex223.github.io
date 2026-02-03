@@ -97,7 +97,7 @@ Future ideas and improvements for the portfolio.
 - [ ] URL hash-based filtering — Allow shareable links like `#filter=backend`
 - [ ] Filter count badges — Show number of projects per category on buttons
 - [x] ~~Keyboard navigation~~ *(completed 2026-01-29, FEAT-002)*
-- [ ] Enhanced filter animations — Add animations for project cards during filtering (appearance, disappearance, movement, and other transitions)
+- [x] ~~Enhanced filter animations~~ *(completed 2026-02-03, FEAT-003)*
 - [x] ~~Fix toggle-to-reset tabindex desync~~ *(completed 2026-02-02, BUG-002)*
 
 ---
@@ -250,6 +250,13 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Centralize filter activation logic — Single `activateFilter(button, category)` function to reduce risk of future desync between toggle-to-reset and normal click paths
 - [ ] Automated accessibility regression tests — Playwright tests verifying focus/tabindex sync after all filter interactions
+
+---
+
+## From FEAT-003: Enhanced Filter Animations (2026-02-03)
+**Origin**: docs/planning/plans/2026-02-03_feat-003-enhanced-filter-animations.md
+
+- [ ] Playwright animation tests — Add tests verifying filter animation timing, visual states, and rapid click handling
 
 ---
 
