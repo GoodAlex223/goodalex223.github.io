@@ -1,12 +1,25 @@
 # DONE
 
-**Last Updated**: 2026-02-03 (FEAT-004 completed)
+**Last Updated**: 2026-02-03 (FEAT-005 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-03
+
+### Escape Key to Reset Filter (FEAT-005)
+
+**Plan**: N/A (simple feature, no plan document)
+**Summary**: Added Escape key handler to reset project filter to "all" when pressed while a filter button has focus. Follows existing roving tabindex keyboard navigation pattern.
+**Key Changes**:
+- Added `case "Escape"` to keyboard navigation switch in `js/main.js` (lines 419-428)
+- Guard clause: only resets if `currentFilter !== "all"`
+- Reuses existing functions: `setActiveButton()`, `allButton.focus()`, `filterProjects()`, `updateHash()`
+- Live region announces results automatically via `filterProjects()`
+**Spawned Tasks**: 2 items added to BACKLOG.md (centralized reset function, keyboard shortcut documentation)
+
+---
 
 ### URL Hash-Based Filtering (FEAT-004)
 

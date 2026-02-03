@@ -144,8 +144,14 @@ Future ideas and improvements for the portfolio.
 ### From FEAT-002: Filter Keyboard Navigation (2026-01-29)
 **Origin**: docs/archive/plans/2026-01-29_feat-002-filter-keyboard-nav.md
 
-- [ ] Escape key to reset filter — Add Escape key handler to reset to "All" from any focused filter button
+- [x] ~~Escape key to reset filter~~ *(completed 2026-02-03, FEAT-005)*
 - [ ] Screen reader testing — Test keyboard navigation with NVDA/VoiceOver to verify live region announcements and roving tabindex behavior
+
+### From FEAT-005: Escape Key Reset Filter (2026-02-03)
+**Origin**: FEAT-005 implementation
+
+- [ ] Centralized reset function — Extract `resetFilter()` function to DRY up toggle-to-reset click handler and Escape key handler (both use same 4-line sequence)
+- [ ] Keyboard shortcut documentation — Add visible hint or help tooltip showing Escape key resets filter (improves discoverability)
 
 ### From PERF-001: Self-host Google Fonts (2026-01-29)
 **Origin**: docs/archive/plans/2026-01-29_perf-001-self-host-fonts.md

@@ -196,13 +196,15 @@ Client-side category filtering with subtle staggered animations:
    - **Page Load**: Initial filter applied from hash on page load
    - **History API**: Uses `history.pushState()` for navigation without page reload
    - **Implementation**: `getCategoryFromHash()`, `updateHash()`, `applyHashFilter()` functions
+   - **Focus behavior**: Only moves focus to active button if user is already navigating toolbar (prevents jarring focus jumps on page load/browser navigation)
 6. **Accessibility**: WCAG-compliant keyboard and screen reader support
    - `aria-pressed` attributes for button state
    - `role="toolbar"` on filter container
    - **Roving tabindex pattern**: Only one button has `tabindex="0"`, others `tabindex="-1"`
-   - **Keyboard navigation**: Arrow keys (left/right/up/down) cycle through buttons, Home/End jump to first/last
+   - **Keyboard navigation**: Arrow keys (left/right/up/down) cycle through buttons, Home/End jump to first/last, Escape resets to "all"
    - **Live region**: `#filter-status` with `aria-live="polite"` announces "Showing N [category] projects" after filtering
    - **Focus management**: `setActiveButton()` calls `updateTabindex()` to sync tabindex with active state; toggle-to-reset explicitly moves focus to "all" button
+   - **Escape key reset**: Pressing Escape while filter button has focus resets to "all" (guard clause: only if `currentFilter !== "all"`)
 
 ### Scroll Animation Pattern
 Progressive reveal animations using Intersection Observer:
