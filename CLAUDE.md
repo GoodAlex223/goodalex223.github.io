@@ -5,11 +5,12 @@ This file provides guidance to Claude Code when working with code in this reposi
 <!-- AUTO-MANAGED: project-description -->
 ## Overview
 
-**Personal Portfolio Website** for Alexey Minakov — a static site showcasing software development projects, built with vanilla HTML, CSS, and JavaScript.
+**Personal Portfolio Website** for Alexey Minakov — a static site showcasing software development projects.
 
 - **Live Site**: [goodalex223.github.io](https://goodalex223.github.io)
-- **Tech Stack**: HTML5, CSS3 (Custom Properties, Grid, Flexbox), Vanilla ES6+
-- **Hosting**: GitHub Pages (auto-deploys on push to `main`)
+- **Tech Stack**: HTML5, CSS3 (Custom Properties, Grid, Flexbox), ES6+
+- **Build Tools**: PostCSS (CSS bundling)
+- **Hosting**: GitHub Pages (deploys via GitHub Actions)
 
 <!-- END AUTO-MANAGED -->
 
