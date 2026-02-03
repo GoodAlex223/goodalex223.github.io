@@ -1,8 +1,24 @@
 # DONE
 
-**Last Updated**: 2026-02-02 (PERF-002 completed)
+**Last Updated**: 2026-02-03 (PERF-003 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-03
+
+### Bundle CSS Files (PERF-003)
+
+**Plan**: [docs/planning/plans/2026-02-03_perf-003-bundle-css.md](plans/2026-02-03_perf-003-bundle-css.md)
+**Summary**: Added PostCSS build system to bundle 6 modular CSS files (using @import) into a single `dist/style.css` for production. Reduces HTTP requests from 6 to 1. GitHub Actions CI/CD workflow handles building and deploying.
+**Key Changes**:
+- Created `package.json` with PostCSS dependencies and build scripts
+- Created `postcss.config.js` with postcss-import plugin
+- Created `.github/workflows/deploy.yml` for CI/CD
+- Updated HTML files to reference `dist/style.css`
+- Added `dist/`, `node_modules/` to `.gitignore`
+**Spawned Tasks**: 2 items added to BACKLOG.md (CSS minification, cache-busting)
 
 ---
 

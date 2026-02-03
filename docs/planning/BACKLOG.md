@@ -119,7 +119,7 @@ Future ideas and improvements for the portfolio.
 - [ ] Minify CSS for production
 - [ ] Add service worker for offline support
 - [x] ~~Self-host Google Fonts~~ *(completed 2026-01-29, PERF-001)*
-- [ ] Bundle CSS files — Replace @import chain with single bundled CSS file for production (from HP-002 Lighthouse audit, 2026-01-26)
+- [x] ~~Bundle CSS files~~ *(completed 2026-02-03, PERF-003)*
 - [x] ~~Add font preload hint~~ *(completed 2026-02-02, PERF-002)*
 
 ### SEO
@@ -158,6 +158,12 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Inline critical CSS — Inline above-the-fold styles in `<head>` and load full CSS asynchronously for faster first paint
 - [ ] Monitor with Lighthouse CI — Set up automated Lighthouse checks to catch performance regressions
+
+### From PERF-003: Bundle CSS Files (2026-02-03)
+**Origin**: docs/planning/plans/2026-02-03_perf-003-bundle-css.md
+
+- [ ] Add CSS minification with cssnano — Reduces file size further for production
+- [ ] Add cache-busting with content hash — Filename includes hash (e.g., `style.abc123.css`) for reliable cache invalidation
 
 ### From SEO-001: robots.txt & sitemap.xml (2026-01-29)
 **Origin**: docs/archive/plans/2026-01-29_seo-001-robots-sitemap.md

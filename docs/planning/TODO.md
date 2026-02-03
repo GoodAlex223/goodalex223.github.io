@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-02 (PERF-002 completed)
+**Last Updated**: 2026-02-03 (PERF-003 completed)
 
 ---
 
@@ -15,21 +15,6 @@ _None currently_
 ## High Priority
 
 ## Medium Priority
-
-### [PERF-003] - Bundle CSS files
-**Priority**: Medium
-**Dependencies**: None
-**Origin**: BACKLOG.md (Performance, from HP-002 Lighthouse audit)
-
-**Description**: Replace the `@import` chain in `main.css` with a single bundled CSS file for production. Reduces HTTP requests and eliminates render-blocking import cascade.
-
-**Acceptance Criteria**:
-- [ ] Single CSS file serves all styles in production
-- [ ] Build script or process documented
-- [ ] No visual regressions across all pages
-- [ ] Development workflow preserved (modular files still editable)
-
----
 
 ### [FEAT-003] - Enhanced filter animations
 **Priority**: Medium
