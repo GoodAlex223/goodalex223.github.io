@@ -188,7 +188,15 @@ Client-side category filtering with subtle staggered animations:
    - **Stagger implementation**: JavaScript applies inline `transition-delay` based on card index
    - **Reduced motion**: Animations disabled when `prefers-reduced-motion: reduce` is active
 4. **Toggle Behavior**: Clicking active category filter resets to "all"
-5. **Accessibility**: WCAG-compliant keyboard and screen reader support
+5. **URL Hash Integration**: Shareable filter links with browser history support
+   - **URL Format**: `#filter=backend`, `#filter=iot`, `#filter=web`, `#filter=tools`
+   - **Clean URLs**: Hash removed when filter is "all" (default state)
+   - **Validation**: Invalid category hashes fallback to "all" (regex: `/^#filter=([a-z]+)$/`)
+   - **Browser Navigation**: Back/forward buttons work via `popstate` event listener
+   - **Page Load**: Initial filter applied from hash on page load
+   - **History API**: Uses `history.pushState()` for navigation without page reload
+   - **Implementation**: `getCategoryFromHash()`, `updateHash()`, `applyHashFilter()` functions
+6. **Accessibility**: WCAG-compliant keyboard and screen reader support
    - `aria-pressed` attributes for button state
    - `role="toolbar"` on filter container
    - **Roving tabindex pattern**: Only one button has `tabindex="0"`, others `tabindex="-1"`
