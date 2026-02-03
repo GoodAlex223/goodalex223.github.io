@@ -116,9 +116,10 @@ function initThemeToggle() {
 
 /**
  * Project Filter Functionality
- * - Filters project cards by category
- * - Immediate layout reflow (hidden cards removed from flow)
+ * - Filters project cards by category with staggered animations
+ * - Choreographed entrance/exit transitions with fade + scale effects
  * - Single-select with toggle-to-reset behavior
+ * - Respects prefers-reduced-motion preference
  */
 function initProjectFilter() {
   const filterButtons = document.querySelectorAll(".filter-btn");
@@ -129,23 +130,149 @@ function initProjectFilter() {
 
   let currentFilter = "all";
 
+  // Animation state tracking for filter animations
+  let isAnimating = false;
+  let animationTimeouts = [];
+  let animationFrame = null;
+
   /**
-   * Filter projects by category with immediate layout reflow
+   * Cancel any pending filter animations
+   * Ensures clean state when new animation starts
+   */
+  function cancelFilterAnimations() {
+    animationTimeouts.forEach((id) => clearTimeout(id));
+    animationTimeouts = [];
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = null;
+    }
+  }
+
+  /**
+   * Clean up all animation classes from a card
+   * @param {HTMLElement} card - Project card element
+   */
+  function cleanupAnimationClasses(card) {
+    card.classList.remove(
+      "project-card--filtering-out",
+      "project-card--filtering-in",
+      "is-filtering"
+    );
+  }
+
+  /**
+   * Filter projects by category with staggered animations
+   * - Parallel hide/show animations for smooth transitions
+   * - Stagger delay creates choreographed effect
+   * - Respects prefers-reduced-motion
+   * - Handles rapid clicks gracefully (cancels pending animations)
    * @param {string} category - Category to filter by, or "all" to show all
    */
   function filterProjects(category) {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    // Cancel any pending animations from rapid clicks
+    cancelFilterAnimations();
+
+    // Separate cards into show/hide groups
+    const cardsToShow = [];
+    const cardsToHide = [];
+
     projectCards.forEach((card) => {
       const cardCategory = card.dataset.category;
       const shouldShow = category === "all" || cardCategory === category;
+      const isCurrentlyHidden = card.classList.contains("project-card--hidden");
 
-      if (shouldShow) {
-        card.classList.remove("project-card--hidden");
-      } else {
-        card.classList.add("project-card--hidden");
+      // Clean up any stale animation classes from interrupted animations
+      cleanupAnimationClasses(card);
+
+      if (shouldShow && isCurrentlyHidden) {
+        cardsToShow.push(card);
+      } else if (!shouldShow && !isCurrentlyHidden) {
+        cardsToHide.push(card);
       }
     });
 
-    currentFilter = category;
+    // Skip animations if user prefers reduced motion
+    if (prefersReducedMotion) {
+      cardsToShow.forEach((card) => {
+        card.classList.remove("project-card--hidden");
+      });
+      cardsToHide.forEach((card) => {
+        card.classList.add("project-card--hidden");
+      });
+      currentFilter = category;
+      announceFilterResults(category);
+      return;
+    }
+
+    // Read animation timing from CSS custom properties (single source of truth)
+    const rootStyles = getComputedStyle(document.documentElement);
+    const animationDuration = parseInt(
+      rootStyles.getPropertyValue("--filter-animation-duration"),
+      10
+    );
+    const staggerDelay = parseInt(
+      rootStyles.getPropertyValue("--filter-stagger-delay"),
+      10
+    );
+
+    // Mark animation as in progress
+    isAnimating = true;
+
+    // PHASE 1: Start exit animations for cards being hidden
+    cardsToHide.forEach((card) => {
+      card.classList.add("project-card--filtering-out");
+    });
+
+    // PHASE 2: After exit animation, remove from layout
+    const exitTimeout = setTimeout(() => {
+      cardsToHide.forEach((card) => {
+        card.classList.remove("project-card--filtering-out");
+        card.classList.add("project-card--hidden");
+      });
+    }, animationDuration);
+    animationTimeouts.push(exitTimeout);
+
+    // PHASE 3: Prepare entrance animations (set start state immediately)
+    cardsToShow.forEach((card) => {
+      card.classList.remove("project-card--hidden");
+      card.classList.add("project-card--filtering-in");
+    });
+
+    // PHASE 4: Trigger entrance animations with stagger delay
+    // Double requestAnimationFrame ensures browser paints the start state
+    animationFrame = requestAnimationFrame(() => {
+      animationFrame = requestAnimationFrame(() => {
+        cardsToShow.forEach((card, index) => {
+          const delay = index * staggerDelay;
+
+          const staggerTimeout = setTimeout(() => {
+            card.classList.add("is-filtering");
+          }, delay);
+          animationTimeouts.push(staggerTimeout);
+        });
+
+        // Clean up animation classes and update state after all animations complete
+        const totalAnimationTime =
+          animationDuration + cardsToShow.length * staggerDelay;
+        const cleanupTimeout = setTimeout(() => {
+          cardsToShow.forEach((card) => {
+            card.classList.remove("project-card--filtering-in", "is-filtering");
+          });
+
+          // Update state only after animation completes
+          currentFilter = category;
+          isAnimating = false;
+
+          // Announce results to screen readers after animation completes
+          announceFilterResults(category);
+        }, totalAnimationTime);
+        animationTimeouts.push(cleanupTimeout);
+      });
+    });
   }
 
   /**
@@ -199,11 +326,11 @@ function initProjectFilter() {
         setActiveButton(allButton);
         allButton.focus();
         filterProjects("all");
-        announceFilterResults("all");
+        // announceFilterResults is called after animation completes in filterProjects()
       } else {
         setActiveButton(button);
         filterProjects(filter);
-        announceFilterResults(filter);
+        // announceFilterResults is called after animation completes in filterProjects()
       }
     });
   });

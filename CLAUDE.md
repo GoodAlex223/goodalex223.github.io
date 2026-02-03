@@ -171,13 +171,22 @@ Light/dark theme implementation:
 7. **System Sync**: Auto-switches theme when system preference changes (no saved preference)
 
 ### Project Filtering Pattern
-Client-side category filtering with immediate layout reflow:
+Client-side category filtering with subtle staggered animations:
 1. **Filter Buttons**: `.filter-btn` with `data-filter` attribute (all, backend, iot, web, tools)
 2. **Active State**: Single-select with `.filter-btn--active` class, category-colored backgrounds
-3. **Animation**: Immediate reflow with smooth transitions
-   - Hidden cards: `.project-card--hidden` uses `position: absolute` + `visibility: hidden`
-   - Removes hidden cards from layout flow immediately (visible cards fill gaps)
-   - Smooth opacity + scale transition for visual feedback
+3. **Animation**: Subtle fade + scale with stagger
+   - **Exit animation**: `.project-card--filtering-out`
+     - Fade out + subtle scale down (0.92)
+     - Applied immediately to cards being hidden
+   - **Entrance animation**: `.project-card--filtering-in` → `.is-filtering`
+     - Start: opacity 0, scale 0.92, translateY(12px)
+     - End: opacity 1, scale 1, translateY(0)
+     - Triggered after exit animations complete
+   - **Timing**: 350ms duration, 30ms stagger delay, cubic-bezier(0.16, 1, 0.3, 1) easing
+   - **CSS Variables**: `--filter-animation-duration`, `--filter-stagger-delay`, `--filter-easing` in `variables.css`
+   - **Final state**: `.project-card--hidden` uses `position: absolute` + `visibility: hidden` (removes from layout)
+   - **Stagger implementation**: JavaScript applies inline `transition-delay` based on card index
+   - **Reduced motion**: Animations disabled when `prefers-reduced-motion: reduce` is active
 4. **Toggle Behavior**: Clicking active category filter resets to "all"
 5. **Accessibility**: WCAG-compliant keyboard and screen reader support
    - `aria-pressed` attributes for button state

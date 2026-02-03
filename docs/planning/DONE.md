@@ -1,12 +1,26 @@
 # DONE
 
-**Last Updated**: 2026-02-03 (PERF-003 completed)
+**Last Updated**: 2026-02-03 (FEAT-003 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-03
+
+### Enhanced Filter Animations (FEAT-003)
+
+**Plan**: [docs/planning/plans/2026-02-03_feat-003-enhanced-filter-animations.md](plans/2026-02-03_feat-003-enhanced-filter-animations.md)
+**Summary**: Added staggered fade + scale animations for project card filtering. Cards now smoothly animate when appearing/disappearing with 350ms duration and 30ms stagger delay between cards. Respects prefers-reduced-motion.
+**Key Changes**:
+- Added CSS animation classes (filtering-out, filtering-in, is-filtering)
+- Added CSS variables for animation timing in variables.css
+- Refactored filterProjects() with 4-phase animation orchestration
+- Handles rapid clicks gracefully (cancels pending animations)
+- Screen reader announcements delayed until animation completes
+**Spawned Tasks**: 1 item added to BACKLOG.md (Playwright animation tests)
+
+---
 
 ### Bundle CSS Files (PERF-003)
 
