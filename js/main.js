@@ -167,6 +167,7 @@ function initProjectFilter() {
   /**
    * Apply filter from URL hash (on page load or browser navigation)
    * Does NOT update hash to prevent circular updates
+   * Moves focus to active button only if focus is already in filter toolbar
    */
   function applyHashFilter() {
     const category = getCategoryFromHash();
@@ -175,6 +176,14 @@ function initProjectFilter() {
     if (!targetButton) return; // Defensive: should never happen with validation
 
     setActiveButton(targetButton);
+
+    // Move focus only if user was already navigating the filter toolbar
+    // This prevents jarring focus jumps on page load or browser back/forward
+    const isInToolbar = Array.from(filterButtons).includes(document.activeElement);
+    if (isInToolbar) {
+      targetButton.focus();
+    }
+
     filterProjects(category);
   }
 
