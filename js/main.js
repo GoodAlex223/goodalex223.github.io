@@ -141,6 +141,47 @@ function initProjectFilter() {
   const VALID_CATEGORIES = ["all", "backend", "iot", "web", "tools"];
 
   /**
+   * Calculate project counts per category
+   * @returns {Object} Map of category to count (e.g., { all: 7, backend: 1, ... })
+   */
+  function calculateCategoryCounts() {
+    const counts = { all: projectCards.length };
+
+    VALID_CATEGORIES.forEach((cat) => {
+      if (cat !== "all") counts[cat] = 0;
+    });
+
+    projectCards.forEach((card) => {
+      const category = card.dataset.category;
+      if (category in counts) {
+        counts[category]++;
+      }
+    });
+
+    return counts;
+  }
+
+  /**
+   * Inject counts into filter button labels
+   * Uses each button's existing text as the base label to preserve casing (e.g., "IoT")
+   * Adds aria-label for clean screen reader output
+   * @param {Object} counts - Category to count map
+   */
+  function updateButtonLabels(counts) {
+    filterButtons.forEach((button) => {
+      const category = button.dataset.filter;
+      const baseLabel = button.textContent.trim();
+      const count = counts[category] || 0;
+
+      button.textContent = `${baseLabel} (${count})`;
+      button.setAttribute(
+        "aria-label",
+        `${baseLabel}, ${count} project${count === 1 ? "" : "s"}`
+      );
+    });
+  }
+
+  /**
    * Parse and validate URL hash to get filter category
    * @returns {string} Valid category or "all" for invalid/missing hash
    */
@@ -460,6 +501,10 @@ function initProjectFilter() {
   window.addEventListener("popstate", () => {
     applyHashFilter();
   });
+
+  // Initialize button labels with project counts
+  const categoryCounts = calculateCategoryCounts();
+  updateButtonLabels(categoryCounts);
 
   // Apply initial filter from URL hash on page load
   const initialCategory = getCategoryFromHash();

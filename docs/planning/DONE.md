@@ -1,12 +1,24 @@
 # DONE
 
-**Last Updated**: 2026-02-04 (BUG-003 completed)
+**Last Updated**: 2026-02-04 (FEAT-006 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-04
+
+### Filter Count Badges (FEAT-006)
+
+**Plan**: [docs/archive/plans/2026-02-04_feat-006-filter-count-badges.md](../archive/plans/2026-02-04_feat-006-filter-count-badges.md)
+**Summary**: Added project count badges to filter buttons showing number of projects per category (e.g., "Backend (1)", "IoT (3)", "All (7)"). Counts calculated from DOM at page load, with clean `aria-label` for screen readers.
+**Key Changes**:
+- Added `calculateCategoryCounts()` and `updateButtonLabels()` functions in `js/main.js`
+- Inline parentheses format preserves original button casing ("IoT" not "Iot")
+- Screen reader labels: "Backend, 1 project" (singular/plural handled)
+**Spawned Tasks**: 2 items added to BACKLOG.md (animated count transitions, zero-count button dimming)
+
+---
 
 ### Fix Filter Animation Failures (BUG-003)
 

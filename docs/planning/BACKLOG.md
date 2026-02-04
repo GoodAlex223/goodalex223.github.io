@@ -95,7 +95,7 @@ Future ideas and improvements for the portfolio.
 
 ### Filter Enhancements
 - [ ] URL hash-based filtering — Allow shareable links like `#filter=backend`
-- [ ] Filter count badges — Show number of projects per category on buttons
+- [x] ~~Filter count badges~~ *(completed 2026-02-04, FEAT-006)*
 - [x] ~~Keyboard navigation~~ *(completed 2026-01-29, FEAT-002)*
 - [x] ~~Enhanced filter animations~~ *(completed 2026-02-03, FEAT-003)*
 - [x] ~~Fix toggle-to-reset tabindex desync~~ *(completed 2026-02-02, BUG-002)*
@@ -271,6 +271,14 @@ Future ideas and improvements for the portfolio.
 
 - [ ] CSS specificity documentation — Add a comment block in components.css explaining the specificity hierarchy between scroll and filter animation systems (prevents future developers from reordering sections)
 - [ ] Animation integration tests — Add Playwright tests that verify filter animations are visible (check computed opacity/transform during animation) to catch CSS specificity regressions
+
+---
+
+## From FEAT-006: Filter Count Badges (2026-02-04)
+**Origin**: docs/archive/plans/2026-02-04_feat-006-filter-count-badges.md
+
+- [ ] Animated count transitions — Animate count change on "All" button to show visible vs total (e.g., "All (3/7)") during filtering
+- [ ] Zero-count button dimming — Visually dim or disable filter buttons for categories with 0 projects
 
 ---
 

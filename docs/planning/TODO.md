@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-04 (BUG-003 completed)
+**Last Updated**: 2026-02-04 (FEAT-006 completed)
 
 ---
 
@@ -13,20 +13,6 @@ _None currently_
 ---
 
 ## Medium Priority
-
-### [FEAT-006] - Filter count badges
-**Priority**: Medium
-**Dependencies**: None
-**Origin**: BACKLOG.md (Filter Enhancements)
-
-**Description**: Show the number of projects per category on each filter button (e.g., "Backend (2)").
-
-**Acceptance Criteria**:
-- [ ] Each filter button displays project count
-- [ ] Counts are accurate and update if cards are added/removed
-- [ ] Badge styling is subtle and doesn't clutter the UI
-
----
 
 ### [SEO-003] - Google Search Console verification
 **Priority**: Medium

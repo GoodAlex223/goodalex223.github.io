@@ -150,6 +150,10 @@ CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/
 - **Filter Buttons**: `.filter-btn` for project filtering
   - Active state: `.filter-btn--active` with category-colored backgrounds
   - Category colors match project card badges (backend, iot, web, tools)
+  - **Project counts**: Dynamic counts injected into button labels (e.g., "Backend (3)")
+    - Calculated on init via `calculateCategoryCounts()` and `updateButtonLabels()`
+    - Preserves original casing (e.g., "IoT" not "iot")
+    - Clean screen reader output via `aria-label` ("Backend, 3 projects")
   - ARIA attributes: `aria-pressed` for screen readers, `role="toolbar"` on container
   - Single-select with toggle-to-reset behavior (clicking active filter resets to "all")
   - **Roving tabindex**: Only one button has `tabindex="0"` at a time (WCAG pattern)
