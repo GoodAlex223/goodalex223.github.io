@@ -414,53 +414,6 @@
 }
 
 /* ===================
-   FILTER ANIMATIONS
-   =================== */
-
-/* Exit animation state - fade out + scale down */
-.project-card--filtering-out {
-  opacity: 0;
-  transform: scale(0.92);
-  pointer-events: none;
-  transition:
-    opacity var(--filter-animation-duration) var(--filter-easing),
-    transform var(--filter-animation-duration) var(--filter-easing);
-}
-
-/* Entrance animation - start state */
-.project-card--filtering-in {
-  opacity: 0;
-  transform: scale(0.92) translateY(12px);
-}
-
-/* Entrance animation - end state (triggered by adding .is-filtering) */
-.project-card--filtering-in.is-filtering {
-  opacity: 1;
-  transform: scale(1) translateY(0);
-  transition:
-    opacity var(--filter-animation-duration) var(--filter-easing),
-    transform var(--filter-animation-duration) var(--filter-easing);
-}
-
-/* Final hidden state - removes card from layout flow */
-.project-card--hidden {
-  opacity: 0;
-  transform: scale(0.92);
-  pointer-events: none;
-  position: absolute;
-  visibility: hidden;
-}
-
-/* Disable filter animations for reduced motion preference */
-@media (prefers-reduced-motion: reduce) {
-  .project-card--filtering-out,
-  .project-card--filtering-in,
-  .project-card--filtering-in.is-filtering {
-    transition: none;
-  }
-}
-
-/* ===================
    SCROLL ANIMATIONS
    =================== */
 
@@ -495,6 +448,56 @@
   [data-animate] {
     opacity: 1;
     transform: none;
+    transition: none;
+  }
+}
+
+/* ===================
+   FILTER ANIMATIONS
+   (after scroll animations so equal-specificity selectors win by cascade order)
+   =================== */
+
+/* Exit animation state - fade out + scale down */
+.project-card.project-card--filtering-out {
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+  transition:
+    opacity var(--filter-animation-duration) var(--filter-easing),
+    transform var(--filter-animation-duration) var(--filter-easing);
+}
+
+/* Entrance animation - start state (transition: none prevents [data-animate] from
+   animating this setup state; the transition is only on .is-filtering end state) */
+.project-card.project-card--filtering-in {
+  opacity: 0;
+  transform: scale(0.92) translateY(12px);
+  transition: none;
+}
+
+/* Entrance animation - end state (triggered by adding .is-filtering) */
+.project-card.project-card--filtering-in.is-filtering {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition:
+    opacity var(--filter-animation-duration) var(--filter-easing),
+    transform var(--filter-animation-duration) var(--filter-easing);
+}
+
+/* Final hidden state - removes card from layout flow */
+.project-card.project-card--hidden {
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
+}
+
+/* Disable filter animations for reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .project-card.project-card--filtering-out,
+  .project-card.project-card--filtering-in,
+  .project-card.project-card--filtering-in.is-filtering {
     transition: none;
   }
 }
