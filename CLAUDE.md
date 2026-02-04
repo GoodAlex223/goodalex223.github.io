@@ -117,6 +117,9 @@ CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/
   - Preloads `fonts/inter-latin.woff2` and `fonts/inter-latin-ext.woff2`
   - Uses `type="font/woff2"` and `crossorigin` attribute
   - Reduces render-blocking and improves LCP (Largest Contentful Paint)
+- **Search engine verification**: Google Search Console meta tag configured
+  - `<meta name="google-site-verification" content="6ADLbi4pyMeQya11o0tJUq0Bb6ydv4GnJw1oLICjY0M" />`
+  - Enables search console access and indexing insights
 
 ### Theme System
 - **Data attribute**: `data-theme="light"` or `data-theme="dark"` on `<html>`
@@ -266,7 +269,7 @@ Progressive reveal animations using Intersection Observer:
 **sitemap.xml**: XML sitemap for search engines
 - Lists homepage with monthly update frequency
 - Priority: 1.0 (highest)
-- Last modified: 2026-01-28
+- Last modified: 2026-02-04
 
 **Meta tags** (in `index.html`):
 - Open Graph: `og:image`, `og:title`, `og:description`
