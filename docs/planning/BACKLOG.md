@@ -145,7 +145,7 @@ Future ideas and improvements for the portfolio.
 **Origin**: docs/archive/plans/2026-01-29_feat-002-filter-keyboard-nav.md
 
 - [x] ~~Escape key to reset filter~~ *(completed 2026-02-03, FEAT-005)*
-- [ ] Screen reader testing — Test keyboard navigation with NVDA/VoiceOver to verify live region announcements and roving tabindex behavior
+- [x] ~~Screen reader testing~~ *(completed 2026-02-04, A11Y-001)*
 
 ### From FEAT-005: Escape Key Reset Filter (2026-02-03)
 **Origin**: FEAT-005 implementation
@@ -284,6 +284,14 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Animated count transitions — Animate count change on "All" button to show visible vs total (e.g., "All (3/7)") during filtering
 - [ ] Zero-count button dimming — Visually dim or disable filter buttons for categories with 0 projects
+
+---
+
+## From A11Y-001: Screen Reader Testing (2026-02-04)
+**Origin**: docs/archive/plans/2026-02-04_a11y-001-screen-reader-testing.md
+
+- [ ] Automated screen reader testing — Use `@testing-library/dom` with `aria-query` or Playwright accessibility assertions to catch ARIA regressions in CI
+- [ ] Screen reader announcement logging — Add development mode that logs all live region updates to console for debugging accessibility issues without a screen reader
 
 ---
 
