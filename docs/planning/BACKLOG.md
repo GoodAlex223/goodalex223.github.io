@@ -176,7 +176,12 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Automate sitemap lastmod updates — Pre-commit hook or script to update `sitemap.xml` lastmod from git history when `index.html` changes
 - [ ] Expand sitemap for future pages — Add entries when blog or project detail pages are created
-- [ ] Google Search Console verification — Submit sitemap.xml for faster indexing and crawl monitoring
+- [x] ~~Google Search Console verification~~ *(completed 2026-02-04, SEO-003)*
+
+### From SEO-003: Google Search Console Verification (2026-02-04)
+**Origin**: docs/archive/plans/2026-02-04_seo-003-google-search-console.md
+
+- [ ] Add Bing Webmaster Tools verification — Similar meta tag for Microsoft search engine coverage
 
 ### Accessibility
 
