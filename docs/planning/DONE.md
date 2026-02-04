@@ -1,8 +1,25 @@
 # DONE
 
-**Last Updated**: 2026-02-03 (FEAT-005 completed)
+**Last Updated**: 2026-02-04 (BUG-003 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-04
+
+### Fix Filter Animation Failures (BUG-003)
+
+**Plan**: N/A (iterative debugging, no formal plan document)
+**Summary**: Fixed three compounding root causes that made filter animations invisible or intermittent: CSS cascade order conflict between scroll and filter animation systems, missing `transition: none` on entrance start state, and parallel entrance/exit causing CSS columns layout thrashing. Also fixed cards below viewport fold disappearing after animation cleanup.
+**Key Changes**:
+- Reordered CSS sections: filter animations after scroll animations (cascade order fix)
+- Added `transition: none` to `.project-card--filtering-in` start state
+- Sequenced entrance after exit in JS (replaced parallel with sequential)
+- Replaced double rAF with forced reflow (`offsetHeight`)
+- Added `is-visible` class in cleanup to prevent scroll animation state loss
+- Changed filter behavior: all visible cards exit, then target cards enter
+**Spawned Tasks**: 2 items added to BACKLOG.md (CSS specificity documentation, animation integration tests)
 
 ---
 

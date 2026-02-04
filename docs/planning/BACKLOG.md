@@ -266,6 +266,14 @@ Future ideas and improvements for the portfolio.
 
 ---
 
+## From BUG-003: Filter Animation Fix (2026-02-04)
+**Origin**: BUG-003 implementation
+
+- [ ] CSS specificity documentation — Add a comment block in components.css explaining the specificity hierarchy between scroll and filter animation systems (prevents future developers from reordering sections)
+- [ ] Animation integration tests — Add Playwright tests that verify filter animations are visible (check computed opacity/transform during animation) to catch CSS specificity regressions
+
+---
+
 ## Bug Fixes
 
 - [x] ~~Fix theme switch button overlapping other header buttons~~ *(completed 2026-02-02, BUG-001)*

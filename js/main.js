@@ -229,6 +229,9 @@ function initProjectFilter() {
     cancelFilterAnimations();
 
     // Separate cards into show/hide groups
+    // All visible cards exit (fade out), all target cards enter (fade in).
+    // Cards visible in both states go through the full exit→enter cycle
+    // to avoid layout jumps from CSS columns reflow.
     const cardsToShow = [];
     const cardsToHide = [];
 
@@ -240,20 +243,27 @@ function initProjectFilter() {
       // Clean up any stale animation classes from interrupted animations
       cleanupAnimationClasses(card);
 
-      if (shouldShow && isCurrentlyHidden) {
-        cardsToShow.push(card);
-      } else if (!shouldShow && !isCurrentlyHidden) {
+      if (!isCurrentlyHidden) {
         cardsToHide.push(card);
+      }
+      if (shouldShow) {
+        cardsToShow.push(card);
       }
     });
 
+    // Nothing to animate (e.g., clicking the already-active filter)
+    if (cardsToHide.length === 0 && cardsToShow.length === 0) {
+      currentFilter = category;
+      return;
+    }
+
     // Skip animations if user prefers reduced motion
     if (prefersReducedMotion) {
-      cardsToShow.forEach((card) => {
-        card.classList.remove("project-card--hidden");
-      });
-      cardsToHide.forEach((card) => {
-        card.classList.add("project-card--hidden");
+      // Hide all non-target cards, show all target cards
+      projectCards.forEach((card) => {
+        const cardCategory = card.dataset.category;
+        const shouldShow = category === "all" || cardCategory === category;
+        card.classList.toggle("project-card--hidden", !shouldShow);
       });
       currentFilter = category;
       announceFilterResults(category);
@@ -274,57 +284,66 @@ function initProjectFilter() {
     // Mark animation as in progress
     isAnimating = true;
 
+    // Calculate when entrance should start:
+    // - If cards are exiting, wait for exit to finish before entrance
+    // - If no cards to exit, entrance starts immediately
+    const entranceDelay = cardsToHide.length > 0 ? animationDuration : 0;
+
     // PHASE 1: Start exit animations for cards being hidden
     cardsToHide.forEach((card) => {
       card.classList.add("project-card--filtering-out");
     });
 
-    // PHASE 2: After exit animation, remove from layout
+    // PHASE 2: After exit animation, remove from layout + start entrance
     const exitTimeout = setTimeout(() => {
+      // Remove exiting cards from layout
       cardsToHide.forEach((card) => {
         card.classList.remove("project-card--filtering-out");
         card.classList.add("project-card--hidden");
       });
-    }, animationDuration);
-    animationTimeouts.push(exitTimeout);
 
-    // PHASE 3: Prepare entrance animations (set start state immediately)
-    cardsToShow.forEach((card) => {
-      card.classList.remove("project-card--hidden");
-      card.classList.add("project-card--filtering-in");
-    });
+      // PHASE 3: Prepare entrance (set start state after layout settles)
+      cardsToShow.forEach((card) => {
+        card.classList.remove("project-card--hidden");
+        card.classList.add("project-card--filtering-in");
+      });
 
-    // PHASE 4: Trigger entrance animations with stagger delay
-    // Double requestAnimationFrame ensures browser paints the start state
-    animationFrame = requestAnimationFrame(() => {
-      animationFrame = requestAnimationFrame(() => {
-        cardsToShow.forEach((card, index) => {
-          const delay = index * staggerDelay;
+      // PHASE 4: Trigger entrance with stagger
+      // Force style recalculation so browser paints start state before transition
+      if (cardsToShow.length > 0) {
+        void cardsToShow[0].offsetHeight;
+      }
 
-          const staggerTimeout = setTimeout(() => {
-            card.classList.add("is-filtering");
-          }, delay);
-          animationTimeouts.push(staggerTimeout);
+      cardsToShow.forEach((card, index) => {
+        const delay = index * staggerDelay;
+
+        const staggerTimeout = setTimeout(() => {
+          card.classList.add("is-filtering");
+        }, delay);
+        animationTimeouts.push(staggerTimeout);
+      });
+
+      // Clean up after all entrance animations complete
+      const totalEntranceTime =
+        animationDuration + cardsToShow.length * staggerDelay;
+      const cleanupTimeout = setTimeout(() => {
+        cardsToShow.forEach((card) => {
+          card.classList.remove("project-card--filtering-in", "is-filtering");
+          // Ensure card has scroll animation's visible state so it doesn't
+          // revert to [data-animate] opacity: 0 after filter classes are removed
+          card.classList.add("is-visible");
         });
 
-        // Clean up animation classes and update state after all animations complete
-        const totalAnimationTime =
-          animationDuration + cardsToShow.length * staggerDelay;
-        const cleanupTimeout = setTimeout(() => {
-          cardsToShow.forEach((card) => {
-            card.classList.remove("project-card--filtering-in", "is-filtering");
-          });
+        // Update state only after all animations complete
+        currentFilter = category;
+        isAnimating = false;
 
-          // Update state only after animation completes
-          currentFilter = category;
-          isAnimating = false;
-
-          // Announce results to screen readers after animation completes
-          announceFilterResults(category);
-        }, totalAnimationTime);
-        animationTimeouts.push(cleanupTimeout);
-      });
-    });
+        // Announce results to screen readers
+        announceFilterResults(category);
+      }, totalEntranceTime);
+      animationTimeouts.push(cleanupTimeout);
+    }, entranceDelay);
+    animationTimeouts.push(exitTimeout);
   }
 
   /**

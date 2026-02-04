@@ -175,18 +175,24 @@ Client-side category filtering with subtle staggered animations:
 1. **Filter Buttons**: `.filter-btn` with `data-filter` attribute (all, backend, iot, web, tools)
 2. **Active State**: Single-select with `.filter-btn--active` class, category-colored backgrounds
 3. **Animation**: Subtle fade + scale with stagger
-   - **Exit animation**: `.project-card--filtering-out`
+   - **Exit animation**: `.project-card.project-card--filtering-out`
+     - ALL visible cards exit first (including cards that remain visible after filter)
      - Fade out + subtle scale down (0.92)
-     - Applied immediately to cards being hidden
-   - **Entrance animation**: `.project-card--filtering-in` → `.is-filtering`
-     - Start: opacity 0, scale 0.92, translateY(12px)
+     - Purpose: Prevents CSS columns layout jump when cards instantly appear during reflow
+   - **Entrance animation**: `.project-card.project-card--filtering-in` → `.is-filtering`
+     - Start: opacity 0, scale 0.92, translateY(12px), `transition: none` (prevents [data-animate] from animating setup state)
      - End: opacity 1, scale 1, translateY(0)
-     - Triggered after exit animations complete
+     - Triggered after exit completes and layout settles
    - **Timing**: 350ms duration, 30ms stagger delay, cubic-bezier(0.16, 1, 0.3, 1) easing
    - **CSS Variables**: `--filter-animation-duration`, `--filter-stagger-delay`, `--filter-easing` in `variables.css`
    - **Final state**: `.project-card--hidden` uses `position: absolute` + `visibility: hidden` (removes from layout)
-   - **Stagger implementation**: JavaScript applies inline `transition-delay` based on card index
    - **Reduced motion**: Animations disabled when `prefers-reduced-motion: reduce` is active
+   - **CSS Specificity**: Filter selectors use double class (`.project-card.project-card--filtering-out`) to beat attribute selector `[data-animate]`
+   - **CSS Cascade Order**: Filter animations section placed AFTER scroll animations in `components.css` (equal-specificity selectors win by cascade order)
+   - **Choreography**: Exit → layout settle → entrance (prevents layout thrashing in CSS columns)
+   - **Forced Reflow**: `void card.offsetHeight` forces style recalc before entrance (cleaner than double rAF)
+   - **State Preservation**: `.is-visible` class added after filter cleanup prevents [data-animate] from reverting to opacity: 0
+   - **Animation Guard**: Skip animation if no cards need visibility change (prevents unnecessary work)
 4. **Toggle Behavior**: Clicking active category filter resets to "all"
 5. **URL Hash Integration**: Shareable filter links with browser history support
    - **URL Format**: `#filter=backend`, `#filter=iot`, `#filter=web`, `#filter=tools`
