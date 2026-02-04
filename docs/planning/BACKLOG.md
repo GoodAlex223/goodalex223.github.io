@@ -127,7 +127,7 @@ Future ideas and improvements for the portfolio.
 - [x] ~~Add structured data (JSON-LD)~~ *(completed 2026-01-29, SEO-002)*
 - [x] ~~Create sitemap.xml~~ *(completed 2026-01-29, SEO-001)*
 - [x] ~~Add robots.txt~~ *(completed 2026-01-29, SEO-001)*
-- [ ] Improve meta descriptions
+- [x] ~~Improve meta descriptions~~ *(completed 2026-02-04, SEO-004)*
 
 ### From SEO-002: JSON-LD structured data (2026-01-29)
 
@@ -284,6 +284,14 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Animated count transitions — Animate count change on "All" button to show visible vs total (e.g., "All (3/7)") during filtering
 - [ ] Zero-count button dimming — Visually dim or disable filter buttons for categories with 0 projects
+
+---
+
+## From SEO-004: Improve Meta Descriptions (2026-02-04)
+**Origin**: docs/archive/plans/2026-02-04_seo-004-improve-meta-descriptions.md
+
+- [ ] Track description character counts in CLAUDE.md — Add reference table of all description lengths to catch regressions when modified
+- [ ] Social card preview testing — Validate OG/Twitter card rendering using Facebook Debugger and Twitter Card Validator after deployment
 
 ---
 
