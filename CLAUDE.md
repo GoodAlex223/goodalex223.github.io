@@ -49,6 +49,7 @@ goodalex223/
 ├── 404.html                # Custom 404 error page
 ├── robots.txt              # Search engine crawler rules
 ├── sitemap.xml             # XML sitemap for search engines
+├── site.webmanifest        # PWA manifest (app name, icons, theme colors)
 ├── package.json            # NPM dependencies and build scripts
 ├── postcss.config.js       # PostCSS configuration (postcss-import plugin)
 ├── .github/
@@ -84,6 +85,7 @@ goodalex223/
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow
 - [robots.txt](robots.txt) — Search engine crawler directives
 - [sitemap.xml](sitemap.xml) — Site structure for SEO
+- [site.webmanifest](site.webmanifest) — PWA manifest (app name, icons, theme colors)
 - [PROJECT.md](PROJECT.md) — Project configuration
 
 <!-- END AUTO-MANAGED -->
@@ -113,6 +115,19 @@ CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/
 - Semantic elements: `<article>`, `<section>`, `<nav>`, `<header>`, `<footer>`
 - Skip link for accessibility
 - Inline SVG icons for styling flexibility
+- **Favicon configuration**: Multi-format favicon setup in `<head>`
+  - PNG: `favicon-96x96.png` (96x96, standard)
+  - SVG: `favicon.svg` (vector, scalable)
+  - ICO: `favicon.ico` (legacy fallback)
+  - Apple: `apple-touch-icon.png` (180x180, iOS home screen)
+  - Manifest: `<link rel="manifest" href="/site.webmanifest">` (PWA icons)
+  - Applied to both `index.html` and `404.html`
+- **PWA Manifest** (`site.webmanifest`):
+  - App name: "Alexey Minakov | Software Developer"
+  - Short name: "AM Portfolio"
+  - Maskable icons: 192x192 and 512x512 PNG
+  - Theme/background colors: `#ffffff` (light theme)
+  - Display mode: `standalone` (app-like experience)
 - **Font preloading**: `<link rel="preload">` for critical fonts (Inter variants) in `<head>`
   - Preloads `fonts/inter-latin.woff2` and `fonts/inter-latin-ext.woff2`
   - Uses `type="font/woff2"` and `crossorigin` attribute
