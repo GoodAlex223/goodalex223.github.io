@@ -1,12 +1,23 @@
 # DONE
 
-**Last Updated**: 2026-02-04 (FEAT-006 completed)
+**Last Updated**: 2026-02-04 (SEO-003 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-04
+
+### Google Search Console Verification (SEO-003)
+
+**Plan**: [docs/archive/plans/2026-02-04_seo-003-google-search-console.md](../archive/plans/2026-02-04_seo-003-google-search-console.md)
+**Summary**: Added Google Search Console verification meta tag to `index.html` using URL prefix property method. Updated `sitemap.xml` lastmod date to reflect recent changes.
+**Key Changes**:
+- Added `<meta name="google-site-verification">` to `index.html` `<head>` (after `theme-color`)
+- Updated `sitemap.xml` `<lastmod>` from `2026-01-28` to `2026-02-04`
+**Spawned Tasks**: 1 item added to BACKLOG.md (Bing Webmaster Tools verification)
+
+---
 
 ### Filter Count Badges (FEAT-006)
 

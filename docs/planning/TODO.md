@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-04 (FEAT-006 completed)
+**Last Updated**: 2026-02-04 (SEO-003 completed)
 
 ---
 
@@ -13,20 +13,6 @@ _None currently_
 ---
 
 ## Medium Priority
-
-### [SEO-003] - Google Search Console verification
-**Priority**: Medium
-**Dependencies**: None
-**Origin**: BACKLOG.md (From SEO-001)
-
-**Description**: Verify site ownership in Google Search Console and submit `sitemap.xml` for faster indexing and crawl monitoring.
-
-**Acceptance Criteria**:
-- [ ] Site verified in Google Search Console
-- [ ] Sitemap submitted and accepted
-- [ ] No crawl errors reported
-
----
 
 ### [SEO-004] - Improve meta descriptions
 **Priority**: Medium
