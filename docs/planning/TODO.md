@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-03 (FEAT-005 completed)
+**Last Updated**: 2026-02-03 (BUG-003 added)
 
 ---
 
@@ -13,6 +13,21 @@ _None currently_
 ---
 
 ## High Priority
+
+### [BUG-003] - Filter animation not working or invisible
+**Priority**: High
+**Dependencies**: None
+**Origin**: User report (2026-02-03)
+
+**Description**: The filter animation implemented on 2026-02-03 (FEAT-003) does not work or is completely invisible. The staggered fade + scale animation for project card filtering may not be triggering or the CSS transitions may not be visible.
+
+**Acceptance Criteria**:
+- [ ] Identify root cause of animation failure
+- [ ] Filter animations visibly work when switching categories
+- [ ] Stagger delay between cards is noticeable
+- [ ] Animation respects `prefers-reduced-motion` setting
+
+---
 
 ## Medium Priority
 
