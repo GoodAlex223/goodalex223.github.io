@@ -1,12 +1,26 @@
 # DONE
 
-**Last Updated**: 2026-02-04 (SEO-003 completed)
+**Last Updated**: 2026-02-04 (SEO-004 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-04
+
+### Improve Meta Descriptions (SEO-004)
+
+**Plan**: [docs/archive/plans/2026-02-04_seo-004-improve-meta-descriptions.md](../archive/plans/2026-02-04_seo-004-improve-meta-descriptions.md)
+**Summary**: Optimized all 5 description fields across the portfolio site for better search CTR. Meta description expanded from 98 to 160 chars with keywords and availability CTA. Also fixed site.webmanifest placeholder values.
+**Key Changes**:
+- Meta description: 98→160 chars with Python/Arduino/TypeScript keywords + "Available for new opportunities"
+- OG/Twitter descriptions: rewritten with "explore real-world projects" CTA (153 chars)
+- JSON-LD Person description: added tech specifics + opportunity signal (148 chars)
+- 404 meta description: 45→102 chars with portfolio redirect context
+- Fixed site.webmanifest "MyWebSite"/"MySite" → "Alexey Minakov | Software Developer"/"AM Portfolio"
+**Spawned Tasks**: 2 items added to BACKLOG.md (description char count tracking, social card preview testing)
+
+---
 
 ### Google Search Console Verification (SEO-003)
 

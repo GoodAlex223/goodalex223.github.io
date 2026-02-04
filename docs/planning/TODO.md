@@ -2,29 +2,13 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-04 (SEO-003 completed)
+**Last Updated**: 2026-02-04 (SEO-004 completed)
 
 ---
 
 ## In Progress
 
 _None currently_
-
----
-
-## Medium Priority
-
-### [SEO-004] - Improve meta descriptions
-**Priority**: Medium
-**Dependencies**: None
-**Origin**: BACKLOG.md (SEO)
-
-**Description**: Review and optimize meta description content for better click-through rates in search results.
-
-**Acceptance Criteria**:
-- [ ] Meta description is 150-160 characters
-- [ ] Contains primary keywords naturally
-- [ ] Includes a call-to-action or value proposition
 
 ---
 

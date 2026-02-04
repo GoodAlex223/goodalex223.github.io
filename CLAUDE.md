@@ -49,6 +49,7 @@ goodalex223/
 ├── 404.html                # Custom 404 error page
 ├── robots.txt              # Search engine crawler rules
 ├── sitemap.xml             # XML sitemap for search engines
+├── site.webmanifest        # PWA manifest (app name, icons, theme colors)
 ├── package.json            # NPM dependencies and build scripts
 ├── postcss.config.js       # PostCSS configuration (postcss-import plugin)
 ├── .github/
@@ -84,6 +85,7 @@ goodalex223/
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow
 - [robots.txt](robots.txt) — Search engine crawler directives
 - [sitemap.xml](sitemap.xml) — Site structure for SEO
+- [site.webmanifest](site.webmanifest) — PWA manifest (app name, icons, theme colors)
 - [PROJECT.md](PROJECT.md) — Project configuration
 
 <!-- END AUTO-MANAGED -->
@@ -113,6 +115,19 @@ CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/
 - Semantic elements: `<article>`, `<section>`, `<nav>`, `<header>`, `<footer>`
 - Skip link for accessibility
 - Inline SVG icons for styling flexibility
+- **Favicon configuration**: Multi-format favicon setup in `<head>`
+  - PNG: `favicon-96x96.png` (96x96, standard)
+  - SVG: `favicon.svg` (vector, scalable)
+  - ICO: `favicon.ico` (legacy fallback)
+  - Apple: `apple-touch-icon.png` (180x180, iOS home screen)
+  - Manifest: `<link rel="manifest" href="/site.webmanifest">` (PWA icons)
+  - Applied to both `index.html` and `404.html`
+- **PWA Manifest** (`site.webmanifest`):
+  - App name: "Alexey Minakov | Software Developer"
+  - Short name: "AM Portfolio"
+  - Maskable icons: 192x192 and 512x512 PNG
+  - Theme/background colors: `#ffffff` (light theme)
+  - Display mode: `standalone` (app-like experience)
 - **Font preloading**: `<link rel="preload">` for critical fonts (Inter variants) in `<head>`
   - Preloads `fonts/inter-latin.woff2` and `fonts/inter-latin-ext.woff2`
   - Uses `type="font/woff2"` and `crossorigin` attribute
@@ -271,10 +286,23 @@ Progressive reveal animations using Intersection Observer:
 - Priority: 1.0 (highest)
 - Last modified: 2026-02-04
 
-**Meta tags** (in `index.html`):
-- Open Graph: `og:image`, `og:title`, `og:description`
-- Twitter Card: `twitter:card="summary_large_image"`
-- Structured data for rich social previews
+**Meta descriptions**: Optimized for search CTR and social sharing (150-160 chars)
+- **Primary meta** (`index.html`): "Software developer Alexey Minakov — backend systems, IoT/hardware, and web projects built with Python, Arduino, and TypeScript. Available for new opportunities." (160 chars)
+  - Includes primary keywords (Python, Arduino, TypeScript, backend, IoT, web)
+  - Call-to-action: "Available for new opportunities"
+- **OG/Twitter** (`index.html`): "Backend systems, IoT solutions, and web apps built with Python, Arduino, and TypeScript. Explore real-world projects from a developer open to new roles." (153 chars)
+  - Action-oriented for social sharing ("Explore")
+  - Shorter for card previews
+- **JSON-LD Person description** (`index.html`): "Software developer specializing in Python backend systems, Arduino-based IoT solutions, and TypeScript web applications. Open to new opportunities." (148 chars)
+  - Factual, machine-readable
+  - Signals availability
+- **404 page** (`404.html`): "Page not found. Visit Alexey Minakov's portfolio to explore backend, IoT, and web development projects." (102 chars)
+  - Brief with redirect context
+
+**Open Graph & Twitter Card** (in `index.html`):
+- `og:title`, `og:description`, `og:image` (1200x630)
+- `twitter:card="summary_large_image"`
+- Image alt text: "Alexey Minakov - Software Developer"
 
 **JSON-LD Structured Data** (in `index.html` `<head>`):
 - Single `<script type="application/ld+json">` with `@graph` array
