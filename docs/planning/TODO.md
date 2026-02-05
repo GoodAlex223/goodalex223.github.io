@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-04 (A11Y-001 completed)
+**Last Updated**: 2026-02-05 (A11Y-002 completed)
 
 ---
 
@@ -13,20 +13,6 @@ _None currently_
 ---
 
 ## Low Priority
-
-### [A11Y-002] - Improve focus indicators
-**Priority**: Low
-**Dependencies**: None
-**Origin**: BACKLOG.md (Accessibility)
-
-**Description**: Review and enhance `:focus-visible` styles across all interactive elements for better visibility.
-
-**Acceptance Criteria**:
-- [ ] All interactive elements have visible focus indicators
-- [ ] Focus indicators meet WCAG 2.1 contrast requirements
-- [ ] Consistent focus style across components
-
----
 
 ### [DOCS-001] - Update PROJECT.md external dependencies
 **Priority**: Low

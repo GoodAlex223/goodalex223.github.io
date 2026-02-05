@@ -185,9 +185,17 @@ Future ideas and improvements for the portfolio.
 
 ### Accessibility
 
-- [ ] Improve focus indicators
-- [ ] Test with screen readers
+- [x] ~~Improve focus indicators~~ *(completed 2026-02-05, A11Y-002)*
+- [x] ~~Test with screen readers~~ *(completed 2026-02-04, A11Y-001)*
 - [ ] Add aria-live regions for dynamic content
+
+---
+
+## From A11Y-002: Improve Focus Indicators (2026-02-05)
+**Origin**: docs/archive/plans/2026-02-05_a11y-002-improve-focus-indicators.md
+
+- [ ] Focus indicator transition animation — Add subtle fade-in for focus outline appearance (respecting prefers-reduced-motion)
+- [ ] Focus-within for project cards — Add :focus-within highlighting on .project-card when internal links receive focus
 
 ---
 
