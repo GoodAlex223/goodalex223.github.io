@@ -157,7 +157,7 @@ Future ideas and improvements for the portfolio.
 **Origin**: docs/archive/plans/2026-01-29_perf-001-self-host-fonts.md
 
 - [x] ~~Add font preload hint for inter-latin.woff2~~ *(completed 2026-02-02, PERF-002)*
-- [ ] Update PROJECT.md external dependencies — Remove Google Fonts CDN, document self-hosted fonts
+- [x] ~~Update PROJECT.md external dependencies~~ *(completed 2026-02-05, DOCS-001)*
 
 ### From PERF-002: Font Preload Hint (2026-02-02)
 **Origin**: docs/archive/plans/2026-02-02_perf-002-font-preload-hint.md
@@ -188,6 +188,14 @@ Future ideas and improvements for the portfolio.
 - [x] ~~Improve focus indicators~~ *(completed 2026-02-05, A11Y-002)*
 - [x] ~~Test with screen readers~~ *(completed 2026-02-04, A11Y-001)*
 - [ ] Add aria-live regions for dynamic content
+
+---
+
+## From DOCS-001: Update PROJECT.md (2026-02-05)
+**Origin**: docs/archive/plans/2026-02-05_docs-001-update-project-md.md
+
+- [ ] PROJECT.md freshness validation — Pre-commit hook or CI check that warns when "Last Updated" date is >2 weeks old after code changes
+- [ ] Automated external link inventory — Script that extracts external href values from HTML and compares against PROJECT.md External Services table
 
 ---
 

@@ -1,12 +1,25 @@
 # DONE
 
-**Last Updated**: 2026-02-05 (A11Y-002 completed)
+**Last Updated**: 2026-02-05 (DOCS-001 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-05
+
+### Update PROJECT.md (DOCS-001)
+
+**Plan**: [docs/archive/plans/2026-02-05_docs-001-update-project-md.md](../archive/plans/2026-02-05_docs-001-update-project-md.md)
+**Summary**: Comprehensive audit and update of PROJECT.md against actual codebase. Fixed 4 discrepancies, expanded 4 incomplete sections, added 3 new sections (SEO, PWA, Data Attributes).
+**Key Changes**:
+- Added 404.html, SEO files, PWA manifest to Project Structure
+- Added Data Attributes table (7 attributes), SEO Configuration section, PWA & Favicon section
+- Replaced External Links with External Services (added Telegram, GSC; removed Frontend Mentor)
+- Expanded Accessibility Requirements (5 → 8), CI/CD Pipeline (5 → 7 steps), Pre-deployment Checklist (6 → 11)
+**Spawned Tasks**: 2 items added to BACKLOG.md (PROJECT.md freshness validation, automated link inventory)
+
+---
 
 ### Improve Focus Indicators (A11Y-002)
 

@@ -2,29 +2,13 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-05 (A11Y-002 completed)
+**Last Updated**: 2026-02-05 (DOCS-001 completed)
 
 ---
 
 ## In Progress
 
 _None currently_
-
----
-
-## Low Priority
-
-### [DOCS-001] - Update PROJECT.md external dependencies
-**Priority**: Low
-**Dependencies**: None
-**Origin**: BACKLOG.md (From PERF-001)
-
-**Description**: Remove Google Fonts CDN from documented dependencies, document self-hosted fonts in `fonts/` directory.
-
-**Acceptance Criteria**:
-- [ ] PROJECT.md no longer references Google Fonts CDN
-- [ ] Self-hosted font setup documented
-- [ ] Any other stale dependency references updated
 
 ---
 
