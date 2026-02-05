@@ -75,6 +75,12 @@
   --filter-stagger-delay: 30ms;
   --filter-easing: cubic-bezier(0.16, 1, 0.3, 1);
 
+  /* Focus indicators */
+  --focus-outline-width: 2px;
+  --focus-outline-offset: 2px;
+  --focus-outline-color: var(--color-accent);
+  --focus-outline-color-high-contrast: rgba(255, 255, 255, 0.9);
+
   /* Z-index layers */
   --z-base: 0;
   --z-dropdown: 100;
@@ -111,6 +117,9 @@
     --color-status-active: #2e7d32;
     --color-status-active-bg: rgba(46, 125, 50, 0.12);
 
+    /* Focus indicators */
+    --focus-outline-color-high-contrast: rgba(15, 15, 35, 0.9);
+
     /* Shadows more visible on light backgrounds */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -140,6 +149,9 @@
   /* Status colors adjusted for light backgrounds */
   --color-status-active: #2e7d32;
   --color-status-active-bg: rgba(46, 125, 50, 0.12);
+
+  /* Focus indicators */
+  --focus-outline-color-high-contrast: rgba(15, 15, 35, 0.9);
 
   /* Shadows more visible on light backgrounds */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);

@@ -144,6 +144,16 @@ CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/
 - **Dynamic meta**: Updates `theme-color` meta tag for mobile browser chrome
 - **System sync**: Listens for system preference changes when no explicit user choice
 
+### Focus Accessibility
+Standardized focus indicators for WCAG 2.4.7 compliance:
+- **CSS Variables**: `--focus-outline-width` (2px), `--focus-outline-offset` (2px), `--focus-outline-color`, `--focus-outline-color-high-contrast`
+- **Theme-aware colors**: Light theme uses dark outline (`rgba(15, 15, 35, 0.9)`), dark theme uses light outline (`rgba(255, 255, 255, 0.9)`)
+- **Standard focus**: Applied to all links and buttons via `reset.css`
+- **High-contrast focus**: Applied to elements with colored backgrounds (primary buttons, active filter buttons)
+  - Ensures sufficient contrast when background is accent color
+  - Uses `--focus-outline-color-high-contrast` variable
+- **Skip link**: Uses `:focus` (not `:focus-visible`) for positioning to work with all focus types
+
 <!-- END AUTO-MANAGED -->
 
 <!-- AUTO-MANAGED: patterns -->
@@ -165,8 +175,10 @@ CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/
     - Footer uses explicit `margin-top: var(--space-4)` spacing (card is flex column, but `auto` margins don't work in CSS columns layout)
     - Status colors: `--color-status-active` / `--color-status-active-bg` (theme-aware)
 - **Buttons**: `.btn` base class with `--primary` and `--secondary` modifiers
+  - Primary buttons use high-contrast focus outline (colored background requires stronger contrast)
 - **Filter Buttons**: `.filter-btn` for project filtering
   - Active state: `.filter-btn--active` with category-colored backgrounds
+  - Active buttons use high-contrast focus outline (colored background requires stronger contrast)
   - Category colors match project card badges (backend, iot, web, tools)
   - **Project counts**: Dynamic counts injected into button labels (e.g., "Backend (3)")
     - Calculated on init via `calculateCategoryCounts()` and `updateButtonLabels()`
@@ -183,7 +195,11 @@ CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/
 - **Theme Toggle**: `.theme-toggle` button with icon transitions (sun/moon)
   - Icons swap via opacity/transform based on `[data-theme]` attribute
   - Updates `aria-label` dynamically for accessibility
-- **Accessibility**: `prefers-reduced-motion` media query, focus visible states, ARIA labels
+- **Accessibility**:
+  - `prefers-reduced-motion` media query for animation control
+  - Standardized focus indicators on all interactive elements (links, buttons)
+  - High-contrast focus outlines on colored backgrounds
+  - ARIA labels for screen reader support
 
 ### Theme System Pattern
 Light/dark theme implementation:
