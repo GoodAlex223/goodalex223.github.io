@@ -29,6 +29,7 @@
   font-weight: var(--font-weight-medium);
 }
 
+/* Uses :focus (not :focus-visible) so positioning works with all focus types */
 .skip-link:focus {
   top: var(--space-4);
 }

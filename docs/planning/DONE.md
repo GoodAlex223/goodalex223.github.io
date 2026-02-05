@@ -1,8 +1,23 @@
 # DONE
 
-**Last Updated**: 2026-02-04 (A11Y-001 completed)
+**Last Updated**: 2026-02-05 (A11Y-002 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-05
+
+### Improve Focus Indicators (A11Y-002)
+
+**Plan**: [docs/archive/plans/2026-02-05_a11y-002-improve-focus-indicators.md](../archive/plans/2026-02-05_a11y-002-improve-focus-indicators.md)
+**Summary**: Added centralized focus CSS custom properties, fixed WCAG contrast failures on colored backgrounds (active filter buttons, primary buttons), and added explicit `:focus-visible` rules for all interactive elements.
+**Key Changes**:
+- Added 4 focus CSS variables (`--focus-outline-width`, `--focus-outline-offset`, `--focus-outline-color`, `--focus-outline-color-high-contrast`)
+- Added high-contrast focus outlines for `.btn--primary` and `.filter-btn--active` (white in dark theme, dark in light theme)
+- Added explicit `:focus-visible` for `.project-card__link`, `.contact__link`, and `button` baseline
+- Replaced hardcoded `2px` values with CSS variables across 3 files
+**Spawned Tasks**: 2 items added to BACKLOG.md (focus transition animation, focus-within for project cards)
 
 ---
 
