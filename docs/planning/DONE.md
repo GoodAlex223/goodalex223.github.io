@@ -1,12 +1,25 @@
 # DONE
 
-**Last Updated**: 2026-02-04 (SEO-004 completed)
+**Last Updated**: 2026-02-04 (A11Y-001 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-04
+
+### Screen Reader Testing (A11Y-001)
+
+**Plan**: [docs/archive/plans/2026-02-04_a11y-001-screen-reader-testing.md](../archive/plans/2026-02-04_a11y-001-screen-reader-testing.md)
+**Summary**: Audited filter toolbar accessibility and fixed 3 screen reader issues: delayed live region announcements (moved before animations), awkward grammar in "all" category, lowercase category names, and double button announcements.
+**Key Changes**:
+- Moved `announceFilterResults()` before animations for instant feedback (was 700-1000ms delayed)
+- Fixed grammar: "Showing all 7 projects" (was "Showing 7 all projects")
+- Fixed casing: "Showing 3 IoT projects" (was "iot")
+- Wrapped button count in `aria-hidden` span to prevent double announcement
+**Spawned Tasks**: 2 items added to BACKLOG.md (automated screen reader testing, announcement logging)
+
+---
 
 ### Improve Meta Descriptions (SEO-004)
 

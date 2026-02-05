@@ -173,7 +173,15 @@ function initProjectFilter() {
       const baseLabel = button.textContent.trim();
       const count = counts[category] || 0;
 
-      button.textContent = `${baseLabel} (${count})`;
+      // Build label with aria-hidden count to prevent double announcement
+      // Screen readers read only the aria-label; sighted users see "Backend (3)"
+      button.textContent = "";
+      button.appendChild(document.createTextNode(`${baseLabel} `));
+      const countSpan = document.createElement("span");
+      countSpan.setAttribute("aria-hidden", "true");
+      countSpan.textContent = `(${count})`;
+      button.appendChild(countSpan);
+
       button.setAttribute(
         "aria-label",
         `${baseLabel}, ${count} project${count === 1 ? "" : "s"}`
@@ -307,7 +315,7 @@ function initProjectFilter() {
         card.classList.toggle("project-card--hidden", !shouldShow);
       });
       currentFilter = category;
-      announceFilterResults(category);
+      announceFilterResults(category, cardsToShow.length);
       return;
     }
 
@@ -321,6 +329,9 @@ function initProjectFilter() {
       rootStyles.getPropertyValue("--filter-stagger-delay"),
       10
     );
+
+    // Announce results immediately (before animations) for instant screen reader feedback
+    announceFilterResults(category, cardsToShow.length);
 
     // Mark animation as in progress
     isAnimating = true;
@@ -378,9 +389,6 @@ function initProjectFilter() {
         // Update state only after all animations complete
         currentFilter = category;
         isAnimating = false;
-
-        // Announce results to screen readers
-        announceFilterResults(category);
       }, totalEntranceTime);
       animationTimeouts.push(cleanupTimeout);
     }, entranceDelay);
@@ -400,18 +408,25 @@ function initProjectFilter() {
   /**
    * Announce filter results to screen readers via live region
    * @param {string} category - The active filter category
+   * @param {number} visibleCount - Number of visible projects
    */
-  function announceFilterResults(category) {
+  function announceFilterResults(category, visibleCount) {
     const liveRegion = document.getElementById("filter-status");
     if (!liveRegion) return;
 
-    const visibleCount = Array.from(projectCards).filter(
-      (card) => !card.classList.contains("project-card--hidden")
-    ).length;
+    const plural = visibleCount === 1 ? "" : "s";
 
-    const label = category === "all" ? "all" : category;
-    liveRegion.textContent =
-      `Showing ${visibleCount} ${label} project${visibleCount === 1 ? "" : "s"}`;
+    if (category === "all") {
+      liveRegion.textContent = `Showing all ${visibleCount} project${plural}`;
+    } else {
+      // Get display label with correct casing from button text (e.g., "IoT" not "iot")
+      const button = document.querySelector(`[data-filter="${category}"]`);
+      const displayLabel = button
+        ? button.textContent.trim().replace(/\s*\(\d+\)\s*$/, "")
+        : category;
+      liveRegion.textContent =
+        `Showing ${visibleCount} ${displayLabel} project${plural}`;
+    }
   }
 
   /**

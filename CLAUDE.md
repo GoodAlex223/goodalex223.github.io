@@ -171,12 +171,15 @@ CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/
   - **Project counts**: Dynamic counts injected into button labels (e.g., "Backend (3)")
     - Calculated on init via `calculateCategoryCounts()` and `updateButtonLabels()`
     - Preserves original casing (e.g., "IoT" not "iot")
-    - Clean screen reader output via `aria-label` ("Backend, 3 projects")
+    - Count wrapped in `<span aria-hidden="true">` to prevent double announcement
+    - Screen readers read only the `aria-label` ("Backend, 3 projects")
   - ARIA attributes: `aria-pressed` for screen readers, `role="toolbar"` on container
   - Single-select with toggle-to-reset behavior (clicking active filter resets to "all")
   - **Roving tabindex**: Only one button has `tabindex="0"` at a time (WCAG pattern)
   - **Keyboard navigation**: Arrow keys, Home, End to navigate filter buttons
   - **Live region**: `#filter-status` with `aria-live="polite"` announces filter results to screen readers
+    - Announced immediately before animations (not delayed until after)
+    - Grammar: "Showing all 7 projects" or "Showing 3 IoT projects" (preserves button text casing)
 - **Theme Toggle**: `.theme-toggle` button with icon transitions (sun/moon)
   - Icons swap via opacity/transform based on `[data-theme]` attribute
   - Updates `aria-label` dynamically for accessibility
@@ -230,7 +233,10 @@ Client-side category filtering with subtle staggered animations:
    - `role="toolbar"` on filter container
    - **Roving tabindex pattern**: Only one button has `tabindex="0"`, others `tabindex="-1"`
    - **Keyboard navigation**: Arrow keys (left/right/up/down) cycle through buttons, Home/End jump to first/last, Escape resets to "all"
-   - **Live region**: `#filter-status` with `aria-live="polite"` announces "Showing N [category] projects" after filtering
+   - **Live region**: `#filter-status` with `aria-live="polite"` announces results immediately before animations
+     - Grammar: "Showing all 7 projects" (all) or "Showing 3 IoT projects" (specific category)
+     - Display label extracted from button text to preserve casing (e.g., "IoT" not "iot")
+     - Count passed as parameter (`cardsToShow.length`) — what WILL be visible, not current DOM state
    - **Focus management**: `setActiveButton()` calls `updateTabindex()` to sync tabindex with active state; toggle-to-reset explicitly moves focus to "all" button
    - **Escape key reset**: Pressing Escape while filter button has focus resets to "all" (guard clause: only if `currentFilter !== "all"`)
 

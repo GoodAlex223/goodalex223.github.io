@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-04 (SEO-004 completed)
+**Last Updated**: 2026-02-04 (A11Y-001 completed)
 
 ---
 
@@ -13,21 +13,6 @@ _None currently_
 ---
 
 ## Low Priority
-
-### [A11Y-001] - Screen reader testing
-**Priority**: Low
-**Dependencies**: None
-**Origin**: BACKLOG.md (From FEAT-002)
-
-**Description**: Test keyboard navigation with NVDA and/or VoiceOver to verify live region announcements and roving tabindex behavior work correctly.
-
-**Acceptance Criteria**:
-- [ ] Filter toolbar announced correctly by screen reader
-- [ ] Live region announces filter results after selection
-- [ ] Roving tabindex navigates as expected
-- [ ] Document findings and any fixes applied
-
----
 
 ### [A11Y-002] - Improve focus indicators
 **Priority**: Low
