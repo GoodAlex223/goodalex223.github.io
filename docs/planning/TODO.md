@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-09 (PERF-005 completed)
+**Last Updated**: 2026-02-09 (TEST-001 completed)
 
 ---
 
@@ -13,17 +13,6 @@ _None currently_
 ---
 
 ## High Priority
-
-### TEST-001: Add Playwright tests for filter animations
-**Origin**: BACKLOG.md → From FEAT-003 & BUG-003
-**Category**: Testing & Tooling
-**Description**: Add Playwright tests verifying filter animation timing, visual states, and rapid click handling. Catches CSS specificity regressions.
-**Acceptance Criteria**:
-- [ ] Playwright installed and configured
-- [ ] Tests verify filter button click triggers animation
-- [ ] Tests verify cards show/hide correctly per category
-- [ ] Tests verify rapid clicking doesn't break state
-- [ ] Tests run in CI (GitHub Actions)
 
 ### SEO-005: Bing Webmaster Tools verification
 **Origin**: BACKLOG.md → From SEO-003: Google Search Console
@@ -132,7 +121,7 @@ _None currently_
 - v1.1 polish complete: favicon, OG image, Lighthouse 100/100, links verified
 - v1.5 features complete: theme toggle, filtering, scroll animations, 404 page
 - Week of 2026-02-02: bug fixes, filter enhancements, performance, SEO, and accessibility (all complete)
-- Week of 2026-02-09: performance, testing, code quality, SEO & polish
+- Week of 2026-02-09: performance, testing (TEST-001 complete), code quality, SEO & polish
 - Tasks are organized by priority
 - Completed tasks move to [DONE.md](DONE.md)
 - Each significant task should have a plan document in `docs/planning/plans/`
