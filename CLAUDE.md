@@ -27,6 +27,15 @@ npm run build
 # Build CSS and watch for changes (unminified, no hashing)
 npm run watch
 
+# Run end-to-end tests (headless)
+npm test
+
+# Run tests with UI mode
+npm run test:ui
+
+# Run tests with visible browser
+npm run test:headed
+
 # Start local server (Python)
 python -m http.server 8000
 
@@ -38,7 +47,9 @@ npx serve
 
 **Cache-Busting**: `scripts/hash-css.js` computes SHA-256 hash of built CSS, renames file to `style.[hash].css`, and updates HTML references in `index.html` and `404.html`. Watch mode unhashes references for easier development.
 
-**Deployment**: Automatic via GitHub Actions on push to `main` branch (runs `npm run build`, then deploys to GitHub Pages).
+**Testing**: Playwright end-to-end tests validate filter functionality, animations, accessibility, keyboard navigation, and URL hash integration. Test server (`scripts/serve.js`) runs on port 4173. Tests use Page Object Model pattern (`FilterPage.js`) and timing utilities that read CSS custom properties.
+
+**Deployment**: Automatic via GitHub Actions on push to `main` branch. Workflow runs build → test → deploy sequence. Tests must pass before deployment proceeds.
 
 <!-- END AUTO-MANAGED -->
 
@@ -67,9 +78,23 @@ goodalex223/
 ├── dist/
 │   └── style.[hash].css    # Built CSS with content hash (generated, not committed)
 ├── scripts/
-│   └── hash-css.js         # Cache-busting: compute hash, rename CSS, update HTML refs
+│   ├── hash-css.js         # Cache-busting: compute hash, rename CSS, update HTML refs
+│   └── serve.js            # Minimal static file server for Playwright tests (port 4173)
 ├── js/
 │   └── main.js             # Theme toggle, project filtering, scroll animations, copyright year
+├── tests/
+│   ├── filter/             # Filter functionality test suites
+│   │   ├── basic-filtering.spec.js    # Category filtering validation
+│   │   ├── toggle-behavior.spec.js    # Toggle-to-reset behavior
+│   │   ├── url-hash.spec.js           # URL hash integration
+│   │   ├── animation-states.spec.js   # Animation choreography
+│   │   ├── keyboard-nav.spec.js       # Keyboard navigation (roving tabindex)
+│   │   ├── accessibility.spec.js      # ARIA attributes, live regions
+│   │   └── rapid-clicks.spec.js       # Rapid interaction handling
+│   ├── pages/
+│   │   └── FilterPage.js   # Page Object Model for filter system
+│   └── utils/
+│       └── timing.js       # Animation timing utilities (reads CSS variables)
 ├── fonts/
 │   ├── inter-latin.woff2     # Self-hosted Inter font (Latin subset)
 │   └── inter-latin-ext.woff2 # Self-hosted Inter font (Latin Extended subset)
@@ -84,10 +109,13 @@ goodalex223/
 - [index.html](index.html) — Main portfolio page (loads `dist/style.[hash].css`)
 - [css/main.css](css/main.css) — CSS source entry point (uses `@import`)
 - [css/variables.css](css/variables.css) — Design tokens
-- [package.json](package.json) — Build scripts (`npm run build`, `npm run watch`)
+- [package.json](package.json) — Build scripts (`npm run build`, `npm run watch`, `npm test`)
 - [postcss.config.js](postcss.config.js) — PostCSS build configuration
+- [playwright.config.js](playwright.config.js) — Playwright test configuration
 - [scripts/hash-css.js](scripts/hash-css.js) — Cache-busting hash generator
-- [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow
+- [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
+- [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (build → test → deploy)
+- [tests/pages/FilterPage.js](tests/pages/FilterPage.js) — Page Object Model for tests
 - [robots.txt](robots.txt) — Search engine crawler directives
 - [sitemap.xml](sitemap.xml) — Site structure for SEO
 - [site.webmanifest](site.webmanifest) — PWA manifest (app name, icons, theme colors)
@@ -294,11 +322,50 @@ Progressive reveal animations using Intersection Observer:
    - `npm run build` — Production: `build:css` (PostCSS + cssnano) → `hash:css` (hashing)
    - `npm run watch` — Development: unhash HTML refs → PostCSS watch (unminified, no hashing)
 7. **Watch Mode**: `--unhash` flag restores `dist/style.css` references for easier debugging
-8. **CI/CD**: GitHub Actions workflow builds CSS before deployment
+8. **CI/CD**: GitHub Actions workflow with build → test → deploy sequence
    - Workflow: `.github/workflows/deploy.yml`
-   - Steps: Node.js setup → `npm ci` → `npm run build` → deploy
+   - Build job: Node.js setup → `npm ci` → `npm run build` → artifact upload
+   - Test job: Install Playwright browsers → `npm test` → report upload
+   - Deploy job: Deploy to GitHub Pages (only if tests pass)
+   - Concurrency: Single pages deployment group, cancels in-progress runs
 9. **HTML References**: Both `index.html` and `404.html` load `dist/style.[hash].css` (production) or `dist/style.css` (watch mode)
-10. **Git Ignore**: `dist/` directory excluded from version control (build artifact)
+10. **Git Ignore**: `dist/`, `test-results/`, `playwright-report/` excluded from version control
+
+### Testing Pattern
+**Playwright End-to-End Tests**: Comprehensive test suite validating interactive features
+1. **Framework**: Playwright with multi-browser testing (Chromium, Firefox, WebKit)
+2. **Test Server**: Custom static server (`scripts/serve.js`) on port 4173
+   - Serves project root with proper MIME types
+   - Handles SPA routing (serves `index.html` for `/`)
+   - Started automatically by Playwright via `webServer` config
+3. **Page Object Model**: `FilterPage.js` encapsulates filter system interactions
+   - Centralized locators for toolbar, buttons, cards, animation states
+   - Helper methods: `clickFilter()`, `expectVisibleCardCount()`, `getActiveFilterCategory()`
+   - Category counts stored as constants (`CATEGORY_COUNTS`) for assertions
+4. **Timing Utilities**: `timing.js` reads animation durations from CSS custom properties
+   - `getAnimationDuration()` — Reads `--filter-animation-duration` from `:root`
+   - `waitForFilterAnimation()` — Calculates full animation cycle (exit + entrance + stagger + buffer)
+   - `waitForExitPhase()` — Waits for mid-animation state capture
+   - Single source of truth: CSS variables, not hardcoded values
+5. **Test Coverage**:
+   - **basic-filtering.spec.js**: Category filtering, card visibility, URL hash updates
+   - **toggle-behavior.spec.js**: Toggle-to-reset, sequential filter changes
+   - **url-hash.spec.js**: Page load with hash, browser navigation, invalid hashes
+   - **animation-states.spec.js**: Exit/entrance choreography, stagger delays, cleanup
+   - **keyboard-nav.spec.js**: Arrow keys, Home/End, Escape, roving tabindex, focus management
+   - **accessibility.spec.js**: ARIA attributes (`aria-pressed`, `role`, `aria-live`), live region announcements
+   - **rapid-clicks.spec.js**: Race conditions, animation interruption, state consistency
+6. **CI Integration**: Tests run after build job, before deployment
+   - `forbidOnly: true` in CI prevents `.only()` commits
+   - 2 retries for flaky tests in CI
+   - Sequential workers in CI (`workers: 1`) for stability
+   - GitHub reporter for CI annotations
+   - Test reports uploaded as artifacts (7-day retention)
+7. **Local Development**:
+   - `npm test` — Headless execution
+   - `npm run test:ui` — Interactive UI mode
+   - `npm run test:headed` — Visible browser debugging
+   - Reuses existing dev server if running
 
 ### Performance Optimization Pattern
 **Self-hosted fonts**: Replaced Google Fonts CDN with local font files

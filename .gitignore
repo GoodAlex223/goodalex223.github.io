@@ -10,3 +10,7 @@ node_modules/
 
 # MCP server config (contains machine-specific paths)
 .mcp.json
+
+# Playwright
+test-results/
+playwright-report/
