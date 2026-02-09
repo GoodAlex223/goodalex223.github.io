@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-09 (PERF-004 completed)
+**Last Updated**: 2026-02-09 (PERF-005 completed)
 
 ---
 
@@ -13,17 +13,6 @@ _None currently_
 ---
 
 ## High Priority
-
-### PERF-005: Add cache-busting with content hash
-**Origin**: BACKLOG.md → From PERF-003: Bundle CSS Files
-**Category**: Performance
-**Description**: Generate content-hashed CSS filenames (e.g., `style.abc123.css`) for reliable cache invalidation. Update HTML references automatically.
-**Depends on**: PERF-004 (minification should be in place first)
-**Acceptance Criteria**:
-- [ ] Build outputs hashed filename
-- [ ] HTML references updated (build script or template)
-- [ ] Old hashed files cleaned on rebuild
-- [ ] GitHub Actions workflow still works
 
 ### TEST-001: Add Playwright tests for filter animations
 **Origin**: BACKLOG.md → From FEAT-003 & BUG-003
