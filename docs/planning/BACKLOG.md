@@ -116,7 +116,7 @@ Future ideas and improvements for the portfolio.
 
 - [x] ~~Lazy load project images~~ *(completed 2026-01-27, MP-001)*
 - [ ] Consider using `font-display: swap`
-- [ ] Minify CSS for production
+- [x] ~~Minify CSS for production~~ *(completed 2026-02-09, PERF-004)*
 - [ ] Add service worker for offline support
 - [x] ~~Self-host Google Fonts~~ *(completed 2026-01-29, PERF-001)*
 - [x] ~~Bundle CSS files~~ *(completed 2026-02-03, PERF-003)*
@@ -168,7 +168,7 @@ Future ideas and improvements for the portfolio.
 ### From PERF-003: Bundle CSS Files (2026-02-03)
 **Origin**: docs/planning/plans/2026-02-03_perf-003-bundle-css.md
 
-- [ ] Add CSS minification with cssnano — Reduces file size further for production
+- [x] ~~Add CSS minification with cssnano~~ *(completed 2026-02-09, PERF-004)*
 - [ ] Add cache-busting with content hash — Filename includes hash (e.g., `style.abc123.css`) for reliable cache invalidation
 
 ### From SEO-001: robots.txt & sitemap.xml (2026-01-29)
@@ -309,6 +309,14 @@ Future ideas and improvements for the portfolio.
 - [ ] Automated screen reader testing — Use `@testing-library/dom` with `aria-query` or Playwright accessibility assertions to catch ARIA regressions in CI
 - [ ] Screen reader announcement logging — Add development mode that logs all live region updates to console for debugging accessibility issues without a screen reader
 - [ ] Debounce live region announcements on rapid filter clicks — `announceFilterResults()` fires before `isAnimating` guard is set, so rapid clicks can queue overlapping screen reader announcements (code review finding, confidence 75/100)
+
+---
+
+## From PERF-004: CSS Minification with cssnano (2026-02-09)
+**Origin**: docs/archive/plans/2026-02-09_perf-004-css-minification-cssnano.md
+
+- [ ] Source maps for production builds — Add `--map` flag to build script for debugging minified CSS in production
+- [ ] Build size reporting — Post-build script logging before/after file sizes for CSS size trend visibility (consider `gzip-size-cli` for transfer size)
 
 ---
 
