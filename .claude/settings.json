@@ -1,9 +1,10 @@
 {
   "enabledPlugins": {
+    "context7@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
     "english-coach@goodalex223-claude-marketplace": true,
-    "context7@claude-plugins-official": true,
     "auto-memory@severity1-marketplace": true
   }
 }
