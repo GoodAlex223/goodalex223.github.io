@@ -1,12 +1,25 @@
 # DONE
 
-**Last Updated**: 2026-02-09 (PERF-004 completed)
+**Last Updated**: 2026-02-09 (PERF-005 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-09
+
+### Add Cache-Busting with Content Hash (PERF-005)
+
+**Plan**: [docs/archive/plans/2026-02-09_perf-005-cache-busting-content-hash.md](../archive/plans/2026-02-09_perf-005-cache-busting-content-hash.md)
+**Summary**: Added post-build Node.js script that generates content-hashed CSS filenames (e.g., `style.8795488a.css`) for reliable browser cache invalidation. Zero new npm dependencies — uses Node.js built-ins (fs, crypto, path). Watch mode unhashes references automatically.
+**Key Changes**:
+- scripts/hash-css.js: SHA-256 hash, rename, HTML ref update, cleanup, validation
+- package.json: Split build into `build:css` + `hash:css` pipeline; watch unhashes first
+- index.html + 404.html: CSS reference updated to hashed filename
+- CLAUDE.md: Updated build-commands, architecture, patterns sections
+**Spawned Tasks**: 2 items added to BACKLOG.md (JS cache-busting, build size reporting)
+
+---
 
 ### Add CSS Minification with cssnano (PERF-004)
 

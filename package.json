@@ -4,8 +4,10 @@
   "private": true,
   "description": "Personal portfolio website for Alexey Minakov",
   "scripts": {
-    "build": "postcss css/main.css --output dist/style.css --env production",
-    "watch": "postcss css/main.css --output dist/style.css --watch"
+    "build": "npm run build:css && npm run hash:css",
+    "build:css": "postcss css/main.css --output dist/style.css --env production",
+    "hash:css": "node scripts/hash-css.js",
+    "watch": "node scripts/hash-css.js --unhash && postcss css/main.css --output dist/style.css --watch"
   },
   "devDependencies": {
     "cssnano": "^7.1.2",

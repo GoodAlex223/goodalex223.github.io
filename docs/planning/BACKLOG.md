@@ -169,7 +169,7 @@ Future ideas and improvements for the portfolio.
 **Origin**: docs/planning/plans/2026-02-03_perf-003-bundle-css.md
 
 - [x] ~~Add CSS minification with cssnano~~ *(completed 2026-02-09, PERF-004)*
-- [ ] Add cache-busting with content hash — Filename includes hash (e.g., `style.abc123.css`) for reliable cache invalidation
+- [x] ~~Add cache-busting with content hash~~ *(completed 2026-02-09, PERF-005)*
 
 ### From SEO-001: robots.txt & sitemap.xml (2026-01-29)
 **Origin**: docs/archive/plans/2026-01-29_seo-001-robots-sitemap.md
@@ -325,6 +325,14 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Track description character counts in CLAUDE.md — Add reference table of all description lengths to catch regressions when modified
 - [ ] Social card preview testing — Validate OG/Twitter card rendering using Facebook Debugger and Twitter Card Validator after deployment
+
+---
+
+## From PERF-005: Cache-Busting with Content Hash (2026-02-09)
+**Origin**: docs/archive/plans/2026-02-09_perf-005-cache-busting-content-hash.md
+
+- [ ] JS cache-busting — Extend hashing to `js/main.js` for complete asset cache control (currently only CSS is hashed)
+- [ ] Build size reporting — Log before/after file sizes during build to track CSS growth over time
 
 ---
 
