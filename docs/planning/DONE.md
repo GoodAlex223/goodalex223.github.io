@@ -1,8 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-02-05 (DOCS-001 completed)
+**Last Updated**: 2026-02-09 (PERF-004 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-09
+
+### Add CSS Minification with cssnano (PERF-004)
+
+**Plan**: [docs/archive/plans/2026-02-09_perf-004-css-minification-cssnano.md](../archive/plans/2026-02-09_perf-004-css-minification-cssnano.md)
+**Summary**: Added cssnano to PostCSS build pipeline for production CSS minification. File size reduced from 27,223 to 19,177 bytes (29.6% smaller). Watch mode stays unminified for development debugging.
+**Key Changes**:
+- postcss.config.js: Function export with conditional cssnano via `ctx.env === 'production'`
+- package.json: Added `--env production` to build script, added cssnano ^7.1.2 dependency
+- CLAUDE.md: Updated 3 build documentation sections with minification info
+**Spawned Tasks**: 2 items added to BACKLOG.md (source maps for production, build size reporting)
 
 ---
 

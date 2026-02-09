@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-09 (Week of Feb 9-13 planning)
+**Last Updated**: 2026-02-09 (PERF-004 completed)
 
 ---
 
@@ -13,16 +13,6 @@ _None currently_
 ---
 
 ## High Priority
-
-### PERF-004: Add CSS minification with cssnano
-**Origin**: BACKLOG.md → From PERF-003: Bundle CSS Files
-**Category**: Performance
-**Description**: Add `cssnano` to the PostCSS pipeline to minify `dist/style.css` for production. Reduces file size beyond bundling alone.
-**Acceptance Criteria**:
-- [ ] cssnano added as PostCSS plugin
-- [ ] `npm run build` outputs minified CSS
-- [ ] Source maps preserved for debugging (optional)
-- [ ] File size reduction documented
 
 ### PERF-005: Add cache-busting with content hash
 **Origin**: BACKLOG.md → From PERF-003: Bundle CSS Files

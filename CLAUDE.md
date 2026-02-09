@@ -34,7 +34,7 @@ python -m http.server 8000
 npx serve
 ```
 
-**Build System**: PostCSS with `postcss-import` plugin bundles modular CSS files into `dist/style.css`.
+**Build System**: PostCSS with `postcss-import` plugin bundles modular CSS files into `dist/style.css`. Production builds (`npm run build`) include cssnano minification; watch mode (`npm run watch`) outputs unminified CSS for debugging.
 
 **Deployment**: Automatic via GitHub Actions on push to `main` branch (runs `npm run build`, then deploys to GitHub Pages).
 
@@ -109,7 +109,7 @@ CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/
 5. `components.css` — UI components
 6. `main.css` — Layout and section styles
 
-**Build Process**: PostCSS with `postcss-import` plugin resolves all `@import` statements and outputs single bundled file to `dist/style.css`. HTML files reference the built file, not source files.
+**Build Process**: PostCSS with `postcss-import` plugin resolves all `@import` statements, then cssnano minifies in production builds (`--env production`). Outputs single bundled file to `dist/style.css`. HTML files reference the built file, not source files.
 
 ### HTML Structure
 - Semantic elements: `<article>`, `<section>`, `<nav>`, `<header>`, `<footer>`
@@ -274,18 +274,19 @@ Progressive reveal animations using Intersection Observer:
 5. **Usage**: Applied to hero elements, section titles, project cards, skill groups, contact links
 
 ### Build System Pattern
-**PostCSS CSS Bundling**: Modular CSS development with production bundling
+**PostCSS CSS Bundling**: Modular CSS development with production bundling and minification
 1. **Source**: Modular CSS files in `css/` directory with `@import` statements
-2. **Build Tool**: PostCSS with `postcss-import` plugin
-3. **Output**: Single bundled file at `dist/style.css`
-4. **Commands**:
-   - `npm run build` — One-time build
-   - `npm run watch` — Watch mode for development
-5. **CI/CD**: GitHub Actions workflow builds CSS before deployment
+2. **Build Tool**: PostCSS with `postcss-import` plugin and `cssnano` (production only)
+3. **Output**: Single bundled file at `dist/style.css` (minified in production)
+4. **Minification**: cssnano with `default` preset, activated via `--env production` flag in `postcss.config.js`
+5. **Commands**:
+   - `npm run build` — Production build with minification (~29% smaller)
+   - `npm run watch` — Development watch mode (unminified for debugging)
+6. **CI/CD**: GitHub Actions workflow builds CSS before deployment
    - Workflow: `.github/workflows/deploy.yml`
    - Steps: Node.js setup → `npm ci` → `npm run build` → deploy
-6. **HTML References**: Both `index.html` and `404.html` load `dist/style.css` (built file)
-7. **Git Ignore**: `dist/` directory excluded from version control (build artifact)
+7. **HTML References**: Both `index.html` and `404.html` load `dist/style.css` (built file)
+8. **Git Ignore**: `dist/` directory excluded from version control (build artifact)
 
 ### Performance Optimization Pattern
 **Self-hosted fonts**: Replaced Google Fonts CDN with local font files
