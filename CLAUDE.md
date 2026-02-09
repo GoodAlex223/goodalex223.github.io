@@ -345,7 +345,6 @@ Progressive reveal animations using Intersection Observer:
 4. **Timing Utilities**: `timing.js` reads animation durations from CSS custom properties
    - `getAnimationDuration()` — Reads `--filter-animation-duration` from `:root`
    - `waitForFilterAnimation()` — Calculates full animation cycle (exit + entrance + stagger + buffer)
-   - `waitForExitPhase()` — Waits for mid-animation state capture
    - Single source of truth: CSS variables, not hardcoded values
 5. **Test Coverage**:
    - **basic-filtering.spec.js**: Category filtering, card visibility, URL hash updates
