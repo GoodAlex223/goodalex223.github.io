@@ -1,5 +1,6 @@
-module.exports = {
+module.exports = (ctx) => ({
   plugins: [
-    require('postcss-import')
-  ]
-};
+    require('postcss-import'),
+    ctx.env === 'production' && require('cssnano')({ preset: 'default' })
+  ].filter(Boolean)
+});
