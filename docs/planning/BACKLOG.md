@@ -336,6 +336,13 @@ Future ideas and improvements for the portfolio.
 
 ---
 
+## From QUALITY-001: Centralize resetFilter() (2026-02-10)
+**Origin**: docs/archive/plans/2026-02-10_quality-001-centralize-reset-filter.md
+
+- [ ] Conditional focus in `resetFilter()` — Add optional `shouldFocus` parameter (default `true`) to prevent jarring focus jumps if function is ever called from system-initiated contexts like hash navigation (code review finding, confidence 25/100)
+
+---
+
 ## From TEST-001: Playwright E2E Tests (2026-02-09)
 **Origin**: TEST-001 implementation via feature-dev workflow
 
