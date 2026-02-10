@@ -7,9 +7,13 @@
     "build": "npm run build:css && npm run hash:css",
     "build:css": "postcss css/main.css --output dist/style.css --env production",
     "hash:css": "node scripts/hash-css.js",
-    "watch": "node scripts/hash-css.js --unhash && postcss css/main.css --output dist/style.css --watch"
+    "watch": "node scripts/hash-css.js --unhash && postcss css/main.css --output dist/style.css --watch",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "cssnano": "^7.1.2",
     "postcss": "^8.4.49",
     "postcss-cli": "^11.0.0",

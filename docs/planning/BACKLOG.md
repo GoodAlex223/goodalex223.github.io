@@ -276,14 +276,14 @@ Future ideas and improvements for the portfolio.
 **Origin**: docs/archive/plans/2026-02-02_bug-002-tabindex-desync.md
 
 - [ ] Centralize filter activation logic — Single `activateFilter(button, category)` function to reduce risk of future desync between toggle-to-reset and normal click paths
-- [ ] Automated accessibility regression tests — Playwright tests verifying focus/tabindex sync after all filter interactions
+- [x] ~~Automated accessibility regression tests~~ *(completed 2026-02-09, TEST-001)*
 
 ---
 
 ## From FEAT-003: Enhanced Filter Animations (2026-02-03)
 **Origin**: docs/planning/plans/2026-02-03_feat-003-enhanced-filter-animations.md
 
-- [ ] Playwright animation tests — Add tests verifying filter animation timing, visual states, and rapid click handling
+- [x] ~~Playwright animation tests~~ *(completed 2026-02-09, TEST-001)*
 
 ---
 
@@ -291,7 +291,7 @@ Future ideas and improvements for the portfolio.
 **Origin**: BUG-003 implementation
 
 - [ ] CSS specificity documentation — Add a comment block in components.css explaining the specificity hierarchy between scroll and filter animation systems (prevents future developers from reordering sections)
-- [ ] Animation integration tests — Add Playwright tests that verify filter animations are visible (check computed opacity/transform during animation) to catch CSS specificity regressions
+- [x] ~~Animation integration tests~~ *(completed 2026-02-09, TEST-001)*
 
 ---
 
@@ -325,6 +325,14 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Track description character counts in CLAUDE.md — Add reference table of all description lengths to catch regressions when modified
 - [ ] Social card preview testing — Validate OG/Twitter card rendering using Facebook Debugger and Twitter Card Validator after deployment
+
+---
+
+## From TEST-001: Playwright E2E Tests (2026-02-09)
+**Origin**: TEST-001 implementation via feature-dev workflow
+
+- [ ] axe-core integration — Add `@axe-core/playwright` for automated WCAG violation checks on page load and after filter interactions (partially supersedes TEST-002)
+- [ ] Visual regression snapshots — Add Playwright screenshot comparison tests for filter animation visual states (exit, entrance, final) to catch CSS regressions
 
 ---
 

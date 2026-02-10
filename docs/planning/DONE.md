@@ -1,12 +1,26 @@
 # DONE
 
-**Last Updated**: 2026-02-09 (PERF-005 completed)
+**Last Updated**: 2026-02-09 (TEST-001 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-09
+
+### Add Playwright E2E Tests for Filter Animations (TEST-001)
+
+**Plan**: N/A (implemented via feature-dev workflow)
+**Summary**: Added comprehensive Playwright e2e test suite covering 46 tests across 3 browsers (Chromium, Firefox, WebKit) — 138 total. Tests cover basic filtering, toggle behavior, URL hash integration, animation states, keyboard navigation, accessibility (ARIA), and rapid click handling. Includes Page Object Model, CSS variable-based timing utilities, custom static server, and CI integration gating deployment.
+**Key Changes**:
+- Created 7 spec files in `tests/filter/` covering all filter interactions
+- Created `tests/pages/FilterPage.js` (Page Object Model) and `tests/utils/timing.js`
+- Created `scripts/serve.js` custom static server on port 4173
+- Updated `deploy.yml` to run tests before deployment (build-and-test single job)
+- Added `@playwright/test` devDep and test scripts to `package.json`
+**Spawned Tasks**: 2 items added to BACKLOG.md (axe-core integration, visual regression snapshots)
+
+---
 
 ### Add Cache-Busting with Content Hash (PERF-005)
 
