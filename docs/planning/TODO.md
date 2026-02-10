@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-09 (TEST-001 completed)
+**Last Updated**: 2026-02-10 (SEO-005 completed)
 
 ---
 
@@ -13,15 +13,6 @@ _None currently_
 ---
 
 ## High Priority
-
-### SEO-005: Bing Webmaster Tools verification
-**Origin**: BACKLOG.md → From SEO-003: Google Search Console
-**Category**: SEO & Polish
-**Description**: Add Bing Webmaster Tools verification meta tag (similar to Google Search Console). Submit sitemap for Microsoft search coverage.
-**Acceptance Criteria**:
-- [ ] Bing verification meta tag added to `index.html`
-- [ ] Ownership verified in Bing Webmaster Tools
-- [ ] Sitemap submitted to Bing
 
 ### QUALITY-001: Centralize resetFilter() function
 **Origin**: BACKLOG.md → From FEAT-005: Escape Key Reset Filter

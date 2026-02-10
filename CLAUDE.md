@@ -165,9 +165,10 @@ CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/
   - Preloads `fonts/inter-latin.woff2` and `fonts/inter-latin-ext.woff2`
   - Uses `type="font/woff2"` and `crossorigin` attribute
   - Reduces render-blocking and improves LCP (Largest Contentful Paint)
-- **Search engine verification**: Google Search Console meta tag configured
+- **Search engine verification**: Google Search Console and Bing Webmaster Tools configured
   - `<meta name="google-site-verification" content="6ADLbi4pyMeQya11o0tJUq0Bb6ydv4GnJw1oLICjY0M" />`
-  - Enables search console access and indexing insights
+  - Bing verified via GSC import (no separate meta tag — auto-verified)
+  - Sitemaps submitted to both Google and Bing
 
 ### Theme System
 - **Data attribute**: `data-theme="light"` or `data-theme="dark"` on `<html>`
@@ -386,6 +387,11 @@ Progressive reveal animations using Intersection Observer:
 - Lists homepage with monthly update frequency
 - Priority: 1.0 (highest)
 - Last modified: 2026-02-04
+- Submitted to both Google Search Console and Bing Webmaster Tools
+
+**Search engine tools**:
+- **Google Search Console**: Verified via HTML meta tag (`google-site-verification`). Sitemap submitted Feb 4, 2026.
+- **Bing Webmaster Tools**: Verified via GSC import (auto-verification, no separate meta tag). Sitemap imported Feb 10, 2026.
 
 **Meta descriptions**: Optimized for search CTR and social sharing (150-160 chars)
 - **Primary meta** (`index.html`): "Software developer Alexey Minakov — backend systems, IoT/hardware, and web projects built with Python, Arduino, and TypeScript. Available for new opportunities." (160 chars)

@@ -1,8 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-02-09 (TEST-001 completed)
+**Last Updated**: 2026-02-10 (SEO-005 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-10
+
+### Bing Webmaster Tools Verification (SEO-005)
+
+**Plan**: [docs/archive/plans/2026-02-10_seo-005-bing-webmaster-tools.md](../archive/plans/2026-02-10_seo-005-bing-webmaster-tools.md)
+**Summary**: Verified site ownership in Bing Webmaster Tools via Google Search Console import (auto-verification, no meta tag needed). Submitted sitemap for Microsoft search coverage.
+**Key Changes**:
+- Site verified via GSC import (no code changes to `index.html`)
+- Sitemap submitted to Bing (status: Processing, 1 URL discovered)
+- Documentation updates only (CLAUDE.md, TODO/DONE/BACKLOG)
+**Spawned Tasks**: 2 items added to BACKLOG.md (monitor Bing indexing, IndexNow protocol)
 
 ---
 

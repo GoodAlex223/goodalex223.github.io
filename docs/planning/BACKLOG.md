@@ -181,7 +181,7 @@ Future ideas and improvements for the portfolio.
 ### From SEO-003: Google Search Console Verification (2026-02-04)
 **Origin**: docs/archive/plans/2026-02-04_seo-003-google-search-console.md
 
-- [ ] Add Bing Webmaster Tools verification — Similar meta tag for Microsoft search engine coverage
+- [x] ~~Add Bing Webmaster Tools verification~~ *(completed 2026-02-10, SEO-005 — via GSC import, no meta tag needed)*
 
 ### Accessibility
 
@@ -325,6 +325,14 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Track description character counts in CLAUDE.md — Add reference table of all description lengths to catch regressions when modified
 - [ ] Social card preview testing — Validate OG/Twitter card rendering using Facebook Debugger and Twitter Card Validator after deployment
+
+---
+
+## From SEO-005: Bing Webmaster Tools Verification (2026-02-10)
+**Origin**: docs/archive/plans/2026-02-10_seo-005-bing-webmaster-tools.md
+
+- [ ] Monitor Bing indexing — Check Bing Webmaster Tools dashboard after 48 hours to verify site data is being processed and pages are indexed
+- [ ] IndexNow protocol — Implement IndexNow API for instant Bing notification on content changes (reduces crawl delay for updates)
 
 ---
 
