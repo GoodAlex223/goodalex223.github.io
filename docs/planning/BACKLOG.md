@@ -150,7 +150,7 @@ Future ideas and improvements for the portfolio.
 ### From FEAT-005: Escape Key Reset Filter (2026-02-03)
 **Origin**: FEAT-005 implementation
 
-- [ ] Centralized reset function — Extract `resetFilter()` function to DRY up toggle-to-reset click handler and Escape key handler (both use same 4-line sequence)
+- [x] ~~Centralized reset function~~ *(completed 2026-02-10, QUALITY-001)*
 - [ ] Keyboard shortcut documentation — Add visible hint or help tooltip showing Escape key resets filter (improves discoverability)
 
 ### From PERF-001: Self-host Google Fonts (2026-01-29)
