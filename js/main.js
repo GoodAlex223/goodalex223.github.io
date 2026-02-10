@@ -430,6 +430,18 @@ function initProjectFilter() {
   }
 
   /**
+   * Reset filter to show all projects.
+   * No-op if already showing all.
+   */
+  function resetFilter() {
+    if (currentFilter === "all") return;
+    setActiveButton(allButton);
+    allButton.focus();
+    filterProjects("all");
+    updateHash("all");
+  }
+
+  /**
    * Update active button state and roving tabindex
    * @param {HTMLElement} activeButton - The button to mark as active
    */
@@ -450,10 +462,7 @@ function initProjectFilter() {
 
       // Toggle-to-reset: clicking active filter resets to "all"
       if (filter === currentFilter && filter !== "all") {
-        setActiveButton(allButton);
-        allButton.focus();
-        filterProjects("all");
-        updateHash("all");
+        resetFilter();
       } else {
         setActiveButton(button);
         filterProjects(filter);
@@ -493,13 +502,7 @@ function initProjectFilter() {
 
         case "Escape":
           e.preventDefault();
-          // Reset to "all" filter (only if not already showing all)
-          if (currentFilter !== "all") {
-            setActiveButton(allButton);
-            allButton.focus();
-            filterProjects("all");
-            updateHash("all");
-          }
+          resetFilter();
           return;
 
         default:
