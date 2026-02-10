@@ -220,20 +220,7 @@ function initProjectFilter() {
    */
   function applyHashFilter() {
     const category = getCategoryFromHash();
-    const targetButton = document.querySelector(`[data-filter="${category}"]`);
-
-    if (!targetButton) return; // Defensive: should never happen with validation
-
-    setActiveButton(targetButton);
-
-    // Move focus only if user was already navigating the filter toolbar
-    // This prevents jarring focus jumps on page load or browser back/forward
-    const isInToolbar = Array.from(filterButtons).includes(document.activeElement);
-    if (isInToolbar) {
-      targetButton.focus();
-    }
-
-    filterProjects(category);
+    activateFilter(category, { shouldUpdateHash: false, conditionalFocus: true });
   }
 
   /**
@@ -442,6 +429,37 @@ function initProjectFilter() {
   }
 
   /**
+   * Activate a specific category filter.
+   * No-op if already showing the requested category (unless mid-animation,
+   * where currentFilter may be stale from cancelled animation cleanup).
+   * @param {string} category - Category to activate
+   * @param {Object} [options] - Configuration options
+   * @param {boolean} [options.shouldUpdateHash=true] - Whether to update URL hash
+   * @param {boolean} [options.conditionalFocus=false] - Move focus only if already in toolbar
+   */
+  function activateFilter(category, { shouldUpdateHash = true, conditionalFocus = false } = {}) {
+    if (category === currentFilter && !isAnimating) return;
+
+    const targetButton = document.querySelector(`[data-filter="${category}"]`);
+    if (!targetButton) return;
+
+    setActiveButton(targetButton);
+
+    if (conditionalFocus) {
+      const isInToolbar = Array.from(filterButtons).includes(document.activeElement);
+      if (isInToolbar) {
+        targetButton.focus();
+      }
+    }
+
+    filterProjects(category);
+
+    if (shouldUpdateHash) {
+      updateHash(category);
+    }
+  }
+
+  /**
    * Update active button state and roving tabindex
    * @param {HTMLElement} activeButton - The button to mark as active
    */
@@ -464,9 +482,7 @@ function initProjectFilter() {
       if (filter === currentFilter && filter !== "all") {
         resetFilter();
       } else {
-        setActiveButton(button);
-        filterProjects(filter);
-        updateHash(filter);
+        activateFilter(filter);
       }
     });
   });
