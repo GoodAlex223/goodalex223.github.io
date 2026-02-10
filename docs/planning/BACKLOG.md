@@ -333,6 +333,8 @@ Future ideas and improvements for the portfolio.
 
 - [ ] axe-core integration — Add `@axe-core/playwright` for automated WCAG violation checks on page load and after filter interactions (partially supersedes TEST-002)
 - [ ] Visual regression snapshots — Add Playwright screenshot comparison tests for filter animation visual states (exit, entrance, final) to catch CSS regressions
+- [ ] Test server error handling — Add `.on('error')` handler to `scripts/serve.js` `.listen()` call for clear error messages when port 4173 is already in use (code review finding, confidence 75/100)
+- [ ] Separate CI workflow jobs — Split `build-and-test` into separate `build`, `test`, `deploy` jobs for clearer failure reporting and better separation of concerns (code review finding, confidence 75/100)
 
 ---
 
