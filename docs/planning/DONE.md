@@ -1,12 +1,24 @@
 # DONE
 
-**Last Updated**: 2026-02-10 (SEO-005 completed)
+**Last Updated**: 2026-02-10 (QUALITY-001 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-10
+
+### Centralize resetFilter() Function (QUALITY-001)
+
+**Plan**: [docs/archive/plans/2026-02-10_quality-001-centralize-reset-filter.md](../archive/plans/2026-02-10_quality-001-centralize-reset-filter.md)
+**Summary**: Extracted `resetFilter()` function in `js/main.js` to DRY up duplicated 4-line reset sequence from toggle-to-reset click handler and Escape key handler. Function includes internal guard clause (`if (currentFilter === "all") return`).
+**Key Changes**:
+- Added `resetFilter()` function (lines 432-442) with internal guard
+- Simplified toggle-to-reset click handler (1 call instead of 4)
+- Simplified Escape key handler (1 call instead of guard + 4)
+**Spawned Tasks**: 0 new items (QUALITY-002 already in TODO.md)
+
+---
 
 ### Bing Webmaster Tools Verification (SEO-005)
 

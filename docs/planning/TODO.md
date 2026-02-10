@@ -2,27 +2,13 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-10 (SEO-005 completed)
+**Last Updated**: 2026-02-10 (QUALITY-001 completed)
 
 ---
 
 ## In Progress
 
 _None currently_
-
----
-
-## High Priority
-
-### QUALITY-001: Centralize resetFilter() function
-**Origin**: BACKLOG.md → From FEAT-005: Escape Key Reset Filter
-**Category**: Code Quality
-**Description**: Extract `resetFilter()` function in `js/main.js` to DRY up toggle-to-reset click handler and Escape key handler (both use same 4-line sequence).
-**Acceptance Criteria**:
-- [ ] Single `resetFilter()` function replaces duplicated logic
-- [ ] Toggle-to-reset click handler uses `resetFilter()`
-- [ ] Escape key handler uses `resetFilter()`
-- [ ] All existing Playwright tests pass
 
 ---
 
