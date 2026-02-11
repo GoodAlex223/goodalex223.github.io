@@ -276,7 +276,7 @@ Client-side category filtering with subtle staggered animations:
    - **Browser Navigation**: Back/forward buttons work via `popstate` event listener
    - **Page Load**: Initial filter applied from hash on page load
    - **History API**: Uses `history.pushState()` for navigation without page reload
-   - **Implementation**: `getCategoryFromHash()`, `updateHash()`, `applyHashFilter()` functions
+   - **Implementation**: `activateFilter()`, `resetFilter()`, `getCategoryFromHash()`, `updateHash()`, `applyHashFilter()` functions
    - **Focus behavior**: Only moves focus to active button if user is already navigating toolbar (prevents jarring focus jumps on page load/browser navigation)
 6. **Accessibility**: WCAG-compliant keyboard and screen reader support
    - `aria-pressed` attributes for button state
