@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-10 (QUALITY-001 completed)
+**Last Updated**: 2026-02-10 (QUALITY-002 completed)
 
 ---
 
@@ -13,16 +13,6 @@ _None currently_
 ---
 
 ## Medium Priority
-
-### QUALITY-002: Centralize activateFilter() function
-**Origin**: BACKLOG.md → From BUG-002: Toggle-to-Reset Tabindex Desync
-**Category**: Code Quality
-**Description**: Create single `activateFilter(button, category)` function to reduce risk of future desync between toggle-to-reset and normal click paths.
-**Acceptance Criteria**:
-- [ ] Single `activateFilter()` function encapsulates filter activation logic
-- [ ] Both click paths (normal click, toggle-to-reset) use same function
-- [ ] Tabindex and focus remain synced after all interactions
-- [ ] All existing Playwright tests pass
 
 ### QUALITY-003: Add CSS specificity documentation
 **Origin**: BACKLOG.md → From BUG-003: Filter Animation Fix
