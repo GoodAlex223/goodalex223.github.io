@@ -341,6 +341,7 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Stylelint rule for section ordering — Custom Stylelint rule to enforce filter animation selectors always appear after scroll animation selectors in components.css (tracks with TEST-003)
 - [ ] CSS layers for explicit priority — Use `@layer scroll, filter` to replace cascade-order dependency with explicit layer priority when browser support allows
+- [ ] Reformat compound selector in specificity table — The `.project-card.project-card--filtering-in.is-filtering` selector is split across two indented lines in the comment, which could visually resemble a descendant selector; reformat to single line for clarity (code review finding, confidence 50/100)
 
 ---
 
