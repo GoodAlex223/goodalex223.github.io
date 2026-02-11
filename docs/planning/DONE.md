@@ -1,8 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-02-10 (QUALITY-002 completed)
+**Last Updated**: 2026-02-11 (QUALITY-003 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-11
+
+### Add CSS Specificity Documentation (QUALITY-003)
+
+**Plan**: [docs/archive/plans/2026-02-11_quality-003-css-specificity-documentation.md](../archive/plans/2026-02-11_quality-003-css-specificity-documentation.md)
+**Summary**: Added comprehensive specificity hierarchy documentation to the filter animations header comment in `components.css`. Documents all 9 scroll/filter animation selectors with their specificity values, explains the cascade order dependency, and references BUG-003.
+**Key Changes**:
+- Replaced 4-line header comment with 22-line documentation block including specificity table
+- Documents 6 selectors sharing (0,2,0) specificity and why cascade order matters
+- Includes "DO NOT REORDER" warning with BUG-003 reference
+**Spawned Tasks**: 2 items added to BACKLOG.md (Stylelint section ordering rule, CSS layers for explicit priority)
 
 ---
 
