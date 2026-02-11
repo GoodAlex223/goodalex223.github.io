@@ -275,7 +275,7 @@ Future ideas and improvements for the portfolio.
 ## From BUG-002: Toggle-to-Reset Tabindex Desync (2026-02-02)
 **Origin**: docs/archive/plans/2026-02-02_bug-002-tabindex-desync.md
 
-- [ ] Centralize filter activation logic — Single `activateFilter(button, category)` function to reduce risk of future desync between toggle-to-reset and normal click paths
+- [x] ~~Centralize filter activation logic~~ *(completed 2026-02-10, QUALITY-002)*
 - [x] ~~Automated accessibility regression tests~~ *(completed 2026-02-09, TEST-001)*
 
 ---
@@ -333,6 +333,14 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Monitor Bing indexing — Check Bing Webmaster Tools dashboard after 48 hours to verify site data is being processed and pages are indexed
 - [ ] IndexNow protocol — Implement IndexNow API for instant Bing notification on content changes (reduces crawl delay for updates)
+
+---
+
+## From QUALITY-002: Centralize activateFilter() (2026-02-10)
+**Origin**: docs/archive/plans/2026-02-10_quality-002-centralize-activate-filter.md
+
+- [ ] Stabilize rapid-click timing tests — `rapid-clicks.spec.js:25` uses `page.waitForTimeout(duration * 0.3)` which is timing-sensitive across Firefox/WebKit; consider DOM state polling instead of percentage-based timing
+- [ ] Unify resetFilter into activateFilter — `resetFilter()` could become `activateFilter("all", { manageFocus: true })` to further reduce duplication (current separation is clearer for distinct use cases)
 
 ---
 

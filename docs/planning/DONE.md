@@ -1,12 +1,25 @@
 # DONE
 
-**Last Updated**: 2026-02-10 (QUALITY-001 completed)
+**Last Updated**: 2026-02-10 (QUALITY-002 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-10
+
+### Centralize activateFilter() Function (QUALITY-002)
+
+**Plan**: [docs/archive/plans/2026-02-10_quality-002-centralize-activate-filter.md](../archive/plans/2026-02-10_quality-002-centralize-activate-filter.md)
+**Summary**: Created centralized `activateFilter(category, options)` function in `js/main.js` to DRY up duplicated filter activation logic from click handler and `applyHashFilter()`. Uses options object pattern for explicit control over hash updates and conditional focus.
+**Key Changes**:
+- Added `activateFilter()` function with options object (`shouldUpdateHash`, `conditionalFocus`)
+- Simplified click handler from 3 lines to 1 call
+- Simplified `applyHashFilter()` from 12 lines to 2 calls
+- Guard clause with `!isAnimating` check to handle stale `currentFilter` during rapid clicks
+**Spawned Tasks**: 2 items added to BACKLOG.md (stabilize rapid-click tests, unify resetFilter)
+
+---
 
 ### Centralize resetFilter() Function (QUALITY-001)
 
