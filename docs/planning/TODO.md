@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-10 (QUALITY-002 completed)
+**Last Updated**: 2026-02-11 (QUALITY-003 completed)
 
 ---
 
@@ -13,15 +13,6 @@ _None currently_
 ---
 
 ## Medium Priority
-
-### QUALITY-003: Add CSS specificity documentation
-**Origin**: BACKLOG.md → From BUG-003: Filter Animation Fix
-**Category**: Code Quality
-**Description**: Add comment block in `components.css` explaining the specificity hierarchy between scroll and filter animation systems. Prevents future developers from reordering sections.
-**Acceptance Criteria**:
-- [ ] Comment block explains cascade order dependency
-- [ ] Documents which selectors must come after which
-- [ ] References the BUG-003 fix for context
 
 ### TEST-002: Accessibility regression tests
 **Origin**: BACKLOG.md → From BUG-002 & A11Y-001

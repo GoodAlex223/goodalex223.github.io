@@ -290,7 +290,7 @@ Future ideas and improvements for the portfolio.
 ## From BUG-003: Filter Animation Fix (2026-02-04)
 **Origin**: BUG-003 implementation
 
-- [ ] CSS specificity documentation — Add a comment block in components.css explaining the specificity hierarchy between scroll and filter animation systems (prevents future developers from reordering sections)
+- [x] ~~CSS specificity documentation~~ *(completed 2026-02-11, QUALITY-003)*
 - [x] ~~Animation integration tests~~ *(completed 2026-02-09, TEST-001)*
 
 ---
@@ -333,6 +333,14 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Monitor Bing indexing — Check Bing Webmaster Tools dashboard after 48 hours to verify site data is being processed and pages are indexed
 - [ ] IndexNow protocol — Implement IndexNow API for instant Bing notification on content changes (reduces crawl delay for updates)
+
+---
+
+## From QUALITY-003: CSS Specificity Documentation (2026-02-11)
+**Origin**: docs/archive/plans/2026-02-11_quality-003-css-specificity-documentation.md
+
+- [ ] Stylelint rule for section ordering — Custom Stylelint rule to enforce filter animation selectors always appear after scroll animation selectors in components.css (tracks with TEST-003)
+- [ ] CSS layers for explicit priority — Use `@layer scroll, filter` to replace cascade-order dependency with explicit layer priority when browser support allows
 
 ---
 

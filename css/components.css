@@ -474,7 +474,25 @@
 
 /* ===================
    FILTER ANIMATIONS
-   (after scroll animations so equal-specificity selectors win by cascade order)
+   ===================
+
+   CASCADE ORDER DEPENDENCY — DO NOT REORDER
+   These selectors MUST come after Scroll Animations (above).
+
+   Specificity hierarchy:
+     [data-animate]                                  → (0,1,0)  scroll base
+     .project-card[data-animate]                     → (0,2,0)  scroll combined transitions
+     .skill-group[data-animate]                      → (0,2,0)  scroll combined transitions
+     [data-animate].is-visible                       → (0,2,0)  scroll visible
+     .project-card.project-card--filtering-out        → (0,2,0)  filter exit
+     .project-card.project-card--filtering-in         → (0,2,0)  filter entrance
+     .project-card.project-card--hidden               → (0,2,0)  filter hidden
+     .project-card.project-card--filtering-in
+       .is-filtering                                  → (0,3,0)  filter entrance end
+
+   Selectors at (0,2,0) have equal specificity — cascade order decides the winner.
+   Filter selectors must appear AFTER scroll selectors to override correctly.
+   See: BUG-003 (2026-02-04) — reordering broke filter animations.
    =================== */
 
 /* Exit animation state - fade out + scale down */
