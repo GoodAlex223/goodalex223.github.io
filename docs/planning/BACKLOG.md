@@ -341,6 +341,7 @@ Future ideas and improvements for the portfolio.
 
 - [ ] Stabilize rapid-click timing tests — `rapid-clicks.spec.js:25` uses `page.waitForTimeout(duration * 0.3)` which is timing-sensitive across Firefox/WebKit; consider DOM state polling instead of percentage-based timing
 - [ ] Unify resetFilter into activateFilter — `resetFilter()` could become `activateFilter("all", { manageFocus: true })` to further reduce duplication (current separation is clearer for distinct use cases)
+- [ ] Simplify `applyHashFilter()` JSDoc — Comment describes implementation details (conditional focus, hash non-update) now delegated to `activateFilter()`; update to reference options rather than restate behavior (code review finding, confidence 62/100)
 
 ---
 
