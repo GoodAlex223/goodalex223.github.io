@@ -9,7 +9,12 @@
   border-radius: var(--radius-md);
   border: 2px solid transparent;
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition:
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base),
+    transform var(--transition-base),
+    outline-color var(--transition-fast);
 }
 
 .btn--primary {
@@ -133,7 +138,10 @@
   height: 2rem;
   border-radius: var(--radius-md);
   color: var(--color-text-secondary);
-  transition: all var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast),
+    outline-color var(--transition-fast);
 }
 
 .project-card__link:hover {
@@ -142,8 +150,7 @@
 }
 
 .project-card__link:focus-visible {
-  outline: var(--focus-outline-width) solid var(--focus-outline-color);
-  outline-offset: var(--focus-outline-offset);
+  outline-color: var(--focus-outline-color);
 }
 
 .project-card__link svg {
@@ -279,8 +286,7 @@
 }
 
 .contact__link:focus-visible {
-  outline: var(--focus-outline-width) solid var(--focus-outline-color);
-  outline-offset: var(--focus-outline-offset);
+  outline-color: var(--focus-outline-color);
 }
 
 .contact__link svg {
@@ -308,7 +314,8 @@
   transition:
     color var(--transition-fast),
     background-color var(--transition-fast),
-    border-color var(--transition-fast);
+    border-color var(--transition-fast),
+    outline-color var(--transition-fast);
 }
 
 .theme-toggle:hover {
@@ -318,8 +325,7 @@
 }
 
 .theme-toggle:focus-visible {
-  outline: var(--focus-outline-width) solid var(--focus-outline-color);
-  outline-offset: var(--focus-outline-offset);
+  outline-color: var(--focus-outline-color);
 }
 
 .theme-toggle__icon {
@@ -388,7 +394,8 @@
     background-color var(--transition-fast),
     border-color var(--transition-fast),
     color var(--transition-fast),
-    transform var(--transition-fast);
+    transform var(--transition-fast),
+    outline-color var(--transition-fast);
 }
 
 .filter-btn:hover {
@@ -398,8 +405,7 @@
 }
 
 .filter-btn:focus-visible {
-  outline: var(--focus-outline-width) solid var(--focus-outline-color);
-  outline-offset: var(--focus-outline-offset);
+  outline-color: var(--focus-outline-color);
 }
 
 /* High-contrast focus for active filter buttons (colored backgrounds) */

@@ -12,12 +12,12 @@ body,
 .site-header,
 .project-card,
 .skill-group,
-.contact__link,
-.btn {
+.contact__link {
   transition:
     background-color var(--transition-base),
     border-color var(--transition-base),
-    color var(--transition-base);
+    color var(--transition-base),
+    outline-color var(--transition-fast);
 }
 
 /* ===================
