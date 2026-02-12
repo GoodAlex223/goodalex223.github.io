@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-11 (QUALITY-003 completed)
+**Last Updated**: 2026-02-12 (TEST-002 completed)
 
 ---
 
@@ -13,18 +13,6 @@ _None currently_
 ---
 
 ## Medium Priority
-
-### TEST-002: Accessibility regression tests
-**Origin**: BACKLOG.md → From BUG-002 & A11Y-001
-**Category**: Testing & Tooling
-**Description**: Add Playwright accessibility assertions verifying focus/tabindex sync after all filter interactions. Use `@axe-core/playwright` for automated WCAG checks.
-**Depends on**: TEST-001 (Playwright setup)
-**Acceptance Criteria**:
-- [ ] axe-core integrated with Playwright
-- [ ] Tests verify roving tabindex pattern after filter clicks
-- [ ] Tests verify focus management after toggle-to-reset
-- [ ] Tests verify ARIA attributes update correctly
-- [ ] Zero WCAG violations on page load
 
 ### POLISH-001: Focus indicator transition animation
 **Origin**: BACKLOG.md → From A11Y-002: Improve Focus Indicators

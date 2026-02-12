@@ -364,10 +364,18 @@ Future ideas and improvements for the portfolio.
 ## From TEST-001: Playwright E2E Tests (2026-02-09)
 **Origin**: TEST-001 implementation via feature-dev workflow
 
-- [ ] axe-core integration — Add `@axe-core/playwright` for automated WCAG violation checks on page load and after filter interactions (partially supersedes TEST-002)
+- [x] ~~axe-core integration~~ *(completed 2026-02-12, TEST-002)*
 - [ ] Visual regression snapshots — Add Playwright screenshot comparison tests for filter animation visual states (exit, entrance, final) to catch CSS regressions
 - [ ] Test server error handling — Add `.on('error')` handler to `scripts/serve.js` `.listen()` call for clear error messages when port 4173 is already in use (code review finding, confidence 75/100)
 - [ ] Separate CI workflow jobs — Split `build-and-test` into separate `build`, `test`, `deploy` jobs for clearer failure reporting and better separation of concerns (code review finding, confidence 75/100)
+
+---
+
+## From TEST-002: Accessibility Regression Tests (2026-02-12)
+**Origin**: docs/archive/plans/2026-02-12_test-002-accessibility-regression-tests.md
+
+- [ ] Theme-specific axe scanning — Add tests that switch to light/dark theme before scanning to catch theme-specific contrast issues proactively
+- [ ] Reduced motion accessibility test — Verify page remains accessible with `prefers-reduced-motion: reduce` emulated (different animation code paths could introduce issues)
 
 ---
 

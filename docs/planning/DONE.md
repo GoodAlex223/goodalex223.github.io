@@ -1,8 +1,23 @@
 # DONE
 
-**Last Updated**: 2026-02-11 (QUALITY-003 completed)
+**Last Updated**: 2026-02-12 (TEST-002 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-12
+
+### Accessibility Regression Tests (TEST-002)
+
+**Plan**: [docs/planning/plans/2026-02-12_test-002-accessibility-regression-tests.md](plans/2026-02-12_test-002-accessibility-regression-tests.md)
+**Summary**: Added automated WCAG 2.1 AA accessibility scanning to Playwright test suite using `@axe-core/playwright`. Created 8 tests covering page load and all interaction states (filter clicks, keyboard nav, URL hash, toggle-to-reset). Fixed 4 light-theme color contrast violations discovered during testing.
+**Key Changes**:
+- Created `tests/utils/axe-helper.js` with `checkAccessibility(page, options)` utility
+- Created `tests/filter/axe-scan.spec.js` with 8 tests (24 total across 3 browsers)
+- Added `waitForScrollAnimations()` to FilterPage POM to prevent false positives
+- Fixed WCAG AA contrast: `--color-text-muted`, `--color-category-backend`, `--color-status-active`, `--color-category-iot`
+**Spawned Tasks**: 2 items added to BACKLOG.md (theme-specific scanning, reduced motion test)
 
 ---
 
