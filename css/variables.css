@@ -102,19 +102,19 @@
     --color-bg-card: #ffffff;
     --color-text-primary: #1a1a2e;
     --color-text-secondary: #495057;
-    --color-text-muted: #868e96;
+    --color-text-muted: #5c636a;
     --color-accent: #0277bd;
     --color-accent-hover: #01579b;
     --color-border: #dee2e6;
 
     /* Category colors adjusted for light backgrounds */
-    --color-category-backend: #2e7d32;
-    --color-category-iot: #e65100;
+    --color-category-backend: #256b28;
+    --color-category-iot: #b94000;
     --color-category-web: #1565c0;
     --color-category-tools: #7b1fa2;
 
     /* Status colors adjusted for light backgrounds */
-    --color-status-active: #2e7d32;
+    --color-status-active: #256b28;
     --color-status-active-bg: rgba(46, 125, 50, 0.12);
 
     /* Focus indicators */
@@ -135,19 +135,19 @@
   --color-bg-card: #ffffff;
   --color-text-primary: #1a1a2e;
   --color-text-secondary: #495057;
-  --color-text-muted: #868e96;
+  --color-text-muted: #5c636a;
   --color-accent: #0277bd;
   --color-accent-hover: #01579b;
   --color-border: #dee2e6;
 
   /* Category colors adjusted for light backgrounds */
-  --color-category-backend: #2e7d32;
-  --color-category-iot: #e65100;
+  --color-category-backend: #256b28;
+  --color-category-iot: #b94000;
   --color-category-web: #1565c0;
   --color-category-tools: #7b1fa2;
 
   /* Status colors adjusted for light backgrounds */
-  --color-status-active: #2e7d32;
+  --color-status-active: #256b28;
   --color-status-active-bg: rgba(46, 125, 50, 0.12);
 
   /* Focus indicators */

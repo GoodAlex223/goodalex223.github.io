@@ -90,11 +90,13 @@ goodalex223/
 │   │   ├── animation-states.spec.js   # Animation choreography
 │   │   ├── keyboard-nav.spec.js       # Keyboard navigation (roving tabindex)
 │   │   ├── accessibility.spec.js      # ARIA attributes, live regions
-│   │   └── rapid-clicks.spec.js       # Rapid interaction handling
+│   │   ├── rapid-clicks.spec.js       # Rapid interaction handling
+│   │   └── axe-scan.spec.js           # WCAG 2.1 AA accessibility scanning (axe-core)
 │   ├── pages/
 │   │   └── FilterPage.js   # Page Object Model for filter system
 │   └── utils/
-│       └── timing.js       # Animation timing utilities (reads CSS variables)
+│       ├── timing.js       # Animation timing utilities (reads CSS variables)
+│       └── axe-helper.js   # Accessibility testing utilities (axe-core integration)
 ├── fonts/
 │   ├── inter-latin.woff2     # Self-hosted Inter font (Latin subset)
 │   └── inter-latin-ext.woff2 # Self-hosted Inter font (Latin Extended subset)
@@ -347,7 +349,13 @@ Progressive reveal animations using Intersection Observer:
    - `getAnimationDuration()` — Reads `--filter-animation-duration` from `:root`
    - `waitForFilterAnimation()` — Calculates full animation cycle (exit + entrance + stagger + buffer)
    - Single source of truth: CSS variables, not hardcoded values
-5. **Test Coverage**:
+5. **Accessibility Testing**: `axe-helper.js` provides WCAG compliance scanning using `@axe-core/playwright`
+   - `checkAccessibility(page, options)` — Runs axe scan on current page state
+   - Configured for WCAG 2.1 Level A and AA tags by default
+   - Supports custom tags and selector exclusions via options object
+   - Formats violation reports with impact level, help text, node HTML, and helpUrl
+   - Used in `axe-scan.spec.js` to verify zero violations across all interaction states
+6. **Test Coverage**:
    - **basic-filtering.spec.js**: Category filtering, card visibility, URL hash updates
    - **toggle-behavior.spec.js**: Toggle-to-reset, sequential filter changes
    - **url-hash.spec.js**: Page load with hash, browser navigation, invalid hashes
@@ -355,17 +363,23 @@ Progressive reveal animations using Intersection Observer:
    - **keyboard-nav.spec.js**: Arrow keys, Home/End, Escape, roving tabindex, focus management
    - **accessibility.spec.js**: ARIA attributes (`aria-pressed`, `role`, `aria-live`), live region announcements
    - **rapid-clicks.spec.js**: Race conditions, animation interruption, state consistency
-6. **CI Integration**: Tests run after build job, before deployment
+   - **axe-scan.spec.js**: WCAG 2.1 AA compliance scanning (page load, all filters, toggle-to-reset, keyboard nav, URL hash)
+7. **CI Integration**: Tests run after build job, before deployment
    - `forbidOnly: true` in CI prevents `.only()` commits
    - 2 retries for flaky tests in CI
    - Sequential workers in CI (`workers: 1`) for stability
    - GitHub reporter for CI annotations
    - Test reports uploaded as artifacts (7-day retention)
-7. **Local Development**:
+8. **Local Development**:
    - `npm test` — Headless execution
    - `npm run test:ui` — Interactive UI mode
    - `npm run test:headed` — Visible browser debugging
    - Reuses existing dev server if running
+9. **Accessibility Regression Testing**: Automated WCAG 2.1 AA scanning prevents accessibility violations
+   - Uses `@axe-core/playwright` for comprehensive accessibility audits
+   - Scans page on load and after every interaction state (filter changes, keyboard nav, URL hash)
+   - Waits for scroll animations to settle (700ms) to prevent false color-contrast failures from opacity transitions
+   - Discovered and fixed 4 light-theme color contrast violations (muted text, category badges, status indicators)
 
 ### Performance Optimization Pattern
 **Self-hosted fonts**: Replaced Google Fonts CDN with local font files
