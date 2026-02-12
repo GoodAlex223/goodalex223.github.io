@@ -202,7 +202,7 @@ Future ideas and improvements for the portfolio.
 ## From A11Y-002: Improve Focus Indicators (2026-02-05)
 **Origin**: docs/archive/plans/2026-02-05_a11y-002-improve-focus-indicators.md
 
-- [ ] Focus indicator transition animation — Add subtle fade-in for focus outline appearance (respecting prefers-reduced-motion)
+- [x] ~~Focus indicator transition animation~~ *(completed 2026-02-12, POLISH-001)*
 - [ ] Focus-within for project cards — Add :focus-within highlighting on .project-card when internal links receive focus
 
 ---
@@ -384,6 +384,14 @@ Future ideas and improvements for the portfolio.
 
 - [ ] JS cache-busting — Extend hashing to `js/main.js` for complete asset cache control (currently only CSS is hashed)
 - [ ] Build size reporting — Log before/after file sizes during build to track CSS growth over time
+
+---
+
+## From POLISH-001: Focus Indicator Transition (2026-02-12)
+**Origin**: docs/archive/plans/2026-02-12_polish-001-focus-indicator-transition.md
+
+- [ ] Audit remaining `transition: all` usage — Search codebase for other `transition: all` declarations that could cause unintended side effects (`.btn` and `.project-card__link` were fixed in POLISH-001)
+- [ ] CSS custom property for focus transition timing — Add `--focus-transition-duration` to `variables.css` for independent control of focus animation speed (currently reuses `--transition-fast`)
 
 ---
 

@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-12 (TEST-002 completed)
+**Last Updated**: 2026-02-12 (POLISH-001 completed)
 
 ---
 
@@ -13,16 +13,6 @@ _None currently_
 ---
 
 ## Medium Priority
-
-### POLISH-001: Focus indicator transition animation
-**Origin**: BACKLOG.md → From A11Y-002: Improve Focus Indicators
-**Category**: SEO & Polish
-**Description**: Add subtle fade-in for focus outline appearance, respecting `prefers-reduced-motion`.
-**Acceptance Criteria**:
-- [ ] Focus outline fades in smoothly
-- [ ] Animation disabled when `prefers-reduced-motion: reduce`
-- [ ] Works on all interactive elements (links, buttons)
-- [ ] No regression on existing focus visibility
 
 ### SEO-006: Social card preview testing
 **Origin**: BACKLOG.md → From SEO-004: Improve Meta Descriptions

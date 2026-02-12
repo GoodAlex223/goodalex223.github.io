@@ -1,12 +1,25 @@
 # DONE
 
-**Last Updated**: 2026-02-12 (TEST-002 completed)
+**Last Updated**: 2026-02-12 (POLISH-001 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-12
+
+### Focus Indicator Transition Animation (POLISH-001)
+
+**Plan**: [docs/archive/plans/2026-02-12_polish-001-focus-indicator-transition.md](../archive/plans/2026-02-12_polish-001-focus-indicator-transition.md)
+**Summary**: Added subtle 150ms fade-in/out for focus outlines on all interactive elements (links, buttons) using `outline-color` transition from transparent. Fixed `transition: all` on `.btn` and `.project-card__link` with explicit property lists.
+**Key Changes**:
+- Set permanent transparent outline on all `a`/`button` in `reset.css` with `outline-color` transition
+- Added `outline-color` to transitions for `.btn`, `.project-card__link`, `.theme-toggle`, `.filter-btn`
+- Fixed `transition: all` on `.btn` and `.project-card__link` (replaced with explicit properties)
+- Removed `.btn` from `main.css` theme transition group (cascade conflict fix)
+**Spawned Tasks**: 2 items added to BACKLOG.md (audit `transition: all`, focus transition CSS variable)
+
+---
 
 ### Accessibility Regression Tests (TEST-002)
 
