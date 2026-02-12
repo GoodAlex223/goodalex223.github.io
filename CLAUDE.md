@@ -188,6 +188,14 @@ Standardized focus indicators for WCAG 2.4.7 compliance:
 - **High-contrast focus**: Applied to elements with colored backgrounds (primary buttons, active filter buttons)
   - Ensures sufficient contrast when background is accent color
   - Uses `--focus-outline-color-high-contrast` variable
+- **Focus transition**: Subtle 150ms fade-in/fade-out for focus outlines
+  - Base: permanent transparent outline on all `a` and `button` elements in `reset.css`
+  - Transition: `outline-color var(--transition-fast)` added to base and all component transitions
+  - `:focus-visible` rules change only `outline-color` (not full `outline` shorthand)
+  - Components with own `transition` declarations include `outline-color` explicitly (CSS `transition` property replaces, not merges)
+  - `.btn` uses explicit transition properties (not `transition: all`) to prevent unintended side effects
+  - `.btn` excluded from `main.css` theme transition group — component-level transition takes precedence
+  - Disabled automatically by `prefers-reduced-motion: reduce` global rule in `main.css`
 - **Skip link**: Uses `:focus` (not `:focus-visible`) for positioning to work with all focus types
 
 ### Color Contrast (WCAG AA)
@@ -276,6 +284,7 @@ Client-side category filtering with subtle staggered animations:
    - **Reduced motion**: Animations disabled when `prefers-reduced-motion: reduce` is active
    - **CSS Specificity**: Filter selectors use double class (`.project-card.project-card--filtering-out`) to beat attribute selector `[data-animate]`
    - **CSS Cascade Order**: Filter animations section placed AFTER scroll animations in `components.css` (equal-specificity selectors win by cascade order)
+   - **CSS Specificity Documentation**: Inline comment block in `components.css` documents specificity hierarchy between scroll and filter animation systems (prevents future reordering issues)
    - **Choreography**: Exit → layout settle → entrance (prevents layout thrashing in CSS columns)
    - **Forced Reflow**: `void card.offsetHeight` forces style recalc before entrance (cleaner than double rAF)
    - **State Preservation**: `.is-visible` class added after filter cleanup prevents [data-animate] from reverting to opacity: 0
