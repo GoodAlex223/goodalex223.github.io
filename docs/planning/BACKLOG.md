@@ -324,7 +324,7 @@ Future ideas and improvements for the portfolio.
 **Origin**: docs/archive/plans/2026-02-04_seo-004-improve-meta-descriptions.md
 
 - [ ] Track description character counts in CLAUDE.md — Add reference table of all description lengths to catch regressions when modified
-- [ ] Social card preview testing — Validate OG/Twitter card rendering using Facebook Debugger and Twitter Card Validator after deployment
+- [x] Social card preview testing — Validate OG/Twitter card rendering using Facebook Debugger and Twitter Card Validator after deployment *(completed 2026-02-13, SEO-006)*
 
 ---
 
@@ -423,6 +423,14 @@ _Extracted from implementation plan:_
 ---
 
 *Last updated: 2026-01-27*
+
+---
+
+## From SEO-006: Social Card Preview Testing (2026-02-13)
+**Origin**: docs/archive/plans/2026-02-13_seo-006-social-card-preview-testing.md
+
+- [ ] Automated OG validation in CI — Add Playwright test that validates all OG/Twitter meta tags are present and correctly formatted post-deploy
+- [ ] Facebook Sharing Debugger validation — Use official Facebook tool (requires account) for authoritative cache-clear and preview validation
 
 ---
 

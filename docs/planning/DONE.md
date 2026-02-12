@@ -1,8 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-02-12 (POLISH-001 completed)
+**Last Updated**: 2026-02-13 (SEO-006 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-13
+
+### Social Card Preview Testing (SEO-006)
+
+**Plan**: [docs/archive/plans/2026-02-13_seo-006-social-card-preview-testing.md](../archive/plans/2026-02-13_seo-006-social-card-preview-testing.md)
+**Summary**: Validated OG/Twitter card rendering across 5 social platforms (Facebook, X, LinkedIn, Discord, WhatsApp) using programmatic validation and opengraph.xyz visual previews. All 16 meta tag checks passed. Added missing `twitter:image:alt` for accessibility. Created reusable `docs/SEO_TESTING.md` checklist.
+**Key Changes**:
+- Added `twitter:image:alt` meta tag to `index.html`
+- Created `docs/SEO_TESTING.md` (reusable validation checklist)
+- Captured preview screenshots for all 5 platforms in `docs/screenshots/`
+**Spawned Tasks**: 2 items added to BACKLOG.md (automated OG CI validation, Facebook Debugger validation)
 
 ---
 

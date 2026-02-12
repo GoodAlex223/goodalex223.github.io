@@ -2,27 +2,13 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-12 (POLISH-001 completed)
+**Last Updated**: 2026-02-13 (SEO-006 completed)
 
 ---
 
 ## In Progress
 
 _None currently_
-
----
-
-## Medium Priority
-
-### SEO-006: Social card preview testing
-**Origin**: BACKLOG.md → From SEO-004: Improve Meta Descriptions
-**Category**: SEO & Polish
-**Description**: Validate OG/Twitter card rendering using Facebook Debugger and Twitter Card Validator. Document results and fix any issues.
-**Acceptance Criteria**:
-- [ ] Facebook Sharing Debugger shows correct title, description, image
-- [ ] Twitter Card Validator shows correct large image card
-- [ ] Any rendering issues fixed
-- [ ] Results documented
 
 ---
 
