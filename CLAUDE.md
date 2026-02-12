@@ -190,6 +190,16 @@ Standardized focus indicators for WCAG 2.4.7 compliance:
   - Uses `--focus-outline-color-high-contrast` variable
 - **Skip link**: Uses `:focus` (not `:focus-visible`) for positioning to work with all focus types
 
+### Color Contrast (WCAG AA)
+All text colors meet WCAG 2.1 Level AA contrast requirements (4.5:1 for normal text, 3:1 for large text):
+- **Light theme fixes** (discovered via axe-core testing):
+  - `--color-text-muted`: `#5c636a` (was `#868e96`) — muted text on light backgrounds
+  - `--color-category-backend`: `#256b28` (was `#2e7d32`) — backend badge text
+  - `--color-status-active`: `#256b28` (was `#2e7d32`) — active status indicator text
+  - `--color-category-iot`: `#b94000` (was `#e65100`) — IoT badge text + active button background
+- **Validation**: All color pairs tested via automated axe-core scanning in `axe-scan.spec.js`
+- **Testing note**: Lighthouse defaults to dark theme — light theme violations may be missed without explicit testing
+
 <!-- END AUTO-MANAGED -->
 
 <!-- AUTO-MANAGED: patterns -->
@@ -343,8 +353,9 @@ Progressive reveal animations using Intersection Observer:
    - Started automatically by Playwright via `webServer` config
 3. **Page Object Model**: `FilterPage.js` encapsulates filter system interactions
    - Centralized locators for toolbar, buttons, cards, animation states
-   - Helper methods: `clickFilter()`, `expectVisibleCardCount()`, `getActiveFilterCategory()`
+   - Helper methods: `clickFilter()`, `expectVisibleCardCount()`, `getActiveFilterCategory()`, `waitForScrollAnimations()`
    - Category counts stored as constants (`CATEGORY_COUNTS`) for assertions
+   - `waitForScrollAnimations()` waits 700ms for scroll-in animations to settle (prevents false axe-core failures)
 4. **Timing Utilities**: `timing.js` reads animation durations from CSS custom properties
    - `getAnimationDuration()` — Reads `--filter-animation-duration` from `:root`
    - `waitForFilterAnimation()` — Calculates full animation cycle (exit + entrance + stagger + buffer)
