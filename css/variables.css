@@ -115,7 +115,7 @@
 
     /* Status colors adjusted for light backgrounds */
     --color-status-active: #256b28;
-    --color-status-active-bg: rgba(46, 125, 50, 0.12);
+    --color-status-active-bg: rgba(37, 107, 40, 0.12);
 
     /* Focus indicators */
     --focus-outline-color-high-contrast: rgba(15, 15, 35, 0.9);
@@ -148,7 +148,7 @@
 
   /* Status colors adjusted for light backgrounds */
   --color-status-active: #256b28;
-  --color-status-active-bg: rgba(46, 125, 50, 0.12);
+  --color-status-active-bg: rgba(37, 107, 40, 0.12);
 
   /* Focus indicators */
   --focus-outline-color-high-contrast: rgba(15, 15, 35, 0.9);
