@@ -442,11 +442,13 @@ Progressive reveal animations using Intersection Observer:
   - Brief with redirect context
 
 **Open Graph & Twitter Card** (in `index.html`):
-- `og:title`, `og:description`, `og:image` (1200x630), `og:image:alt`
-- `twitter:card="summary_large_image"`, `twitter:image:alt`
-- Image alt text: "Alexey Minakov - Software Developer"
-- Validated 2026-02-13 via opengraph.xyz: all 5 platforms render correctly (Facebook, X, LinkedIn, Discord, WhatsApp)
-- Reusable testing checklist: `docs/SEO_TESTING.md`
+- **Required tags**: `og:title`, `og:type`, `og:image`, `og:url`
+- **Recommended tags**: `og:description`, `og:image:width`, `og:image:height`, `og:image:alt`
+- **Twitter tags**: `twitter:card="summary_large_image"`, `twitter:image:alt`
+- **Image spec**: 1200x630px, alt text "Alexey Minakov - Software Developer"
+- **Validation** (2026-02-13): All 16 meta tags present and correct via programmatic checks
+- **Platform testing**: Validated via opengraph.xyz across 5 platforms (Facebook, X, LinkedIn, Discord, WhatsApp)
+- **Testing checklist**: `docs/SEO_TESTING.md` — reusable validation workflow for future changes
 
 **JSON-LD Structured Data** (in `index.html` `<head>`):
 - Single `<script type="application/ld+json">` with `@graph` array
