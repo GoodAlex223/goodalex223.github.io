@@ -118,6 +118,7 @@ goodalex223/
 - [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (build → test → deploy)
 - [tests/pages/FilterPage.js](tests/pages/FilterPage.js) — Page Object Model for tests
+- [docs/SEO_TESTING.md](docs/SEO_TESTING.md) — Social card & SEO validation checklist
 - [robots.txt](robots.txt) — Search engine crawler directives
 - [sitemap.xml](sitemap.xml) — Site structure for SEO
 - [site.webmanifest](site.webmanifest) — PWA manifest (app name, icons, theme colors)
@@ -441,9 +442,11 @@ Progressive reveal animations using Intersection Observer:
   - Brief with redirect context
 
 **Open Graph & Twitter Card** (in `index.html`):
-- `og:title`, `og:description`, `og:image` (1200x630)
-- `twitter:card="summary_large_image"`
+- `og:title`, `og:description`, `og:image` (1200x630), `og:image:alt`
+- `twitter:card="summary_large_image"`, `twitter:image:alt`
 - Image alt text: "Alexey Minakov - Software Developer"
+- Validated 2026-02-13 via opengraph.xyz: all 5 platforms render correctly (Facebook, X, LinkedIn, Discord, WhatsApp)
+- Reusable testing checklist: `docs/SEO_TESTING.md`
 
 **JSON-LD Structured Data** (in `index.html` `<head>`):
 - Single `<script type="application/ld+json">` with `@graph` array
