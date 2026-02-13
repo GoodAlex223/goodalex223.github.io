@@ -32,6 +32,7 @@ Central hub for all project documentation.
 | Document | Purpose | Last Updated |
 |----------|---------|--------------|
 | [MANUAL_TESTING.md](MANUAL_TESTING.md) | Manual testing scenarios | 2026-01-20 |
+| [SEO_TESTING.md](SEO_TESTING.md) | Social card & SEO validation checklist | 2026-02-13 |
 
 ---
 

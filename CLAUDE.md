@@ -118,6 +118,7 @@ goodalex223/
 - [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (build → test → deploy)
 - [tests/pages/FilterPage.js](tests/pages/FilterPage.js) — Page Object Model for tests
+- [docs/SEO_TESTING.md](docs/SEO_TESTING.md) — Social card & SEO validation checklist
 - [robots.txt](robots.txt) — Search engine crawler directives
 - [sitemap.xml](sitemap.xml) — Site structure for SEO
 - [site.webmanifest](site.webmanifest) — PWA manifest (app name, icons, theme colors)
@@ -441,9 +442,13 @@ Progressive reveal animations using Intersection Observer:
   - Brief with redirect context
 
 **Open Graph & Twitter Card** (in `index.html`):
-- `og:title`, `og:description`, `og:image` (1200x630)
-- `twitter:card="summary_large_image"`
-- Image alt text: "Alexey Minakov - Software Developer"
+- **Required tags**: `og:title`, `og:type`, `og:image`, `og:url`
+- **Recommended tags**: `og:description`, `og:image:width`, `og:image:height`, `og:image:alt`
+- **Twitter tags**: `twitter:card="summary_large_image"`, `twitter:image:alt`
+- **Image spec**: 1200x630px, alt text "Alexey Minakov - Software Developer"
+- **Validation** (2026-02-13): All 16 meta tags present and correct via programmatic checks
+- **Platform testing**: Validated via opengraph.xyz across 5 platforms (Facebook, X, LinkedIn, Discord, WhatsApp)
+- **Testing checklist**: `docs/SEO_TESTING.md` — reusable validation workflow for future changes
 
 **JSON-LD Structured Data** (in `index.html` `<head>`):
 - Single `<script type="application/ld+json">` with `@graph` array
