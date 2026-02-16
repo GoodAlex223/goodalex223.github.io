@@ -4,10 +4,11 @@
   "private": true,
   "description": "Personal portfolio website for Alexey Minakov",
   "scripts": {
-    "build": "npm run build:css && npm run hash:css",
+    "build": "npm run build:css && node scripts/hash-css.js --unhash && npm run inline:css && npm run hash:css",
     "build:css": "postcss css/main.css --output dist/style.css --env production",
+    "inline:css": "node scripts/inline-css.js",
     "hash:css": "node scripts/hash-css.js",
-    "watch": "node scripts/hash-css.js --unhash && postcss css/main.css --output dist/style.css --watch",
+    "watch": "node scripts/inline-css.js --restore && node scripts/hash-css.js --unhash && postcss css/main.css --output dist/style.css --watch",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
@@ -17,6 +18,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",
     "@playwright/test": "^1.58.2",
+    "critters": "^0.0.23",
     "cssnano": "^7.1.2",
     "postcss": "^8.4.49",
     "postcss-cli": "^11.0.0",
