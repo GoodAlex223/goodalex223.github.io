@@ -449,6 +449,9 @@ _Extracted from implementation plan:_
 - [ ] Reduce inline CSS size — index.html at 16.1 KB exceeds 14 KB TCP slow-start guideline. Investigate Critters config or manual exclusions to reduce critical CSS extraction scope.
 - [ ] Upstream CSS custom property extraction — Critters doesn't extract `[data-theme=light]{--var:val}` blocks. Consider contributing fix or using PostCSS API for more precise extraction.
 - [ ] Automated inline CSS size regression — Add build step or test that fails if inline CSS exceeds threshold (e.g., 20 KB) to prevent size creep over time.
+- [ ] Add `.catch()` to top-level async call — `inlineCriticalCSS()` in `scripts/inline-css.js` is called without `.catch()` handler; function body has try-catch with `process.exit(1)` so low risk, but adding `.catch()` follows Node.js best practice for top-level async (code review finding, confidence 25/100)
+- [ ] Robust CSS block matching regex — `css.match(/\[data-theme=light\]\{[^}]+\}/)` in `inline-css.js` could truncate if future CSS contains `}` inside data URIs; consider balanced-brace parsing or PostCSS API (code review finding, confidence 25/100)
+- [ ] Handle multiple `<style>` tags — `inline-css.js` assumes single `<style>` tag for light theme injection and size validation; if Critters ever produces multiple blocks, injection targets wrong location (code review finding, confidence 25/100)
 
 ---
 
