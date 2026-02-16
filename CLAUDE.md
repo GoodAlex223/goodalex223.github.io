@@ -21,6 +21,12 @@ This file provides guidance to Claude Code when working with code in this reposi
 # Install dependencies
 npm install
 
+# Lint CSS (check for style violations)
+npm run lint:css
+
+# Lint CSS and auto-fix issues
+npm run lint:css:fix
+
 # Build CSS with cache-busting (bundles + minifies + content hash)
 npm run build
 
@@ -49,7 +55,9 @@ npx serve
 
 **Testing**: Playwright end-to-end tests validate filter functionality, animations, accessibility, keyboard navigation, and URL hash integration. Test server (`scripts/serve.js`) runs on port 4173. Tests use Page Object Model pattern (`FilterPage.js`) and timing utilities that read CSS custom properties.
 
-**Deployment**: Automatic via GitHub Actions on push to `main` branch. Workflow runs build → test → deploy sequence. Tests must pass before deployment proceeds.
+**CSS Linting**: Stylelint validates CSS code style and conventions. Configured via `.stylelintrc.json` with BEM naming enforcement, kebab-case for custom properties, and modern color notation. Linting runs locally (`npm run lint:css`) and in CI pipeline before build.
+
+**Deployment**: Automatic via GitHub Actions on push to `main` branch. Workflow runs lint → build → test → deploy sequence. Linting and tests must pass before deployment proceeds.
 
 <!-- END AUTO-MANAGED -->
 
@@ -65,6 +73,7 @@ goodalex223/
 ├── site.webmanifest        # PWA manifest (app name, icons, theme colors)
 ├── package.json            # NPM dependencies and build scripts
 ├── postcss.config.js       # PostCSS configuration (postcss-import plugin)
+├── .stylelintrc.json       # Stylelint configuration (CSS linting rules)
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml      # GitHub Actions CI/CD pipeline
@@ -116,7 +125,8 @@ goodalex223/
 - [playwright.config.js](playwright.config.js) — Playwright test configuration
 - [scripts/hash-css.js](scripts/hash-css.js) — Cache-busting hash generator
 - [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
-- [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (build → test → deploy)
+- [.stylelintrc.json](.stylelintrc.json) — CSS linting configuration
+- [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (lint → build → test → deploy)
 - [tests/pages/FilterPage.js](tests/pages/FilterPage.js) — Page Object Model for tests
 - [docs/SEO_TESTING.md](docs/SEO_TESTING.md) — Social card & SEO validation checklist
 - [robots.txt](robots.txt) — Search engine crawler directives
@@ -132,9 +142,17 @@ goodalex223/
 ### CSS Naming
 | Element | Convention | Example |
 |---------|------------|---------|
-| Classes | BEM-like | `.project-card__title`, `.btn--primary` |
-| Variables | kebab-case | `--color-accent`, `--space-4` |
+| Classes | BEM-like (enforced by Stylelint) | `.project-card__title`, `.btn--primary` |
+| Variables | kebab-case (enforced by Stylelint) | `--color-accent`, `--space-4` |
+| Keyframes | kebab-case (enforced by Stylelint) | `@keyframes fade-in` |
 | Data attributes | kebab-case | `data-category="backend"`, `data-animate`, `data-animate-delay="50"`, `data-updated="2026-01"`, `data-status="active"` |
+
+**CSS Linting**: Stylelint enforces naming conventions and code quality via `.stylelintrc.json`:
+- BEM naming pattern: `block__element--modifier` or state classes `is-*`
+- Custom properties must be kebab-case
+- Modern color functions (`rgb()`, `hsl()`) with numeric alpha values
+- Allows specific vendor prefixes: `-webkit-font-smoothing`, `-moz-osx-font-smoothing`, `-webkit-text-size-adjust`
+- Ignores `dist/` directory (generated files)
 
 ### CSS Architecture
 CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/style.css`:
@@ -255,6 +273,7 @@ All text colors meet WCAG 2.1 Level AA contrast requirements (4.5:1 for normal t
   - Standardized focus indicators on all interactive elements (links, buttons)
   - High-contrast focus outlines on colored backgrounds
   - ARIA labels for screen reader support
+  - Screen reader-only content: `.sr-only` utility class (uses `clip-path: inset(50%)` for modern browser support)
 
 ### Theme System Pattern
 Light/dark theme implementation:
@@ -345,14 +364,19 @@ Progressive reveal animations using Intersection Observer:
    - `npm run build` — Production: `build:css` (PostCSS + cssnano) → `hash:css` (hashing)
    - `npm run watch` — Development: unhash HTML refs → PostCSS watch (unminified, no hashing)
 7. **Watch Mode**: `--unhash` flag restores `dist/style.css` references for easier debugging
-8. **CI/CD**: GitHub Actions workflow with build → test → deploy sequence
+8. **CSS Linting**: Stylelint validates CSS code quality and conventions
+   - Configuration: `.stylelintrc.json` extends `stylelint-config-standard`
+   - Enforces BEM naming, kebab-case for custom properties and keyframes
+   - Requires modern color functions with numeric alpha values
+   - Runs in CI before build step to catch style violations early
+9. **CI/CD**: GitHub Actions workflow with lint → build → test → deploy sequence
    - Workflow: `.github/workflows/deploy.yml`
-   - Build job: Node.js setup → `npm ci` → `npm run build` → artifact upload
+   - Build job: Node.js setup → `npm ci` → `npm run lint:css` → `npm run build` → artifact upload
    - Test job: Install Playwright browsers → `npm test` → report upload
-   - Deploy job: Deploy to GitHub Pages (only if tests pass)
+   - Deploy job: Deploy to GitHub Pages (only if linting and tests pass)
    - Concurrency: Single pages deployment group, cancels in-progress runs
-9. **HTML References**: Both `index.html` and `404.html` load `dist/style.[hash].css` (production) or `dist/style.css` (watch mode)
-10. **Git Ignore**: `dist/`, `test-results/`, `playwright-report/` excluded from version control
+10. **HTML References**: Both `index.html` and `404.html` load `dist/style.[hash].css` (production) or `dist/style.css` (watch mode)
+11. **Git Ignore**: `dist/`, `test-results/`, `playwright-report/` excluded from version control
 
 ### Testing Pattern
 **Playwright End-to-End Tests**: Comprehensive test suite validating interactive features

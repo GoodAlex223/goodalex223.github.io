@@ -406,7 +406,7 @@ Future ideas and improvements for the portfolio.
 - [ ] Add automated link checking
 - [ ] Set up Lighthouse CI
 - [ ] Create development build script
-- [ ] Add CSS linting (Stylelint)
+- [x] ~~Add CSS linting (Stylelint)~~ *(completed 2026-02-16, TEST-003)*
 
 ---
 
@@ -431,6 +431,15 @@ _Extracted from implementation plan:_
 
 - [ ] Automated OG validation in CI — Add Playwright test that validates all OG/Twitter meta tags are present and correctly formatted post-deploy
 - [ ] Facebook Sharing Debugger validation — Use official Facebook tool (requires account) for authoritative cache-clear and preview validation
+
+---
+
+## From TEST-003: CSS Linting with Stylelint (2026-02-16)
+**Origin**: docs/archive/plans/2026-02-16_test-003-css-linting-stylelint.md
+
+- [ ] Add `stylelint-order` plugin — Enforce consistent CSS property ordering within declarations (requires team agreement on ordering convention)
+- [ ] Pre-commit hook integration — Add Stylelint to a pre-commit hook (e.g., via husky + lint-staged) to catch violations before commit, not just in CI
+- [ ] VS Code Stylelint extension — Document recommended Stylelint VS Code extension settings for real-time linting feedback during development
 
 ---
 

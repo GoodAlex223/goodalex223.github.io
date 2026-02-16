@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-13 (SEO-006 completed)
+**Last Updated**: 2026-02-16 (TEST-003 completed)
 
 ---
 
@@ -13,16 +13,6 @@ _None currently_
 ---
 
 ## Low Priority (Stretch Goals)
-
-### TEST-003: Add CSS linting with Stylelint
-**Origin**: BACKLOG.md → Technical Debt
-**Category**: Testing & Tooling
-**Description**: Set up Stylelint for CSS quality enforcement. Add to pre-commit hooks or CI.
-**Acceptance Criteria**:
-- [ ] Stylelint installed and configured
-- [ ] Rules match project conventions (BEM, custom properties)
-- [ ] All existing CSS passes linting
-- [ ] Integrated with build or CI
 
 ### PERF-006: Inline critical CSS
 **Origin**: BACKLOG.md → From PERF-002: Font Preload Hint

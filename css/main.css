@@ -1,8 +1,8 @@
-@import "fonts.css";
-@import "variables.css";
-@import "reset.css";
-@import "utilities.css";
-@import "components.css";
+@import url("fonts.css");
+@import url("variables.css");
+@import url("reset.css");
+@import url("utilities.css");
+@import url("components.css");
 
 /* ===================
    THEME TRANSITIONS
@@ -150,7 +150,7 @@ body,
    =================== */
 
 /* Tablet (600px+) */
-@media (min-width: 37.5em) {
+@media (width >= 37.5em) {
   :root {
     --container-padding: var(--space-6);
   }
@@ -172,14 +172,13 @@ body,
   }
 
   .contact__links {
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     justify-content: center;
   }
 }
 
 /* Desktop (900px+) */
-@media (min-width: 56.25em) {
+@media (width >= 56.25em) {
   .hero {
     min-height: 90vh;
   }
@@ -194,7 +193,7 @@ body,
 }
 
 /* Large Desktop (1200px+) */
-@media (min-width: 75em) {
+@media (width >= 75em) {
   :root {
     --container-padding: var(--space-8);
   }
