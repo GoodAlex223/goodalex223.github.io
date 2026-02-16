@@ -18,11 +18,11 @@
 
   /* Status colors */
   --color-status-active: #4caf50;
-  --color-status-active-bg: rgba(76, 175, 80, 0.15);
+  --color-status-active-bg: rgb(76 175 80 / 0.15);
 
   /* Typography */
-  --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, sans-serif;
+  --font-family-base: "Inter", -apple-system, blinkmacsystemfont, "Segoe UI",
+    roboto, sans-serif;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -60,10 +60,10 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.25);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px rgb(0 0 0 / 0.1);
+  --shadow-card: 0 4px 20px rgb(0 0 0 / 0.25);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -79,7 +79,7 @@
   --focus-outline-width: 2px;
   --focus-outline-offset: 2px;
   --focus-outline-color: var(--color-accent);
-  --focus-outline-color-high-contrast: rgba(255, 255, 255, 0.9);
+  --focus-outline-color-high-contrast: rgb(255 255 255 / 0.9);
 
   /* Z-index layers */
   --z-base: 0;
@@ -99,7 +99,7 @@
   :root:not([data-theme="dark"]) {
     --color-bg-primary: #f8f9fa;
     --color-bg-secondary: #e9ecef;
-    --color-bg-card: #ffffff;
+    --color-bg-card: #fff;
     --color-text-primary: #1a1a2e;
     --color-text-secondary: #495057;
     --color-text-muted: #5c636a;
@@ -115,16 +115,16 @@
 
     /* Status colors adjusted for light backgrounds */
     --color-status-active: #256b28;
-    --color-status-active-bg: rgba(37, 107, 40, 0.12);
+    --color-status-active-bg: rgb(37 107 40 / 0.12);
 
     /* Focus indicators */
-    --focus-outline-color-high-contrast: rgba(15, 15, 35, 0.9);
+    --focus-outline-color-high-contrast: rgb(15 15 35 / 0.9);
 
     /* Shadows more visible on light backgrounds */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.12);
-    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.08);
+    --shadow-md: 0 4px 6px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 20px rgb(0 0 0 / 0.12);
+    --shadow-card: 0 4px 20px rgb(0 0 0 / 0.1);
   }
 }
 
@@ -132,7 +132,7 @@
 [data-theme="light"] {
   --color-bg-primary: #f8f9fa;
   --color-bg-secondary: #e9ecef;
-  --color-bg-card: #ffffff;
+  --color-bg-card: #fff;
   --color-text-primary: #1a1a2e;
   --color-text-secondary: #495057;
   --color-text-muted: #5c636a;
@@ -148,14 +148,14 @@
 
   /* Status colors adjusted for light backgrounds */
   --color-status-active: #256b28;
-  --color-status-active-bg: rgba(37, 107, 40, 0.12);
+  --color-status-active-bg: rgb(37 107 40 / 0.12);
 
   /* Focus indicators */
-  --focus-outline-color-high-contrast: rgba(15, 15, 35, 0.9);
+  --focus-outline-color-high-contrast: rgb(15 15 35 / 0.9);
 
   /* Shadows more visible on light backgrounds */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.12);
-  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.08);
+  --shadow-md: 0 4px 6px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 20px rgb(0 0 0 / 0.12);
+  --shadow-card: 0 4px 20px rgb(0 0 0 / 0.1);
 }

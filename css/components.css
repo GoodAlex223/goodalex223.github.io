@@ -106,22 +106,22 @@
 }
 
 .project-card[data-category="backend"] .project-card__category {
-  background-color: rgba(76, 175, 80, 0.15);
+  background-color: rgb(76 175 80 / 0.15);
   color: var(--color-category-backend);
 }
 
 .project-card[data-category="iot"] .project-card__category {
-  background-color: rgba(255, 152, 0, 0.15);
+  background-color: rgb(255 152 0 / 0.15);
   color: var(--color-category-iot);
 }
 
 .project-card[data-category="web"] .project-card__category {
-  background-color: rgba(33, 150, 243, 0.15);
+  background-color: rgb(33 150 243 / 0.15);
   color: var(--color-category-web);
 }
 
 .project-card[data-category="tools"] .project-card__category {
-  background-color: rgba(156, 39, 176, 0.15);
+  background-color: rgb(156 39 176 / 0.15);
   color: var(--color-category-tools);
 }
 
@@ -221,7 +221,7 @@
   width: 6px;
   height: 6px;
   border-radius: var(--radius-full);
-  background-color: currentColor;
+  background-color: currentcolor;
   animation: status-pulse 2s ease-in-out infinite;
 }
 

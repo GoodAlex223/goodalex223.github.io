@@ -1,0 +1,31 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "selector-class-pattern": [
+      "^(?:is-[a-z][a-z0-9]*(?:-[a-z0-9]+)*|[a-z][a-z0-9]*(?:-[a-z0-9]+)*(?:__[a-z][a-z0-9]*(?:-[a-z0-9]+)*)?(?:--[a-z][a-z0-9]*(?:-[a-z0-9]+)*)?)$",
+      { "message": "Class \"%s\" must follow BEM (block__element--modifier), state (is-*), or kebab-case convention" }
+    ],
+    "custom-property-pattern": [
+      "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      { "message": "Custom property \"--%s\" must be kebab-case" }
+    ],
+    "keyframes-name-pattern": [
+      "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      { "message": "Keyframe name \"%s\" must be kebab-case" }
+    ],
+    "color-function-notation": "modern",
+    "alpha-value-notation": "number",
+    "property-no-vendor-prefix": [
+      true,
+      {
+        "ignoreProperties": [
+          "-webkit-font-smoothing",
+          "-moz-osx-font-smoothing",
+          "-webkit-text-size-adjust"
+        ]
+      }
+    ],
+    "no-descending-specificity": null
+  },
+  "ignoreFiles": ["dist/**"]
+}
