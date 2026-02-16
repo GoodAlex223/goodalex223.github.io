@@ -1,8 +1,24 @@
 # DONE
 
-**Last Updated**: 2026-02-13 (SEO-006 completed)
+**Last Updated**: 2026-02-16 (TEST-003 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-16
+
+### TEST-003: Add CSS Linting with Stylelint
+
+**Plan**: [docs/archive/plans/2026-02-16_test-003-css-linting-stylelint.md](docs/archive/plans/2026-02-16_test-003-css-linting-stylelint.md)
+**Summary**: Set up Stylelint with stylelint-config-standard for CSS quality enforcement. BEM naming, kebab-case custom properties, modern color notation enforced. Integrated with CI pipeline (lint → build → test → deploy).
+**Key Changes**:
+- Added `.stylelintrc.json` with 7 rule overrides matching project conventions
+- Added `lint:css` and `lint:css:fix` npm scripts
+- Added "Lint CSS" step to GitHub Actions CI workflow
+- Auto-fixed all CSS to modern notation (rgb(), range media queries, shorthand)
+- Replaced deprecated `clip` with `clip-path` in `.sr-only`
+**Spawned Tasks**: 3 items added to BACKLOG.md (stylelint-order, pre-commit hook, VS Code extension)
 
 ---
 
