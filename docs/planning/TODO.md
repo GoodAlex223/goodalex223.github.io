@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-16 (TEST-003 completed)
+**Last Updated**: 2026-02-16 (PERF-006 completed)
 
 ---
 
@@ -14,15 +14,7 @@ _None currently_
 
 ## Low Priority (Stretch Goals)
 
-### PERF-006: Inline critical CSS
-**Origin**: BACKLOG.md → From PERF-002: Font Preload Hint
-**Category**: Performance
-**Description**: Inline above-the-fold styles in `<head>` and load full CSS asynchronously for faster first paint.
-**Acceptance Criteria**:
-- [ ] Critical CSS extracted and inlined
-- [ ] Full CSS loaded asynchronously
-- [ ] No flash of unstyled content
-- [ ] Lighthouse performance score maintained or improved
+_None currently_
 
 ---
 

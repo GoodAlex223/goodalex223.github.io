@@ -1,12 +1,26 @@
 # DONE
 
-**Last Updated**: 2026-02-16 (TEST-003 completed)
+**Last Updated**: 2026-02-16 (PERF-006 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-16
+
+### PERF-006: Inline Critical CSS
+
+**Plan**: [docs/planning/plans/2026-02-16_perf-006-inline-critical-css.md](plans/2026-02-16_perf-006-inline-critical-css.md)
+**Summary**: Implemented critical CSS inlining using Google's Critters library. Above-fold styles extracted and inlined in `<style>` tags, full CSS loaded asynchronously via `media="print" onload` pattern. Includes noscript fallback, light theme variable injection, and idempotent restore mode for development.
+**Key Changes**:
+- Created `scripts/inline-css.js` with Critters wrapper, post-processing fixes, and `--restore` mode
+- Updated `package.json` build pipeline: `build:css` -> `unhash` -> `inline:css` -> `hash:css`
+- Added `critters` as devDependency
+- Both `index.html` and `404.html` now have inline critical CSS (~16 KB and ~8 KB respectively)
+- Updated CLAUDE.md with critical CSS inlining patterns and build system documentation
+**Spawned Tasks**: 3 items added to BACKLOG.md (reduce inline size, upstream CSS variable extraction, automated size regression)
+
+---
 
 ### TEST-003: Add CSS Linting with Stylelint
 

@@ -9,7 +9,7 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 - **Live Site**: [goodalex223.github.io](https://goodalex223.github.io)
 - **Tech Stack**: HTML5, CSS3 (Custom Properties, Grid, Flexbox), ES6+
-- **Build Tools**: PostCSS (CSS bundling)
+- **Build Tools**: PostCSS (CSS bundling), Critters (critical CSS inlining)
 - **Hosting**: GitHub Pages (deploys via GitHub Actions)
 
 <!-- END AUTO-MANAGED -->
@@ -49,7 +49,9 @@ python -m http.server 8000
 npx serve
 ```
 
-**Build System**: PostCSS with `postcss-import` plugin bundles modular CSS files, then cssnano minifies (production only). Production builds (`npm run build`) generate content-hashed filenames (`dist/style.[hash].css`) for cache-busting; watch mode (`npm run watch`) outputs unminified `dist/style.css` for debugging.
+**Build System**: PostCSS with `postcss-import` plugin bundles modular CSS files, then cssnano minifies (production only). Production builds (`npm run build`) run: `build:css` → `unhash` → `inline:css` → `hash:css`. This generates content-hashed filenames (`dist/style.[hash].css`) with critical CSS inlined in HTML. Watch mode (`npm run watch`) outputs unminified `dist/style.css` for debugging (restores HTML to non-inlined state).
+
+**Critical CSS Inlining**: `scripts/inline-css.js` uses Google's Critters library to extract above-the-fold CSS and inline it in `<style>` tags in `<head>`. Full CSS loads asynchronously via `media="print" onload="this.media='all'"` pattern. Includes `<noscript>` fallback for non-JS users, light theme variable injection, and `--restore` mode for development. Applied to both `index.html` and `404.html`.
 
 **Cache-Busting**: `scripts/hash-css.js` computes SHA-256 hash of built CSS, renames file to `style.[hash].css`, and updates HTML references in `index.html` and `404.html`. Watch mode unhashes references for easier development.
 
@@ -88,6 +90,7 @@ goodalex223/
 │   └── style.[hash].css    # Built CSS with content hash (generated, not committed)
 ├── scripts/
 │   ├── hash-css.js         # Cache-busting: compute hash, rename CSS, update HTML refs
+│   ├── inline-css.js       # Critical CSS inlining via Critters (--restore for dev mode)
 │   └── serve.js            # Minimal static file server for Playwright tests (port 4173)
 ├── js/
 │   └── main.js             # Theme toggle, project filtering, scroll animations, copyright year
@@ -124,6 +127,7 @@ goodalex223/
 - [postcss.config.js](postcss.config.js) — PostCSS build configuration
 - [playwright.config.js](playwright.config.js) — Playwright test configuration
 - [scripts/hash-css.js](scripts/hash-css.js) — Cache-busting hash generator
+- [scripts/inline-css.js](scripts/inline-css.js) — Critical CSS inlining (Critters wrapper)
 - [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
 - [.stylelintrc.json](.stylelintrc.json) — CSS linting configuration
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (lint → build → test → deploy)
@@ -349,7 +353,7 @@ Progressive reveal animations using Intersection Observer:
 5. **Usage**: Applied to hero elements, section titles, project cards, skill groups, contact links
 
 ### Build System Pattern
-**PostCSS CSS Bundling with Cache-Busting**: Modular CSS development with production bundling, minification, and content-hashed filenames
+**PostCSS CSS Bundling with Critical CSS Inlining and Cache-Busting**: Modular CSS development with production bundling, critical CSS inlining, minification, and content-hashed filenames
 1. **Source**: Modular CSS files in `css/` directory with `@import` statements
 2. **Build Tool**: PostCSS with `postcss-import` plugin and `cssnano` (production only)
 3. **Output**: Content-hashed file at `dist/style.[hash].css` (8-char SHA-256 hash)
@@ -360,23 +364,32 @@ Progressive reveal animations using Intersection Observer:
    - Updates HTML references in `index.html` and `404.html` using regex `/dist\/style(?:\.[a-f0-9]{8})?\.css/g`
    - Cleans old hashed files from `dist/`
    - Validates final state (file exists, HTML refs updated)
-6. **Commands**:
-   - `npm run build` — Production: `build:css` (PostCSS + cssnano) → `hash:css` (hashing)
-   - `npm run watch` — Development: unhash HTML refs → PostCSS watch (unminified, no hashing)
-7. **Watch Mode**: `--unhash` flag restores `dist/style.css` references for easier debugging
-8. **CSS Linting**: Stylelint validates CSS code quality and conventions
+6. **Critical CSS Inlining**: `scripts/inline-css.js` using Google's Critters
+   - Extracts above-fold CSS and inlines in `<style>` tags in `<head>`
+   - Full CSS loaded async via `media="print" onload="this.media='all'"` pattern
+   - `<noscript>` fallback for non-JS users (clean link, no async attributes)
+   - Post-processing fixes: noscript attributes, `data-critters-container` removal, `data-theme="light"` cleanup
+   - Injects `[data-theme="light"]` variable overrides (critters misses CSS custom property blocks)
+   - `--restore` mode removes all inline artifacts for development
+   - Shared `cleanInlineArtifacts()` function ensures idempotency
+   - Validates CSS file exists before processing, warns if critters produces no output
+7. **Commands**:
+   - `npm run build` — Production: `build:css` → `unhash` → `inline:css` → `hash:css`
+   - `npm run watch` — Development: restore inline CSS → unhash refs → PostCSS watch (unminified, no hashing)
+8. **Watch Mode**: `--restore` removes inline CSS artifacts, `--unhash` restores `dist/style.css` references
+9. **CSS Linting**: Stylelint validates CSS code quality and conventions
    - Configuration: `.stylelintrc.json` extends `stylelint-config-standard`
    - Enforces BEM naming, kebab-case for custom properties and keyframes
    - Requires modern color functions with numeric alpha values
    - Runs in CI before build step to catch style violations early
-9. **CI/CD**: GitHub Actions workflow with lint → build → test → deploy sequence
-   - Workflow: `.github/workflows/deploy.yml`
-   - Build job: Node.js setup → `npm ci` → `npm run lint:css` → `npm run build` → artifact upload
-   - Test job: Install Playwright browsers → `npm test` → report upload
-   - Deploy job: Deploy to GitHub Pages (only if linting and tests pass)
-   - Concurrency: Single pages deployment group, cancels in-progress runs
-10. **HTML References**: Both `index.html` and `404.html` load `dist/style.[hash].css` (production) or `dist/style.css` (watch mode)
-11. **Git Ignore**: `dist/`, `test-results/`, `playwright-report/` excluded from version control
+10. **CI/CD**: GitHub Actions workflow with lint → build → test → deploy sequence
+    - Workflow: `.github/workflows/deploy.yml`
+    - Build job: Node.js setup → `npm ci` → `npm run lint:css` → `npm run build` → artifact upload
+    - Test job: Install Playwright browsers → `npm test` → report upload
+    - Deploy job: Deploy to GitHub Pages (only if linting and tests pass)
+    - Concurrency: Single pages deployment group, cancels in-progress runs
+11. **HTML References**: Both `index.html` and `404.html` have inline `<style>` with critical CSS plus async `<link>` to `dist/style.[hash].css` (production) or normal `<link>` to `dist/style.css` (watch mode)
+12. **Git Ignore**: `dist/`, `test-results/`, `playwright-report/` excluded from version control
 
 ### Testing Pattern
 **Playwright End-to-End Tests**: Comprehensive test suite validating interactive features
@@ -435,6 +448,16 @@ Progressive reveal animations using Intersection Observer:
   - `fonts/inter-latin-ext.woff2` — Extended Latin characters
   - Uses `type="font/woff2"` and `crossorigin` for proper CORS handling
 - **Applied to**: Both `index.html` and `404.html` for consistent performance
+
+**Critical CSS inlining**: Above-fold styles inlined in `<head>` to eliminate render-blocking CSS
+- **Tool**: Google's Critters library (`scripts/inline-css.js`)
+- **Strategy**: Static HTML analysis extracts CSS rules matching elements in the document
+- **Async loading**: Full CSS bundle loads via `media="print" onload="this.media='all'"` pattern
+- **Fallback**: `<noscript>` tag loads full CSS synchronously for non-JS users
+- **Theme handling**: Temporarily adds `data-theme="light"` during processing so critters includes light theme selectors; post-processes to inject `[data-theme="light"]` variable overrides that critters misses (CSS custom properties don't trigger critical extraction)
+- **Size**: index.html ~16 KB inline CSS, 404.html ~8 KB inline CSS (14 KB TCP slow-start guideline noted)
+- **Idempotency**: `cleanInlineArtifacts()` shared function removes all critters artifacts before re-processing
+- **Development**: `--restore` mode strips inline CSS for watch mode debugging
 
 ### SEO Configuration
 **robots.txt**: Controls search engine crawling
