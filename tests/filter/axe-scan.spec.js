@@ -65,4 +65,41 @@ test.describe("Accessibility Scanning (Axe-Core)", () => {
     await fp.waitForScrollAnimations();
     await checkAccessibility(page);
   });
+
+  // ── Theme-specific WCAG AA scans ─────────────────────────────────────────
+  // Explicit theme testing prevents color contrast regressions that are
+  // invisible when tests only run in the browser's default theme.
+  // Found 4 light-theme violations in TEST-002 that motivated this coverage.
+
+  test.describe("Light theme", () => {
+    test.beforeEach(async () => {
+      await fp.setTheme("light");
+    });
+
+    test("initial page load passes WCAG 2.1 AA", async ({ page }) => {
+      await checkAccessibility(page);
+    });
+
+    test("active filter passes WCAG 2.1 AA", async ({ page }) => {
+      await fp.clickFilter("iot");
+      await fp.waitForScrollAnimations();
+      await checkAccessibility(page);
+    });
+  });
+
+  test.describe("Dark theme", () => {
+    test.beforeEach(async () => {
+      await fp.setTheme("dark");
+    });
+
+    test("initial page load passes WCAG 2.1 AA", async ({ page }) => {
+      await checkAccessibility(page);
+    });
+
+    test("active filter passes WCAG 2.1 AA", async ({ page }) => {
+      await fp.clickFilter("iot");
+      await fp.waitForScrollAnimations();
+      await checkAccessibility(page);
+    });
+  });
 });

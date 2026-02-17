@@ -170,9 +170,23 @@ export class FilterPage {
     await this.page.keyboard.press(key);
   }
 
-  // ── Reduced motion ──────────────────────────────────────
+  // ── Media & Theme helpers ───────────────────────────────
 
   async enableReducedMotion() {
     await this.page.emulateMedia({ reducedMotion: "reduce" });
+  }
+
+  /**
+   * Force the page theme for testing purposes.
+   * Must be called after goto() — the document must exist.
+   * Waits for CSS transitions to settle (250ms theme transition + buffer).
+   * @param {'light'|'dark'} theme
+   */
+  async setTheme(theme) {
+    await this.page.evaluate(
+      (t) => (document.documentElement.dataset.theme = t),
+      theme,
+    );
+    await this.page.waitForTimeout(400);
   }
 }
