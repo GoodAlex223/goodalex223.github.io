@@ -385,6 +385,8 @@ Future ideas and improvements for the portfolio.
 - [ ] Read `--transition-base` from CSS in `setTheme()` — Replace hardcoded 400ms with CSS variable read (follows timing.js pattern for single source of truth)
 - [ ] Extend theme testing to animation suite — `animation-states.spec.js` could verify filter animations render correctly in both themes
 - [ ] Add `prefers-color-scheme` path testing — Current tests only exercise `data-theme` CSS path; the `@media (prefers-color-scheme)` fallback is untested
+- [ ] `setTheme()` should persist to localStorage — Currently only sets `dataset.theme` without updating `localStorage.theme`, leaving the page's system-preference listener able to override the forced theme during tests (code review finding, confidence 75/100)
+- [ ] Increase dark theme `--color-text-muted` contrast margin — Current `#8a8a8a` achieves only 4.60:1 against card background `#16213e` (0.10 above WCAG AA minimum); consider bumping to match light theme's comfortable margin pattern (code review finding, confidence 35/100)
 
 ---
 
