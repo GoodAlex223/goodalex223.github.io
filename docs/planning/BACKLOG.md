@@ -374,8 +374,17 @@ Future ideas and improvements for the portfolio.
 ## From TEST-002: Accessibility Regression Tests (2026-02-12)
 **Origin**: docs/archive/plans/2026-02-12_test-002-accessibility-regression-tests.md
 
-- [ ] Theme-specific axe scanning — Add tests that switch to light/dark theme before scanning to catch theme-specific contrast issues proactively
+- [x] ~~Theme-specific axe scanning~~ *(completed 2026-02-17, TEST-004)*
 - [ ] Reduced motion accessibility test — Verify page remains accessible with `prefers-reduced-motion: reduce` emulated (different animation code paths could introduce issues)
+
+---
+
+## From TEST-004: Theme-specific Axe Scanning (2026-02-17)
+**Origin**: docs/archive/plans/2026-02-17_test-004-theme-specific-axe-scanning.md
+
+- [ ] Read `--transition-base` from CSS in `setTheme()` — Replace hardcoded 400ms with CSS variable read (follows timing.js pattern for single source of truth)
+- [ ] Extend theme testing to animation suite — `animation-states.spec.js` could verify filter animations render correctly in both themes
+- [ ] Add `prefers-color-scheme` path testing — Current tests only exercise `data-theme` CSS path; the `@media (prefers-color-scheme)` fallback is untested
 
 ---
 
