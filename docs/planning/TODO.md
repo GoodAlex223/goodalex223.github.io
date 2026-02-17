@@ -10,18 +10,13 @@ Active tasks and backlog.
 
 _None currently_
 
+## Recently Completed
+
+- **QUALITY-004**: Pre-commit Hook with Husky + lint-staged → moved to [DONE.md](DONE.md)
+
 ---
 
 ## High Priority
-
-### QUALITY-004: Pre-commit Hook with Husky + lint-staged
-**Source**: BACKLOG.md (from TEST-003)
-**Description**: Add husky pre-commit hook with lint-staged to run Stylelint on staged CSS files before commit. Prevents CSS violations from reaching the repository.
-**Acceptance Criteria**:
-- [ ] `husky` and `lint-staged` installed
-- [ ] Pre-commit hook runs `stylelint --fix` on staged `.css` files
-- [ ] Lint failures block the commit
-- [ ] Works on fresh `npm install` (prepare script)
 
 ### TEST-004: Theme-specific Axe Scanning
 **Source**: BACKLOG.md (from TEST-002)

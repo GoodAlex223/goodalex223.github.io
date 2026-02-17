@@ -1,8 +1,23 @@
 # DONE
 
-**Last Updated**: 2026-02-16 (PERF-006 completed)
+**Last Updated**: 2026-02-17 (QUALITY-004 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-17
+
+### QUALITY-004: Pre-commit Hook with Husky + lint-staged
+
+**Plan**: [docs/archive/plans/2026-02-17_quality-004-pre-commit-hook-husky.md](../archive/plans/2026-02-17_quality-004-pre-commit-hook-husky.md)
+**Summary**: Added Husky v9 pre-commit hook with lint-staged to run Stylelint --fix on staged CSS files before each commit. Lint failures block the commit. CI skips hook installation via HUSKY=0 env variable.
+**Key Changes**:
+- Installed `husky` (^9.1.7) and `lint-staged` (^16.2.7) as devDependencies
+- Added `"prepare": "husky"` script and `"lint-staged"` config in package.json
+- Created `.husky/pre-commit` hook calling `npx lint-staged`
+- Added `HUSKY: 0` env to CI workflow `npm ci` step
+**Spawned Tasks**: 2 items added to BACKLOG.md (extend lint-staged with more linters, commitlint)
 
 ---
 
