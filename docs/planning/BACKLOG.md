@@ -438,7 +438,7 @@ _Extracted from implementation plan:_
 **Origin**: docs/archive/plans/2026-02-16_test-003-css-linting-stylelint.md
 
 - [ ] Add `stylelint-order` plugin — Enforce consistent CSS property ordering within declarations (requires team agreement on ordering convention)
-- [ ] Pre-commit hook integration — Add Stylelint to a pre-commit hook (e.g., via husky + lint-staged) to catch violations before commit, not just in CI
+- [x] ~~Pre-commit hook integration~~ *(completed 2026-02-17, QUALITY-004)*
 - [ ] VS Code Stylelint extension — Document recommended Stylelint VS Code extension settings for real-time linting feedback during development
 
 ---
@@ -452,6 +452,14 @@ _Extracted from implementation plan:_
 - [ ] Add `.catch()` to top-level async call — `inlineCriticalCSS()` in `scripts/inline-css.js` is called without `.catch()` handler; function body has try-catch with `process.exit(1)` so low risk, but adding `.catch()` follows Node.js best practice for top-level async (code review finding, confidence 25/100)
 - [ ] Robust CSS block matching regex — `css.match(/\[data-theme=light\]\{[^}]+\}/)` in `inline-css.js` could truncate if future CSS contains `}` inside data URIs; consider balanced-brace parsing or PostCSS API (code review finding, confidence 25/100)
 - [ ] Handle multiple `<style>` tags — `inline-css.js` assumes single `<style>` tag for light theme injection and size validation; if Critters ever produces multiple blocks, injection targets wrong location (code review finding, confidence 25/100)
+
+---
+
+## From QUALITY-004: Pre-commit Hook with Husky (2026-02-17)
+**Origin**: docs/archive/plans/2026-02-17_quality-004-pre-commit-hook-husky.md
+
+- [ ] Extend lint-staged with more linters — Add `"*.js": "eslint --fix"` and/or `"*.html": "prettier --write"` when JS/HTML linting tools are adopted
+- [ ] commitlint for conventional commits — Add `@commitlint/cli` with `commit-msg` husky hook to enforce conventional commit message format (feat:, fix:, docs:, etc.)
 
 ---
 
