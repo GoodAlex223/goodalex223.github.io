@@ -228,8 +228,9 @@ All text colors meet WCAG 2.1 Level AA contrast requirements (4.5:1 for normal t
   - `--color-category-backend`: `#256b28` (was `#2e7d32`) — backend badge text
   - `--color-status-active`: `#256b28` (was `#2e7d32`) — active status indicator text
   - `--color-category-iot`: `#b94000` (was `#e65100`) — IoT badge text + active button background
-- **Validation**: All color pairs tested via automated axe-core scanning in `axe-scan.spec.js`
-- **Testing note**: Lighthouse defaults to dark theme — light theme violations may be missed without explicit testing
+- **Dark theme fix**: `--color-text-muted`: `#8a8a8a` (was `#6b6b6b`) — muted text on dark backgrounds
+- **Validation**: All color pairs tested via automated axe-core scanning in `axe-scan.spec.js` — both light and dark themes tested explicitly via `fp.setTheme()`
+- **Testing note**: Axe-scan suite explicitly sets `data-theme` for both light and dark before scanning; avoids relying on browser default theme which would miss cross-theme violations
 
 <!-- END AUTO-MANAGED -->
 
@@ -401,6 +402,7 @@ Progressive reveal animations using Intersection Observer:
 3. **Page Object Model**: `FilterPage.js` encapsulates filter system interactions
    - Centralized locators for toolbar, buttons, cards, animation states
    - Helper methods: `clickFilter()`, `expectVisibleCardCount()`, `getActiveFilterCategory()`, `waitForScrollAnimations()`
+   - Media & theme helpers: `enableReducedMotion()`, `setTheme(theme)` — `setTheme()` sets `data-theme` on `<html>` via `page.evaluate()` and waits 400ms for CSS transitions to settle
    - Category counts stored as constants (`CATEGORY_COUNTS`) for assertions
    - `waitForScrollAnimations()` waits 700ms for scroll-in animations to settle (prevents false axe-core failures)
 4. **Timing Utilities**: `timing.js` reads animation durations from CSS custom properties
@@ -421,7 +423,7 @@ Progressive reveal animations using Intersection Observer:
    - **keyboard-nav.spec.js**: Arrow keys, Home/End, Escape, roving tabindex, focus management
    - **accessibility.spec.js**: ARIA attributes (`aria-pressed`, `role`, `aria-live`), live region announcements
    - **rapid-clicks.spec.js**: Race conditions, animation interruption, state consistency
-   - **axe-scan.spec.js**: WCAG 2.1 AA compliance scanning (page load, all filters, toggle-to-reset, keyboard nav, URL hash)
+   - **axe-scan.spec.js**: WCAG 2.1 AA compliance scanning (page load, all filters, toggle-to-reset, keyboard nav, URL hash, explicit light theme, explicit dark theme)
 7. **CI Integration**: Tests run after build job, before deployment
    - `forbidOnly: true` in CI prevents `.only()` commits
    - 2 retries for flaky tests in CI
@@ -436,8 +438,9 @@ Progressive reveal animations using Intersection Observer:
 9. **Accessibility Regression Testing**: Automated WCAG 2.1 AA scanning prevents accessibility violations
    - Uses `@axe-core/playwright` for comprehensive accessibility audits
    - Scans page on load and after every interaction state (filter changes, keyboard nav, URL hash)
+   - Explicitly tests both light and dark themes via `fp.setTheme()` to catch cross-theme color-contrast regressions
    - Waits for scroll animations to settle (700ms) to prevent false color-contrast failures from opacity transitions
-   - Discovered and fixed 4 light-theme color contrast violations (muted text, category badges, status indicators)
+   - Discovered and fixed 4 light-theme + 1 dark-theme color contrast violations (muted text, category badges, status indicators)
 
 ### Performance Optimization Pattern
 **Self-hosted fonts**: Replaced Google Fonts CDN with local font files

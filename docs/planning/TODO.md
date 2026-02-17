@@ -12,20 +12,12 @@ _None currently_
 
 ## Recently Completed
 
+- **TEST-004**: Theme-specific Axe Scanning → moved to [DONE.md](DONE.md)
 - **QUALITY-004**: Pre-commit Hook with Husky + lint-staged → moved to [DONE.md](DONE.md)
 
 ---
 
 ## High Priority
-
-### TEST-004: Theme-specific Axe Scanning
-**Source**: BACKLOG.md (from TEST-002)
-**Description**: Add Playwright tests that emulate light and dark themes before running axe-core scans. Last time we found 4 color contrast violations in light theme only — theme-specific scanning prevents this class of bugs.
-**Acceptance Criteria**:
-- [ ] Tests switch to light theme before scanning
-- [ ] Tests switch to dark theme before scanning
-- [ ] Both themes pass WCAG 2.1 AA
-- [ ] Integrated into existing `axe-scan.spec.js`
 
 ### PERF-007: JS Cache-busting for main.js
 **Source**: BACKLOG.md (from PERF-005)

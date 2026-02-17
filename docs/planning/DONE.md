@@ -1,12 +1,23 @@
 # DONE
 
-**Last Updated**: 2026-02-17 (QUALITY-004 completed)
+**Last Updated**: 2026-02-17 (TEST-004 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-17
+
+### TEST-004: Theme-specific Axe Scanning
+
+**Plan**: [docs/archive/plans/2026-02-17_test-004-theme-specific-axe-scanning.md](../archive/plans/2026-02-17_test-004-theme-specific-axe-scanning.md)
+**Summary**: Added explicit light and dark theme WCAG 2.1 AA scanning to axe-scan.spec.js. Tests immediately caught a real dark theme contrast violation (`--color-text-muted: #6b6b6b` → fixed to `#8a8a8a`). Also revealed existing tests ran in light theme all along (Playwright defaults colorScheme to 'light').
+**Key Changes**:
+- Added `setTheme(theme)` to FilterPage POM (sets data-theme, waits 400ms for transitions)
+- Added nested Light/Dark theme describes with 4 new tests (page load + active IoT filter)
+- Fixed dark theme `--color-text-muted` from `#6b6b6b` to `#8a8a8a` for WCAG AA compliance (~5.9:1 contrast)
+- Test suite grew from 162 to 174 tests (12 new: 4 themes × 3 browsers)
+**Spawned Tasks**: 3 items added to BACKLOG.md (CSS variable timing, animation theme tests, prefers-color-scheme path)
 
 ### QUALITY-004: Pre-commit Hook with Husky + lint-staged
 
