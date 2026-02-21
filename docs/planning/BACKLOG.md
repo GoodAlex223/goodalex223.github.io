@@ -393,8 +393,17 @@ Future ideas and improvements for the portfolio.
 ## From PERF-005: Cache-Busting with Content Hash (2026-02-09)
 **Origin**: docs/archive/plans/2026-02-09_perf-005-cache-busting-content-hash.md
 
-- [ ] JS cache-busting — Extend hashing to `js/main.js` for complete asset cache control (currently only CSS is hashed)
+- [x] ~~JS cache-busting~~ *(completed 2026-02-22, PERF-007)*
 - [ ] Build size reporting — Log before/after file sizes during build to track CSS growth over time
+
+---
+
+## From PERF-007: JS Cache-Busting (2026-02-22)
+**Origin**: PERF-007 implementation
+
+- [ ] Source maps for minified JS — Add terser `sourceMap` option for debugging minified JS in production (mirror CSS source map discussion from PERF-004)
+- [ ] ESLint integration — Add ESLint for JS linting in pre-commit hook and CI, similar to how Stylelint validates CSS (QUALITY-004 extended lint-staged item)
+- [ ] Watch mode JS file sync — Currently watch mode references `js/main.js` directly; consider a file watcher that copies to `dist/main.js` on change for consistent `dist/` references across modes
 
 ---
 
