@@ -4,11 +4,11 @@
   "private": true,
   "description": "Personal portfolio website for Alexey Minakov",
   "scripts": {
-    "build": "npm run build:css && node scripts/hash-css.js --unhash && npm run inline:css && npm run hash:css",
+    "build": "npm run build:css && node scripts/hash-assets.js --unhash && npm run inline:css && npm run hash:assets",
     "build:css": "postcss css/main.css --output dist/style.css --env production",
     "inline:css": "node scripts/inline-css.js",
-    "hash:css": "node scripts/hash-css.js",
-    "watch": "node scripts/inline-css.js --restore && node scripts/hash-css.js --unhash && postcss css/main.css --output dist/style.css --watch",
+    "hash:assets": "node scripts/hash-assets.js",
+    "watch": "node scripts/inline-css.js --restore && node scripts/hash-assets.js --unhash && postcss css/main.css --output dist/style.css --watch",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
@@ -30,6 +30,7 @@
     "postcss-cli": "^11.0.0",
     "postcss-import": "^16.1.0",
     "stylelint": "^17.3.0",
-    "stylelint-config-standard": "^40.0.0"
+    "stylelint-config-standard": "^40.0.0",
+    "terser": "^5.46.0"
   }
 }
