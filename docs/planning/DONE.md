@@ -1,8 +1,26 @@
 # DONE
 
-**Last Updated**: 2026-02-17 (TEST-004 completed)
+**Last Updated**: 2026-02-22 (PERF-007 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-22
+
+### PERF-007: JS Cache-busting for main.js
+
+**Plan**: N/A (implemented via feature-dev workflow)
+**Summary**: Extended the build system to apply content-hash cache-busting to `js/main.js`, matching the existing CSS pattern. Replaced `hash-css.js` with a config-driven `hash-assets.js` that handles both CSS and JS assets. Added terser minification for JS (72% size reduction: 19,990 → 5,692 bytes).
+**Key Changes**:
+- Created `scripts/hash-assets.js` with config-driven ASSETS array (replaces `hash-css.js`)
+- Deleted `scripts/hash-css.js` (superseded)
+- Added terser devDependency for JS minification before hashing
+- Updated npm scripts: `hash:css` → `hash:assets`
+- JS output: `dist/main.[hash].js` (content-hashed, minified)
+- Watch mode unhashes JS to `js/main.js` (source), CSS to `dist/style.css`
+- Updated CLAUDE.md (6 sections) with new script name and JS hashing documentation
+**Spawned Tasks**: 3 items added to BACKLOG.md (JS source maps, ESLint integration, watch mode JS sync)
 
 ---
 

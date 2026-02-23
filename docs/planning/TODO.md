@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **PERF-007**: JS Cache-busting for main.js → moved to [DONE.md](DONE.md)
 - **TEST-004**: Theme-specific Axe Scanning → moved to [DONE.md](DONE.md)
 - **QUALITY-004**: Pre-commit Hook with Husky + lint-staged → moved to [DONE.md](DONE.md)
 
@@ -19,14 +20,7 @@ _None currently_
 
 ## High Priority
 
-### PERF-007: JS Cache-busting for main.js
-**Source**: BACKLOG.md (from PERF-005)
-**Description**: Extend `scripts/hash-css.js` (or create parallel script) to apply content-hash cache-busting to `js/main.js`. Currently only CSS is hashed — JS changes require manual cache-clear.
-**Acceptance Criteria**:
-- [ ] `js/main.js` gets content-hashed filename (e.g., `js/main.[hash].js`)
-- [ ] HTML references updated automatically
-- [ ] Watch mode unhashes JS references
-- [ ] Build pipeline updated: `npm run build` hashes both CSS and JS
+_None currently_
 
 ---
 

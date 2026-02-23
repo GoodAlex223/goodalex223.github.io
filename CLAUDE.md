@@ -49,11 +49,11 @@ python -m http.server 8000
 npx serve
 ```
 
-**Build System**: PostCSS with `postcss-import` plugin bundles modular CSS files, then cssnano minifies (production only). Production builds (`npm run build`) run: `build:css` → `unhash` → `inline:css` → `hash:css`. This generates content-hashed filenames (`dist/style.[hash].css`) with critical CSS inlined in HTML. Watch mode (`npm run watch`) outputs unminified `dist/style.css` for debugging (restores HTML to non-inlined state).
+**Build System**: PostCSS with `postcss-import` plugin bundles modular CSS files, then cssnano minifies (production only). Production builds (`npm run build`) run: `build:css` → `unhash` → `inline:css` → `hash:assets`. This generates content-hashed filenames (`dist/style.[hash].css`, `dist/main.[hash].js`) with critical CSS inlined in HTML. JS is minified by terser during the hash step. Watch mode (`npm run watch`) outputs unminified `dist/style.css` for debugging (restores HTML to non-inlined state).
 
 **Critical CSS Inlining**: `scripts/inline-css.js` uses Google's Critters library to extract above-the-fold CSS and inline it in `<style>` tags in `<head>`. Full CSS loads asynchronously via `media="print" onload="this.media='all'"` pattern. Includes `<noscript>` fallback for non-JS users, light theme variable injection, and `--restore` mode for development. Applied to both `index.html` and `404.html`.
 
-**Cache-Busting**: `scripts/hash-css.js` computes SHA-256 hash of built CSS, renames file to `style.[hash].css`, and updates HTML references in `index.html` and `404.html`. Watch mode unhashes references for easier development.
+**Cache-Busting**: `scripts/hash-assets.js` computes SHA-256 hashes of built CSS and JS, renames files to `style.[hash].css` and `main.[hash].js` in `dist/`, and updates HTML references in `index.html` and `404.html`. JS is minified by terser before hashing. Watch mode unhashes references for easier development.
 
 **Testing**: Playwright end-to-end tests validate filter functionality, animations, accessibility, keyboard navigation, and URL hash integration. Test server (`scripts/serve.js`) runs on port 4173. Tests use Page Object Model pattern (`FilterPage.js`) and timing utilities that read CSS custom properties.
 
@@ -87,9 +87,10 @@ goodalex223/
 │   ├── utilities.css       # Reusable utility classes
 │   └── components.css      # UI components (cards, buttons, links)
 ├── dist/
-│   └── style.[hash].css    # Built CSS with content hash (generated, not committed)
+│   ├── style.[hash].css    # Built CSS with content hash (generated, not committed)
+│   └── main.[hash].js      # Minified JS with content hash (generated, not committed)
 ├── scripts/
-│   ├── hash-css.js         # Cache-busting: compute hash, rename CSS, update HTML refs
+│   ├── hash-assets.js      # Cache-busting: minify JS (terser), hash CSS+JS, update HTML refs
 │   ├── inline-css.js       # Critical CSS inlining via Critters (--restore for dev mode)
 │   └── serve.js            # Minimal static file server for Playwright tests (port 4173)
 ├── js/
@@ -126,7 +127,7 @@ goodalex223/
 - [package.json](package.json) — Build scripts (`npm run build`, `npm run watch`, `npm test`)
 - [postcss.config.js](postcss.config.js) — PostCSS build configuration
 - [playwright.config.js](playwright.config.js) — Playwright test configuration
-- [scripts/hash-css.js](scripts/hash-css.js) — Cache-busting hash generator
+- [scripts/hash-assets.js](scripts/hash-assets.js) — Cache-busting: minify JS + hash CSS/JS
 - [scripts/inline-css.js](scripts/inline-css.js) — Critical CSS inlining (Critters wrapper)
 - [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
 - [.stylelintrc.json](.stylelintrc.json) — CSS linting configuration
@@ -355,16 +356,16 @@ Progressive reveal animations using Intersection Observer:
 
 ### Build System Pattern
 **PostCSS CSS Bundling with Critical CSS Inlining and Cache-Busting**: Modular CSS development with production bundling, critical CSS inlining, minification, and content-hashed filenames
-1. **Source**: Modular CSS files in `css/` directory with `@import` statements
-2. **Build Tool**: PostCSS with `postcss-import` plugin and `cssnano` (production only)
-3. **Output**: Content-hashed file at `dist/style.[hash].css` (8-char SHA-256 hash)
-4. **Minification**: cssnano with `default` preset, activated via `--env production` flag in `postcss.config.js`
-5. **Cache-Busting**: `scripts/hash-css.js` post-build script
-   - Reads `dist/style.css`, computes SHA-256 hash (8 chars)
-   - Renames to `dist/style.[hash].css`
-   - Updates HTML references in `index.html` and `404.html` using regex `/dist\/style(?:\.[a-f0-9]{8})?\.css/g`
+1. **Source**: Modular CSS files in `css/` directory with `@import` statements; JS in `js/main.js`
+2. **Build Tool**: PostCSS with `postcss-import` plugin and `cssnano` (production only); terser for JS minification
+3. **Output**: Content-hashed files at `dist/style.[hash].css` and `dist/main.[hash].js` (8-char SHA-256 hash)
+4. **Minification**: CSS via cssnano (`--env production` flag in `postcss.config.js`); JS via terser (inline in `hash-assets.js`)
+5. **Cache-Busting**: `scripts/hash-assets.js` post-build script (config-driven, handles CSS and JS)
+   - CSS: reads `dist/style.css`, renames to `dist/style.[hash].css`
+   - JS: reads `js/main.js`, minifies with terser, writes to `dist/main.[hash].js`
+   - Updates HTML references in `index.html` and `404.html` via per-asset regex patterns
    - Cleans old hashed files from `dist/`
-   - Validates final state (file exists, HTML refs updated)
+   - `--unhash` mode restores plain refs for watch mode (CSS → `dist/style.css`, JS → `js/main.js`)
 6. **Critical CSS Inlining**: `scripts/inline-css.js` using Google's Critters
    - Extracts above-fold CSS and inlines in `<style>` tags in `<head>`
    - Full CSS loaded async via `media="print" onload="this.media='all'"` pattern
@@ -375,9 +376,9 @@ Progressive reveal animations using Intersection Observer:
    - Shared `cleanInlineArtifacts()` function ensures idempotency
    - Validates CSS file exists before processing, warns if critters produces no output
 7. **Commands**:
-   - `npm run build` — Production: `build:css` → `unhash` → `inline:css` → `hash:css`
+   - `npm run build` — Production: `build:css` → `unhash` → `inline:css` → `hash:assets`
    - `npm run watch` — Development: restore inline CSS → unhash refs → PostCSS watch (unminified, no hashing)
-8. **Watch Mode**: `--restore` removes inline CSS artifacts, `--unhash` restores `dist/style.css` references
+8. **Watch Mode**: `--restore` removes inline CSS artifacts, `--unhash` restores `dist/style.css` and `js/main.js` references
 9. **CSS Linting**: Stylelint validates CSS code quality and conventions
    - Configuration: `.stylelintrc.json` extends `stylelint-config-standard`
    - Enforces BEM naming, kebab-case for custom properties and keyframes
@@ -389,7 +390,7 @@ Progressive reveal animations using Intersection Observer:
     - Test job: Install Playwright browsers → `npm test` → report upload
     - Deploy job: Deploy to GitHub Pages (only if linting and tests pass)
     - Concurrency: Single pages deployment group, cancels in-progress runs
-11. **HTML References**: Both `index.html` and `404.html` have inline `<style>` with critical CSS plus async `<link>` to `dist/style.[hash].css` (production) or normal `<link>` to `dist/style.css` (watch mode)
+11. **HTML References**: Both `index.html` and `404.html` have inline `<style>` with critical CSS plus async `<link>` to `dist/style.[hash].css` (production) or normal `<link>` to `dist/style.css` (watch mode). JS: `<script src="dist/main.[hash].js">` (production) or `<script src="js/main.js">` (watch mode)
 12. **Git Ignore**: `dist/`, `test-results/`, `playwright-report/` excluded from version control
 
 ### Testing Pattern
