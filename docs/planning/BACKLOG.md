@@ -404,6 +404,10 @@ Future ideas and improvements for the portfolio.
 - [ ] Source maps for minified JS — Add terser `sourceMap` option for debugging minified JS in production (mirror CSS source map discussion from PERF-004)
 - [ ] ESLint integration — Add ESLint for JS linting in pre-commit hook and CI, similar to how Stylelint validates CSS (QUALITY-004 extended lint-staged item)
 - [ ] Watch mode JS file sync — Currently watch mode references `js/main.js` directly; consider a file watcher that copies to `dist/main.js` on change for consistent `dist/` references across modes
+- [ ] Restore post-write validation — Old `hash-css.js` had "Step 4: Validate final state" checking hashed file exists and HTML refs updated; `hash-assets.js` dropped this safety net (code review finding, confidence 75/100)
+- [ ] Atomic CSS rename — `hash-assets.js` uses `unlinkSync` + `writeFileSync` for CSS instead of atomic `renameSync`; if `writeFileSync` throws after `unlinkSync`, source file is lost (code review finding, confidence 75/100)
+- [ ] Update CLAUDE.md Overview Build Tools — Add terser to "Build Tools" line in project-description block: "PostCSS (CSS bundling), Critters (critical CSS inlining), terser (JS minification)" (code review finding, confidence 75/100)
+- [ ] Update `npm run build` inline comment — CLAUDE.md Build Commands comment still says "Build CSS with cache-busting" but build now hashes both CSS and JS (code review finding, confidence 75/100)
 
 ---
 
