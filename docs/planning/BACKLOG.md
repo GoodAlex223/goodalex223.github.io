@@ -384,7 +384,7 @@ Future ideas and improvements for the portfolio.
 **Origin**: docs/archive/plans/2026-02-12_test-002-accessibility-regression-tests.md
 
 - [x] ~~Theme-specific axe scanning~~ *(completed 2026-02-17, TEST-004)*
-- [ ] Reduced motion accessibility test — Verify page remains accessible with `prefers-reduced-motion: reduce` emulated (different animation code paths could introduce issues)
+- [x] ~~Reduced motion accessibility test~~ *(completed 2026-02-24, TEST-005)*
 
 ---
 
@@ -493,6 +493,15 @@ _Extracted from implementation plan:_
 
 - [ ] Extend lint-staged with more linters — Add `"*.js": "eslint --fix"` and/or `"*.html": "prettier --write"` when JS/HTML linting tools are adopted
 - [ ] commitlint for conventional commits — Add `@commitlint/cli` with `commit-msg` husky hook to enforce conventional commit message format (feat:, fix:, docs:, etc.)
+
+---
+
+## From TEST-005: Reduced Motion Accessibility Test (2026-02-24)
+**Origin**: TEST-005 implementation
+
+- [ ] Hover state test for non-reduced-motion mode — Verify `.filter-btn:hover` styles don't visually conflict with `.filter-btn--active` styles in standard motion mode (the specificity fix ensures correctness, but no explicit hover-state test exists)
+- [ ] Reduced motion + filter animation interruption — Test rapid filter clicks under reduced motion to verify instant state changes don't cause stale classes (combines rapid-clicks.spec.js scope with reduced motion)
+- [ ] Scroll animation visibility under reduced motion — Verify `IntersectionObserver` early-exit path doesn't leave stale observers or prevent `.is-visible` from being set on dynamically-added content
 
 ---
 

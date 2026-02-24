@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-24 (CI-001 completed)
+**Last Updated**: 2026-02-24 (TEST-005 completed)
 
 ---
 
@@ -12,10 +12,10 @@ _None currently_
 
 ## Recently Completed
 
+- **TEST-005**: Reduced Motion Accessibility Test → moved to [DONE.md](DONE.md)
 - **CI-001**: Separate CI Workflow Jobs → moved to [DONE.md](DONE.md)
 - **PERF-007**: JS Cache-busting for main.js → moved to [DONE.md](DONE.md)
 - **TEST-004**: Theme-specific Axe Scanning → moved to [DONE.md](DONE.md)
-- **QUALITY-004**: Pre-commit Hook with Husky + lint-staged → moved to [DONE.md](DONE.md)
 
 ---
 
@@ -26,15 +26,6 @@ _None currently_
 ---
 
 ## Medium Priority
-
-### TEST-005: Reduced Motion Accessibility Test
-**Source**: BACKLOG.md (from TEST-002)
-**Description**: Add Playwright test that emulates `prefers-reduced-motion: reduce` and verifies the page remains accessible. Different animation code paths could introduce issues when motion is reduced.
-**Acceptance Criteria**:
-- [ ] Emulate `prefers-reduced-motion: reduce` in test
-- [ ] Verify elements are visible (not stuck at opacity: 0)
-- [ ] Run axe-core scan in reduced motion mode
-- [ ] Filter functionality works correctly without animations
 
 ### PERF-008: Build Size Reporting
 **Source**: BACKLOG.md (from PERF-004, PERF-005)
