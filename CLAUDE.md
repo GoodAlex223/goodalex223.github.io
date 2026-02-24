@@ -388,7 +388,7 @@ Progressive reveal animations using Intersection Observer:
     - Workflow: `.github/workflows/deploy.yml`
     - Lint job: `npm ci` → `npm run lint:css` (gates build)
     - Build job: `npm ci` → `npm run build` → upload build-output artifact (`index.html`, `404.html`, `dist/`)
-    - Test job: checkout → `npm ci` → download build-output overlay → Playwright install → `npm test` → report upload
+    - Test job: checkout → `npm ci` → download build-output overlay → Playwright install → `npx playwright test --ignore-snapshots` → report upload
     - Deploy job: checkout → download build-output overlay → configure-pages → upload-pages-artifact → deploy-pages (only if build and test pass)
     - Artifact: `build-output` (1-day retention) passes built HTML + `dist/` between jobs
     - Concurrency: Single pages deployment group, cancels in-progress runs
