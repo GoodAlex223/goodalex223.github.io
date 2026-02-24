@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-16 (Week of Feb 17-21 planned)
+**Last Updated**: 2026-02-24 (CI-001 completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **CI-001**: Separate CI Workflow Jobs → moved to [DONE.md](DONE.md)
 - **PERF-007**: JS Cache-busting for main.js → moved to [DONE.md](DONE.md)
 - **TEST-004**: Theme-specific Axe Scanning → moved to [DONE.md](DONE.md)
 - **QUALITY-004**: Pre-commit Hook with Husky + lint-staged → moved to [DONE.md](DONE.md)
@@ -25,15 +26,6 @@ _None currently_
 ---
 
 ## Medium Priority
-
-### CI-001: Separate CI Workflow Jobs
-**Source**: BACKLOG.md (from TEST-001, code review finding 75/100)
-**Description**: Split the current `build-and-test` GitHub Actions job into separate `lint`, `build`, `test`, `deploy` jobs for clearer failure reporting and better separation of concerns.
-**Acceptance Criteria**:
-- [ ] Separate jobs: lint → build → test → deploy
-- [ ] Build artifacts passed between jobs
-- [ ] Each job has clear success/failure
-- [ ] Deploy still only runs when all prior jobs pass
 
 ### TEST-005: Reduced Motion Accessibility Test
 **Source**: BACKLOG.md (from TEST-002)

@@ -9,7 +9,7 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 - **Live Site**: [goodalex223.github.io](https://goodalex223.github.io)
 - **Tech Stack**: HTML5, CSS3 (Custom Properties, Grid, Flexbox), ES6+
-- **Build Tools**: PostCSS (CSS bundling), Critters (critical CSS inlining)
+- **Build Tools**: PostCSS (CSS bundling), Critters (critical CSS inlining), terser (JS minification)
 - **Hosting**: GitHub Pages (deploys via GitHub Actions)
 
 <!-- END AUTO-MANAGED -->
@@ -27,7 +27,7 @@ npm run lint:css
 # Lint CSS and auto-fix issues
 npm run lint:css:fix
 
-# Build CSS with cache-busting (bundles + minifies + content hash)
+# Build CSS and JS with cache-busting (bundles + minifies + content hashes)
 npm run build
 
 # Build CSS and watch for changes (unminified, no hashing)
@@ -384,11 +384,13 @@ Progressive reveal animations using Intersection Observer:
    - Enforces BEM naming, kebab-case for custom properties and keyframes
    - Requires modern color functions with numeric alpha values
    - Runs in CI before build step to catch style violations early
-10. **CI/CD**: GitHub Actions workflow with lint → build → test → deploy sequence
+10. **CI/CD**: GitHub Actions workflow with 4 separate jobs: lint → build → test → deploy
     - Workflow: `.github/workflows/deploy.yml`
-    - Build job: Node.js setup → `npm ci` → `npm run lint:css` → `npm run build` → artifact upload
-    - Test job: Install Playwright browsers → `npm test` → report upload
-    - Deploy job: Deploy to GitHub Pages (only if linting and tests pass)
+    - Lint job: `npm ci` → `npm run lint:css` (gates build)
+    - Build job: `npm ci` → `npm run build` → upload build-output artifact (`index.html`, `404.html`, `dist/`)
+    - Test job: checkout → `npm ci` → download build-output overlay → Playwright install → `npm test` → report upload
+    - Deploy job: checkout → download build-output overlay → configure-pages → upload-pages-artifact → deploy-pages (only if build and test pass)
+    - Artifact: `build-output` (1-day retention) passes built HTML + `dist/` between jobs
     - Concurrency: Single pages deployment group, cancels in-progress runs
 11. **HTML References**: Both `index.html` and `404.html` have inline `<style>` with critical CSS plus async `<link>` to `dist/style.[hash].css` (production) or normal `<link>` to `dist/style.css` (watch mode). JS: `<script src="dist/main.[hash].js">` (production) or `<script src="js/main.js">` (watch mode)
 12. **Git Ignore**: `dist/`, `test-results/`, `playwright-report/` excluded from version control
