@@ -371,6 +371,15 @@ Future ideas and improvements for the portfolio.
 
 ---
 
+## From CI-001: Separate CI Workflow Jobs (2026-02-24)
+**Origin**: CI-001 implementation
+
+- [ ] Narrow Pages deploy artifact path — `upload-pages-artifact` uses `path: '.'` which deploys entire repo checkout (source CSS, JS, scripts, tests, docs, learning projects); consider staging only built output (`index.html`, `404.html`, `dist/`, `fonts/`, `favicon*`, `robots.txt`, `sitemap.xml`, `site.webmanifest`) for a leaner deployment (code review finding, confidence 75/100)
+- [ ] Fix CLAUDE.md CI test command reference — Build System Pattern item 10 documents test job as running `npm test` but actual CI command is `npx playwright test --ignore-snapshots`; the `--ignore-snapshots` flag is functionally significant (code review finding, confidence 75/100)
+- [ ] Update `playwright.config.js` CI comment — Line 26 says "CI builds CSS before running tests" but after CI-001 refactor, the test job downloads a pre-built artifact from the build job rather than building in the same job (code review finding, confidence 25/100)
+
+---
+
 ## From TEST-002: Accessibility Regression Tests (2026-02-12)
 **Origin**: docs/archive/plans/2026-02-12_test-002-accessibility-regression-tests.md
 
