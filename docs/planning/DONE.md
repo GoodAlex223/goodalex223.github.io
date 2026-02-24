@@ -1,8 +1,26 @@
 # DONE
 
-**Last Updated**: 2026-02-22 (PERF-007 completed)
+**Last Updated**: 2026-02-24 (CI-001 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-24
+
+### CI-001: Separate CI Workflow Jobs
+
+**Plan**: N/A (implemented via feature-dev workflow)
+**Summary**: Split the monolithic `build-and-test` GitHub Actions job into 4 separate jobs (lint → build → test → deploy) with artifact passing between jobs. Tests gate deployment, Pages artifact no longer includes `node_modules/`. Updated `upload-pages-artifact` from v3 to v4.
+**Key Changes**:
+- Split `build-and-test` into `lint`, `build`, `test`, `deploy` jobs
+- Build uploads small overlay artifact (index.html, 404.html, dist/) with 1-day retention
+- Test job: checkout + npm ci + download build artifact overlay
+- Deploy job: checkout + download build artifact + configure-pages + upload-pages-artifact + deploy-pages
+- Deploy gated by both build and test (`needs: [build, test]`)
+- Moved `configure-pages` + `upload-pages-artifact` to deploy job (no `node_modules/` in Pages artifact)
+- Bumped `upload-pages-artifact` from `@v3` to `@v4`
+**Spawned Tasks**: 0 items added to BACKLOG.md
 
 ---
 
