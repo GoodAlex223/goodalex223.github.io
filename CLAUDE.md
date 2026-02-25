@@ -49,7 +49,9 @@ python -m http.server 8000
 npx serve
 ```
 
-**Build System**: PostCSS with `postcss-import` plugin bundles modular CSS files, then cssnano minifies (production only). Production builds (`npm run build`) run: `build:css` → `unhash` → `inline:css` → `hash:assets`. This generates content-hashed filenames (`dist/style.[hash].css`, `dist/main.[hash].js`) with critical CSS inlined in HTML. JS is minified by terser during the hash step. Watch mode (`npm run watch`) outputs unminified `dist/style.css` for debugging (restores HTML to non-inlined state).
+**Build System**: PostCSS with `postcss-import` plugin bundles modular CSS files, then cssnano minifies (production only). Production builds (`npm run build`) run: `build:css` → `unhash` → `inline:css` → `hash:assets` → `report-sizes`. This generates content-hashed filenames (`dist/style.[hash].css`, `dist/main.[hash].js`) with critical CSS inlined in HTML. JS is minified by terser during the hash step. Watch mode (`npm run watch`) outputs unminified `dist/style.css` for debugging (restores HTML to non-inlined state).
+
+**Build Size Reporting**: `scripts/report-sizes.js` runs as the final step of `npm run build`. Reports raw and gzip sizes for CSS (`dist/style.[hash].css`) and JS (`js/main.js` → `dist/main.[hash].js` showing src → min → gzip). Enforces size budgets: CSS gzip 20 KB, JS gzip 10 KB — prints a warning if either is exceeded. Exits with error if `dist/` is missing or hashed files are not found.
 
 **Critical CSS Inlining**: `scripts/inline-css.js` uses Google's Critters library to extract above-the-fold CSS and inline it in `<style>` tags in `<head>`. Full CSS loads asynchronously via `media="print" onload="this.media='all'"` pattern. Includes `<noscript>` fallback for non-JS users, light theme variable injection, and `--restore` mode for development. Applied to both `index.html` and `404.html`.
 
@@ -92,6 +94,7 @@ goodalex223/
 ├── scripts/
 │   ├── hash-assets.js      # Cache-busting: minify JS (terser), hash CSS+JS, update HTML refs
 │   ├── inline-css.js       # Critical CSS inlining via Critters (--restore for dev mode)
+│   ├── report-sizes.js     # Build size report: raw + gzip sizes, budget warnings (CSS 20 KB, JS 10 KB)
 │   └── serve.js            # Minimal static file server for Playwright tests (port 4173)
 ├── js/
 │   └── main.js             # Theme toggle, project filtering, scroll animations, copyright year
@@ -130,6 +133,7 @@ goodalex223/
 - [playwright.config.js](playwright.config.js) — Playwright test configuration
 - [scripts/hash-assets.js](scripts/hash-assets.js) — Cache-busting: minify JS + hash CSS/JS
 - [scripts/inline-css.js](scripts/inline-css.js) — Critical CSS inlining (Critters wrapper)
+- [scripts/report-sizes.js](scripts/report-sizes.js) — Build size report: raw + gzip sizes, budget enforcement (CSS 20 KB, JS 10 KB)
 - [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
 - [.stylelintrc.json](.stylelintrc.json) — CSS linting configuration
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (lint → build → test → deploy)

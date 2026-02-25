@@ -4,7 +4,7 @@
   "private": true,
   "description": "Personal portfolio website for Alexey Minakov",
   "scripts": {
-    "build": "npm run build:css && node scripts/hash-assets.js --unhash && npm run inline:css && npm run hash:assets",
+    "build": "npm run build:css && node scripts/hash-assets.js --unhash && npm run inline:css && npm run hash:assets && node scripts/report-sizes.js",
     "build:css": "postcss css/main.css --output dist/style.css --env production",
     "inline:css": "node scripts/inline-css.js",
     "hash:assets": "node scripts/hash-assets.js",
