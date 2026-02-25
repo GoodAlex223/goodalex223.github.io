@@ -116,12 +116,12 @@
 }
 
 .project-card[data-category="web"] .project-card__category {
-  background-color: rgb(33 150 243 / 0.15);
+  background-color: rgb(66 165 245 / 0.15);
   color: var(--color-category-web);
 }
 
 .project-card[data-category="tools"] .project-card__category {
-  background-color: rgb(156 39 176 / 0.15);
+  background-color: rgb(206 147 216 / 0.15);
   color: var(--color-category-tools);
 }
 
@@ -413,29 +413,31 @@
   outline-color: var(--focus-outline-color-high-contrast);
 }
 
-/* Active state - category colored */
-.filter-btn--active {
+/* Active state - category colored
+   Uses double class to beat .filter-btn:hover specificity (0,2,0 > 0,1,1).
+   Without this, hovering an active button shows wrong text and background. */
+.filter-btn.filter-btn--active {
   color: var(--color-bg-primary);
   border-color: transparent;
 }
 
-.filter-btn--active[data-filter="all"] {
+.filter-btn.filter-btn--active[data-filter="all"] {
   background-color: var(--color-accent);
 }
 
-.filter-btn--active[data-filter="backend"] {
+.filter-btn.filter-btn--active[data-filter="backend"] {
   background-color: var(--color-category-backend);
 }
 
-.filter-btn--active[data-filter="iot"] {
+.filter-btn.filter-btn--active[data-filter="iot"] {
   background-color: var(--color-category-iot);
 }
 
-.filter-btn--active[data-filter="web"] {
+.filter-btn.filter-btn--active[data-filter="web"] {
   background-color: var(--color-category-web);
 }
 
-.filter-btn--active[data-filter="tools"] {
+.filter-btn.filter-btn--active[data-filter="tools"] {
   background-color: var(--color-category-tools);
 }
 

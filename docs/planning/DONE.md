@@ -1,12 +1,26 @@
 # DONE
 
-**Last Updated**: 2026-02-24 (CI-001 completed)
+**Last Updated**: 2026-02-24 (TEST-005 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-02-24
+
+### TEST-005: Reduced Motion Accessibility Test
+
+**Plan**: N/A (implemented via feature-dev workflow)
+**Summary**: Added 8 Playwright tests verifying page accessibility under `prefers-reduced-motion: reduce` — element visibility, filter functionality (category filter, toggle-to-reset, URL hash), and WCAG 2.1 AA axe scans across both themes. Discovered and fixed hover specificity bug (`.filter-btn--active` → `.filter-btn.filter-btn--active`) and two dark theme category badge contrast violations (`--color-category-web`, `--color-category-tools`).
+**Key Changes**:
+- New test file `tests/filter/reduced-motion.spec.js` with 8 tests
+- CSS hover specificity fix: double-class selector (0,2,0) beats `:hover` (0,1,1)
+- Dark theme `--color-category-web`: `#2196f3` → `#42a5f5` (contrast 4.05:1 → passes 4.5:1)
+- Dark theme `--color-category-tools`: `#9c27b0` → `#ce93d8` (contrast 2.31:1 → passes 4.5:1)
+- Regenerated inline critical CSS in index.html and 404.html
+**Spawned Tasks**: 3 items added to BACKLOG.md
+
+---
 
 ### CI-001: Separate CI Workflow Jobs
 

@@ -10,11 +10,11 @@
   --color-accent-hover: #81d4fa;
   --color-border: #2a2a4a;
 
-  /* Category colors */
+  /* Category colors (adjusted for dark card backgrounds + semi-transparent badges) */
   --color-category-backend: #4caf50;
   --color-category-iot: #ff9800;
-  --color-category-web: #2196f3;
-  --color-category-tools: #9c27b0;
+  --color-category-web: #42a5f5;
+  --color-category-tools: #ce93d8;
 
   /* Status colors */
   --color-status-active: #4caf50;

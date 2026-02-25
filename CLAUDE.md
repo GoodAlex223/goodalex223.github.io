@@ -104,7 +104,8 @@ goodalex223/
 │   │   ├── keyboard-nav.spec.js       # Keyboard navigation (roving tabindex)
 │   │   ├── accessibility.spec.js      # ARIA attributes, live regions
 │   │   ├── rapid-clicks.spec.js       # Rapid interaction handling
-│   │   └── axe-scan.spec.js           # WCAG 2.1 AA accessibility scanning (axe-core)
+│   │   ├── axe-scan.spec.js           # WCAG 2.1 AA accessibility scanning (axe-core)
+│   │   └── reduced-motion.spec.js     # Reduced motion: visibility, filter function, WCAG scans
 │   ├── pages/
 │   │   └── FilterPage.js   # Page Object Model for filter system
 │   └── utils/
@@ -229,7 +230,10 @@ All text colors meet WCAG 2.1 Level AA contrast requirements (4.5:1 for normal t
   - `--color-category-backend`: `#256b28` (was `#2e7d32`) — backend badge text
   - `--color-status-active`: `#256b28` (was `#2e7d32`) — active status indicator text
   - `--color-category-iot`: `#b94000` (was `#e65100`) — IoT badge text + active button background
-- **Dark theme fix**: `--color-text-muted`: `#8a8a8a` (was `#6b6b6b`) — muted text on dark backgrounds
+- **Dark theme fixes**:
+  - `--color-text-muted`: `#8a8a8a` (was `#6b6b6b`) — muted text on dark backgrounds
+  - `--color-category-web`: `#42a5f5` (was `#2196f3`) — adjusted for dark card backgrounds + semi-transparent badges
+  - `--color-category-tools`: `#ce93d8` (was `#9c27b0`) — adjusted for dark card backgrounds + semi-transparent badges
 - **Validation**: All color pairs tested via automated axe-core scanning in `axe-scan.spec.js` — both light and dark themes tested explicitly via `fp.setTheme()`
 - **Testing note**: Axe-scan suite explicitly sets `data-theme` for both light and dark before scanning; avoids relying on browser default theme which would miss cross-theme violations
 
@@ -256,7 +260,7 @@ All text colors meet WCAG 2.1 Level AA contrast requirements (4.5:1 for normal t
 - **Buttons**: `.btn` base class with `--primary` and `--secondary` modifiers
   - Primary buttons use high-contrast focus outline (colored background requires stronger contrast)
 - **Filter Buttons**: `.filter-btn` for project filtering
-  - Active state: `.filter-btn--active` with category-colored backgrounds
+  - Active state: `.filter-btn.filter-btn--active` with category-colored backgrounds (double-class selector beats `.filter-btn:hover` specificity — 0,2,0 vs 0,1,1; prevents hover from overriding active text/background)
   - Active buttons use high-contrast focus outline (colored background requires stronger contrast)
   - Category colors match project card badges (backend, iot, web, tools)
   - **Project counts**: Dynamic counts injected into button labels (e.g., "Backend (3)")
@@ -404,7 +408,8 @@ Progressive reveal animations using Intersection Observer:
    - Started automatically by Playwright via `webServer` config
 3. **Page Object Model**: `FilterPage.js` encapsulates filter system interactions
    - Centralized locators for toolbar, buttons, cards, animation states
-   - Helper methods: `clickFilter()`, `expectVisibleCardCount()`, `getActiveFilterCategory()`, `waitForScrollAnimations()`
+   - Helper methods: `clickFilter()`, `clickFilterNoWait()`, `expectVisibleCardCount()`, `expectNoAnimationClasses()`, `expectAllVisibleCardsAreCategory()`, `getActiveFilterCategory()`, `waitForScrollAnimations()`
+     - `clickFilterNoWait()` — clicks without waiting for animation (use for reduced-motion tests and mid-animation state checks)
    - Media & theme helpers: `enableReducedMotion()`, `setTheme(theme)` — `setTheme()` sets `data-theme` on `<html>` via `page.evaluate()` and waits 400ms for CSS transitions to settle
    - Category counts stored as constants (`CATEGORY_COUNTS`) for assertions
    - `waitForScrollAnimations()` waits 700ms for scroll-in animations to settle (prevents false axe-core failures)
@@ -427,6 +432,7 @@ Progressive reveal animations using Intersection Observer:
    - **accessibility.spec.js**: ARIA attributes (`aria-pressed`, `role`, `aria-live`), live region announcements
    - **rapid-clicks.spec.js**: Race conditions, animation interruption, state consistency
    - **axe-scan.spec.js**: WCAG 2.1 AA compliance scanning (page load, all filters, toggle-to-reset, keyboard nav, URL hash, explicit light theme, explicit dark theme)
+   - **reduced-motion.spec.js**: Reduced motion accessibility — element visibility (`[data-animate]` at opacity 1), filter function without animations, toggle-to-reset, URL hash, WCAG 2.1 AA scans (page load, active filter, light theme, dark theme); `enableReducedMotion()` called BEFORE `goto()` so CSS media query is active at page load
 7. **CI Integration**: Tests run after build job, before deployment
    - `forbidOnly: true` in CI prevents `.only()` commits
    - 2 retries for flaky tests in CI
