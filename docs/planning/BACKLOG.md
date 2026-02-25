@@ -502,6 +502,7 @@ _Extracted from implementation plan:_
 - [ ] Hover state test for non-reduced-motion mode — Verify `.filter-btn:hover` styles don't visually conflict with `.filter-btn--active` styles in standard motion mode (the specificity fix ensures correctness, but no explicit hover-state test exists)
 - [ ] Reduced motion + filter animation interruption — Test rapid filter clicks under reduced motion to verify instant state changes don't cause stale classes (combines rapid-clicks.spec.js scope with reduced motion)
 - [ ] Scroll animation visibility under reduced motion — Verify `IntersectionObserver` early-exit path doesn't leave stale observers or prevent `.is-visible` from being set on dynamically-added content
+- [ ] Fix specificity comment in `.filter-btn.filter-btn--active` — Comment claims `.filter-btn:hover` is `(0,1,1)` but it's actually `(0,2,0)` (class + pseudo-class); the double-class fix wins by cascade order, not higher specificity as documented (code review finding, confidence 75/100)
 
 ---
 
