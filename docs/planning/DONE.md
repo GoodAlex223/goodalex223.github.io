@@ -1,8 +1,21 @@
 # DONE
 
-**Last Updated**: 2026-02-24 (TEST-005 completed)
+**Last Updated**: 2026-02-25 (PERF-008 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-02-25
+
+### PERF-008: Build Size Reporting
+
+**Plan**: N/A (implemented via feature-dev workflow)
+**Summary**: Added `scripts/report-sizes.js` as the final step of `npm run build`. Prints an aligned table of CSS and JS asset sizes: raw, minified (JS source → dist), and gzip. Enforces gzip size budgets (CSS: 20 KB, JS: 10 KB) with warnings. Zero new dependencies — uses Node built-in `zlib.gzipSync()`.
+**Key Changes**:
+- New `scripts/report-sizes.js` — globs `dist/` for hashed files, reports sizes with budget warnings
+- `package.json` `build` script appended with `&& node scripts/report-sizes.js`
+**Spawned Tasks**: 3 items added to BACKLOG.md
 
 ---
 

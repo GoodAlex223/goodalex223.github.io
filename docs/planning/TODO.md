@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-24 (TEST-005 completed)
+**Last Updated**: 2026-02-25 (PERF-008 completed)
 
 ---
 
@@ -26,15 +26,6 @@ _None currently_
 ---
 
 ## Medium Priority
-
-### PERF-008: Build Size Reporting
-**Source**: BACKLOG.md (from PERF-004, PERF-005)
-**Description**: Add post-build script that logs before/after file sizes for CSS and JS assets. Provides visibility into asset growth over time. Consider gzip-size for transfer size reporting.
-**Acceptance Criteria**:
-- [ ] Build output shows file sizes (raw and gzip)
-- [ ] CSS and JS sizes both reported
-- [ ] Runs automatically after `npm run build`
-- [ ] Clear, readable output format
 
 ### SEO-007: Automate Sitemap lastmod Updates
 **Source**: BACKLOG.md (from SEO-001)
