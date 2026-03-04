@@ -316,7 +316,7 @@ Future ideas and improvements for the portfolio.
 **Origin**: docs/archive/plans/2026-02-09_perf-004-css-minification-cssnano.md
 
 - [ ] Source maps for production builds — Add `--map` flag to build script for debugging minified CSS in production
-- [ ] Build size reporting — Post-build script logging before/after file sizes for CSS size trend visibility (consider `gzip-size-cli` for transfer size)
+- [x] ~~Build size reporting~~ *(completed 2026-02-25, PERF-008)*
 
 ---
 
@@ -403,7 +403,7 @@ Future ideas and improvements for the portfolio.
 **Origin**: docs/archive/plans/2026-02-09_perf-005-cache-busting-content-hash.md
 
 - [x] ~~JS cache-busting~~ *(completed 2026-02-22, PERF-007)*
-- [ ] Build size reporting — Log before/after file sizes during build to track CSS growth over time
+- [x] ~~Build size reporting~~ *(completed 2026-02-25, PERF-008)*
 
 ---
 
@@ -503,6 +503,15 @@ _Extracted from implementation plan:_
 - [ ] Reduced motion + filter animation interruption — Test rapid filter clicks under reduced motion to verify instant state changes don't cause stale classes (combines rapid-clicks.spec.js scope with reduced motion)
 - [ ] Scroll animation visibility under reduced motion — Verify `IntersectionObserver` early-exit path doesn't leave stale observers or prevent `.is-visible` from being set on dynamically-added content
 - [ ] Fix specificity comment in `.filter-btn.filter-btn--active` — Comment claims `.filter-btn:hover` is `(0,1,1)` but it's actually `(0,2,0)` (class + pseudo-class); the double-class fix wins by cascade order, not higher specificity as documented (code review finding, confidence 75/100)
+
+---
+
+## From PERF-008: Build Size Reporting (2026-02-25)
+**Origin**: PERF-008 implementation
+
+- [ ] Size trend history — Append build sizes to `docs/size-history.json` after each build for historical trend visibility (original task description goal: "visibility into asset growth over time")
+- [ ] HTML size reporting — Add `index.html` and `404.html` to the size report (both contain ~16 KB and ~8 KB inlined critical CSS respectively); complements existing inline CSS warnings
+- [ ] CI budget enforcement — Make the build fail (exit code 1) if gzip budgets are exceeded in CI, rather than just warning; keep soft warnings for local development
 
 ---
 
