@@ -384,7 +384,7 @@ Progressive reveal animations using Intersection Observer:
    - Shared `cleanInlineArtifacts()` function ensures idempotency
    - Validates CSS file exists before processing, warns if critters produces no output
 7. **Commands**:
-   - `npm run build` — Production: `build:css` → `unhash` → `inline:css` → `hash:assets`
+   - `npm run build` — Production: `build:css` → `unhash` → `inline:css` → `hash:assets` → `report-sizes`
    - `npm run watch` — Development: restore inline CSS → unhash refs → PostCSS watch (unminified, no hashing)
 8. **Watch Mode**: `--restore` removes inline CSS artifacts, `--unhash` restores `dist/style.css` and `js/main.js` references
 9. **CSS Linting**: Stylelint validates CSS code quality and conventions
