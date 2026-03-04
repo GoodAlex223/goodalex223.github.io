@@ -512,6 +512,7 @@ _Extracted from implementation plan:_
 - [ ] Size trend history — Append build sizes to `docs/size-history.json` after each build for historical trend visibility (original task description goal: "visibility into asset growth over time")
 - [ ] HTML size reporting — Add `index.html` and `404.html` to the size report (both contain ~16 KB and ~8 KB inlined critical CSS respectively); complements existing inline CSS warnings
 - [ ] CI budget enforcement — Make the build fail (exit code 1) if gzip budgets are exceeded in CI, rather than just warning; keep soft warnings for local development
+- [ ] Extract shared `HASH_LENGTH` constant — `report-sizes.js` and `hash-assets.js` both hardcode `HASH_LENGTH = 8` independently; extract to a shared `scripts/config.js` module to eliminate silent drift risk (code review finding, confidence 72/100)
 
 ---
 
