@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-02-25 (PERF-008 completed)
+**Last Updated**: 2026-03-05 (SEO-007 completed)
 
 ---
 
@@ -12,10 +12,10 @@ _None currently_
 
 ## Recently Completed
 
+- **SEO-007**: Automate Sitemap lastmod Updates → moved to [DONE.md](DONE.md)
 - **TEST-005**: Reduced Motion Accessibility Test → moved to [DONE.md](DONE.md)
 - **CI-001**: Separate CI Workflow Jobs → moved to [DONE.md](DONE.md)
 - **PERF-007**: JS Cache-busting for main.js → moved to [DONE.md](DONE.md)
-- **TEST-004**: Theme-specific Axe Scanning → moved to [DONE.md](DONE.md)
 
 ---
 
@@ -27,14 +27,7 @@ _None currently_
 
 ## Medium Priority
 
-### SEO-007: Automate Sitemap lastmod Updates
-**Source**: BACKLOG.md (from SEO-001)
-**Description**: Add a pre-build script or git hook that updates `sitemap.xml` `<lastmod>` date from git history when `index.html` changes. Currently requires manual updates.
-**Acceptance Criteria**:
-- [ ] `<lastmod>` automatically reflects last `index.html` change date
-- [ ] Runs as part of build or pre-commit
-- [ ] Only updates if date actually changed
-- [ ] Works in CI environment
+_None currently_
 
 ---
 
