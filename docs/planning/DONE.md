@@ -1,8 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-02-25 (PERF-008 completed)
+**Last Updated**: 2026-03-05 (SEO-007 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-03-05
+
+### SEO-007: Automate Sitemap lastmod Updates
+
+**Plan**: N/A (implemented via feature-dev workflow)
+**Summary**: Added `scripts/update-sitemap.js` as the first step of `npm run build`. Reads last git commit date for `index.html` via `git log -1 --format=%aI` and updates `<lastmod>` in `sitemap.xml`. Falls back to HEAD commit date for shallow clones. Idempotent — skips write if date unchanged. Added `sitemap.xml` to CI build artifact for proper deployment.
+**Key Changes**:
+- New `scripts/update-sitemap.js` — git-driven sitemap lastmod updater
+- `package.json` `build` script prepended with `node scripts/update-sitemap.js &&`
+- `.github/workflows/deploy.yml` — added `sitemap.xml` to build-output artifact
+**Spawned Tasks**: 0 items
 
 ---
 

@@ -488,7 +488,7 @@ Progressive reveal animations using Intersection Observer:
 **sitemap.xml**: XML sitemap for search engines
 - Lists homepage with monthly update frequency
 - Priority: 1.0 (highest)
-- Last modified: 2026-02-04
+- `<lastmod>` auto-updated from git history on every `npm run build` (via `scripts/update-sitemap.js`)
 - Submitted to both Google Search Console and Bing Webmaster Tools
 
 **Search engine tools**:

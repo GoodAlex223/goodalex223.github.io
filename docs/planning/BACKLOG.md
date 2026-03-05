@@ -174,7 +174,7 @@ Future ideas and improvements for the portfolio.
 ### From SEO-001: robots.txt & sitemap.xml (2026-01-29)
 **Origin**: docs/archive/plans/2026-01-29_seo-001-robots-sitemap.md
 
-- [ ] Automate sitemap lastmod updates — Pre-commit hook or script to update `sitemap.xml` lastmod from git history when `index.html` changes
+- [x] ~~Automate sitemap lastmod updates~~ *(completed 2026-03-05, SEO-007 — build script `scripts/update-sitemap.js`)*
 - [ ] Expand sitemap for future pages — Add entries when blog or project detail pages are created
 - [x] ~~Google Search Console verification~~ *(completed 2026-02-04, SEO-003)*
 
