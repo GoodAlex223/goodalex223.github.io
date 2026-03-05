@@ -506,6 +506,15 @@ _Extracted from implementation plan:_
 
 ---
 
+## From SEO-007: Automate Sitemap lastmod Updates (2026-03-05)
+**Origin**: SEO-007 code review
+
+- [ ] Targeted `fetch-depth` for build job — `fetch-depth: 0` clones full history but adds CI time; consider `fetch-depth: 2` or a calculated depth sufficient for `git log -- index.html` accuracy (code review finding, confidence 50/100)
+- [ ] Named npm script for `update-sitemap` — Build sequence in CLAUDE.md lists `update-sitemap` alongside named scripts (`build:css`, `unhash`, etc.) but `package.json` uses inline `node scripts/update-sitemap.js &&`; adding a named script would match the established pattern
+- [ ] CLAUDE.md build job artifact list inconsistency — "Build job" line still reads `(index.html, 404.html, dist/)` but "Artifact" line was updated to include `sitemap.xml`; both lines describe the same artifact contents
+
+---
+
 ## From PERF-008: Build Size Reporting (2026-02-25)
 **Origin**: PERF-008 implementation
 
