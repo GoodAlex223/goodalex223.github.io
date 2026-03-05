@@ -413,6 +413,8 @@ Progressive reveal animations using Intersection Observer:
 2. **Test Server**: Custom static server (`scripts/serve.js`) on port 4173
    - Serves project root with proper MIME types
    - Handles SPA routing (serves `index.html` for `/`)
+   - Serves custom `404.html` on missing files (matches GitHub Pages behavior)
+   - Error handling: `EADDRINUSE` (port in use), `EACCES` (permission denied), generic — all print descriptive messages and `process.exit(1)`
    - Started automatically by Playwright via `webServer` config
 3. **Page Object Model**: `FilterPage.js` encapsulates filter system interactions
    - Centralized locators for toolbar, buttons, cards, animation states

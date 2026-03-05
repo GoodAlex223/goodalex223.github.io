@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-05 (SEO-007 completed)
+**Last Updated**: 2026-03-05 (QUALITY-006 completed)
 
 ---
 
@@ -12,10 +12,9 @@ _None currently_
 
 ## Recently Completed
 
+- **QUALITY-006**: Test Server Error Handling → moved to [DONE.md](DONE.md)
+- **QUALITY-005**: Audit Remaining transition:all Usage → moved to [DONE.md](DONE.md)
 - **SEO-007**: Automate Sitemap lastmod Updates → moved to [DONE.md](DONE.md)
-- **TEST-005**: Reduced Motion Accessibility Test → moved to [DONE.md](DONE.md)
-- **CI-001**: Separate CI Workflow Jobs → moved to [DONE.md](DONE.md)
-- **PERF-007**: JS Cache-busting for main.js → moved to [DONE.md](DONE.md)
 
 ---
 
@@ -33,21 +32,7 @@ _None currently_
 
 ## Low Priority (Stretch Goals)
 
-### QUALITY-005: Audit Remaining transition:all Usage
-**Source**: BACKLOG.md (from POLISH-001)
-**Description**: Search codebase for `transition: all` declarations that could cause unintended side effects (`.btn` and `.project-card__link` were already fixed in POLISH-001). Replace with explicit property lists.
-**Acceptance Criteria**:
-- [ ] No `transition: all` remains in CSS source files
-- [ ] Each transition explicitly lists animated properties
-- [ ] Existing behavior preserved (visual regression check)
-
-### QUALITY-006: Test Server Error Handling
-**Source**: BACKLOG.md (from TEST-001, code review finding 75/100)
-**Description**: Add `.on('error')` handler to `scripts/serve.js` `.listen()` call. Currently, if port 4173 is in use, the error message is unclear.
-**Acceptance Criteria**:
-- [ ] Clear error message when port is already in use
-- [ ] Suggests action (kill process or use different port)
-- [ ] Handles EADDRINUSE and other common errors
+_None currently_
 
 ---
 

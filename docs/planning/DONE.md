@@ -1,12 +1,30 @@
 # DONE
 
-**Last Updated**: 2026-03-05 (SEO-007 completed)
+**Last Updated**: 2026-03-05 (QUALITY-006 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-03-05
+
+### QUALITY-006: Test Server Error Handling
+
+**Plan**: N/A (implemented via feature-dev workflow)
+**Summary**: Added `.on('error')` handler to `scripts/serve.js` for clear, actionable error messages on server startup failures. Handles EADDRINUSE (port in use), EACCES (permission denied), and generic errors with `process.exit(1)`, consistent with other build scripts.
+**Key Changes**:
+- `scripts/serve.js` — chained `.on('error')` handler after `.listen()` (lines 56-72)
+- CLAUDE.md — documented 404 handling and error handling in Testing Pattern section
+**Spawned Tasks**: 0 items
+
+### QUALITY-005: Audit Remaining transition:all Usage
+
+**Plan**: [docs/archive/plans/2026-03-05_quality-005-transition-all-audit.md](docs/archive/plans/2026-03-05_quality-005-transition-all-audit.md)
+**Summary**: Audited all CSS source files for `transition: all` declarations. Found zero occurrences — POLISH-001 had already fixed all instances (`.btn` and `.project-card__link`). Confirmed with full Playwright test suite (198/198 passed). No code changes needed.
+**Key Changes**:
+- Verification-only audit: no CSS source files contain `transition: all`
+- All 15+ transition declarations use explicit property lists
+**Spawned Tasks**: 2 items added to BACKLOG.md (Stylelint rule for prevention, convention documentation)
 
 ### SEO-007: Automate Sitemap lastmod Updates
 

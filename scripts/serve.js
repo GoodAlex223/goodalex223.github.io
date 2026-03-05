@@ -52,4 +52,21 @@ http
   })
   .listen(PORT, "127.0.0.1", () => {
     console.log(`Listening on http://127.0.0.1:${PORT}`);
+  })
+  .on("error", (err) => {
+    if (err.code === "EADDRINUSE") {
+      console.error(
+        `Error: Port ${PORT} is already in use.\n` +
+          `  Kill the process using port ${PORT}, or let Playwright reuse\n` +
+          `  the existing server (reuseExistingServer is enabled locally).`
+      );
+    } else if (err.code === "EACCES") {
+      console.error(
+        `Error: Permission denied for port ${PORT}.\n` +
+          `  Try a port number above 1024, or run with elevated privileges.`
+      );
+    } else {
+      console.error(`Error: Failed to start server: ${err.message}`);
+    }
+    process.exit(1);
   });
