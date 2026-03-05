@@ -366,7 +366,7 @@ Future ideas and improvements for the portfolio.
 
 - [x] ~~axe-core integration~~ *(completed 2026-02-12, TEST-002)*
 - [ ] Visual regression snapshots — Add Playwright screenshot comparison tests for filter animation visual states (exit, entrance, final) to catch CSS regressions
-- [ ] Test server error handling — Add `.on('error')` handler to `scripts/serve.js` `.listen()` call for clear error messages when port 4173 is already in use (code review finding, confidence 75/100)
+- [x] ~~Test server error handling~~ *(completed 2026-03-05, QUALITY-006 — `.on('error')` handler for EADDRINUSE, EACCES, generic)*
 - [x] ~~Separate CI workflow jobs~~ *(completed 2026-02-24, CI-001)*
 
 ---

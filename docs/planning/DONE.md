@@ -1,12 +1,21 @@
 # DONE
 
-**Last Updated**: 2026-03-05 (QUALITY-005 completed)
+**Last Updated**: 2026-03-05 (QUALITY-006 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-03-05
+
+### QUALITY-006: Test Server Error Handling
+
+**Plan**: N/A (implemented via feature-dev workflow)
+**Summary**: Added `.on('error')` handler to `scripts/serve.js` for clear, actionable error messages on server startup failures. Handles EADDRINUSE (port in use), EACCES (permission denied), and generic errors with `process.exit(1)`, consistent with other build scripts.
+**Key Changes**:
+- `scripts/serve.js` — chained `.on('error')` handler after `.listen()` (lines 56-72)
+- CLAUDE.md — documented 404 handling and error handling in Testing Pattern section
+**Spawned Tasks**: 0 items
 
 ### QUALITY-005: Audit Remaining transition:all Usage
 
