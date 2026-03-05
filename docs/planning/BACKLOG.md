@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-02-02
+**Last Updated**: 2026-03-05 (QUALITY-005 completed)
 
 Future ideas and improvements for the portfolio.
 
@@ -423,7 +423,7 @@ Future ideas and improvements for the portfolio.
 ## From POLISH-001: Focus Indicator Transition (2026-02-12)
 **Origin**: docs/archive/plans/2026-02-12_polish-001-focus-indicator-transition.md
 
-- [ ] Audit remaining `transition: all` usage — Search codebase for other `transition: all` declarations that could cause unintended side effects (`.btn` and `.project-card__link` were fixed in POLISH-001)
+- [x] ~~Audit remaining `transition: all` usage~~ *(completed 2026-03-05, QUALITY-005 — zero occurrences found, all clean)*
 - [ ] CSS custom property for focus transition timing — Add `--focus-transition-duration` to `variables.css` for independent control of focus animation speed (currently reuses `--transition-fast`)
 
 ---
@@ -512,6 +512,14 @@ _Extracted from implementation plan:_
 - [ ] Targeted `fetch-depth` for build job — `fetch-depth: 0` clones full history but adds CI time; consider `fetch-depth: 2` or a calculated depth sufficient for `git log -- index.html` accuracy (code review finding, confidence 50/100)
 - [ ] Named npm script for `update-sitemap` — Build sequence in CLAUDE.md lists `update-sitemap` alongside named scripts (`build:css`, `unhash`, etc.) but `package.json` uses inline `node scripts/update-sitemap.js &&`; adding a named script would match the established pattern
 - [ ] CLAUDE.md build job artifact list inconsistency — "Build job" line still reads `(index.html, 404.html, dist/)` but "Artifact" line was updated to include `sitemap.xml`; both lines describe the same artifact contents
+
+---
+
+## From QUALITY-005: Audit Remaining transition:all Usage (2026-03-05)
+**Origin**: docs/archive/plans/2026-03-05_quality-005-transition-all-audit.md
+
+- [ ] Stylelint rule to prevent `transition: all` — Add `declaration-property-value-disallowed-list` rule for `transition: all` to `.stylelintrc.json` to enforce explicit property lists at lint time
+- [ ] Document "no transition: all" convention — Add note to CLAUDE.md CSS conventions section clarifying that all transitions must use explicit property lists
 
 ---
 
