@@ -49,7 +49,9 @@ python -m http.server 8000
 npx serve
 ```
 
-**Build System**: PostCSS with `postcss-import` plugin bundles modular CSS files, then cssnano minifies (production only). Production builds (`npm run build`) run: `build:css` → `unhash` → `inline:css` → `hash:assets` → `report-sizes`. This generates content-hashed filenames (`dist/style.[hash].css`, `dist/main.[hash].js`) with critical CSS inlined in HTML. JS is minified by terser during the hash step. Watch mode (`npm run watch`) outputs unminified `dist/style.css` for debugging (restores HTML to non-inlined state).
+**Build System**: PostCSS with `postcss-import` plugin bundles modular CSS files, then cssnano minifies (production only). Production builds (`npm run build`) run: `update-sitemap` → `build:css` → `unhash` → `inline:css` → `hash:assets` → `report-sizes`. This generates content-hashed filenames (`dist/style.[hash].css`, `dist/main.[hash].js`) with critical CSS inlined in HTML. JS is minified by terser during the hash step. Watch mode (`npm run watch`) outputs unminified `dist/style.css` for debugging (restores HTML to non-inlined state).
+
+**Sitemap Auto-Update**: `scripts/update-sitemap.js` runs as the first step of `npm run build`. Reads the last git commit date for `index.html` via `git log -1 --format=%aI` and updates the `<lastmod>` field in `sitemap.xml`. Falls back to HEAD commit date for shallow clones. Exits gracefully (warning only) if no git date is available; exits with error if `sitemap.xml` is missing.
 
 **Build Size Reporting**: `scripts/report-sizes.js` runs as the final step of `npm run build`. Reports raw and gzip sizes for CSS (`dist/style.[hash].css`) and JS (`js/main.js` → `dist/main.[hash].js` showing src → min → gzip). Enforces size budgets: CSS gzip 20 KB, JS gzip 10 KB — prints a warning if either is exceeded. Exits with error if `dist/` is missing or hashed files are not found.
 
@@ -95,7 +97,8 @@ goodalex223/
 │   ├── hash-assets.js      # Cache-busting: minify JS (terser), hash CSS+JS, update HTML refs
 │   ├── inline-css.js       # Critical CSS inlining via Critters (--restore for dev mode)
 │   ├── report-sizes.js     # Build size report: raw + gzip sizes, budget warnings (CSS 20 KB, JS 10 KB)
-│   └── serve.js            # Minimal static file server for Playwright tests (port 4173)
+│   ├── serve.js            # Minimal static file server for Playwright tests (port 4173)
+│   └── update-sitemap.js   # Auto-update sitemap.xml lastmod from git history (runs first in build)
 ├── js/
 │   └── main.js             # Theme toggle, project filtering, scroll animations, copyright year
 ├── tests/
@@ -134,6 +137,7 @@ goodalex223/
 - [scripts/hash-assets.js](scripts/hash-assets.js) — Cache-busting: minify JS + hash CSS/JS
 - [scripts/inline-css.js](scripts/inline-css.js) — Critical CSS inlining (Critters wrapper)
 - [scripts/report-sizes.js](scripts/report-sizes.js) — Build size report: raw + gzip sizes, budget enforcement (CSS 20 KB, JS 10 KB)
+- [scripts/update-sitemap.js](scripts/update-sitemap.js) — Sitemap lastmod auto-updater (git-driven, first step of build)
 - [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
 - [.stylelintrc.json](.stylelintrc.json) — CSS linting configuration
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (lint → build → test → deploy)
@@ -384,7 +388,7 @@ Progressive reveal animations using Intersection Observer:
    - Shared `cleanInlineArtifacts()` function ensures idempotency
    - Validates CSS file exists before processing, warns if critters produces no output
 7. **Commands**:
-   - `npm run build` — Production: `build:css` → `unhash` → `inline:css` → `hash:assets` → `report-sizes`
+   - `npm run build` — Production: `update-sitemap` → `build:css` → `unhash` → `inline:css` → `hash:assets` → `report-sizes`
    - `npm run watch` — Development: restore inline CSS → unhash refs → PostCSS watch (unminified, no hashing)
 8. **Watch Mode**: `--restore` removes inline CSS artifacts, `--unhash` restores `dist/style.css` and `js/main.js` references
 9. **CSS Linting**: Stylelint validates CSS code quality and conventions
@@ -398,7 +402,7 @@ Progressive reveal animations using Intersection Observer:
     - Build job: `npm ci` → `npm run build` → upload build-output artifact (`index.html`, `404.html`, `dist/`)
     - Test job: checkout → `npm ci` → download build-output overlay → Playwright install → `npx playwright test --ignore-snapshots` → report upload
     - Deploy job: checkout → download build-output overlay → configure-pages → upload-pages-artifact → deploy-pages (only if build and test pass)
-    - Artifact: `build-output` (1-day retention) passes built HTML + `dist/` between jobs
+    - Artifact: `build-output` (1-day retention) passes built HTML + `sitemap.xml` + `dist/` between jobs
     - Concurrency: Single pages deployment group, cancels in-progress runs
 11. **HTML References**: Both `index.html` and `404.html` have inline `<style>` with critical CSS plus async `<link>` to `dist/style.[hash].css` (production) or normal `<link>` to `dist/style.css` (watch mode). JS: `<script src="dist/main.[hash].js">` (production) or `<script src="js/main.js">` (watch mode)
 12. **Git Ignore**: `dist/`, `test-results/`, `playwright-report/` excluded from version control
