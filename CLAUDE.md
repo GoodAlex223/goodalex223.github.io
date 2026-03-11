@@ -42,6 +42,9 @@ npm run test:ui
 # Run tests with visible browser
 npm run test:headed
 
+# Run Lighthouse CI audit (performance, accessibility, best-practices, SEO)
+npm run lighthouse
+
 # Start local server (Python)
 python -m http.server 8000
 
@@ -63,7 +66,9 @@ npx serve
 
 **CSS Linting**: Stylelint validates CSS code style and conventions. Configured via `.stylelintrc.json` with BEM naming enforcement, kebab-case for custom properties, and modern color notation. Linting runs locally (`npm run lint:css`) and in CI pipeline before build.
 
-**Deployment**: Automatic via GitHub Actions on push to `main` branch. Workflow runs lint → build → test → deploy sequence. Linting and tests must pass before deployment proceeds.
+**Lighthouse CI**: `npm run lighthouse` runs `lhci autorun` using `lighthouserc.js`. Audits 3 times against the local test server (desktop preset, `throttlingMethod: "provided"`), takes the median, and fails if any category (performance, accessibility, best-practices, seo) drops below 90/100. Reports saved to `.lighthouseci/` (gitignored).
+
+**Deployment**: Automatic via GitHub Actions on push to `main` branch. Workflow runs lint → build → (test + lighthouse in parallel) → deploy. Linting, tests, and Lighthouse audit must all pass before deployment proceeds.
 
 <!-- END AUTO-MANAGED -->
 
@@ -79,7 +84,9 @@ goodalex223/
 ├── site.webmanifest        # PWA manifest (app name, icons, theme colors)
 ├── package.json            # NPM dependencies and build scripts
 ├── postcss.config.js       # PostCSS configuration (postcss-import plugin)
+├── lighthouserc.js         # Lighthouse CI configuration (≥90/100 all categories, desktop preset)
 ├── .stylelintrc.json       # Stylelint configuration (CSS linting rules)
+├── .mcp.json.example       # MCP server config template (memory, context7, playwright, github)
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml      # GitHub Actions CI/CD pipeline
@@ -140,7 +147,9 @@ goodalex223/
 - [scripts/update-sitemap.js](scripts/update-sitemap.js) — Sitemap lastmod auto-updater (git-driven, first step of build)
 - [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
 - [.stylelintrc.json](.stylelintrc.json) — CSS linting configuration
-- [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (lint → build → test → deploy)
+- [.mcp.json.example](.mcp.json.example) — MCP server config template (copy to `.mcp.json`, configure memory/context7/playwright/github servers)
+- [lighthouserc.js](lighthouserc.js) — Lighthouse CI config: 3 runs, desktop preset, ≥90 threshold for all 4 categories
+- [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (lint → build → test + lighthouse → deploy)
 - [tests/pages/FilterPage.js](tests/pages/FilterPage.js) — Page Object Model for tests
 - [docs/SEO_TESTING.md](docs/SEO_TESTING.md) — Social card & SEO validation checklist
 - [robots.txt](robots.txt) — Search engine crawler directives
@@ -396,16 +405,17 @@ Progressive reveal animations using Intersection Observer:
    - Enforces BEM naming, kebab-case for custom properties and keyframes
    - Requires modern color functions with numeric alpha values
    - Runs in CI before build step to catch style violations early
-10. **CI/CD**: GitHub Actions workflow with 4 separate jobs: lint → build → test → deploy
+10. **CI/CD**: GitHub Actions workflow with 5 separate jobs: lint → build → (test + lighthouse in parallel) → deploy
     - Workflow: `.github/workflows/deploy.yml`
     - Lint job: `npm ci` → `npm run lint:css` (gates build)
     - Build job: `npm ci` → `npm run build` → upload build-output artifact (`index.html`, `404.html`, `sitemap.xml`, `dist/`)
-    - Test job: checkout → `npm ci` → download build-output overlay → Playwright install → `npx playwright test --ignore-snapshots` → report upload
-    - Deploy job: checkout → download build-output overlay → configure-pages → upload-pages-artifact → deploy-pages (only if build and test pass)
+    - Test job: checkout → `npm ci` → download build-output overlay → Playwright install → `npx playwright test --ignore-snapshots` → upload `playwright-report` artifact (7-day retention)
+    - Lighthouse job: checkout → `npm ci` → download build-output overlay → `npm run lighthouse` → upload `lighthouse-report` artifact (`.lighthouseci/`, 7-day retention)
+    - Deploy job: checkout → download build-output overlay → configure-pages → upload-pages-artifact → deploy-pages (only if build, test, and lighthouse all pass)
     - Artifact: `build-output` (1-day retention) passes built HTML + `sitemap.xml` + `dist/` between jobs
     - Concurrency: Single pages deployment group, cancels in-progress runs
 11. **HTML References**: Both `index.html` and `404.html` have inline `<style>` with critical CSS plus async `<link>` to `dist/style.[hash].css` (production) or normal `<link>` to `dist/style.css` (watch mode). JS: `<script src="dist/main.[hash].js">` (production) or `<script src="js/main.js">` (watch mode)
-12. **Git Ignore**: `dist/`, `test-results/`, `playwright-report/` excluded from version control
+12. **Git Ignore**: `dist/`, `test-results/`, `playwright-report/`, `.lighthouseci/` excluded from version control
 
 ### Testing Pattern
 **Playwright End-to-End Tests**: Comprehensive test suite validating interactive features
@@ -480,6 +490,17 @@ Progressive reveal animations using Intersection Observer:
 - **Size**: index.html ~16 KB inline CSS, 404.html ~8 KB inline CSS (14 KB TCP slow-start guideline noted)
 - **Idempotency**: `cleanInlineArtifacts()` shared function removes all critters artifacts before re-processing
 - **Development**: `--restore` mode strips inline CSS for watch mode debugging
+
+### Lighthouse CI Pattern
+**Automated performance and quality gate**: `@lhci/cli` audits the built site on every CI run
+- **Config**: `lighthouserc.js` — 3 runs, median score used
+- **Thresholds**: All 4 categories must score ≥90/100: performance, accessibility, best-practices, seo
+- **Server**: Reuses `scripts/serve.js` on port 4173 (same server as Playwright tests)
+- **Preset**: Desktop with `throttlingMethod: "provided"` (disables simulated CPU/network throttle for stable CI scores)
+- **Chrome flags**: `--no-sandbox --disable-gpu` for headless runners
+- **Output**: `.lighthouseci/` directory (gitignored), uploaded as `lighthouse-report` artifact in CI
+- **CI gate**: Deploy job blocked until lighthouse job passes (`needs: [build, test, lighthouse]`)
+- **Local run**: `npm run lighthouse` (requires built `dist/` and runs its own server)
 
 ### SEO Configuration
 **robots.txt**: Controls search engine crawling

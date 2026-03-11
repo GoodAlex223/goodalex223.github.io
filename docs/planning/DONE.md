@@ -1,8 +1,24 @@
 # DONE
 
-**Last Updated**: 2026-03-05 (QUALITY-006 completed)
+**Last Updated**: 2026-03-11 (CHALLENGE-001 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-03-11
+
+### CHALLENGE-001: Lighthouse CI in GitHub Actions
+
+**Plan**: N/A (implemented via feature-dev workflow)
+**Summary**: Added Lighthouse CI as a new parallel job in the GitHub Actions pipeline. Runs 3 audits against the local test server (desktop preset), asserts all 4 categories >= 90/100, and gates deployment alongside Playwright tests. Site scores 100/100 on all categories.
+**Key Changes**:
+- `lighthouserc.js` — New LHCI config (3 runs, desktop preset, `startServerCommand`, per-category thresholds)
+- `.github/workflows/deploy.yml` — New `lighthouse` job (needs: build, parallel to test, gates deploy)
+- `package.json` — Added `@lhci/cli` devDependency and `npm run lighthouse` script
+- `.gitignore` — Added `.lighthouseci/`
+- `CLAUDE.md` — Documented Lighthouse CI pattern, updated build system and architecture sections
+**Spawned Tasks**: 2 items added to BACKLOG.md
 
 ---
 

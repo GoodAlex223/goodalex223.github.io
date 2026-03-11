@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-03-05 (QUALITY-005 completed)
+**Last Updated**: 2026-03-11 (CHALLENGE-001 completed)
 
 Future ideas and improvements for the portfolio.
 
@@ -163,7 +163,7 @@ Future ideas and improvements for the portfolio.
 **Origin**: docs/archive/plans/2026-02-02_perf-002-font-preload-hint.md
 
 - [ ] Inline critical CSS — Inline above-the-fold styles in `<head>` and load full CSS asynchronously for faster first paint
-- [ ] Monitor with Lighthouse CI — Set up automated Lighthouse checks to catch performance regressions
+- [x] ~~Monitor with Lighthouse CI~~ *(completed 2026-03-11, CHALLENGE-001 — `@lhci/cli` in CI pipeline, all categories >= 90)*
 
 ### From PERF-003: Bundle CSS Files (2026-02-03)
 **Origin**: docs/planning/plans/2026-02-03_perf-003-bundle-css.md
@@ -437,7 +437,7 @@ Future ideas and improvements for the portfolio.
 ## Technical Debt
 
 - [ ] Add automated link checking
-- [ ] Set up Lighthouse CI
+- [x] ~~Set up Lighthouse CI~~ *(completed 2026-03-11, CHALLENGE-001)*
 - [ ] Create development build script
 - [x] ~~Add CSS linting (Stylelint)~~ *(completed 2026-02-16, TEST-003)*
 
@@ -530,6 +530,14 @@ _Extracted from implementation plan:_
 - [ ] HTML size reporting — Add `index.html` and `404.html` to the size report (both contain ~16 KB and ~8 KB inlined critical CSS respectively); complements existing inline CSS warnings
 - [ ] CI budget enforcement — Make the build fail (exit code 1) if gzip budgets are exceeded in CI, rather than just warning; keep soft warnings for local development
 - [ ] Extract shared `HASH_LENGTH` constant — `report-sizes.js` and `hash-assets.js` both hardcode `HASH_LENGTH = 8` independently; extract to a shared `scripts/config.js` module to eliminate silent drift risk (code review finding, confidence 72/100)
+
+---
+
+## From CHALLENGE-001: Lighthouse CI in GitHub Actions (2026-03-11)
+**Origin**: CHALLENGE-001 implementation
+
+- [ ] Mobile Lighthouse preset option — Add `npm run lighthouse:mobile` script with `preset: "perf"` (mobile) for occasional mobile performance audits alongside the desktop CI gate
+- [ ] Lighthouse score trend tracking — Log per-category scores to `docs/lighthouse-history.json` after each CI run for historical regression visibility (mirrors `size-history.json` idea from PERF-008)
 
 ---
 
