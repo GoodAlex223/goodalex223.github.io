@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-05 (QUALITY-006 completed)
+**Last Updated**: 2026-03-11 (CHALLENGE-001 completed)
 
 ---
 
@@ -12,9 +12,9 @@ _None currently_
 
 ## Recently Completed
 
+- **CHALLENGE-001**: Lighthouse CI in GitHub Actions → moved to [DONE.md](DONE.md)
 - **QUALITY-006**: Test Server Error Handling → moved to [DONE.md](DONE.md)
 - **QUALITY-005**: Audit Remaining transition:all Usage → moved to [DONE.md](DONE.md)
-- **SEO-007**: Automate Sitemap lastmod Updates → moved to [DONE.md](DONE.md)
 
 ---
 
@@ -38,14 +38,7 @@ _None currently_
 
 ## Weekly Challenge
 
-### CHALLENGE-001: Lighthouse CI in GitHub Actions
-**Source**: BACKLOG.md (from PERF-002), ROADMAP.md "Ongoing: Performance monitoring"
-**Description**: Set up automated Lighthouse checks in the CI pipeline using `@lhci/cli`. Runs after deployment and alerts if performance scores drop below budget thresholds. Builds on last week's build tooling focus.
-**Acceptance Criteria**:
-- [ ] Lighthouse CI runs on every push to main
-- [ ] Performance budget: all scores >= 90
-- [ ] Results visible in PR checks or CI output
-- [ ] Alerts on score regression
+_None currently_
 
 ---
 
