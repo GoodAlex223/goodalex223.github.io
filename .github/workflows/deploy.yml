@@ -157,13 +157,20 @@ jobs:
         with:
           name: build-output
 
+      - name: Stage production files
+        run: |
+          mkdir _site
+          cp index.html 404.html 404.webp robots.txt sitemap.xml site.webmanifest _site/
+          cp favicon*.* apple-touch-icon.png og-image.png web-app-manifest-*.png _site/
+          cp -r dist/ fonts/ images/ _site/
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: '.'
+          path: '_site'
 
       - name: Deploy to GitHub Pages
         id: deployment
