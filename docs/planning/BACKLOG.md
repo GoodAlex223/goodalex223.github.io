@@ -374,7 +374,7 @@ Future ideas and improvements for the portfolio.
 ## From CI-001: Separate CI Workflow Jobs (2026-02-24)
 **Origin**: CI-001 implementation
 
-- [ ] Narrow Pages deploy artifact path — `upload-pages-artifact` uses `path: '.'` which deploys entire repo checkout (source CSS, JS, scripts, tests, docs, learning projects); consider staging only built output (`index.html`, `404.html`, `dist/`, `fonts/`, `favicon*`, `robots.txt`, `sitemap.xml`, `site.webmanifest`) for a leaner deployment (code review finding, confidence 75/100)
+- [x] ~~Narrow Pages deploy artifact path~~ *(completed 2026-03-11, CI-002 — stages production files into `_site/` before upload)*
 - [ ] Fix CLAUDE.md CI test command reference — Build System Pattern item 10 documents test job as running `npm test` but actual CI command is `npx playwright test --ignore-snapshots`; the `--ignore-snapshots` flag is functionally significant (code review finding, confidence 75/100)
 - [ ] Update `playwright.config.js` CI comment — Line 26 says "CI builds CSS before running tests" but after CI-001 refactor, the test job downloads a pre-built artifact from the build job rather than building in the same job (code review finding, confidence 25/100)
 
@@ -540,6 +540,14 @@ _Extracted from implementation plan:_
 - [ ] Lighthouse score trend tracking — Log per-category scores to `docs/lighthouse-history.json` after each CI run for historical regression visibility (mirrors `size-history.json` idea from PERF-008)
 - [ ] Explicit Chrome install in lighthouse CI job — Lighthouse job relies on pre-installed Chrome on `ubuntu-latest` runner; adding explicit `npx playwright install --with-deps chromium` or similar would make it resilient to runner image changes (code review finding, confidence 50/100)
 - [ ] Fix `.gitignore` missing trailing newline — File lacks trailing newline after `.lighthouseci/` entry; pre-existing issue carried forward (code review finding, confidence 0/100)
+
+---
+
+## From CI-002: Narrow Pages Deploy Artifact Path (2026-03-11)
+**Origin**: CI-002 implementation
+
+- [ ] Skip checkout in deploy job — All static assets (fonts/, images/, favicon files, robots.txt, site.webmanifest, og-image.png, PWA icons) could be added to the build-output artifact in the build job, eliminating the checkout step in deploy entirely (checkout is the slowest step in the job)
+- [ ] Validate staged `_site/` contents — Add a CI step after staging that asserts expected files exist before upload (e.g., index.html, 404.html, hashed dist/ files, fonts/) — catches accidental glob mismatches silently failing
 
 ---
 
