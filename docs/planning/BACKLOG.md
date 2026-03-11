@@ -538,6 +538,8 @@ _Extracted from implementation plan:_
 
 - [ ] Mobile Lighthouse preset option — Add `npm run lighthouse:mobile` script with `preset: "perf"` (mobile) for occasional mobile performance audits alongside the desktop CI gate
 - [ ] Lighthouse score trend tracking — Log per-category scores to `docs/lighthouse-history.json` after each CI run for historical regression visibility (mirrors `size-history.json` idea from PERF-008)
+- [ ] Explicit Chrome install in lighthouse CI job — Lighthouse job relies on pre-installed Chrome on `ubuntu-latest` runner; adding explicit `npx playwright install --with-deps chromium` or similar would make it resilient to runner image changes (code review finding, confidence 50/100)
+- [ ] Fix `.gitignore` missing trailing newline — File lacks trailing newline after `.lighthouseci/` entry; pre-existing issue carried forward (code review finding, confidence 0/100)
 
 ---
 
