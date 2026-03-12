@@ -474,6 +474,8 @@ _Extracted from implementation plan:_
 - [ ] OG image HTTP validation — Test that `og:image` URL returns HTTP 200 with correct Content-Type (requires network request in test)
 - [ ] Add symmetric null guards in cross-tag consistency tests — Only OG values are guarded with `not.toBeNull()`; add matching guards for Twitter tag values to produce clearer error messages when a Twitter tag is missing (code review finding, confidence 65/100)
 - [ ] Add JSON-LD script tag existence guard in `getGraph()` — `JSON.parse(null)` produces cryptic TypeError; add `expect(raw).toBeTruthy()` before parsing for clearer failure when script tag is missing (code review finding, confidence 62/100)
+- [ ] Add `toBeDefined()` guards to Person/WebSite sub-tests — 5 Person tests and 1 WebSite test access `graph.find()` result without null guard; produces `TypeError` instead of clean assertion failure if schema type is removed (code review finding, confidence 45/100)
+- [ ] Add `.first()` to JSON-LD locator in `getGraph()` — `page.locator('script[type="application/ld+json"]').textContent()` throws strict mode violation if a second LD+JSON tag is ever added; defensive `.first()` would produce clearer behavior (code review finding, confidence 35/100)
 
 ---
 
