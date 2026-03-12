@@ -1,12 +1,21 @@
 # DONE
 
-**Last Updated**: 2026-03-12 (QUALITY-007 completed)
+**Last Updated**: 2026-03-12 (TEST-006 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-03-12
+
+### TEST-006: Automated OG Meta Tag Validation
+
+**Plan**: [docs/archive/plans/2026-03-12_test-006-og-meta-validation.md](docs/archive/plans/2026-03-12_test-006-og-meta-validation.md)
+**Summary**: Added 30 Playwright tests validating all OG/Twitter meta tags, core SEO tags, JSON-LD structured data, and cross-tag consistency in index.html. Catches regressions when HTML meta tags are modified.
+**Key Changes**:
+- `tests/seo/meta-tags.spec.js` — New test file with 5 test groups (Open Graph, Twitter Card, Core SEO, JSON-LD, Cross-tag Consistency)
+- `CLAUDE.md` — Updated architecture, testing pattern, and build commands sections
+**Spawned Tasks**: 2 items added to BACKLOG.md
 
 ### QUALITY-007: ESLint Integration for JavaScript
 

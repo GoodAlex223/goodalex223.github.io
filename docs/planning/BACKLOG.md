@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-03-12 (CI actions deprecation warning)
+**Last Updated**: 2026-03-12 (TEST-006 completed)
 
 Future ideas and improvements for the portfolio.
 
@@ -462,8 +462,16 @@ _Extracted from implementation plan:_
 ## From SEO-006: Social Card Preview Testing (2026-02-13)
 **Origin**: docs/archive/plans/2026-02-13_seo-006-social-card-preview-testing.md
 
-- [ ] Automated OG validation in CI — Add Playwright test that validates all OG/Twitter meta tags are present and correctly formatted post-deploy
+- [x] ~~Automated OG validation in CI~~ *(completed 2026-03-12, TEST-006 — 30 Playwright tests validating OG, Twitter Card, Core SEO, JSON-LD, and cross-tag consistency)*
 - [ ] Facebook Sharing Debugger validation — Use official Facebook tool (requires account) for authoritative cache-clear and preview validation
+
+---
+
+## From TEST-006: Automated OG Meta Tag Validation (2026-03-12)
+**Origin**: docs/archive/plans/2026-03-12_test-006-og-meta-validation.md
+
+- [ ] 404.html negative test — Add test verifying 404.html intentionally omits OG/Twitter/JSON-LD tags (catches accidental addition)
+- [ ] OG image HTTP validation — Test that `og:image` URL returns HTTP 200 with correct Content-Type (requires network request in test)
 
 ---
 

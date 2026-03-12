@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-12 (QUALITY-007 completed)
+**Last Updated**: 2026-03-12 (TEST-006 completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **TEST-006**: Automated OG Meta Tag Validation → moved to [DONE.md](DONE.md)
 - **QUALITY-007**: ESLint Integration for JavaScript → moved to [DONE.md](DONE.md)
 - **CHALLENGE-001**: Lighthouse CI in GitHub Actions → moved to [DONE.md](DONE.md)
 - **QUALITY-006**: Test Server Error Handling → moved to [DONE.md](DONE.md)
@@ -21,11 +22,6 @@ _None currently_
 ## High Priority
 
 ## Medium Priority
-
-### TEST-006: Automated OG Meta Tag Validation
-**Source**: BACKLOG.md → From SEO-006
-**Goal**: Add Playwright test that validates all 16 OG/Twitter meta tags are present and correctly formatted. Catches regressions when HTML is modified.
-**Day**: Wednesday March 19
 
 ### QUALITY-008: Stylelint Rule to Prevent `transition: all`
 **Source**: BACKLOG.md → From QUALITY-005
