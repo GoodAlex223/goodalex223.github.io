@@ -71,7 +71,7 @@ npx serve
 
 **Cache-Busting**: `scripts/hash-assets.js` computes SHA-256 hashes of built CSS and JS, renames files to `style.[hash].css` and `main.[hash].js` in `dist/`, and updates HTML references in `index.html` and `404.html`. JS is minified by terser before hashing. Watch mode unhashes references for easier development.
 
-**Testing**: Playwright end-to-end tests validate filter functionality, animations, accessibility, keyboard navigation, and URL hash integration. Test server (`scripts/serve.js`) runs on port 4173. Tests use Page Object Model pattern (`FilterPage.js`) and timing utilities that read CSS custom properties.
+**Testing**: Playwright end-to-end tests validate filter functionality, animations, accessibility, keyboard navigation, URL hash integration, and SEO meta tags (Open Graph, Twitter Card, JSON-LD). Test server (`scripts/serve.js`) runs on port 4173. Tests use Page Object Model pattern (`FilterPage.js`) and timing utilities that read CSS custom properties.
 
 **CSS Linting**: Stylelint validates CSS code style and conventions. Configured via `.stylelintrc.json` with BEM naming enforcement, kebab-case for custom properties, and modern color notation. Linting runs locally (`npm run lint:css`) and in CI pipeline before build.
 
@@ -131,6 +131,8 @@ goodalex223/
 │   │   ├── rapid-clicks.spec.js       # Rapid interaction handling
 │   │   ├── axe-scan.spec.js           # WCAG 2.1 AA accessibility scanning (axe-core)
 │   │   └── reduced-motion.spec.js     # Reduced motion: visibility, filter function, WCAG scans
+│   ├── seo/
+│   │   └── meta-tags.spec.js  # SEO meta tag validation (OG, Twitter Card, JSON-LD, canonical)
 │   ├── pages/
 │   │   └── FilterPage.js   # Page Object Model for filter system
 │   └── utils/
@@ -426,11 +428,11 @@ Progressive reveal animations using Intersection Observer:
    - Enforces BEM naming, kebab-case for custom properties and keyframes
    - Requires modern color functions with numeric alpha values
    - Runs in CI before build step to catch style violations early
-9b. **JS Linting**: ESLint v9 flat config validates JavaScript across all environments
+10. **JS Linting**: ESLint v9 flat config validates JavaScript across all environments
    - Configuration: `eslint.config.js` (CJS format, three environment blocks)
    - Rules: `eslint:recommended`, `no-var`, `prefer-const`
    - lint-staged auto-fixes `*.js` on commit; CI runs `npm run lint:js` before build
-10. **CI/CD**: GitHub Actions workflow with 5 separate jobs: lint → build → (test + lighthouse in parallel) → deploy
+11. **CI/CD**: GitHub Actions workflow with 5 separate jobs: lint → build → (test + lighthouse in parallel) → deploy
     - Workflow: `.github/workflows/deploy.yml`
     - Lint job: `npm ci` → `npm run lint:css` → `npm run lint:js` (gates build)
     - Build job: `npm ci` → `npm run build` → upload build-output artifact (`index.html`, `404.html`, `sitemap.xml`, `dist/`)
@@ -439,8 +441,8 @@ Progressive reveal animations using Intersection Observer:
     - Deploy job: checkout → download build-output overlay → stage production files into `_site/` (copies HTML, 404.webp, favicon, OG image, manifest, robots.txt, sitemap.xml, dist/, fonts/, images/) → configure-pages → upload-pages-artifact (`_site`) → deploy-pages (only if build, test, and lighthouse all pass)
     - Artifact: `build-output` (1-day retention) passes built HTML + `sitemap.xml` + `dist/` between jobs
     - Concurrency: Single pages deployment group, cancels in-progress runs
-11. **HTML References**: Both `index.html` and `404.html` have inline `<style>` with critical CSS plus async `<link>` to `dist/style.[hash].css` (production) or normal `<link>` to `dist/style.css` (watch mode). JS: `<script src="dist/main.[hash].js">` (production) or `<script src="js/main.js">` (watch mode)
-12. **Git Ignore**: `dist/`, `test-results/`, `playwright-report/`, `.lighthouseci/` excluded from version control
+12. **HTML References**: Both `index.html` and `404.html` have inline `<style>` with critical CSS plus async `<link>` to `dist/style.[hash].css` (production) or normal `<link>` to `dist/style.css` (watch mode). JS: `<script src="dist/main.[hash].js">` (production) or `<script src="js/main.js">` (watch mode)
+13. **Git Ignore**: `dist/`, `test-results/`, `playwright-report/`, `.lighthouseci/` excluded from version control
 
 ### Testing Pattern
 **Playwright End-to-End Tests**: Comprehensive test suite validating interactive features
@@ -478,6 +480,7 @@ Progressive reveal animations using Intersection Observer:
    - **rapid-clicks.spec.js**: Race conditions, animation interruption, state consistency
    - **axe-scan.spec.js**: WCAG 2.1 AA compliance scanning (page load, all filters, toggle-to-reset, keyboard nav, URL hash, explicit light theme, explicit dark theme)
    - **reduced-motion.spec.js**: Reduced motion accessibility — element visibility (`[data-animate]` at opacity 1), filter function without animations, toggle-to-reset, URL hash, WCAG 2.1 AA scans (page load, active filter, light theme, dark theme); `enableReducedMotion()` called BEFORE `goto()` so CSS media query is active at page load
+   - **seo/meta-tags.spec.js**: SEO meta tag validation — Open Graph (8 tags), Twitter Card (5 tags), core SEO (title, description, canonical), JSON-LD structured data (Person + WebSite schemas), and cross-tag consistency checks; uses `EXPECTED` constants object as single source of truth; direct locators via `ogMeta()`/`namedMeta()` helpers (no Page Object Model)
 7. **CI Integration**: Tests run after build job, before deployment
    - `forbidOnly: true` in CI prevents `.only()` commits
    - 2 retries for flaky tests in CI
