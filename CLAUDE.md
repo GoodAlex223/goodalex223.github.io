@@ -27,6 +27,15 @@ npm run lint:css
 # Lint CSS and auto-fix issues
 npm run lint:css:fix
 
+# Lint JS (check for violations)
+npm run lint:js
+
+# Lint JS and auto-fix issues
+npm run lint:js:fix
+
+# Lint both CSS and JS
+npm run lint
+
 # Build CSS and JS with cache-busting (bundles + minifies + content hashes)
 npm run build
 
@@ -66,9 +75,11 @@ npx serve
 
 **CSS Linting**: Stylelint validates CSS code style and conventions. Configured via `.stylelintrc.json` with BEM naming enforcement, kebab-case for custom properties, and modern color notation. Linting runs locally (`npm run lint:css`) and in CI pipeline before build.
 
+**JS Linting**: ESLint v9 flat config (`eslint.config.js`) validates JavaScript across three environments: browser ES6+ (`js/**/*.js`), Node.js CommonJS (`scripts/**/*.js`), and Playwright ESM tests (`tests/**/*.js`). Rules: `eslint:recommended` + `no-var` + `prefer-const`. Runs locally (`npm run lint:js`) and in CI before build. Auto-fixes on commit via lint-staged.
+
 **Lighthouse CI**: `npm run lighthouse` runs `lhci autorun` using `lighthouserc.js`. Audits 3 times against the local test server (desktop preset, `throttlingMethod: "provided"`), takes the median, and fails if any category (performance, accessibility, best-practices, seo) drops below 90/100. Reports saved to `.lighthouseci/` (gitignored).
 
-**Deployment**: Automatic via GitHub Actions on push to `main` branch. Workflow runs lint → build → (test + lighthouse in parallel) → deploy. Linting, tests, and Lighthouse audit must all pass before deployment proceeds.
+**Deployment**: Automatic via GitHub Actions on push to `main` branch. Workflow runs lint (CSS + JS) → build → (test + lighthouse in parallel) → deploy. Linting, tests, and Lighthouse audit must all pass before deployment proceeds.
 
 <!-- END AUTO-MANAGED -->
 
@@ -86,6 +97,7 @@ goodalex223/
 ├── postcss.config.js       # PostCSS configuration (postcss-import plugin)
 ├── lighthouserc.js         # Lighthouse CI configuration (≥90/100 all categories, desktop preset)
 ├── .stylelintrc.json       # Stylelint configuration (CSS linting rules)
+├── eslint.config.js        # ESLint v9 flat config (browser/Node CJS/Node ESM environments)
 ├── .mcp.json.example       # MCP server config template (memory, context7, playwright, github)
 ├── .github/
 │   └── workflows/
@@ -147,6 +159,7 @@ goodalex223/
 - [scripts/update-sitemap.js](scripts/update-sitemap.js) — Sitemap lastmod auto-updater (git-driven, first step of build)
 - [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
 - [.stylelintrc.json](.stylelintrc.json) — CSS linting configuration
+- [eslint.config.js](eslint.config.js) — ESLint v9 flat config (three environment blocks: browser, Node CJS, Playwright ESM)
 - [.mcp.json.example](.mcp.json.example) — MCP server config template (copy to `.mcp.json`, configure memory/context7/playwright/github servers)
 - [lighthouserc.js](lighthouserc.js) — Lighthouse CI config: 3 runs, desktop preset, ≥90 threshold for all 4 categories
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (lint → build → test + lighthouse → deploy)
@@ -176,6 +189,14 @@ goodalex223/
 - Modern color functions (`rgb()`, `hsl()`) with numeric alpha values
 - Allows specific vendor prefixes: `-webkit-font-smoothing`, `-moz-osx-font-smoothing`, `-webkit-text-size-adjust`
 - Ignores `dist/` directory (generated files)
+
+**JS Linting**: ESLint v9 flat config (`eslint.config.js`) enforces code quality across three environments:
+- `js/**/*.js` — browser ES6+ script (`sourceType: "script"`, browser globals)
+- `scripts/**/*.js` — Node.js CommonJS build utilities (`sourceType: "commonjs"`, node globals)
+- `tests/**/*.js` — Playwright test files (`sourceType: "module"`, node + browser globals — browser globals needed for `page.evaluate()` callbacks)
+- Rules: `eslint:recommended` + `no-var: error` + `prefer-const: error`
+- lint-staged: `*.js` files auto-fixed on commit via husky
+- Ignores: `dist/**`, `node_modules/**`
 
 ### CSS Architecture
 CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/style.css`:
@@ -405,13 +426,17 @@ Progressive reveal animations using Intersection Observer:
    - Enforces BEM naming, kebab-case for custom properties and keyframes
    - Requires modern color functions with numeric alpha values
    - Runs in CI before build step to catch style violations early
+9b. **JS Linting**: ESLint v9 flat config validates JavaScript across all environments
+   - Configuration: `eslint.config.js` (CJS format, three environment blocks)
+   - Rules: `eslint:recommended`, `no-var`, `prefer-const`
+   - lint-staged auto-fixes `*.js` on commit; CI runs `npm run lint:js` before build
 10. **CI/CD**: GitHub Actions workflow with 5 separate jobs: lint → build → (test + lighthouse in parallel) → deploy
     - Workflow: `.github/workflows/deploy.yml`
-    - Lint job: `npm ci` → `npm run lint:css` (gates build)
+    - Lint job: `npm ci` → `npm run lint:css` → `npm run lint:js` (gates build)
     - Build job: `npm ci` → `npm run build` → upload build-output artifact (`index.html`, `404.html`, `sitemap.xml`, `dist/`)
     - Test job: checkout → `npm ci` → download build-output overlay → Playwright install → `npx playwright test --ignore-snapshots` → upload `playwright-report` artifact (7-day retention)
     - Lighthouse job: checkout → `npm ci` → download build-output overlay → `npm run lighthouse` → upload `lighthouse-report` artifact (`.lighthouseci/`, 7-day retention)
-    - Deploy job: checkout → download build-output overlay → configure-pages → upload-pages-artifact → deploy-pages (only if build, test, and lighthouse all pass)
+    - Deploy job: checkout → download build-output overlay → stage production files into `_site/` (copies HTML, 404.webp, favicon, OG image, manifest, robots.txt, sitemap.xml, dist/, fonts/, images/) → configure-pages → upload-pages-artifact (`_site`) → deploy-pages (only if build, test, and lighthouse all pass)
     - Artifact: `build-output` (1-day retention) passes built HTML + `sitemap.xml` + `dist/` between jobs
     - Concurrency: Single pages deployment group, cancels in-progress runs
 11. **HTML References**: Both `index.html` and `404.html` have inline `<style>` with critical CSS plus async `<link>` to `dist/style.[hash].css` (production) or normal `<link>` to `dist/style.css` (watch mode). JS: `<script src="dist/main.[hash].js">` (production) or `<script src="js/main.js">` (watch mode)
