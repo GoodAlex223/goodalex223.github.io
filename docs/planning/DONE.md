@@ -1,12 +1,21 @@
 # DONE
 
-**Last Updated**: 2026-03-12 (TEST-006 completed)
+**Last Updated**: 2026-03-12 (QUALITY-008 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-03-12
+
+### QUALITY-008: Stylelint Rule to Prevent `transition: all`
+
+**Plan**: [docs/archive/plans/2026-03-12_quality-008-stylelint-transition-all.md](docs/archive/plans/2026-03-12_quality-008-stylelint-transition-all.md)
+**Summary**: Added Stylelint `declaration-property-value-disallowed-list` rule blocking `transition: all` and `transition-property: all` with word-boundary regex. Preventive guard — zero existing violations. Documented convention in CLAUDE.md.
+**Key Changes**:
+- `.stylelintrc.json` — New `declaration-property-value-disallowed-list` rule with custom error message
+- `CLAUDE.md` — Documented rule in CSS Linting section and Build System Pattern
+**Spawned Tasks**: 2 items added to BACKLOG.md
 
 ### TEST-006: Automated OG Meta Tag Validation
 
