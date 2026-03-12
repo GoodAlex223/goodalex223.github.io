@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import { FilterPage, CATEGORY_COUNTS } from "../pages/FilterPage.js";
 import { waitForFilterAnimation } from "../utils/timing.js";
 
@@ -9,7 +9,7 @@ test.describe("URL Hash Integration", () => {
     fp = new FilterPage(page);
   });
 
-  test("loads with hash filter applied on page load", async ({ page }) => {
+  test("loads with hash filter applied on page load", async () => {
     await fp.gotoWithHash("backend");
 
     await fp.expectVisibleCardCount(CATEGORY_COUNTS.backend);
@@ -17,21 +17,21 @@ test.describe("URL Hash Integration", () => {
     await fp.expectButtonPressed("backend", true);
   });
 
-  test("invalid hash defaults to showing all", async ({ page }) => {
+  test("invalid hash defaults to showing all", async () => {
     await fp.gotoWithHash("invalid");
 
     await fp.expectVisibleCardCount(CATEGORY_COUNTS.all);
     await fp.expectActiveFilter("all");
   });
 
-  test("updates URL hash when filter is clicked", async ({ page }) => {
+  test("updates URL hash when filter is clicked", async () => {
     await fp.goto();
     await fp.clickFilter("tools");
 
     await fp.expectUrlHash("filter=tools");
   });
 
-  test("clears hash when reset to all", async ({ page }) => {
+  test("clears hash when reset to all", async () => {
     await fp.goto();
     await fp.clickFilter("web");
     await fp.expectUrlHash("filter=web");

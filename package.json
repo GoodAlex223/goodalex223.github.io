@@ -14,18 +14,25 @@
     "test:headed": "playwright test --headed",
     "lint:css": "stylelint \"css/**/*.css\"",
     "lint:css:fix": "stylelint \"css/**/*.css\" --fix",
+    "lint:js": "eslint \"js/**/*.js\" \"scripts/**/*.js\" \"tests/**/*.js\"",
+    "lint:js:fix": "eslint \"js/**/*.js\" \"scripts/**/*.js\" \"tests/**/*.js\" --fix",
+    "lint": "npm run lint:css && npm run lint:js",
     "lighthouse": "lhci autorun",
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.css": "stylelint --fix"
+    "*.css": "stylelint --fix",
+    "*.js": "eslint --fix"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",
+    "@eslint/js": "^10.0.1",
     "@lhci/cli": "^0.14.0",
     "@playwright/test": "^1.58.2",
     "critters": "^0.0.23",
     "cssnano": "^7.1.2",
+    "eslint": "^10.0.3",
+    "globals": "^17.4.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "postcss": "^8.4.49",

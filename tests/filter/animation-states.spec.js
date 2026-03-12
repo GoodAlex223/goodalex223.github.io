@@ -1,9 +1,5 @@
 import { test, expect } from "@playwright/test";
 import { FilterPage, CATEGORY_COUNTS } from "../pages/FilterPage.js";
-import {
-  getAnimationDuration,
-  waitForFilterAnimation,
-} from "../utils/timing.js";
 
 test.describe("Animation States", () => {
   let fp;
@@ -49,9 +45,7 @@ test.describe("Animation States", () => {
     expect(count).toBeGreaterThan(0);
   });
 
-  test("hidden cards use position absolute and visibility hidden", async ({
-    page,
-  }) => {
+  test("hidden cards use position absolute and visibility hidden", async () => {
     await fp.clickFilter("backend");
 
     const hidden = fp.hiddenCards.first();

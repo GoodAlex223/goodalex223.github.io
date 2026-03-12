@@ -1,8 +1,24 @@
 # DONE
 
-**Last Updated**: 2026-03-11 (CI-002 completed)
+**Last Updated**: 2026-03-12 (QUALITY-007 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-03-12
+
+### QUALITY-007: ESLint Integration for JavaScript
+
+**Plan**: [docs/archive/plans/2026-03-12_quality-007-eslint.md](docs/archive/plans/2026-03-12_quality-007-eslint.md)
+**Summary**: Added ESLint v9 flat config with three environment blocks (browser ES6+, Node.js CJS, Playwright ESM). Rules: `eslint:recommended` + `no-var` + `prefer-const`. Integrated into CI, lint-staged, and combined `npm run lint` script.
+**Key Changes**:
+- `eslint.config.js` — New ESLint v9 flat config with per-directory sourceType and globals
+- `package.json` — Added `lint:js`, `lint:js:fix`, `lint` scripts + `*.js` lint-staged entry
+- `.github/workflows/deploy.yml` — Added `Lint JS` step to lint job
+- `js/main.js` — Fixed unused catch bindings (`catch(e)` → `catch`)
+- Test files — Removed unused imports and parameters (3 files)
+**Spawned Tasks**: 3 items added to BACKLOG.md
 
 ---
 

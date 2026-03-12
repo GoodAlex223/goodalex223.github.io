@@ -411,7 +411,7 @@ Future ideas and improvements for the portfolio.
 **Origin**: PERF-007 implementation
 
 - [ ] Source maps for minified JS — Add terser `sourceMap` option for debugging minified JS in production (mirror CSS source map discussion from PERF-004)
-- [ ] ESLint integration — Add ESLint for JS linting in pre-commit hook and CI, similar to how Stylelint validates CSS (QUALITY-004 extended lint-staged item)
+- [x] ~~ESLint integration~~ *(completed 2026-03-12, QUALITY-007 — ESLint v9 flat config with three environment blocks)*
 - [ ] Watch mode JS file sync — Currently watch mode references `js/main.js` directly; consider a file watcher that copies to `dist/main.js` on change for consistent `dist/` references across modes
 - [ ] Restore post-write validation — Old `hash-css.js` had "Step 4: Validate final state" checking hashed file exists and HTML refs updated; `hash-assets.js` dropped this safety net (code review finding, confidence 75/100)
 - [ ] Atomic CSS rename — `hash-assets.js` uses `unlinkSync` + `writeFileSync` for CSS instead of atomic `renameSync`; if `writeFileSync` throws after `unlinkSync`, source file is lost (code review finding, confidence 75/100)
@@ -491,7 +491,8 @@ _Extracted from implementation plan:_
 ## From QUALITY-004: Pre-commit Hook with Husky (2026-02-17)
 **Origin**: docs/archive/plans/2026-02-17_quality-004-pre-commit-hook-husky.md
 
-- [ ] Extend lint-staged with more linters — Add `"*.js": "eslint --fix"` and/or `"*.html": "prettier --write"` when JS/HTML linting tools are adopted
+- [x] ~~Extend lint-staged with ESLint~~ *(completed 2026-03-12, QUALITY-007 — `"*.js": "eslint --fix"` added to lint-staged)*
+- [ ] Extend lint-staged with Prettier — Add `"*.html": "prettier --write"` when HTML formatting is adopted
 - [ ] commitlint for conventional commits — Add `@commitlint/cli` with `commit-msg` husky hook to enforce conventional commit message format (feat:, fix:, docs:, etc.)
 
 ---
@@ -549,6 +550,15 @@ _Extracted from implementation plan:_
 - [ ] Skip checkout in deploy job — All static assets (fonts/, images/, favicon files, robots.txt, site.webmanifest, og-image.png, PWA icons) could be added to the build-output artifact in the build job, eliminating the checkout step in deploy entirely (checkout is the slowest step in the job)
 - [ ] Validate staged `_site/` contents — Add a CI step after staging that asserts expected files exist before upload (e.g., index.html, 404.html, hashed dist/ files, fonts/) — catches accidental glob mismatches silently failing
 - [ ] Update CLAUDE.md deploy step description to include `404.webp` — CLAUDE.md line 414 lists staged files as "HTML, favicon, OG image, manifest, robots.txt, sitemap.xml, dist/, fonts/, images/" but omits `404.webp`; surfaced during code review
+
+---
+
+## From QUALITY-007: ESLint Integration (2026-03-12)
+**Origin**: docs/archive/plans/2026-03-12_quality-007-eslint.md
+
+- [ ] Add `eslint-plugin-playwright` — Playwright-specific rules for test files (e.g., `no-conditional-in-test`, `prefer-web-first-assertions`)
+- [ ] Add `no-console` rule for browser code — `warn` level for `js/**/*.js` to catch accidental console.log in production code
+- [ ] Investigate flaky Firefox rapid-clicks test — `rapid-clicks.spec.js:25` intermittently fails on Firefox; timing-sensitive mid-exit animation assertion (pre-existing)
 
 ---
 

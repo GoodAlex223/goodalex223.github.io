@@ -56,7 +56,7 @@ function initThemeToggle() {
     if (save) {
       try {
         localStorage.setItem("theme", theme);
-      } catch (e) {
+      } catch {
         // localStorage unavailable (private browsing) - continue without persistence
       }
     }
@@ -86,7 +86,7 @@ function initThemeToggle() {
   let savedTheme = null;
   try {
     savedTheme = localStorage.getItem("theme");
-  } catch (e) {
+  } catch {
     // localStorage unavailable (private browsing)
   }
   if (savedTheme) {
