@@ -562,6 +562,15 @@ _Extracted from implementation plan:_
 
 ---
 
+## From QUALITY-007 Code Review (2026-03-12)
+**Origin**: PR #41 code review findings (confidence 75/100)
+
+- [ ] Remove stale plan copy `docs/planning/plans/2026-03-12_quality-007-eslint.md` — archived version exists in `docs/archive/plans/`, the in-progress copy should have been deleted per task completion workflow (`mv`, not `cp`)
+- [ ] Fix `9b.` numbering in CLAUDE.md Build System Pattern list — should use sequential integers (renumber items 10-12 to 11-13, insert new JS linting item as 10)
+- [ ] Update deploy job description in CLAUDE.md — current text includes CI-002 staging details that were bundled into QUALITY-007 PR rather than committed separately
+
+---
+
 ## CI: Upgrade GitHub Actions to Node.js 24 (2026-03-12)
 **Origin**: CI deprecation warning observed in run #22980966380
 
