@@ -1,12 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-03-11 (CHALLENGE-001 completed)
+**Last Updated**: 2026-03-11 (CI-002 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-03-11
+
+### CI-002: Narrow Pages Deploy Artifact Path
+
+**Plan**: N/A (implemented via feature-dev workflow)
+**Summary**: Replaced `upload-pages-artifact path: '.'` (full repo checkout) with a staging step that copies only production assets into `_site/` before upload. Source files, tests, docs, and learning projects are now excluded from deployment.
+**Key Changes**:
+- `.github/workflows/deploy.yml` — New "Stage production files" step in deploy job; `upload-pages-artifact` now uses `path: '_site'`
+**Spawned Tasks**: 2 items added to BACKLOG.md
+
+---
 
 ### CHALLENGE-001: Lighthouse CI in GitHub Actions
 

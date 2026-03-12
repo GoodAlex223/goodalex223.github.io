@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-11 (Week of March 17-21 planned)
+**Last Updated**: 2026-03-11 (CI-002 completed)
 
 ---
 
@@ -19,11 +19,6 @@ _None currently_
 ---
 
 ## High Priority
-
-### CI-002: Narrow Pages Deploy Artifact Path
-**Source**: BACKLOG.md → From CI-001
-**Goal**: Deploy only production files (`index.html`, `404.html`, `dist/`, `fonts/`, `favicon*`, `robots.txt`, `sitemap.xml`, `site.webmanifest`, images) instead of entire repo checkout. Currently `upload-pages-artifact` uses `path: '.'` which deploys source CSS, JS, scripts, tests, docs, and learning projects.
-**Day**: Monday March 17
 
 ### QUALITY-007: ESLint Integration for JavaScript
 **Source**: BACKLOG.md → From PERF-007
