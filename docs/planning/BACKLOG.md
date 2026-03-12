@@ -548,6 +548,7 @@ _Extracted from implementation plan:_
 
 - [ ] Skip checkout in deploy job — All static assets (fonts/, images/, favicon files, robots.txt, site.webmanifest, og-image.png, PWA icons) could be added to the build-output artifact in the build job, eliminating the checkout step in deploy entirely (checkout is the slowest step in the job)
 - [ ] Validate staged `_site/` contents — Add a CI step after staging that asserts expected files exist before upload (e.g., index.html, 404.html, hashed dist/ files, fonts/) — catches accidental glob mismatches silently failing
+- [ ] Update CLAUDE.md deploy step description to include `404.webp` — CLAUDE.md line 414 lists staged files as "HTML, favicon, OG image, manifest, robots.txt, sitemap.xml, dist/, fonts/, images/" but omits `404.webp`; surfaced during code review
 
 ---
 
