@@ -472,6 +472,8 @@ _Extracted from implementation plan:_
 
 - [ ] 404.html negative test — Add test verifying 404.html intentionally omits OG/Twitter/JSON-LD tags (catches accidental addition)
 - [ ] OG image HTTP validation — Test that `og:image` URL returns HTTP 200 with correct Content-Type (requires network request in test)
+- [ ] Add symmetric null guards in cross-tag consistency tests — Only OG values are guarded with `not.toBeNull()`; add matching guards for Twitter tag values to produce clearer error messages when a Twitter tag is missing (code review finding, confidence 65/100)
+- [ ] Add JSON-LD script tag existence guard in `getGraph()` — `JSON.parse(null)` produces cryptic TypeError; add `expect(raw).toBeTruthy()` before parsing for clearer failure when script tag is missing (code review finding, confidence 62/100)
 
 ---
 
