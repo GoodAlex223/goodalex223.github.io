@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-03-11 (CHALLENGE-001 completed)
+**Last Updated**: 2026-03-12 (CI actions deprecation warning)
 
 Future ideas and improvements for the portfolio.
 
@@ -549,6 +549,13 @@ _Extracted from implementation plan:_
 - [ ] Skip checkout in deploy job — All static assets (fonts/, images/, favicon files, robots.txt, site.webmanifest, og-image.png, PWA icons) could be added to the build-output artifact in the build job, eliminating the checkout step in deploy entirely (checkout is the slowest step in the job)
 - [ ] Validate staged `_site/` contents — Add a CI step after staging that asserts expected files exist before upload (e.g., index.html, 404.html, hashed dist/ files, fonts/) — catches accidental glob mismatches silently failing
 - [ ] Update CLAUDE.md deploy step description to include `404.webp` — CLAUDE.md line 414 lists staged files as "HTML, favicon, OG image, manifest, robots.txt, sitemap.xml, dist/, fonts/, images/" but omits `404.webp`; surfaced during code review
+
+---
+
+## CI: Upgrade GitHub Actions to Node.js 24 (2026-03-12)
+**Origin**: CI deprecation warning observed in run #22980966380
+
+- [ ] Upgrade all GitHub Actions to Node.js 24-compatible versions before June 2, 2026 deadline — affected actions: `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-artifact@v4`, `actions/download-artifact@v4`, `actions/configure-pages@v4`, `actions/deploy-pages@v4`; check latest major versions for Node.js 24 support or set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` env var to opt in early
 
 ---
 
