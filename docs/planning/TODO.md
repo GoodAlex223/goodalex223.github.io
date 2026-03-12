@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-11 (CI-002 completed)
+**Last Updated**: 2026-03-12 (QUALITY-007 completed)
 
 ---
 
@@ -12,20 +12,13 @@ _None currently_
 
 ## Recently Completed
 
+- **QUALITY-007**: ESLint Integration for JavaScript → moved to [DONE.md](DONE.md)
 - **CHALLENGE-001**: Lighthouse CI in GitHub Actions → moved to [DONE.md](DONE.md)
 - **QUALITY-006**: Test Server Error Handling → moved to [DONE.md](DONE.md)
-- **QUALITY-005**: Audit Remaining transition:all Usage → moved to [DONE.md](DONE.md)
 
 ---
 
 ## High Priority
-
-### QUALITY-007: ESLint Integration for JavaScript
-**Source**: BACKLOG.md → From PERF-007
-**Goal**: Add ESLint for JS linting in pre-commit hook (lint-staged) and CI pipeline, matching how Stylelint validates CSS. Configure for the project's ES6+ vanilla JS patterns.
-**Day**: Tuesday March 18
-
----
 
 ## Medium Priority
 
