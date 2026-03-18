@@ -4,6 +4,7 @@ const zlib = require('zlib');
 
 const ROOT = path.join(__dirname, '..');
 const DIST_DIR = path.join(ROOT, 'dist');
+const HISTORY_FILE = path.join(ROOT, 'docs', 'size-history.json');
 
 // Gzip size budgets (bytes)
 const BUDGETS = {
@@ -79,6 +80,31 @@ function main() {
   }
 
   console.log('Build size reporting complete');
+
+  appendSizeHistory(cssRaw, cssGz, jsMin, jsGz);
+}
+
+function appendSizeHistory(cssRaw, cssGzip, jsRaw, jsGzip) {
+  let history = [];
+
+  if (fs.existsSync(HISTORY_FILE)) {
+    try {
+      history = JSON.parse(fs.readFileSync(HISTORY_FILE, 'utf8'));
+    } catch {
+      console.warn('Warning: Could not parse size-history.json, starting fresh.');
+      history = [];
+    }
+  }
+
+  const entry = {
+    timestamp: new Date().toISOString(),
+    css: { raw: cssRaw, gzip: cssGzip },
+    js: { raw: jsRaw, gzip: jsGzip },
+  };
+
+  history.push(entry);
+  fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2) + '\n');
+  console.log(`Size history updated (${history.length} entries in docs/size-history.json)`);
 }
 
 main();

@@ -65,7 +65,7 @@ npx serve
 
 **Sitemap Auto-Update**: `scripts/update-sitemap.js` runs as the first step of `npm run build`. Reads the last git commit date for `index.html` via `git log -1 --format=%aI` and updates the `<lastmod>` field in `sitemap.xml`. Falls back to HEAD commit date for shallow clones. Exits gracefully (warning only) if no git date is available; exits with error if `sitemap.xml` is missing.
 
-**Build Size Reporting**: `scripts/report-sizes.js` runs as the final step of `npm run build`. Reports raw and gzip sizes for CSS (`dist/style.[hash].css`) and JS (`js/main.js` → `dist/main.[hash].js` showing src → min → gzip). Enforces size budgets: CSS gzip 20 KB, JS gzip 10 KB — prints a warning if either is exceeded. Exits with error if `dist/` is missing or hashed files are not found.
+**Build Size Reporting**: `scripts/report-sizes.js` runs as the final step of `npm run build`. Reports raw and gzip sizes for CSS (`dist/style.[hash].css`) and JS (`js/main.js` → `dist/main.[hash].js` showing src → min → gzip). Enforces size budgets: CSS gzip 20 KB, JS gzip 10 KB — prints a warning if either is exceeded. Exits with error if `dist/` is missing or hashed files are not found. After reporting, appends a timestamped entry (ISO 8601) with raw and gzip sizes for CSS and JS to `docs/size-history.json` for historical trend tracking. The history file is committed to the repo; CI builds update it but don't commit (local builds commit manually). Gracefully handles missing or malformed history file.
 
 **Critical CSS Inlining**: `scripts/inline-css.js` uses Google's Critters library to extract above-the-fold CSS and inline it in `<style>` tags in `<head>`. Full CSS loads asynchronously via `media="print" onload="this.media='all'"` pattern. Includes `<noscript>` fallback for non-JS users, light theme variable injection, and `--restore` mode for development. Applied to both `index.html` and `404.html`.
 
@@ -115,7 +115,7 @@ goodalex223/
 ├── scripts/
 │   ├── hash-assets.js      # Cache-busting: minify JS (terser), hash CSS+JS, update HTML refs
 │   ├── inline-css.js       # Critical CSS inlining via Critters (--restore for dev mode)
-│   ├── report-sizes.js     # Build size report: raw + gzip sizes, budget warnings (CSS 20 KB, JS 10 KB)
+│   ├── report-sizes.js     # Build size report: raw + gzip sizes, budget warnings, size history tracking
 │   ├── serve.js            # Minimal static file server for Playwright tests (port 4173)
 │   └── update-sitemap.js   # Auto-update sitemap.xml lastmod from git history (runs first in build)
 ├── js/
@@ -157,7 +157,7 @@ goodalex223/
 - [playwright.config.js](playwright.config.js) — Playwright test configuration
 - [scripts/hash-assets.js](scripts/hash-assets.js) — Cache-busting: minify JS + hash CSS/JS
 - [scripts/inline-css.js](scripts/inline-css.js) — Critical CSS inlining (Critters wrapper)
-- [scripts/report-sizes.js](scripts/report-sizes.js) — Build size report: raw + gzip sizes, budget enforcement (CSS 20 KB, JS 10 KB)
+- [scripts/report-sizes.js](scripts/report-sizes.js) — Build size report: raw + gzip sizes, budget enforcement, size history tracking (`docs/size-history.json`)
 - [scripts/update-sitemap.js](scripts/update-sitemap.js) — Sitemap lastmod auto-updater (git-driven, first step of build)
 - [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
 - [.stylelintrc.json](.stylelintrc.json) — CSS linting configuration
@@ -167,6 +167,7 @@ goodalex223/
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (lint → build → test + lighthouse → deploy)
 - [tests/pages/FilterPage.js](tests/pages/FilterPage.js) — Page Object Model for tests
 - [docs/SEO_TESTING.md](docs/SEO_TESTING.md) — Social card & SEO validation checklist
+- [docs/size-history.json](docs/size-history.json) — Build size trend history (appended by `report-sizes.js` on each build)
 - [robots.txt](robots.txt) — Search engine crawler directives
 - [sitemap.xml](sitemap.xml) — Site structure for SEO
 - [site.webmanifest](site.webmanifest) — PWA manifest (app name, icons, theme colors)
