@@ -189,6 +189,7 @@ goodalex223/
 - BEM naming pattern: `block__element--modifier` or state classes `is-*`
 - Custom properties must be kebab-case
 - Modern color functions (`rgb()`, `hsl()`) with numeric alpha values
+- `transition: all` and `transition-property: all` disallowed — use explicit property lists (e.g. `transition: background-color 0.2s, color 0.2s`) to prevent unintended side effects
 - Allows specific vendor prefixes: `-webkit-font-smoothing`, `-moz-osx-font-smoothing`, `-webkit-text-size-adjust`
 - Ignores `dist/` directory (generated files)
 
@@ -427,6 +428,7 @@ Progressive reveal animations using Intersection Observer:
    - Configuration: `.stylelintrc.json` extends `stylelint-config-standard`
    - Enforces BEM naming, kebab-case for custom properties and keyframes
    - Requires modern color functions with numeric alpha values
+   - Bans `transition: all` / `transition-property: all` — enforces explicit property transition lists to prevent unintended side effects
    - Runs in CI before build step to catch style violations early
 10. **JS Linting**: ESLint v9 flat config validates JavaScript across all environments
    - Configuration: `eslint.config.js` (CJS format, three environment blocks)
