@@ -1,8 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-03-12 (QUALITY-008 completed)
+**Last Updated**: 2026-03-18 (PERF-009 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-03-18
+
+### PERF-009: Build Size Trend History
+
+**Plan**: [docs/archive/plans/2026-03-18_perf-009-build-size-trend-history.md](docs/archive/plans/2026-03-18_perf-009-build-size-trend-history.md)
+**Summary**: Added build size trend tracking to `report-sizes.js`. Each `npm run build` appends a timestamped entry with raw and gzip sizes for CSS and JS to `docs/size-history.json`, providing historical visibility into asset growth.
+**Key Changes**:
+- Extended `scripts/report-sizes.js` with `appendSizeHistory()` function
+- Created `docs/size-history.json` (committed, updated by local builds)
+- Updated CLAUDE.md build system documentation
+**Spawned Tasks**: 3 items added to BACKLOG.md (trend visualization, budget trend alerts, CI size comparison)
 
 ---
 
