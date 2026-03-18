@@ -531,8 +531,16 @@ _Extracted from implementation plan:_
 ## From QUALITY-005: Audit Remaining transition:all Usage (2026-03-05)
 **Origin**: docs/archive/plans/2026-03-05_quality-005-transition-all-audit.md
 
-- [ ] Stylelint rule to prevent `transition: all` — Add `declaration-property-value-disallowed-list` rule for `transition: all` to `.stylelintrc.json` to enforce explicit property lists at lint time
-- [ ] Document "no transition: all" convention — Add note to CLAUDE.md CSS conventions section clarifying that all transitions must use explicit property lists
+- [x] ~~Stylelint rule to prevent `transition: all`~~ *(completed 2026-03-12, QUALITY-008 — `declaration-property-value-disallowed-list` rule added for both `transition` and `transition-property`)*
+- [x] ~~Document "no transition: all" convention~~ *(completed 2026-03-12, QUALITY-008 — added to CLAUDE.md CSS Linting section and Build System Pattern)*
+
+---
+
+## From QUALITY-008: Stylelint Rule to Prevent transition:all (2026-03-12)
+**Origin**: QUALITY-008 implementation
+
+- [ ] Redundant `.contact__link` transition — `components.css` line 279 transitions only `background-color`, but `main.css` theme group already covers `.contact__link` with `background-color + border-color + color + outline-color`; the component-level declaration may be redundant (code review finding)
+- [ ] Case-insensitive transition regex — Current `/\ball\b/` is case-sensitive; `transition: All` would bypass. Mitigated by `value-keyword-case: "lower"` from `stylelint-config-standard`, but adding `/i` flag (`/\ball\b/i`) would provide defense-in-depth
 
 ---
 

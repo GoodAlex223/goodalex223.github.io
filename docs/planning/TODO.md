@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **QUALITY-008**: Stylelint Rule to Prevent `transition: all` → moved to [DONE.md](DONE.md)
 - **TEST-006**: Automated OG Meta Tag Validation → moved to [DONE.md](DONE.md)
 - **QUALITY-007**: ESLint Integration for JavaScript → moved to [DONE.md](DONE.md)
 - **CHALLENGE-001**: Lighthouse CI in GitHub Actions → moved to [DONE.md](DONE.md)
@@ -22,11 +23,6 @@ _None currently_
 ## High Priority
 
 ## Medium Priority
-
-### QUALITY-008: Stylelint Rule to Prevent `transition: all`
-**Source**: BACKLOG.md → From QUALITY-005
-**Goal**: Add `declaration-property-value-disallowed-list` rule for `transition: all` to `.stylelintrc.json`. Also document "no transition: all" convention in CLAUDE.md CSS conventions section. Quick quality guard based on completed audit.
-**Day**: Thursday March 20
 
 ---
 

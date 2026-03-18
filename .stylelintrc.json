@@ -25,6 +25,15 @@
         ]
       }
     ],
+    "declaration-property-value-disallowed-list": [
+      {
+        "transition": ["/\\ball\\b/"],
+        "transition-property": ["/\\ball\\b/"]
+      },
+      {
+        "message": "Use explicit property lists instead of 'all' to prevent unintended side effects"
+      }
+    ],
     "no-descending-specificity": null
   },
   "ignoreFiles": ["dist/**"]
