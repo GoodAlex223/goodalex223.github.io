@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-03-12 (TEST-006 completed)
+**Last Updated**: 2026-03-18 (PERF-009 completed)
 
 Future ideas and improvements for the portfolio.
 
@@ -595,6 +595,15 @@ _Extracted from implementation plan:_
 **Origin**: CI deprecation warning observed in run #22980966380
 
 - [ ] Upgrade all GitHub Actions to Node.js 24-compatible versions before June 2, 2026 deadline — affected actions: `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-artifact@v4`, `actions/download-artifact@v4`, `actions/configure-pages@v4`, `actions/deploy-pages@v4`; check latest major versions for Node.js 24 support or set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` env var to opt in early
+
+---
+
+## Build Size Trend Enhancements (2026-03-18)
+**Origin**: docs/archive/plans/2026-03-18_perf-009-build-size-trend-history.md
+
+- [ ] Size trend visualization — CLI script to print text-based trend chart from `docs/size-history.json` (sparkline or percentage change)
+- [ ] Budget trend alerts — warn when gzip sizes increase over N consecutive entries, catching gradual bloat before hard budget limit
+- [ ] CI size comparison — compare current build sizes against last committed entry and annotate PRs with delta (e.g., "CSS +0.2 KB, JS -0.1 KB")
 
 ---
 

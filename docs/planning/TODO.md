@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-12 (TEST-006 completed)
+**Last Updated**: 2026-03-18 (PERF-009 completed)
 
 ---
 
@@ -27,11 +27,6 @@ _None currently_
 ---
 
 ## Low Priority (Stretch Goals)
-
-### PERF-009: Build Size Trend History
-**Source**: BACKLOG.md → From PERF-008
-**Goal**: Append build sizes (raw + gzip for CSS and JS) to `docs/size-history.json` after each build. Provides historical trend visibility for asset growth over time. Integrate into `report-sizes.js` post-build step.
-**Day**: Friday March 21
 
 ---
 
