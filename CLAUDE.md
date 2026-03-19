@@ -168,6 +168,7 @@ goodalex223/
 - [tests/pages/FilterPage.js](tests/pages/FilterPage.js) — Page Object Model for tests
 - [docs/SEO_TESTING.md](docs/SEO_TESTING.md) — Social card & SEO validation checklist
 - [docs/size-history.json](docs/size-history.json) — Build size trend history (appended by `report-sizes.js` on each build)
+- [docs/learning-backlog.md](docs/learning-backlog.md) — Learning topics captured from development sessions (explored further after task completion)
 - [robots.txt](robots.txt) — Search engine crawler directives
 - [sitemap.xml](sitemap.xml) — Site structure for SEO
 - [site.webmanifest](site.webmanifest) — PWA manifest (app name, icons, theme colors)

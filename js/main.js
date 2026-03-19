@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize scroll animations
   initScrollAnimations();
+
+  // Initialize project detail modal
+  initProjectModal();
 });
 
 /**
@@ -610,4 +613,463 @@ function setupAnimationObserver() {
 
   // Observe all animated elements
   animatedElements.forEach((element) => observer.observe(element));
+}
+
+/**
+ * Project Detail Modal
+ * - Opens a modal overlay with extended project information
+ * - Data fetched lazily from data/projects.json on first open
+ * - Focus trap, ESC to close, backdrop click to close
+ * - URL hash integration (#project=rating-bot) coexists with #filter= hashes
+ * - Restores focus to the triggering card on close
+ * - Scroll lock prevents background scrolling when modal is open
+ */
+function initProjectModal() {
+  const modal = document.getElementById("project-modal");
+  const backdrop = modal ? modal.querySelector(".project-modal__backdrop") : null;
+  const dialog = modal ? modal.querySelector(".project-modal__dialog") : null;
+
+  if (!modal || !backdrop || !dialog) return;
+
+  // State
+  let projectsData = null; // Cached JSON data
+  let isOpen = false;
+  let triggerElement = null; // Element that opened the modal (for focus restore)
+
+  /**
+   * Fetch project data from JSON file (lazy, cached)
+   * @returns {Promise<Object|null>} Projects data object or null on error
+   */
+  async function fetchProjectData() {
+    if (projectsData) return projectsData;
+
+    try {
+      const response = await fetch("data/projects.json");
+      if (!response.ok) return null;
+      projectsData = await response.json();
+      return projectsData;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Render modal content from project data using safe DOM methods.
+   * All text content is inserted via textContent (not innerHTML) to prevent XSS.
+   * The project data comes from our own JSON file (data/projects.json),
+   * but we use safe DOM construction as a defense-in-depth measure.
+   * @param {string} projectId - Project key in the JSON data
+   * @param {Object} project - Project data object
+   */
+  function renderModalContent(projectId, project) {
+    const categoryClass = project.category.toLowerCase();
+
+    // Clear previous content
+    while (dialog.firstChild) {
+      dialog.removeChild(dialog.firstChild);
+    }
+
+    // ── Header ──
+    const header = createElement("div", "project-modal__header");
+
+    const headerInfo = createElement("div", "project-modal__header-info");
+    const title = createElement("h2", "project-modal__title");
+    title.id = "project-modal-title";
+    title.textContent = project.title;
+    headerInfo.appendChild(title);
+
+    const categoryBadge = createElement(
+      "span",
+      `project-modal__category project-modal__category--${categoryClass}`
+    );
+    categoryBadge.textContent = project.category;
+    headerInfo.appendChild(categoryBadge);
+    header.appendChild(headerInfo);
+
+    const closeBtn = createElement("button", "project-modal__close");
+    closeBtn.setAttribute("aria-label", "Close project details");
+    closeBtn.setAttribute("data-modal-close", "");
+    closeBtn.insertAdjacentHTML(
+      "afterbegin",
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+    );
+    header.appendChild(closeBtn);
+    dialog.appendChild(header);
+
+    // ── Body ──
+    const body = createElement("div", "project-modal__body");
+
+    // Description paragraphs
+    const descDiv = createElement("div", "project-modal__description");
+    project.description.forEach((text) => {
+      const p = document.createElement("p");
+      p.textContent = text;
+      descDiv.appendChild(p);
+    });
+    body.appendChild(descDiv);
+
+    // Technical Highlights
+    const highlightsSection = document.createElement("section");
+    const highlightsTitle = createElement("h3", "project-modal__section-title");
+    highlightsTitle.textContent = "Technical Highlights";
+    highlightsSection.appendChild(highlightsTitle);
+
+    const highlightsList = createElement("ul", "project-modal__highlights");
+    project.highlights.forEach((text) => {
+      const li = document.createElement("li");
+      li.textContent = text;
+      highlightsList.appendChild(li);
+    });
+    highlightsSection.appendChild(highlightsList);
+    body.appendChild(highlightsSection);
+
+    // Tech Stack
+    const techSection = document.createElement("section");
+    const techTitle = createElement("h3", "project-modal__section-title");
+    techTitle.textContent = "Tech Stack";
+    techSection.appendChild(techTitle);
+
+    const techList = createElement("ul", "project-modal__tech");
+    project.tech.forEach((text) => {
+      const li = document.createElement("li");
+      li.textContent = text;
+      techList.appendChild(li);
+    });
+    techSection.appendChild(techList);
+    body.appendChild(techSection);
+
+    // Screenshots
+    if (project.screenshots && project.screenshots.length > 0) {
+      const screenshotsSection = document.createElement("section");
+      const screenshotsTitle = createElement("h3", "project-modal__section-title");
+      screenshotsTitle.textContent = "Screenshots";
+      screenshotsSection.appendChild(screenshotsTitle);
+
+      const screenshotsGrid = createElement("div", "project-modal__screenshots");
+      project.screenshots.forEach((s) => {
+        const figure = createElement("figure", "project-modal__screenshot");
+        const img = document.createElement("img");
+        img.src = s.src;
+        img.alt = s.alt;
+        img.loading = "lazy";
+        img.width = 640;
+        img.height = 360;
+        figure.appendChild(img);
+        screenshotsGrid.appendChild(figure);
+      });
+      screenshotsSection.appendChild(screenshotsGrid);
+      body.appendChild(screenshotsSection);
+    }
+
+    // Links
+    if (project.links) {
+      const linksSection = document.createElement("section");
+      const linksTitle = createElement("h3", "project-modal__section-title");
+      linksTitle.textContent = "Links";
+      linksSection.appendChild(linksTitle);
+
+      const linksDiv = createElement("div", "project-modal__links");
+      appendProjectLinks(linksDiv, project.links);
+      linksSection.appendChild(linksDiv);
+      body.appendChild(linksSection);
+    }
+
+    dialog.appendChild(body);
+
+    // ── Footer ──
+    const footer = createElement("div", "project-modal__footer");
+    const updatedSpan = document.createElement("span");
+    updatedSpan.textContent = "Updated " + project.updated;
+    footer.appendChild(updatedSpan);
+
+    if (project.status) {
+      const statusSpan = createElement("span", "project-modal__status");
+      const statusDot = createElement("span", "project-modal__status-dot");
+      statusDot.setAttribute("aria-hidden", "true");
+      statusSpan.appendChild(statusDot);
+      statusSpan.appendChild(document.createTextNode(project.status));
+      footer.appendChild(statusSpan);
+    }
+
+    dialog.appendChild(footer);
+  }
+
+  /**
+   * Create an element with a className
+   * @param {string} tag - HTML tag name
+   * @param {string} className - CSS class(es)
+   * @returns {HTMLElement}
+   */
+  function createElement(tag, className) {
+    const el = document.createElement(tag);
+    el.className = className;
+    return el;
+  }
+
+  /**
+   * Append project links (GitHub, Demo) to a container
+   * Uses static SVG icons (trusted, not from JSON data)
+   * @param {HTMLElement} container - Parent element
+   * @param {Object} links - Links object { github, demo }
+   */
+  function appendProjectLinks(container, links) {
+    if (links.github) {
+      const a = document.createElement("a");
+      a.href = links.github;
+      a.className = "project-modal__link";
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      // Static SVG icon (not from user data)
+      a.insertAdjacentHTML(
+        "afterbegin",
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>'
+      );
+      a.appendChild(document.createTextNode(" View on GitHub"));
+      container.appendChild(a);
+    }
+
+    if (links.demo) {
+      const a = document.createElement("a");
+      a.href = links.demo;
+      a.className = "project-modal__link";
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      // Static SVG icon (not from user data)
+      a.insertAdjacentHTML(
+        "afterbegin",
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'
+      );
+      a.appendChild(document.createTextNode(" Live Demo"));
+      container.appendChild(a);
+    }
+  }
+
+  /**
+   * Open the project modal
+   * @param {string} projectId - Project identifier matching JSON key
+   * @param {Object} [options] - Configuration options
+   * @param {boolean} [options.updateHash=true] - Whether to update URL hash
+   */
+  async function openModal(projectId, { updateHash = true } = {}) {
+    if (isOpen) return;
+
+    const data = await fetchProjectData();
+    if (!data || !data[projectId]) return;
+
+    const project = data[projectId];
+
+    // Render content using safe DOM methods
+    renderModalContent(projectId, project);
+
+    // Update aria-labelledby
+    modal.setAttribute("aria-labelledby", "project-modal-title");
+
+    // Show modal
+    modal.removeAttribute("hidden");
+
+    // Force reflow before adding open class (ensures CSS transition plays)
+    void modal.offsetHeight;
+
+    modal.classList.add("project-modal--open");
+    document.body.classList.add("modal-open");
+    isOpen = true;
+
+    // Update URL hash
+    if (updateHash) {
+      const newHash = "#project=" + projectId;
+      const newUrl = window.location.pathname + window.location.search + newHash;
+      history.pushState(null, "", newUrl);
+    }
+
+    // Focus the close button after the modal becomes visible.
+    // Use setTimeout to ensure the element is focusable after visibility
+    // transition settles (CSS visibility: hidden -> visible prevents focus).
+    setTimeout(() => {
+      if (!isOpen) return;
+      const closeButton = dialog.querySelector("[data-modal-close]");
+      if (closeButton) {
+        closeButton.focus();
+      }
+    }, 50);
+
+    // Add event listeners
+    modal.addEventListener("click", handleModalClick);
+    document.addEventListener("keydown", handleModalKeydown);
+  }
+
+  /**
+   * Close the project modal
+   * @param {Object} [options] - Configuration options
+   * @param {boolean} [options.updateHash=true] - Whether to update URL hash
+   */
+  function closeModal({ updateHash = true } = {}) {
+    if (!isOpen) return;
+
+    modal.classList.remove("project-modal--open");
+    document.body.classList.remove("modal-open");
+    isOpen = false;
+
+    // Remove event listeners
+    modal.removeEventListener("click", handleModalClick);
+    document.removeEventListener("keydown", handleModalKeydown);
+
+    // Update URL hash (remove #project=...)
+    if (updateHash) {
+      const newUrl = window.location.pathname + window.location.search;
+      history.pushState(null, "", newUrl);
+    }
+
+    // Restore focus to the triggering element
+    if (triggerElement) {
+      triggerElement.focus();
+      triggerElement = null;
+    }
+
+    // Wait for transition to finish before hiding
+    const duration = getModalAnimationDuration();
+    setTimeout(() => {
+      if (!isOpen) {
+        modal.setAttribute("hidden", "");
+        // Clear content after hide transition
+        while (dialog.firstChild) {
+          dialog.removeChild(dialog.firstChild);
+        }
+      }
+    }, duration);
+  }
+
+  /**
+   * Get modal animation duration from CSS custom property
+   * @returns {number} Duration in milliseconds
+   */
+  function getModalAnimationDuration() {
+    const rootStyles = getComputedStyle(document.documentElement);
+    return parseInt(
+      rootStyles.getPropertyValue("--modal-animation-duration") || "250",
+      10
+    );
+  }
+
+  /**
+   * Handle clicks inside the modal (backdrop click to close, close button)
+   * @param {MouseEvent} e
+   */
+  function handleModalClick(e) {
+    // Close button click
+    if (e.target.closest("[data-modal-close]")) {
+      closeModal();
+      return;
+    }
+
+    // Backdrop click (click is on the backdrop element itself, not the dialog)
+    if (e.target === backdrop) {
+      closeModal();
+    }
+  }
+
+  /**
+   * Handle keyboard events when modal is open
+   * @param {KeyboardEvent} e
+   */
+  function handleModalKeydown(e) {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      closeModal();
+      return;
+    }
+
+    // Focus trap: Tab / Shift+Tab
+    if (e.key === "Tab") {
+      trapFocus(e);
+    }
+  }
+
+  /**
+   * Trap focus within the modal dialog
+   * Cycles through focusable elements with Tab/Shift+Tab
+   * @param {KeyboardEvent} e
+   */
+  function trapFocus(e) {
+    const focusableSelectors =
+      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+    const focusableElements = dialog.querySelectorAll(focusableSelectors);
+
+    if (focusableElements.length === 0) return;
+
+    const firstFocusable = focusableElements[0];
+    const lastFocusable = focusableElements[focusableElements.length - 1];
+
+    if (e.shiftKey) {
+      // Shift+Tab: if on first element, wrap to last
+      if (document.activeElement === firstFocusable) {
+        e.preventDefault();
+        lastFocusable.focus();
+      }
+    } else {
+      // Tab: if on last element, wrap to first
+      if (document.activeElement === lastFocusable) {
+        e.preventDefault();
+        firstFocusable.focus();
+      }
+    }
+  }
+
+  /**
+   * Parse URL hash for project modal
+   * @returns {string|null} Project ID or null if no project hash
+   */
+  function getProjectFromHash() {
+    const hash = window.location.hash;
+    const match = hash.match(/^#project=([a-z0-9-]+)$/);
+    return match ? match[1] : null;
+  }
+
+  // ── Card click handlers ──────────────────────────────────
+
+  const clickableCards = document.querySelectorAll(".project-card[data-project]");
+
+  clickableCards.forEach((card) => {
+    const projectId = card.dataset.project;
+    if (!projectId) return;
+
+    const detailsBtn = card.querySelector(".project-card__details-btn");
+
+    // Mouse: clicking card body (outside links) opens modal
+    // Focus restores to the details button (keyboard-accessible anchor)
+    card.addEventListener("click", (e) => {
+      // Don't intercept clicks on links or the details button inside the card
+      if (e.target.closest("a") || e.target.closest(".project-card__details-btn")) return;
+
+      triggerElement = detailsBtn || card;
+      openModal(projectId);
+    });
+
+    // Keyboard: the "View Details" button provides the accessible entry point
+    // This avoids nested-interactive issues (article with role=button containing <a> links)
+    if (detailsBtn) {
+      detailsBtn.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent card click handler from also firing
+        triggerElement = detailsBtn;
+        openModal(projectId);
+      });
+    }
+  });
+
+  // ── Hash-based navigation ──────────────────────────────────
+
+  // Handle popstate (browser back/forward)
+  window.addEventListener("popstate", () => {
+    const projectId = getProjectFromHash();
+    if (projectId && !isOpen) {
+      openModal(projectId, { updateHash: false });
+    } else if (!projectId && isOpen) {
+      closeModal({ updateHash: false });
+    }
+  });
+
+  // Apply initial hash on page load
+  const initialProject = getProjectFromHash();
+  if (initialProject) {
+    openModal(initialProject, { updateHash: false });
+  }
 }
