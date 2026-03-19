@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-03-19 (CHALLENGE-002 completed)
+**Last Updated**: 2026-03-19 (TEST-007 completed)
 
 Future ideas and improvements for the portfolio.
 
@@ -610,11 +610,20 @@ _Extracted from implementation plan:_
 ## From CHALLENGE-002: Project Detail Modal (2026-03-19)
 **Origin**: CHALLENGE-002 implementation
 
-- [ ] Axe-core WCAG scan for modal — Add axe-core accessibility scanning to the modal tests (light and dark themes, modal-open state) to catch contrast and ARIA violations automatically
+- [x] Axe-core WCAG scan for modal — Add axe-core accessibility scanning to the modal tests (light and dark themes, modal-open state) to catch contrast and ARIA violations automatically *(completed 2026-03-19, TEST-007)*
 - [ ] Populate remaining project cards with detail data — Add `data/projects.json` entries for all portfolio projects that do not yet have a `data-project` attribute (several cards have no detail data)
 - [ ] Modal keyboard shortcut hint — Show a subtle "press ESC to close" hint in the modal footer for keyboard users who may not discover the shortcut
 - [ ] Screenshot lazy-load placeholder — Add a skeleton/placeholder element shown while lazy-loaded screenshots are loading to improve perceived performance on slow connections
 - [ ] Filter + modal hash coexistence — Investigate and test combined URL hash state (e.g., `#filter=backend&project=rating-bot`) so both filter and modal can be restored from a single shareable URL
+
+---
+
+## From TEST-007: Axe-core WCAG Scan for Modal (2026-03-19)
+**Origin**: Code review of PR #46
+
+- [ ] Reduced motion test efficiency — `modal/axe-scan.spec.js` reduced-motion `beforeEach` reassigns `mp` and calls `goto()` redundantly (outer `beforeEach` already does this); remove the double navigation to save ~1s per test
+- [ ] Skip `waitForScrollAnimations()` under reduced motion — When `prefers-reduced-motion` is active, scroll animations are disabled and elements appear immediately at opacity 1; the 700ms wait is unnecessary (filter reduced-motion tests already skip it)
+- [ ] Normalize axe-helper API — `checkAccessibility()` accepts `include` as a single CSS selector string but `exclude` as an array of strings; align both to accept the same type for consistency
 
 ---
 
