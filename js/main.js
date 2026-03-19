@@ -882,15 +882,15 @@ function initProjectModal() {
     }
 
     // Focus the close button after the modal becomes visible.
-    // Use setTimeout to ensure the element is focusable after visibility
-    // transition settles (CSS visibility: hidden -> visible prevents focus).
+    // CSS visibility transition (250ms) must complete before focus() works;
+    // calling focus() on a visibility:hidden element silently fails.
     setTimeout(() => {
       if (!isOpen) return;
       const closeButton = dialog.querySelector("[data-modal-close]");
       if (closeButton) {
         closeButton.focus();
       }
-    }, 50);
+    }, 300);
 
     // Add event listeners
     modal.addEventListener("click", handleModalClick);
