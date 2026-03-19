@@ -1,0 +1,102 @@
+{
+  "rating-bot": {
+    "title": "rating_bot",
+    "category": "Backend",
+    "description": [
+      "A production Telegram bot that provides personalized content recommendations using machine learning. Users rate items on a 1-10 scale, and the system learns their preferences to suggest new content they are likely to enjoy.",
+      "Built with hexagonal architecture to keep business logic independent of external services. The recommendation engine uses collaborative filtering and content-based approaches, with Redis caching for fast response times under load.",
+      "Features multi-language support (English and Russian), comprehensive monitoring via Prometheus and Grafana dashboards, and a full CI/CD pipeline with automated testing and deployment."
+    ],
+    "highlights": [
+      "ML-based recommendation engine with collaborative filtering",
+      "Hexagonal architecture separating domain logic from infrastructure",
+      "Prometheus + Grafana monitoring with custom metrics",
+      "Multi-language support with dynamic locale switching",
+      "CI/CD pipeline with automated testing and Docker deployment",
+      "Redis caching layer for sub-100ms response times"
+    ],
+    "tech": ["Python", "PostgreSQL", "Redis", "Docker", "Prometheus", "Grafana"],
+    "links": {
+      "github": "https://github.com/GoodAlex223/rating_bot_showcase"
+    },
+    "screenshots": [
+      {
+        "src": "images/projects/rating-bot-detail-1.webp",
+        "alt": "Rating bot conversation showing recommendation flow"
+      },
+      {
+        "src": "images/projects/rating-bot-detail-2.webp",
+        "alt": "Grafana monitoring dashboard for rating bot"
+      }
+    ],
+    "status": "In Development",
+    "updated": "Jan 2026"
+  },
+  "rule-indicators": {
+    "title": "Industrial Rule Indicators",
+    "category": "IoT",
+    "description": [
+      "A multi-mode industrial display system deployed on real manufacturing machinery. The device shows critical operational data on 7-segment displays: current time, ambient temperature, and accumulated motor/spindle running hours.",
+      "Designed for harsh industrial environments with reliable RTC timekeeping and DS18B20 temperature sensing. The system tracks machine usage hours for preventive maintenance scheduling, helping operators know when equipment service is due.",
+      "Built with modular C++ architecture on Arduino, allowing easy addition of new display modes. The project includes a Wokwi simulation for testing without physical hardware."
+    ],
+    "highlights": [
+      "Real-time clock (RTC) with battery backup for accurate timekeeping",
+      "DS18B20 temperature monitoring with configurable alerts",
+      "Motor and spindle hour tracking for maintenance scheduling",
+      "7-segment display with multiple operating modes",
+      "Deployed on real industrial machinery in production",
+      "Wokwi simulation available for testing and demonstration"
+    ],
+    "tech": ["C++", "Arduino", "RTC", "DS18B20", "7-Segment Display"],
+    "links": {
+      "github": "https://github.com/GoodAlex223/rule_indicators",
+      "demo": "https://wokwi.com/projects/385460530654015489"
+    },
+    "screenshots": [
+      {
+        "src": "images/projects/rule-indicators-detail-1.webp",
+        "alt": "Rule indicator displaying temperature on 7-segment display"
+      },
+      {
+        "src": "images/projects/rule-indicators-detail-2.webp",
+        "alt": "Wokwi simulation of the rule indicator circuit"
+      }
+    ],
+    "status": null,
+    "updated": "Aug 2025"
+  },
+  "media-viewer": {
+    "title": "Media Viewer",
+    "category": "Tools",
+    "description": [
+      "An Electron desktop application for browsing, rating, and organizing media files. The app provides a clean interface for viewing images and videos, with the ability to rate content and track viewing history.",
+      "Features an ML-based preference learning system that analyzes user ratings to understand visual preferences. The similarity sorting algorithm groups visually related content together, making it easier to find and organize media.",
+      "Built as a cross-platform desktop app using Electron, with a focus on performance when handling large media libraries containing thousands of files."
+    ],
+    "highlights": [
+      "ML-based visual preference learning from user ratings",
+      "Visual similarity sorting for intelligent content grouping",
+      "Cross-platform desktop app (Windows, macOS, Linux)",
+      "Efficient handling of large media libraries (10,000+ files)",
+      "Rating system with persistent user preference tracking",
+      "Keyboard-driven navigation for fast browsing"
+    ],
+    "tech": ["Electron", "JavaScript", "ML", "Node.js"],
+    "links": {
+      "github": "https://github.com/GoodAlex223/media-viewer"
+    },
+    "screenshots": [
+      {
+        "src": "images/projects/media-viewer-detail-1.webp",
+        "alt": "Media viewer grid view showing rated images"
+      },
+      {
+        "src": "images/projects/media-viewer-detail-2.webp",
+        "alt": "Media viewer detail view with rating controls"
+      }
+    ],
+    "status": "In Development",
+    "updated": "Jan 2026"
+  }
+}

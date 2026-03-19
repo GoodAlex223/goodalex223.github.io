@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-03-18 (PERF-009 completed)
+**Last Updated**: 2026-03-19 (CHALLENGE-002 completed)
 
 Future ideas and improvements for the portfolio.
 
@@ -604,6 +604,17 @@ _Extracted from implementation plan:_
 - [ ] Size trend visualization — CLI script to print text-based trend chart from `docs/size-history.json` (sparkline or percentage change)
 - [ ] Budget trend alerts — warn when gzip sizes increase over N consecutive entries, catching gradual bloat before hard budget limit
 - [ ] CI size comparison — compare current build sizes against last committed entry and annotate PRs with delta (e.g., "CSS +0.2 KB, JS -0.1 KB")
+
+---
+
+## From CHALLENGE-002: Project Detail Modal (2026-03-19)
+**Origin**: CHALLENGE-002 implementation
+
+- [ ] Axe-core WCAG scan for modal — Add axe-core accessibility scanning to the modal tests (light and dark themes, modal-open state) to catch contrast and ARIA violations automatically
+- [ ] Populate remaining project cards with detail data — Add `data/projects.json` entries for all portfolio projects that do not yet have a `data-project` attribute (several cards have no detail data)
+- [ ] Modal keyboard shortcut hint — Show a subtle "press ESC to close" hint in the modal footer for keyboard users who may not discover the shortcut
+- [ ] Screenshot lazy-load placeholder — Add a skeleton/placeholder element shown while lazy-loaded screenshots are loading to improve perceived performance on slow connections
+- [ ] Filter + modal hash coexistence — Investigate and test combined URL hash state (e.g., `#filter=backend&project=rating-bot`) so both filter and modal can be restored from a single shareable URL
 
 ---
 
