@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-19 (CHALLENGE-002 completed)
+**Last Updated**: 2026-03-19 (Week of 2026-03-24 planned)
 
 ---
 
@@ -21,9 +21,76 @@ _None currently_
 
 ---
 
+## Week of 2026-03-24
+
+### Mon — TEST-007: Axe-core WCAG Scan for Modal
+- Add axe-core accessibility scanning to the modal test suite
+- Scan modal-open state in both light and dark themes
+- Verify ARIA attributes, contrast, focus management under axe rules
+- Follows existing `axe-scan.spec.js` pattern from filter tests
+- **Origin**: [BACKLOG.md — CHALLENGE-002 spawned tasks](BACKLOG.md#from-challenge-002-project-detail-modal-2026-03-19)
+
+### Tue — CONTENT-001: Populate Remaining Project Cards with Detail Data
+- Add `data/projects.json` entries for all portfolio projects that lack `data-project` attribute
+- For each project: extended description, highlights, tech stack, screenshots, links
+- Add `data-project` attribute and "View Details" button to cards in `index.html`
+- Capture screenshots for projects that need them
+- **Origin**: [BACKLOG.md — Project Content Population](BACKLOG.md#project-content-population-2026-01-27)
+
+### Wed — QUALITY-009: ESLint Enhancements (Playwright plugin + no-console)
+- Add `eslint-plugin-playwright` for test-specific rules (`no-conditional-in-test`, `prefer-web-first-assertions`)
+- Add `no-console: "warn"` rule for `js/**/*.js` browser code
+- Fix any violations surfaced by new rules
+- **Origin**: [BACKLOG.md — QUALITY-007 spawned tasks](BACKLOG.md#from-quality-007-eslint-integration-2026-03-12)
+
+### Thu — QUALITY-010: commitlint for Conventional Commits
+- Add `@commitlint/cli` with `@commitlint/config-conventional`
+- Add `commit-msg` husky hook to enforce conventional commit format (feat:, fix:, docs:, etc.)
+- Verify existing commit history follows convention (document any deviations)
+- **Origin**: [BACKLOG.md — QUALITY-004 spawned tasks](BACKLOG.md#from-quality-004-pre-commit-hook-with-husky-2026-02-17)
+
+### Fri — CHALLENGE-003: Contact Form
+- Replace email link with accessible contact form (name, email, message fields)
+- Use Formspree (or similar) for serverless form submission — no backend needed
+- Client-side validation with clear error states
+- Success/error feedback after submission
+- Responsive layout matching portfolio design system
+- ARIA labels, focus management, keyboard navigation
+- Spam protection (honeypot field or reCAPTCHA)
+- **Origin**: [ROADMAP.md v2.0](ROADMAP.md) + [BACKLOG.md — Contact Form](BACKLOG.md#contact-form)
+
+---
+
 ## High Priority
 
+### BUG-004: Filter Toggle-to-Reset Race Condition on Rapid Clicks
+- **Repro**: Click a filter → click it again quickly (toggle-to-reset to "all") → immediately click the same filter again → stays on "all" instead of activating the filter
+- **Also**: Rapid-clicking between different filters causes incorrect state transitions — previous filter's toggle-to-reset fires late, resetting to "all" unexpectedly
+- **Root cause**: Likely `isAnimating` guard dropping clicks during animation, combined with stale `currentFilter` state
+- **Related**: [BACKLOG.md — Stabilize rapid-click timing tests](BACKLOG.md#from-quality-002-centralize-activatefilter-2026-02-10)
+
+---
+
 ## Medium Priority
+
+### CONTENT-002: Define Project Portfolio Requirements
+- Write clear criteria/rules for what qualifies a project to be showcased on the portfolio
+- Audit all existing projects against the requirements
+- All completed projects (no longer in active development) must be polished to near-production quality before showcasing
+  - Review READMEs, documentation, code quality
+  - Ensure demos/live links work
+  - Fix any obvious rough edges
+
+### CONTENT-003: Add Cleaning Site to Portfolio
+- Add the cleaning site project as a new portfolio card
+- Freeze its development (mark as completed)
+- Note in the description that the entire MVP was built in one week (no polish or fixes applied)
+- Add appropriate `data-project` entry in `data/projects.json` with detail data
+
+### CONTENT-004: Update Project Information
+- Review and update descriptions, tech stacks, links, and metadata for all existing project cards
+- Ensure `data-updated` dates are accurate
+- Verify all external links (GitHub repos, demos, simulations) are still live
 
 ---
 
@@ -33,7 +100,10 @@ _None currently_
 
 ## Weekly Challenge
 
-_None currently_
+### CHALLENGE-003: Contact Form (Fri 2026-03-28)
+- **Goal**: Add a working contact form to the portfolio — first v2.0 roadmap feature
+- **Scope**: Form UI, client-side validation, Formspree integration, success/error states, accessibility, responsive design, spam protection
+- **Why**: Direct recruiter/employer contact path; replaces passive email link with active engagement
 
 ---
 
@@ -47,6 +117,7 @@ _None currently_
 - Week of 2026-02-09: performance, testing, code quality, SEO & polish (all 12 tasks complete)
 - Week of 2026-02-17: CI/CD improvements, deeper test coverage, asset pipeline, Lighthouse CI challenge
 - Week of 2026-03-17: CI deploy cleanup, JS linting, OG validation, Stylelint guard, size tracking + Project Detail Modal challenge (all complete)
+- Week of 2026-03-24: Modal a11y hardening, project content population, ESLint enhancements, commitlint, Contact Form challenge
 - Tasks are organized by priority
 - Completed tasks move to [DONE.md](DONE.md)
 - Each significant task should have a plan document in `docs/planning/plans/`
