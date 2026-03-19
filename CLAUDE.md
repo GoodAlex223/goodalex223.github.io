@@ -59,6 +59,12 @@ python -m http.server 8000
 
 # Start local server (Node)
 npx serve
+
+# Run Playwright tests directly (alternative to npm test)
+npx playwright test
+
+# Open Playwright test report
+npx playwright show-report
 ```
 
 **Build System**: PostCSS with `postcss-import` plugin bundles modular CSS files, then cssnano minifies (production only). Production builds (`npm run build`) run: `update-sitemap` → `build:css` → `unhash` → `inline:css` → `hash:assets` → `report-sizes`. This generates content-hashed filenames (`dist/style.[hash].css`, `dist/main.[hash].js`) with critical CSS inlined in HTML. JS is minified by terser during the hash step. Watch mode (`npm run watch`) outputs unminified `dist/style.css` for debugging (restores HTML to non-inlined state).
@@ -190,6 +196,23 @@ goodalex223/
 - [PROJECT.md](PROJECT.md) — Project configuration
 
 <!-- END AUTO-MANAGED -->
+
+## MCP Servers
+
+MCP server config lives in `.mcp.json` (gitignored). Use `.mcp.json.example` as the template.
+
+| Server | Source | Purpose |
+|--------|--------|---------|
+| memory | `.mcp.json` — `@modelcontextprotocol/server-memory` | Persistent knowledge graph — session context, decisions, project state |
+| context7 | `.mcp.json` — `@upstash/context7-mcp` | Up-to-date library docs — resolves package IDs and queries docs for Playwright, PostCSS, etc. |
+| playwright | `.mcp.json` — `@playwright/mcp@latest` | Browser automation — navigate pages, click, fill forms, take screenshots, inspect DOM |
+| github | Claude.ai built-in | GitHub API — create issues/PRs, read file contents, search code |
+| chrome-devtools | Claude Code plugin — `chrome-devtools-mcp@claude-plugins-official` | DevTools-level browser access: Lighthouse audit, performance traces, memory heap snapshots, device emulation, attach to existing Chrome tab |
+
+**When to use each browser tool**:
+- `npm test` — run the full Playwright test suite (CI-equivalent, all specs)
+- playwright MCP — ad-hoc browser interaction: inspect live state, debug a scenario, verify a fix visually without writing a test
+- chrome-devtools MCP — DevTools-specific tasks: quick Lighthouse audit during development, performance profiling (CPU flame chart), memory leak investigation, or inspecting an existing Chrome tab (e.g. live GitHub Pages site)
 
 <!-- AUTO-MANAGED: conventions -->
 ## Code Conventions
@@ -429,7 +452,7 @@ Progressive reveal animations using Intersection Observer:
    - Card click: excludes `<a>` and `.project-card__details-btn` clicks (handled separately)
    - Details button click: `stopPropagation()` prevents double-firing card click handler
 4. **Focus Management**:
-   - Opens: focus moves to close button via `setTimeout(50ms)` (after `visibility: hidden → visible` transition)
+   - Opens: focus moves to close button via `setTimeout(300ms)` — must exceed CSS `visibility` transition (250ms); calling `focus()` on a `visibility: hidden` element silently fails
    - Trap: `trapFocus()` cycles Tab/Shift+Tab through `a[href], button:not([disabled]), [tabindex]:not([-1])` within dialog
    - Closes: `triggerElement.focus()` restores focus to `.project-card__details-btn` that opened modal
 5. **URL Hash Integration**: `#project=<id>` format — `pushState` on open, `pushState` (clean URL) on close; `popstate` listener handles browser back/forward; page load applies hash on init
@@ -632,7 +655,7 @@ Progressive reveal animations using Intersection Observer:
 ### Adding New Projects
 Add project card to `index.html` projects section:
 ```html
-<article class="project-card" data-category="backend" data-updated="2026-01" data-status="active">
+<article class="project-card" data-category="backend" data-project="my-project-id" data-updated="2026-01" data-status="active">
   <div class="project-card__header">
     <span class="project-card__category">Backend</span>
     <div class="project-card__links">
@@ -652,9 +675,16 @@ Add project card to `index.html` projects section:
       <span class="project-card__status-dot" aria-hidden="true"></span>
       In Development
     </span>
+    <!-- Optional: only if project detail data exists in data/projects.json -->
+    <button class="project-card__details-btn" aria-haspopup="dialog">
+      View Details
+      <!-- chevron SVG -->
+    </button>
   </footer>
 </article>
 ```
+
+**For modal support**: also add a matching entry to `data/projects.json` keyed by `data-project` value, with `title`, `category`, `description[]`, `highlights[]`, `tech[]`, `links{}`, `screenshots[]`, `status`, `updated` fields.
 
 <!-- END AUTO-MANAGED -->
 
