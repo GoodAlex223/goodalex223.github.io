@@ -71,7 +71,7 @@ npx serve
 
 **Cache-Busting**: `scripts/hash-assets.js` computes SHA-256 hashes of built CSS and JS, renames files to `style.[hash].css` and `main.[hash].js` in `dist/`, and updates HTML references in `index.html` and `404.html`. JS is minified by terser before hashing. Watch mode unhashes references for easier development.
 
-**Testing**: Playwright end-to-end tests validate filter functionality, animations, accessibility, keyboard navigation, URL hash integration, and SEO meta tags (Open Graph, Twitter Card, JSON-LD). Test server (`scripts/serve.js`) runs on port 4173. Tests use Page Object Model pattern (`FilterPage.js`) and timing utilities that read CSS custom properties.
+**Testing**: Playwright end-to-end tests validate filter functionality, animations, accessibility, keyboard navigation, URL hash integration, SEO meta tags (Open Graph, Twitter Card, JSON-LD), and project detail modal behavior. Test server (`scripts/serve.js`) runs on port 4173. Tests use Page Object Model pattern (`FilterPage.js`, `ModalPage.js`) and timing utilities that read CSS custom properties.
 
 **CSS Linting**: Stylelint validates CSS code style and conventions. Configured via `.stylelintrc.json` with BEM naming enforcement, kebab-case for custom properties, and modern color notation. Linting runs locally (`npm run lint:css`) and in CI pipeline before build.
 
@@ -108,7 +108,10 @@ goodalex223/
 │   ├── variables.css       # Design tokens (colors, spacing, typography)
 │   ├── reset.css           # Browser normalization
 │   ├── utilities.css       # Reusable utility classes
-│   └── components.css      # UI components (cards, buttons, links)
+│   ├── components.css      # UI components (cards, buttons, links)
+│   └── modal.css           # Project detail modal styles (overlay, dialog, transitions)
+├── data/
+│   └── projects.json       # Project detail data (descriptions, highlights, tech, screenshots, links)
 ├── dist/
 │   ├── style.[hash].css    # Built CSS with content hash (generated, not committed)
 │   └── main.[hash].js      # Minified JS with content hash (generated, not committed)
@@ -119,7 +122,7 @@ goodalex223/
 │   ├── serve.js            # Minimal static file server for Playwright tests (port 4173)
 │   └── update-sitemap.js   # Auto-update sitemap.xml lastmod from git history (runs first in build)
 ├── js/
-│   └── main.js             # Theme toggle, project filtering, scroll animations, copyright year
+│   └── main.js             # Theme toggle, project filtering, scroll animations, project modal, copyright year
 ├── tests/
 │   ├── filter/             # Filter functionality test suites
 │   │   ├── basic-filtering.spec.js    # Category filtering validation
@@ -131,13 +134,22 @@ goodalex223/
 │   │   ├── rapid-clicks.spec.js       # Rapid interaction handling
 │   │   ├── axe-scan.spec.js           # WCAG 2.1 AA accessibility scanning (axe-core)
 │   │   └── reduced-motion.spec.js     # Reduced motion: visibility, filter function, WCAG scans
+│   ├── modal/
+│   │   ├── basic-modal.spec.js    # Modal open, content rendering, scroll lock
+│   │   ├── close-modal.spec.js    # Close via button, ESC, backdrop; focus restore
+│   │   ├── accessibility.spec.js  # ARIA attributes, focus trap, details button
+│   │   ├── url-hash.spec.js       # URL hash (#project=id), browser navigation
+│   │   └── reduced-motion.spec.js # Modal with prefers-reduced-motion
 │   ├── seo/
 │   │   └── meta-tags.spec.js  # SEO meta tag validation (OG, Twitter Card, JSON-LD, canonical)
 │   ├── pages/
-│   │   └── FilterPage.js   # Page Object Model for filter system
+│   │   ├── FilterPage.js   # Page Object Model for filter system
+│   │   └── ModalPage.js    # Page Object Model for project detail modal
 │   └── utils/
 │       ├── timing.js       # Animation timing utilities (reads CSS variables)
 │       └── axe-helper.js   # Accessibility testing utilities (axe-core integration)
+├── images/
+│   └── projects/           # Project detail screenshots (webp, lazy-loaded in modal)
 ├── fonts/
 │   ├── inter-latin.woff2     # Self-hosted Inter font (Latin subset)
 │   └── inter-latin-ext.woff2 # Self-hosted Inter font (Latin Extended subset)
@@ -165,7 +177,10 @@ goodalex223/
 - [.mcp.json.example](.mcp.json.example) — MCP server config template (copy to `.mcp.json`, configure memory/context7/playwright/github servers)
 - [lighthouserc.js](lighthouserc.js) — Lighthouse CI config: 3 runs, desktop preset, ≥90 threshold for all 4 categories
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (lint → build → test + lighthouse → deploy)
-- [tests/pages/FilterPage.js](tests/pages/FilterPage.js) — Page Object Model for tests
+- [tests/pages/FilterPage.js](tests/pages/FilterPage.js) — Page Object Model for filter system tests
+- [tests/pages/ModalPage.js](tests/pages/ModalPage.js) — Page Object Model for project detail modal tests
+- [data/projects.json](data/projects.json) — Project detail data (lazy-fetched by modal JS)
+- [css/modal.css](css/modal.css) — Project detail modal styles
 - [docs/SEO_TESTING.md](docs/SEO_TESTING.md) — Social card & SEO validation checklist
 - [docs/size-history.json](docs/size-history.json) — Build size trend history (appended by `report-sizes.js` on each build)
 - [docs/learning-backlog.md](docs/learning-backlog.md) — Learning topics captured from development sessions (explored further after task completion)
@@ -210,7 +225,8 @@ CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/
 3. `reset.css` — Browser normalization
 4. `utilities.css` — Utility classes
 5. `components.css` — UI components
-6. `main.css` — Layout and section styles
+6. `modal.css` — Project detail modal (overlay, dialog, animations)
+7. `main.css` — Layout and section styles
 
 **Build Process**: PostCSS with `postcss-import` plugin resolves all `@import` statements, then cssnano minifies in production builds (`--env production`). Outputs single bundled file to `dist/style.css`. HTML files reference the built file, not source files.
 
@@ -401,6 +417,28 @@ Progressive reveal animations using Intersection Observer:
 4. **Accessibility**: `@media (prefers-reduced-motion: reduce)` shows elements immediately without animation
 5. **Usage**: Applied to hero elements, section titles, project cards, skill groups, contact links
 
+### Project Detail Modal Pattern
+**Accessible overlay modal for rich project storytelling**: Lazy-fetched JSON data, focus trap, URL hash integration
+1. **Data Source**: `data/projects.json` — flat object keyed by project ID, containing `title`, `category`, `description[]`, `highlights[]`, `tech[]`, `links{}`, `screenshots[]`, `status`, `updated`
+2. **HTML Markup**: Project cards with `data-project="<id>"` attribute make cards clickable; "View Details" `<button class="project-card__details-btn" aria-haspopup="dialog">` provides keyboard-accessible entry point. Modal container: `<div id="project-modal" class="project-modal" role="dialog" aria-modal="true" hidden>`
+3. **JS Initialization**: `initProjectModal()` in `js/main.js`
+   - `fetchProjectData()` — lazy fetch + cache of `data/projects.json`; called on first modal open
+   - `renderModalContent()` — safe DOM construction (no `innerHTML` for data, only static SVG icons)
+   - `openModal(projectId)` — fetch data → render → show → focus close button → push URL hash
+   - `closeModal()` — hide → restore focus to trigger element → clear URL hash → clear DOM after transition
+   - Card click: excludes `<a>` and `.project-card__details-btn` clicks (handled separately)
+   - Details button click: `stopPropagation()` prevents double-firing card click handler
+4. **Focus Management**:
+   - Opens: focus moves to close button via `setTimeout(50ms)` (after `visibility: hidden → visible` transition)
+   - Trap: `trapFocus()` cycles Tab/Shift+Tab through `a[href], button:not([disabled]), [tabindex]:not([-1])` within dialog
+   - Closes: `triggerElement.focus()` restores focus to `.project-card__details-btn` that opened modal
+5. **URL Hash Integration**: `#project=<id>` format — `pushState` on open, `pushState` (clean URL) on close; `popstate` listener handles browser back/forward; page load applies hash on init
+6. **Accessibility**: `role="dialog"`, `aria-modal="true"`, `aria-labelledby="project-modal-title"`, ESC to close, backdrop click to close, `aria-haspopup="dialog"` on trigger buttons
+7. **Scroll Lock**: `document.body.classList.add("modal-open")` + `body.modal-open { overflow: hidden }` in `modal.css`
+8. **Lazy Screenshots**: `img.loading = "lazy"` with explicit `width` and `height` attributes to prevent layout shift
+9. **CSS**: `css/modal.css` — `--modal-animation-duration: 250ms`, `visibility: hidden / opacity: 0` base state, `.project-modal--open` activates; `prefers-reduced-motion` sets `transition: none`
+10. **Deploy**: `data/` directory copied to `_site/` in GitHub Actions deploy job (required for `fetch("data/projects.json")` to work on GitHub Pages)
+
 ### Build System Pattern
 **PostCSS CSS Bundling with Critical CSS Inlining and Cache-Busting**: Modular CSS development with production bundling, critical CSS inlining, minification, and content-hashed filenames
 1. **Source**: Modular CSS files in `css/` directory with `@import` statements; JS in `js/main.js`
@@ -442,7 +480,7 @@ Progressive reveal animations using Intersection Observer:
     - Build job: `npm ci` → `npm run build` → upload build-output artifact (`index.html`, `404.html`, `sitemap.xml`, `dist/`)
     - Test job: checkout → `npm ci` → download build-output overlay → Playwright install → `npx playwright test --ignore-snapshots` → upload `playwright-report` artifact (7-day retention)
     - Lighthouse job: checkout → `npm ci` → download build-output overlay → `npm run lighthouse` → upload `lighthouse-report` artifact (`.lighthouseci/`, 7-day retention)
-    - Deploy job: checkout → download build-output overlay → stage production files into `_site/` (copies HTML, 404.webp, favicon, OG image, manifest, robots.txt, sitemap.xml, dist/, fonts/, images/) → configure-pages → upload-pages-artifact (`_site`) → deploy-pages (only if build, test, and lighthouse all pass)
+    - Deploy job: checkout → download build-output overlay → stage production files into `_site/` (copies HTML, 404.webp, favicon, OG image, manifest, robots.txt, sitemap.xml, data/, dist/, fonts/, images/) → configure-pages → upload-pages-artifact (`_site`) → deploy-pages (only if build, test, and lighthouse all pass)
     - Artifact: `build-output` (1-day retention) passes built HTML + `sitemap.xml` + `dist/` between jobs
     - Concurrency: Single pages deployment group, cancels in-progress runs
 12. **HTML References**: Both `index.html` and `404.html` have inline `<style>` with critical CSS plus async `<link>` to `dist/style.[hash].css` (production) or normal `<link>` to `dist/style.css` (watch mode). JS: `<script src="dist/main.[hash].js">` (production) or `<script src="js/main.js">` (watch mode)
@@ -457,13 +495,20 @@ Progressive reveal animations using Intersection Observer:
    - Serves custom `404.html` on missing files (matches GitHub Pages behavior)
    - Error handling: `EADDRINUSE` (port in use), `EACCES` (permission denied), generic — all print descriptive messages and `process.exit(1)`
    - Started automatically by Playwright via `webServer` config
-3. **Page Object Model**: `FilterPage.js` encapsulates filter system interactions
-   - Centralized locators for toolbar, buttons, cards, animation states
-   - Helper methods: `clickFilter()`, `clickFilterNoWait()`, `expectVisibleCardCount()`, `expectNoAnimationClasses()`, `expectAllVisibleCardsAreCategory()`, `getActiveFilterCategory()`, `waitForScrollAnimations()`
-     - `clickFilterNoWait()` — clicks without waiting for animation (use for reduced-motion tests and mid-animation state checks)
-   - Media & theme helpers: `enableReducedMotion()`, `setTheme(theme)` — `setTheme()` sets `data-theme` on `<html>` via `page.evaluate()` and waits 400ms for CSS transitions to settle
-   - Category counts stored as constants (`CATEGORY_COUNTS`) for assertions
-   - `waitForScrollAnimations()` waits 700ms for scroll-in animations to settle (prevents false axe-core failures)
+3. **Page Object Models**:
+   - `FilterPage.js` — encapsulates filter system interactions
+     - Centralized locators for toolbar, buttons, cards, animation states
+     - Helper methods: `clickFilter()`, `clickFilterNoWait()`, `expectVisibleCardCount()`, `expectNoAnimationClasses()`, `expectAllVisibleCardsAreCategory()`, `getActiveFilterCategory()`, `waitForScrollAnimations()`
+       - `clickFilterNoWait()` — clicks without waiting for animation (use for reduced-motion tests and mid-animation state checks)
+     - Media & theme helpers: `enableReducedMotion()`, `setTheme(theme)` — `setTheme()` sets `data-theme` on `<html>` via `page.evaluate()` and waits 400ms for CSS transitions to settle
+     - Category counts stored as constants (`CATEGORY_COUNTS`) for assertions
+     - `waitForScrollAnimations()` waits 700ms for scroll-in animations to settle (prevents false axe-core failures)
+   - `ModalPage.js` — encapsulates project detail modal interactions
+     - `PROJECTS_WITH_DETAILS` constant: `["rating-bot", "rule-indicators", "media-viewer"]`
+     - Navigation: `goto()`, `gotoWithProjectHash(projectId)`
+     - Actions: `clickCard()`, `clickClose()`, `pressEscape()`, `clickBackdrop()`
+     - Assertions: `expectOpen/Closed/Title/Category()`, `expectDescriptionCount/HighlightsCount/TechPillsCount/ScreenshotsCount/LinksCount()`, `expectScrollLocked/Unlocked()`, `expectFocusOnClose()`, `expectAriaModal()`, `expectAriaLabelledBy()`, `expectUrlHash()`
+     - Media & theme helpers: `enableReducedMotion()`, `setTheme(theme)`, `waitForScrollAnimations()`
 4. **Timing Utilities**: `timing.js` reads animation durations from CSS custom properties
    - `getAnimationDuration()` — Reads `--filter-animation-duration` from `:root`
    - `waitForFilterAnimation()` — Calculates full animation cycle (exit + entrance + stagger + buffer)
@@ -475,15 +520,20 @@ Progressive reveal animations using Intersection Observer:
    - Formats violation reports with impact level, help text, node HTML, and helpUrl
    - Used in `axe-scan.spec.js` to verify zero violations across all interaction states
 6. **Test Coverage**:
-   - **basic-filtering.spec.js**: Category filtering, card visibility, URL hash updates
-   - **toggle-behavior.spec.js**: Toggle-to-reset, sequential filter changes
-   - **url-hash.spec.js**: Page load with hash, browser navigation, invalid hashes
-   - **animation-states.spec.js**: Exit/entrance choreography, stagger delays, cleanup
-   - **keyboard-nav.spec.js**: Arrow keys, Home/End, Escape, roving tabindex, focus management
-   - **accessibility.spec.js**: ARIA attributes (`aria-pressed`, `role`, `aria-live`), live region announcements
-   - **rapid-clicks.spec.js**: Race conditions, animation interruption, state consistency
-   - **axe-scan.spec.js**: WCAG 2.1 AA compliance scanning (page load, all filters, toggle-to-reset, keyboard nav, URL hash, explicit light theme, explicit dark theme)
-   - **reduced-motion.spec.js**: Reduced motion accessibility — element visibility (`[data-animate]` at opacity 1), filter function without animations, toggle-to-reset, URL hash, WCAG 2.1 AA scans (page load, active filter, light theme, dark theme); `enableReducedMotion()` called BEFORE `goto()` so CSS media query is active at page load
+   - **filter/basic-filtering.spec.js**: Category filtering, card visibility, URL hash updates
+   - **filter/toggle-behavior.spec.js**: Toggle-to-reset, sequential filter changes
+   - **filter/url-hash.spec.js**: Page load with hash, browser navigation, invalid hashes
+   - **filter/animation-states.spec.js**: Exit/entrance choreography, stagger delays, cleanup
+   - **filter/keyboard-nav.spec.js**: Arrow keys, Home/End, Escape, roving tabindex, focus management
+   - **filter/accessibility.spec.js**: ARIA attributes (`aria-pressed`, `role`, `aria-live`), live region announcements
+   - **filter/rapid-clicks.spec.js**: Race conditions, animation interruption, state consistency
+   - **filter/axe-scan.spec.js**: WCAG 2.1 AA compliance scanning (page load, all filters, toggle-to-reset, keyboard nav, URL hash, explicit light theme, explicit dark theme)
+   - **filter/reduced-motion.spec.js**: Reduced motion accessibility — element visibility (`[data-animate]` at opacity 1), filter function without animations, toggle-to-reset, URL hash, WCAG 2.1 AA scans (page load, active filter, light theme, dark theme); `enableReducedMotion()` called BEFORE `goto()` so CSS media query is active at page load
+   - **modal/basic-modal.spec.js**: Modal open by card click, content rendering for all 3 projects, scroll lock/unlock
+   - **modal/close-modal.spec.js**: Close via button, ESC key, backdrop click; focus restores to `.project-card__details-btn`
+   - **modal/accessibility.spec.js**: ARIA attrs (`role=dialog`, `aria-modal`, `aria-labelledby`), focus on open, focus trap Tab/Shift+Tab (Chromium only — browser quirks), `aria-haspopup=dialog` on trigger buttons
+   - **modal/url-hash.spec.js**: Hash updates on open (`#project=id`), removed on close, page load with hash, invalid hash ignored, coexists with `#filter=` hash, browser back closes modal
+   - **modal/reduced-motion.spec.js**: Modal open/close/content with `prefers-reduced-motion` active
    - **seo/meta-tags.spec.js**: SEO meta tag validation — Open Graph (8 tags), Twitter Card (5 tags), core SEO (title, description, canonical), JSON-LD structured data (Person + WebSite schemas), and cross-tag consistency checks; uses `EXPECTED` constants object as single source of truth; direct locators via `ogMeta()`/`namedMeta()` helpers (no Page Object Model)
 7. **CI Integration**: Tests run after build job, before deployment
    - `forbidOnly: true` in CI prevents `.only()` commits

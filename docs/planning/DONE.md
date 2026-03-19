@@ -1,8 +1,27 @@
 # DONE
 
-**Last Updated**: 2026-03-18 (PERF-009 completed)
+**Last Updated**: 2026-03-19 (CHALLENGE-002 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-03-19
+
+### CHALLENGE-002: Project Detail Modal
+
+**Plan**: No plan file (implemented from BACKLOG.md task description)
+**Summary**: Implemented a full project detail modal overlay that opens when clicking a project card, displaying extended descriptions, technical highlights, tech stack pills, screenshot gallery, and external links. Three projects are fully populated (rating_bot, Industrial Rule Indicators, Media Viewer).
+**Key Changes**:
+- `css/modal.css` — New modal CSS with open/close transitions, focus styles, responsive layout, reduced-motion support
+- `css/main.css` — Imports modal.css
+- `js/main.js` — `initProjectModal()` with lazy JSON fetch, safe DOM rendering, focus trap, backdrop/ESC close, URL hash integration, scroll lock, focus restoration
+- `data/projects.json` — Project detail data for 3 projects (descriptions, highlights, tech, screenshots, links)
+- `index.html` — Modal container element, "View Details" buttons on clickable cards, data-project attributes
+- `.github/workflows/deploy.yml` — Copy `data/` directory to `_site/` in deploy job
+- `tests/modal/` — 45 new Playwright tests across 5 spec files (basic-modal, close-modal, accessibility, url-hash, reduced-motion)
+- `tests/pages/ModalPage.js` — Page Object Model for modal system
+**Spawned Tasks**: 5 items added to BACKLOG.md
 
 ---
 
