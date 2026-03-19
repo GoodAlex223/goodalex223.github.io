@@ -104,7 +104,7 @@ goodalex223/
 ├── lighthouserc.js         # Lighthouse CI configuration (≥90/100 all categories, desktop preset)
 ├── .stylelintrc.json       # Stylelint configuration (CSS linting rules)
 ├── eslint.config.js        # ESLint v9 flat config (browser/Node CJS/Node ESM environments)
-├── .mcp.json.example       # MCP server config template (memory, context7, playwright, github)
+├── .mcp.json.example       # MCP server config template (memory, context7, playwright, github, firecrawl)
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml      # GitHub Actions CI/CD pipeline
@@ -180,7 +180,7 @@ goodalex223/
 - [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
 - [.stylelintrc.json](.stylelintrc.json) — CSS linting configuration
 - [eslint.config.js](eslint.config.js) — ESLint v9 flat config (three environment blocks: browser, Node CJS, Playwright ESM)
-- [.mcp.json.example](.mcp.json.example) — MCP server config template (copy to `.mcp.json`, configure memory/context7/playwright/github servers)
+- [.mcp.json.example](.mcp.json.example) — MCP server config template (copy to `.mcp.json`, configure memory/context7/playwright/github/firecrawl servers)
 - [lighthouserc.js](lighthouserc.js) — Lighthouse CI config: 3 runs, desktop preset, ≥90 threshold for all 4 categories
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (lint → build → test + lighthouse → deploy)
 - [tests/pages/FilterPage.js](tests/pages/FilterPage.js) — Page Object Model for filter system tests
@@ -206,7 +206,8 @@ MCP server config lives in `.mcp.json` (gitignored). Use `.mcp.json.example` as 
 | memory | `.mcp.json` — `@modelcontextprotocol/server-memory` | Persistent knowledge graph — session context, decisions, project state |
 | context7 | `.mcp.json` — `@upstash/context7-mcp` | Up-to-date library docs — resolves package IDs and queries docs for Playwright, PostCSS, etc. |
 | playwright | `.mcp.json` — `@playwright/mcp@latest` | Browser automation — navigate pages, click, fill forms, take screenshots, inspect DOM |
-| github | Claude.ai built-in | GitHub API — create issues/PRs, read file contents, search code |
+| github | `.mcp.json` — `@modelcontextprotocol/server-github` | GitHub API — create issues/PRs, read file contents, search code (requires `GITHUB_PERSONAL_ACCESS_TOKEN`) |
+| firecrawl | `.mcp.json` — `firecrawl-mcp` | Web scraping and crawling — fetch pages, search the web, extract structured data (requires `FIRECRAWL_API_KEY`) |
 | chrome-devtools | Claude Code plugin — `chrome-devtools-mcp@claude-plugins-official` | DevTools-level browser access: Lighthouse audit, performance traces, memory heap snapshots, device emulation, attach to existing Chrome tab |
 
 **When to use each browser tool**:
