@@ -6,5 +6,29 @@
     "playwright@claude-plugins-official": true,
     "auto-memory@severity1-marketplace": true,
     "workflow@goodalex223-claude-marketplace": true
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "filepath=\"$TOOL_INPUT_FILE_PATH\"; if [[ \"$filepath\" == *.css ]]; then npx stylelint --fix \"$filepath\" 2>/dev/null; elif [[ \"$filepath\" == *.js ]]; then npx eslint --fix \"$filepath\" 2>/dev/null; fi"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "filepath=\"$TOOL_INPUT_FILE_PATH\"; case \"$filepath\" in */dist/*|*/.mcp.json|*/package-lock.json) echo 'BLOCK: This file is generated or sensitive — do not edit directly.' >&2; exit 2;; esac"
+          }
+        ]
+      }
+    ]
   }
 }
