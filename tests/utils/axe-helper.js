@@ -11,6 +11,7 @@ import { expect } from "@playwright/test";
  *
  * @param {import('@playwright/test').Page} page
  * @param {Object} [options]
+ * @param {string} [options.include] - CSS selector to scope the scan to
  * @param {string[]} [options.exclude] - CSS selectors to exclude from scan
  * @param {string[]} [options.tags] - Axe tags to check
  */
@@ -19,6 +20,10 @@ export async function checkAccessibility(page, options = {}) {
 
   const tags = options.tags || ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
   builder.withTags(tags);
+
+  if (options.include) {
+    builder.include(options.include);
+  }
 
   if (options.exclude) {
     for (const selector of options.exclude) {
