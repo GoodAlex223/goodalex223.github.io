@@ -23,12 +23,7 @@ _None currently_
 
 ## Week of 2026-03-24
 
-### Mon — TEST-007: Axe-core WCAG Scan for Modal
-- Add axe-core accessibility scanning to the modal test suite
-- Scan modal-open state in both light and dark themes
-- Verify ARIA attributes, contrast, focus management under axe rules
-- Follows existing `axe-scan.spec.js` pattern from filter tests
-- **Origin**: [BACKLOG.md — CHALLENGE-002 spawned tasks](BACKLOG.md#from-challenge-002-project-detail-modal-2026-03-19)
+### Mon — ~~TEST-007: Axe-core WCAG Scan for Modal~~ → moved to [DONE.md](DONE.md)
 
 ### Tue — CONTENT-001: Populate Remaining Project Cards with Detail Data
 - Add `data/projects.json` entries for all portfolio projects that lack `data-project` attribute

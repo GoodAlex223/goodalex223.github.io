@@ -8,6 +8,16 @@ Completed tasks for the portfolio project.
 
 ## 2026-03-19
 
+### TEST-007: Axe-core WCAG Scan for Modal
+
+**Plan**: No plan file (followed existing `axe-scan.spec.js` pattern from filter tests)
+**Summary**: Added axe-core WCAG 2.1 AA accessibility scanning to the modal test suite. Scans modal-open state for each of 3 projects individually, plus explicit light theme, dark theme, and reduced-motion variants. Scan scoped to `#project-modal` to avoid false-positive contrast violations from semi-transparent backdrop.
+**Key Changes**:
+- `tests/modal/axe-scan.spec.js` — New test file: 3 projects × 4 variants (default, light, dark, reduced-motion)
+- `tests/pages/ModalPage.js` — Added `setTheme()` and `waitForScrollAnimations()` helpers
+- `tests/utils/axe-helper.js` — Added `include`/`exclude` scoping support
+**Spawned Tasks**: Review improvements added to BACKLOG.md
+
 ### CHALLENGE-002: Project Detail Modal
 
 **Plan**: No plan file (implemented from BACKLOG.md task description)
