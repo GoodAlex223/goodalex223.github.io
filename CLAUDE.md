@@ -81,7 +81,7 @@ npx playwright show-report
 
 **CSS Linting**: Stylelint validates CSS code style and conventions. Configured via `.stylelintrc.json` with BEM naming enforcement, kebab-case for custom properties, and modern color notation. Linting runs locally (`npm run lint:css`) and in CI pipeline before build.
 
-**JS Linting**: ESLint v9 flat config (`eslint.config.js`) validates JavaScript across three environments: browser ES6+ (`js/**/*.js`), Node.js CommonJS (`scripts/**/*.js`), and Playwright ESM tests (`tests/**/*.js`). Rules: `eslint:recommended` + `no-var` + `prefer-const`. Runs locally (`npm run lint:js`) and in CI before build. Auto-fixes on commit via lint-staged.
+**JS Linting**: ESLint v10 flat config (`eslint.config.js`) validates JavaScript across three environments: browser ES6+ (`js/**/*.js`), Node.js CommonJS (`scripts/**/*.js`), and Playwright ESM tests (`tests/**/*.js`). Rules: `eslint:recommended` + `no-var` + `prefer-const` + `no-console: "error"` (browser code only). Playwright tests use `eslint-plugin-playwright` with `flat/recommended` preset + `prefer-web-first-assertions: "error"` (disabled for `tests/seo/**` cross-tag comparisons). Runs locally (`npm run lint:js`) and in CI before build. Auto-fixes on commit via lint-staged.
 
 **Lighthouse CI**: `npm run lighthouse` runs `lhci autorun` using `lighthouserc.js`. Audits 3 times against the local test server (desktop preset, `throttlingMethod: "provided"`), takes the median, and fails if any category (performance, accessibility, best-practices, seo) drops below 90/100. Reports saved to `.lighthouseci/` (gitignored).
 
@@ -103,7 +103,7 @@ goodalex223/
 ├── postcss.config.js       # PostCSS configuration (postcss-import plugin)
 ├── lighthouserc.js         # Lighthouse CI configuration (≥90/100 all categories, desktop preset)
 ├── .stylelintrc.json       # Stylelint configuration (CSS linting rules)
-├── eslint.config.js        # ESLint v9 flat config (browser/Node CJS/Node ESM environments)
+├── eslint.config.js        # ESLint v10 flat config (browser/Node CJS/Node ESM environments)
 ├── .mcp.json.example       # MCP server config template (memory, context7, playwright, github, firecrawl)
 ├── .github/
 │   └── workflows/
@@ -180,7 +180,7 @@ goodalex223/
 - [scripts/update-sitemap.js](scripts/update-sitemap.js) — Sitemap lastmod auto-updater (git-driven, first step of build)
 - [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
 - [.stylelintrc.json](.stylelintrc.json) — CSS linting configuration
-- [eslint.config.js](eslint.config.js) — ESLint v9 flat config (three environment blocks: browser, Node CJS, Playwright ESM)
+- [eslint.config.js](eslint.config.js) — ESLint v10 flat config (three environment blocks: browser, Node CJS, Playwright ESM)
 - [.mcp.json.example](.mcp.json.example) — MCP server config template (copy to `.mcp.json`, configure memory/context7/playwright/github/firecrawl servers)
 - [lighthouserc.js](lighthouserc.js) — Lighthouse CI config: 3 runs, desktop preset, ≥90 threshold for all 4 categories
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (lint → build → test + lighthouse → deploy)
@@ -235,10 +235,10 @@ MCP server config lives in `.mcp.json` (gitignored). Use `.mcp.json.example` as 
 - Allows specific vendor prefixes: `-webkit-font-smoothing`, `-moz-osx-font-smoothing`, `-webkit-text-size-adjust`
 - Ignores `dist/` directory (generated files)
 
-**JS Linting**: ESLint v9 flat config (`eslint.config.js`) enforces code quality across three environments:
-- `js/**/*.js` — browser ES6+ script (`sourceType: "script"`, browser globals)
+**JS Linting**: ESLint v10 flat config (`eslint.config.js`) enforces code quality across three environments:
+- `js/**/*.js` — browser ES6+ script (`sourceType: "script"`, browser globals); `no-console: "error"` prevents accidental console usage in production
 - `scripts/**/*.js` — Node.js CommonJS build utilities (`sourceType: "commonjs"`, node globals)
-- `tests/**/*.js` — Playwright test files (`sourceType: "module"`, node + browser globals — browser globals needed for `page.evaluate()` callbacks)
+- `tests/**/*.js` — Playwright test files (`sourceType: "module"`, node + browser globals — browser globals needed for `page.evaluate()` callbacks); uses `eslint-plugin-playwright` `flat/recommended` preset with two-entry pattern (preset + overrides); `prefer-web-first-assertions: "error"` (disabled for `tests/seo/**` cross-tag comparisons); `expect-expect` configured with POM assertion method names in `assertFunctionNames`
 - Rules: `eslint:recommended` + `no-var: error` + `prefer-const: error`
 - lint-staged: `*.js` files auto-fixed on commit via husky
 - Ignores: `dist/**`, `node_modules/**`
@@ -496,9 +496,10 @@ Progressive reveal animations using Intersection Observer:
    - Requires modern color functions with numeric alpha values
    - Bans `transition: all` / `transition-property: all` — enforces explicit property transition lists to prevent unintended side effects
    - Runs in CI before build step to catch style violations early
-10. **JS Linting**: ESLint v9 flat config validates JavaScript across all environments
-   - Configuration: `eslint.config.js` (CJS format, three environment blocks)
-   - Rules: `eslint:recommended`, `no-var`, `prefer-const`
+10. **JS Linting**: ESLint v10 flat config validates JavaScript across all environments
+   - Configuration: `eslint.config.js` (CJS format, three environment blocks + Playwright plugin)
+   - Rules: `eslint:recommended`, `no-var`, `prefer-const`, `no-console: "error"` (browser code)
+   - Playwright tests: `eslint-plugin-playwright` `flat/recommended` + `prefer-web-first-assertions` (SEO tests exempted)
    - lint-staged auto-fixes `*.js` on commit; CI runs `npm run lint:js` before build
 11. **CI/CD**: GitHub Actions workflow with 5 separate jobs: lint → build → (test + lighthouse in parallel) → deploy
     - Workflow: `.github/workflows/deploy.yml`
@@ -533,7 +534,8 @@ Progressive reveal animations using Intersection Observer:
      - `PROJECTS_WITH_DETAILS` constant: all 7 project IDs (`"rating-bot"`, `"rule-indicators"`, `"media-viewer"`, `"lubrication"`, `"hx711-scale"`, `"dropshipping"`, `"svg-processor"`)
      - Navigation: `goto()`, `gotoWithProjectHash(projectId)`
      - Actions: `clickCard()` (scrolls into view + polls computed opacity === "1" before clicking — Firefox cross-browser fix for scroll animation timing), `clickClose()`, `pressEscape()`, `clickBackdrop()`
-     - Assertions: `expectOpen/Closed/Title/Category()`, `expectDescriptionCount/HighlightsCount/TechPillsCount/ScreenshotsCount/LinksCount()`, `expectScrollLocked/Unlocked()`, `expectFocusOnClose()`, `expectAriaModal()`, `expectAriaLabelledBy()`, `expectUrlHash()`
+     - Assertions: `expectOpen/Closed/Title/Category()`, `expectDescriptionCount/HighlightsCount/TechPillsCount/ScreenshotsCount/LinksCount()`, `expectScrollLocked/Unlocked()`, `expectFocusOnClose()` (close button focused on open), `expectDetailsBtnFocused(projectId)` (details-btn refocused after close), `expectAriaModal()`, `expectAriaLabelledBy()`, `expectUrlHash()`
+       - `expectOpen()` waits 300ms after class/attribute check to let opacity transition (250ms) complete — prevents axe-core false color-contrast failures from mid-transition partial opacity
      - Media & theme helpers: `enableReducedMotion()`, `setTheme(theme)`, `waitForScrollAnimations()`
 4. **Timing Utilities**: `timing.js` reads animation durations from CSS custom properties
    - `getAnimationDuration()` — Reads `--filter-animation-duration` from `:root`
