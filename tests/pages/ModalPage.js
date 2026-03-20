@@ -59,8 +59,14 @@ export class ModalPage {
   /** Click a project card body (avoiding links) to open modal */
   async clickCard(projectId) {
     const card = this.page.locator(`[data-project="${projectId}"]`);
-    // Click the card title area (safe from links)
-    await card.locator(".project-card__title").click();
+    const title = card.locator(".project-card__title");
+    // Scroll into view to trigger IntersectionObserver scroll animation,
+    // then wait for animation to complete before clicking. Without this,
+    // Firefox clicks at opacity:0 (before .is-visible) and the click
+    // handler doesn't reliably fire.
+    await title.scrollIntoViewIfNeeded();
+    await expect(card).toHaveClass(/is-visible/, { timeout: 5000 });
+    await title.click();
     await this.expectOpen();
   }
 
