@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-19 (Week of 2026-03-24 planned)
+**Last Updated**: 2026-03-20 (CONTENT-001 completed)
 
 ---
 
@@ -23,19 +23,9 @@ _None currently_
 
 ## Week of 2026-03-24
 
-### Mon — TEST-007: Axe-core WCAG Scan for Modal
-- Add axe-core accessibility scanning to the modal test suite
-- Scan modal-open state in both light and dark themes
-- Verify ARIA attributes, contrast, focus management under axe rules
-- Follows existing `axe-scan.spec.js` pattern from filter tests
-- **Origin**: [BACKLOG.md — CHALLENGE-002 spawned tasks](BACKLOG.md#from-challenge-002-project-detail-modal-2026-03-19)
+### Mon — ~~TEST-007: Axe-core WCAG Scan for Modal~~ → moved to [DONE.md](DONE.md)
 
-### Tue — CONTENT-001: Populate Remaining Project Cards with Detail Data
-- Add `data/projects.json` entries for all portfolio projects that lack `data-project` attribute
-- For each project: extended description, highlights, tech stack, screenshots, links
-- Add `data-project` attribute and "View Details" button to cards in `index.html`
-- Capture screenshots for projects that need them
-- **Origin**: [BACKLOG.md — Project Content Population](BACKLOG.md#project-content-population-2026-01-27)
+### Tue — ~~CONTENT-001: Populate Remaining Project Cards with Detail Data~~ → moved to [DONE.md](DONE.md)
 
 ### Wed — QUALITY-009: ESLint Enhancements (Playwright plugin + no-console)
 - Add `eslint-plugin-playwright` for test-specific rules (`no-conditional-in-test`, `prefer-web-first-assertions`)

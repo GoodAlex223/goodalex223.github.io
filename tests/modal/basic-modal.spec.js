@@ -45,6 +45,50 @@ test.describe("Basic Modal", () => {
     await mp.expectLinksCount(1); // GitHub only
   });
 
+  test("displays correct content for lubrication", async () => {
+    await mp.clickCard("lubrication");
+    await mp.expectTitle("Automatic Machine Lubrication");
+    await mp.expectCategory("IoT");
+    await mp.expectDescriptionCount(3);
+    await mp.expectHighlightsCount(6);
+    await mp.expectTechPillsCount(4);
+    await mp.expectScreenshotsCount(0);
+    await mp.expectLinksCount(2); // GitHub + Demo
+  });
+
+  test("displays correct content for hx711-scale", async () => {
+    await mp.clickCard("hx711-scale");
+    await mp.expectTitle("HX711 Multi-Scale System");
+    await mp.expectCategory("IoT");
+    await mp.expectDescriptionCount(3);
+    await mp.expectHighlightsCount(6);
+    await mp.expectTechPillsCount(5);
+    await mp.expectScreenshotsCount(0);
+    await mp.expectLinksCount(2); // GitHub + Demo
+  });
+
+  test("displays correct content for dropshipping", async () => {
+    await mp.clickCard("dropshipping");
+    await mp.expectTitle("E-commerce Prototype");
+    await mp.expectCategory("Web");
+    await mp.expectDescriptionCount(3);
+    await mp.expectHighlightsCount(6);
+    await mp.expectTechPillsCount(6);
+    await mp.expectScreenshotsCount(0);
+    await mp.expectLinksCount(2); // GitHub + Demo
+  });
+
+  test("displays correct content for svg-processor", async () => {
+    await mp.clickCard("svg-processor");
+    await mp.expectTitle("SVG Layer Processor");
+    await mp.expectCategory("Tools");
+    await mp.expectDescriptionCount(3);
+    await mp.expectHighlightsCount(6);
+    await mp.expectTechPillsCount(4);
+    await mp.expectScreenshotsCount(0);
+    await mp.expectLinksCount(1); // GitHub only
+  });
+
   test("does not open modal when clicking card links", async ({ page }) => {
     // Click the GitHub link on rating-bot card (should NOT open modal)
     const card = page.locator('[data-project="rating-bot"]');

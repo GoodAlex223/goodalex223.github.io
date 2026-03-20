@@ -1,12 +1,37 @@
 # DONE
 
-**Last Updated**: 2026-03-19 (CHALLENGE-002 completed)
+**Last Updated**: 2026-03-20 (CONTENT-001 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
+## 2026-03-20
+
+### CONTENT-001: Populate Remaining Project Cards with Detail Data
+
+**Plan**: No plan file (implemented via feature-dev workflow)
+**Summary**: Added project detail modal data for all 4 remaining portfolio cards (lubrication, hx711-scale, dropshipping, svg-processor). Each entry includes 3-paragraph descriptions, 6 highlights, tech stack, and links. Added `data-project` attributes and "View Details" buttons to all cards in `index.html`. Screenshots left empty for future capture.
+**Key Changes**:
+- `data/projects.json` — 4 new entries with descriptions, highlights, tech, links (screenshots: [])
+- `index.html` — `data-project` attributes and "View Details" buttons on 4 cards
+- `tests/pages/ModalPage.js` — `PROJECTS_WITH_DETAILS` expanded from 3 to 7
+- `tests/modal/basic-modal.spec.js` — 4 new content count assertion tests
+**Spawned Tasks**: 2 items added to BACKLOG.md (detail screenshots, dropshipping description review)
+
+---
+
 ## 2026-03-19
+
+### TEST-007: Axe-core WCAG Scan for Modal
+
+**Plan**: No plan file (followed existing `axe-scan.spec.js` pattern from filter tests)
+**Summary**: Added axe-core WCAG 2.1 AA accessibility scanning to the modal test suite. Scans modal-open state for each of 3 projects individually, plus explicit light theme, dark theme, and reduced-motion variants. Scan scoped to `#project-modal` to avoid false-positive contrast violations from semi-transparent backdrop.
+**Key Changes**:
+- `tests/modal/axe-scan.spec.js` — New test file: 3 projects × 4 variants (default, light, dark, reduced-motion)
+- `tests/pages/ModalPage.js` — Added `setTheme()` and `waitForScrollAnimations()` helpers
+- `tests/utils/axe-helper.js` — Added `include`/`exclude` scoping support
+**Spawned Tasks**: Review improvements added to BACKLOG.md
 
 ### CHALLENGE-002: Project Detail Modal
 

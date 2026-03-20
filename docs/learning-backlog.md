@@ -19,3 +19,11 @@ Topics and concepts to explore further, captured from development sessions.
 **Topics to explore**:
 - **CSS visibility transition and focus interaction** — `focus()` silently fails on elements with `visibility: hidden` (even mid-transition); explore `transitionend` event-based focus management as a more robust alternative to fixed timeouts, and how different browsers handle focusability during CSS transitions
 - **Focus trap patterns in vanilla JS** — implemented manual Tab/Shift+Tab cycling with `querySelectorAll` for focusable elements; explore existing lightweight libraries (e.g., focus-trap) and the emerging `inert` HTML attribute as alternatives for managing focus within modal dialogs
+
+### 2026-03-19 Session: "TEST-007 Documentation Cleanup"
+
+**What was done**: Discovered TEST-007 was already completed (PR #46). Moved task from TODO.md to DONE.md.
+
+**Topics to explore**:
+- **Automated TODO.md transitions** — this session existed only because the task completion workflow missed the TODO→DONE step; explore adding a post-merge hook or CI step that auto-moves merged tasks to DONE.md
+- **Git history as source of truth for task status** — used `git log` to confirm task completion when TODO.md was stale; explore conventions for keeping planning docs in sync with merge events (e.g., GitHub Actions that parse PR titles)
