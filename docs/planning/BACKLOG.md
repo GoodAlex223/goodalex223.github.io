@@ -632,6 +632,8 @@ _Extracted from implementation plan:_
 
 - [ ] Capture detail screenshots for 4 new projects — lubrication, hx711-scale, dropshipping, svg-processor all have `screenshots: []` in `data/projects.json`; need 2 detail screenshots each (matching existing projects' pattern)
 - [ ] Verify dropshipping project description accuracy — Description references Next.js 14 App Router, BullMQ, Stripe, 249 unit tests based on repo README; should be validated against actual codebase state
+- [ ] Reconcile dropshipping card tech vs modal tech — Card shows `TypeScript, React, Docker, Vercel` (4 items) but `data/projects.json` has `TypeScript, Next.js, React, PostgreSQL, Stripe, Docker` (6 items); `Vercel` absent from JSON, `Next.js`/`PostgreSQL`/`Stripe` absent from card (code review finding, confidence 50/100)
+- [ ] Add `expectScreenshotsCount` to `rule-indicators` test — Pre-existing gap: `rule-indicators` has 2 screenshots in JSON but `basic-modal.spec.js` test omits `expectScreenshotsCount(2)`; all other projects now have this assertion (code review finding, confidence 25/100)
 
 ---
 
