@@ -111,8 +111,10 @@ export class ModalPage {
   async expectOpen() {
     await expect(this.modal).toHaveClass(/project-modal--open/);
     await expect(this.modal).not.toHaveAttribute("hidden", "");
-    // Small wait for async openModal to finish (fetch + render + focus)
-    await this.page.waitForTimeout(100);
+    // Wait for modal opacity transition (250ms) to complete. Without this,
+    // axe-core scans mid-transition and computes reduced text colors from
+    // the parent's partial opacity, causing false contrast failures.
+    await this.page.waitForTimeout(300);
   }
 
   async expectClosed() {
