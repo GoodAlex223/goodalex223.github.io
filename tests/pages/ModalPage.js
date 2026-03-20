@@ -60,12 +60,18 @@ export class ModalPage {
   async clickCard(projectId) {
     const card = this.page.locator(`[data-project="${projectId}"]`);
     const title = card.locator(".project-card__title");
-    // Scroll into view to trigger IntersectionObserver scroll animation,
-    // then wait for animation to complete before clicking. Without this,
-    // Firefox clicks at opacity:0 (before .is-visible) and the click
-    // handler doesn't reliably fire.
+    // Scroll into view to trigger IntersectionObserver, then wait for card
+    // to reach full opacity before clicking. Without this, Firefox clicks
+    // at opacity:0 (before scroll animation completes) and the click handler
+    // doesn't reliably fire. Checking computed opacity (not .is-visible class)
+    // works for both normal mode (opacity via transition) and reduced-motion
+    // mode (opacity via CSS override, no .is-visible needed).
     await title.scrollIntoViewIfNeeded();
-    await expect(card).toHaveClass(/is-visible/, { timeout: 5000 });
+    await expect
+      .poll(() => card.evaluate((el) => getComputedStyle(el).opacity), {
+        timeout: 5000,
+      })
+      .toBe("1");
     await title.click();
     await this.expectOpen();
   }

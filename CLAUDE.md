@@ -445,7 +445,7 @@ Progressive reveal animations using Intersection Observer:
 ### Project Detail Modal Pattern
 **Accessible overlay modal for rich project storytelling**: Lazy-fetched JSON data, focus trap, URL hash integration
 1. **Data Source**: `data/projects.json` — flat object keyed by project ID, containing `title`, `category`, `description[]`, `highlights[]`, `tech[]`, `links{}`, `screenshots[]`, `status`, `updated`
-2. **HTML Markup**: Project cards with `data-project="<id>"` attribute make cards clickable; "View Details" `<button class="project-card__details-btn" aria-haspopup="dialog">` provides keyboard-accessible entry point. Modal container: `<div id="project-modal" class="project-modal" role="dialog" aria-modal="true" hidden>`
+2. **HTML Markup**: Project cards with `data-project="<id>"` attribute make cards clickable; "View Details" `<button class="project-card__details-btn" aria-haspopup="dialog">` provides keyboard-accessible entry point. Modal container: `<div id="project-modal" class="project-modal" role="dialog" aria-modal="true" hidden>`; inner dialog div: `<div class="project-modal__dialog" tabindex="-1">` — `tabindex="-1"` required for WCAG focusable-content compliance (makes dialog container programmatically focusable)
 3. **JS Initialization**: `initProjectModal()` in `js/main.js`
    - `fetchProjectData()` — lazy fetch + cache of `data/projects.json`; called on first modal open
    - `renderModalContent()` — safe DOM construction (no `innerHTML` for data, only static SVG icons)
@@ -454,6 +454,7 @@ Progressive reveal animations using Intersection Observer:
    - Card click: excludes `<a>` and `.project-card__details-btn` clicks (handled separately)
    - Details button click: `stopPropagation()` prevents double-firing card click handler
 4. **Focus Management**:
+   - Dialog container: `tabindex="-1"` on `.project-modal__dialog` satisfies WCAG focusable-content requirement (container is programmatically focusable without entering tab order)
    - Opens: focus moves to close button via `setTimeout(300ms)` — must exceed CSS `visibility` transition (250ms); calling `focus()` on a `visibility: hidden` element silently fails
    - Trap: `trapFocus()` cycles Tab/Shift+Tab through `a[href], button:not([disabled]), [tabindex]:not([-1])` within dialog
    - Closes: `triggerElement.focus()` restores focus to `.project-card__details-btn` that opened modal
@@ -531,7 +532,7 @@ Progressive reveal animations using Intersection Observer:
    - `ModalPage.js` — encapsulates project detail modal interactions
      - `PROJECTS_WITH_DETAILS` constant: all 7 project IDs (`"rating-bot"`, `"rule-indicators"`, `"media-viewer"`, `"lubrication"`, `"hx711-scale"`, `"dropshipping"`, `"svg-processor"`)
      - Navigation: `goto()`, `gotoWithProjectHash(projectId)`
-     - Actions: `clickCard()`, `clickClose()`, `pressEscape()`, `clickBackdrop()`
+     - Actions: `clickCard()` (scrolls into view + polls computed opacity === "1" before clicking — Firefox cross-browser fix for scroll animation timing), `clickClose()`, `pressEscape()`, `clickBackdrop()`
      - Assertions: `expectOpen/Closed/Title/Category()`, `expectDescriptionCount/HighlightsCount/TechPillsCount/ScreenshotsCount/LinksCount()`, `expectScrollLocked/Unlocked()`, `expectFocusOnClose()`, `expectAriaModal()`, `expectAriaLabelledBy()`, `expectUrlHash()`
      - Media & theme helpers: `enableReducedMotion()`, `setTheme(theme)`, `waitForScrollAnimations()`
 4. **Timing Utilities**: `timing.js` reads animation durations from CSS custom properties
