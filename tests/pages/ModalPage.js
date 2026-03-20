@@ -5,7 +5,15 @@
 import { expect } from "@playwright/test";
 
 /** Project IDs that have detail data */
-export const PROJECTS_WITH_DETAILS = ["rating-bot", "rule-indicators", "media-viewer"];
+export const PROJECTS_WITH_DETAILS = [
+  "rating-bot",
+  "rule-indicators",
+  "media-viewer",
+  "lubrication",
+  "hx711-scale",
+  "dropshipping",
+  "svg-processor",
+];
 
 export class ModalPage {
   /** @param {import('@playwright/test').Page} page */

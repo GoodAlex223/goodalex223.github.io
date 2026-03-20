@@ -98,5 +98,104 @@
     ],
     "status": "In Development",
     "updated": "Jan 2026"
+  },
+  "lubrication": {
+    "title": "Automatic Machine Lubrication",
+    "category": "IoT",
+    "description": [
+      "An Arduino-based automatic lubrication system designed for industrial machinery. The system handles timer-controlled oil dispensing with configurable intervals, ensuring equipment receives proper lubrication without manual intervention.",
+      "Features a manual override button for immediate lubrication when needed, along with a floater sensor that monitors oil tank levels in real time. LED indicators provide clear visual feedback on oil status, so operators can tell at a glance whether the tank needs refilling.",
+      "The timer state persists across power cycles via EEPROM storage, making the system reliable in factory environments where unexpected shutdowns occur. A debug mode with serial output aids in troubleshooting during installation."
+    ],
+    "highlights": [
+      "Timer-based automatic lubrication with configurable intervals",
+      "Manual override button for immediate oil dispensing",
+      "Oil level monitoring via floater sensor with LED indicators",
+      "EEPROM state persistence across power cycles",
+      "MOSFET-controlled oil pump motor for reliable operation",
+      "Wokwi simulation available for testing without hardware"
+    ],
+    "tech": ["C++", "Arduino", "EEPROM", "Sensors"],
+    "links": {
+      "github": "https://github.com/GoodAlex223/automatic_machine_lubrication",
+      "demo": "https://wokwi.com/projects/425883091765424129"
+    },
+    "screenshots": [],
+    "status": null,
+    "updated": "Jun 2025"
+  },
+  "hx711-scale": {
+    "title": "HX711 Multi-Scale System",
+    "category": "IoT",
+    "description": [
+      "A multi-channel weighing system connecting 8 HX711 load cell amplifiers to a single Arduino Nano. The system supports individual sensor calibration with known weights, tare functionality, and real-time weight readings via serial communication.",
+      "Calibration values are stored in EEPROM so sensors retain their calibration across power cycles. The serial interface provides interactive commands for calibrating, taring, loading saved values, and reading current weights from all channels simultaneously.",
+      "Built for industrial and lab environments where multiple weighing points need to be monitored from a single controller. Includes a Wokwi simulation for development and testing without physical hardware."
+    ],
+    "highlights": [
+      "8 HX711 load cell amplifiers on a single Arduino Nano",
+      "Interactive serial calibration with known weight input",
+      "EEPROM persistence for calibration values across restarts",
+      "Tare functionality with configurable tolerance thresholds",
+      "Ready-state checks prevent code blocking on disconnected sensors",
+      "Wokwi simulation for development and testing"
+    ],
+    "tech": ["C++", "HX711", "Arduino", "EEPROM", "Serial"],
+    "links": {
+      "github": "https://github.com/GoodAlex223/8-HX711-to-NANO",
+      "demo": "https://wokwi.com/projects/412452836213719041"
+    },
+    "screenshots": [],
+    "status": null,
+    "updated": "Jul 2025"
+  },
+  "dropshipping": {
+    "title": "E-commerce Prototype",
+    "category": "Web",
+    "description": [
+      "A full-stack dropshipping e-commerce platform built with Next.js 14 App Router. Features a customer storefront with product browsing, search, filters, shopping cart, and Stripe checkout, plus an admin panel for product and order management.",
+      "The platform supports hierarchical categories, product reviews with verified purchase validation, newsletter subscriptions with double opt-in, and automated order forwarding to suppliers via background job processing with BullMQ and Redis.",
+      "Includes comprehensive SEO features (dynamic Open Graph images, JSON-LD structured data, Google Shopping feed), GA4 analytics tracking, GDPR-compliant cookie consent, and a test suite with 249 unit tests and E2E coverage."
+    ],
+    "highlights": [
+      "Customer storefront with search, filters, cart, and Stripe payments",
+      "Admin panel for products, orders, reviews, and newsletter management",
+      "Background job processing with BullMQ and Redis",
+      "SEO: server-side rendering, OG images, JSON-LD, Google Shopping feed",
+      "249 unit tests plus Playwright E2E coverage (~90% statements)",
+      "CI/CD with GitHub Actions and dual deployment (Vercel/VPS)"
+    ],
+    "tech": ["TypeScript", "Next.js", "React", "PostgreSQL", "Stripe", "Docker"],
+    "links": {
+      "github": "https://github.com/GoodAlex223/dropshipping-test",
+      "demo": "https://dropshipping-test.vercel.app"
+    },
+    "screenshots": [],
+    "status": "In Development",
+    "updated": "Jan 2026"
+  },
+  "svg-processor": {
+    "title": "SVG Layer Processor",
+    "category": "Tools",
+    "description": [
+      "A Python command-line tool for processing multi-layer SVG files exported from Kiri:Moto, a web-based 3D printing slicer. The tool automatically numbers each layer and converts the result into paginated A4 PDF documents.",
+      "The workflow has three stages: first, it parses SVG path elements and adds visible layer numbers at each path's starting point. Then it converts the numbered SVG to a full-length PDF using CairoSVG. Finally, it splits the long PDF into standard A4 pages using ReportLab.",
+      "Supports configurable font size, text color, and number positioning via command-line arguments. Designed to handle files with hundreds of layers — tested with 525-layer SVGs producing 27+ page A4 documents."
+    ],
+    "highlights": [
+      "Automatic layer numbering for multi-layer SVG files",
+      "High-quality SVG to PDF conversion via CairoSVG",
+      "Intelligent A4 page splitting with correct vertical offsets",
+      "Configurable font size, color, and position via CLI arguments",
+      "Handles 500+ layer files producing dozens of A4 pages",
+      "Built for Kiri:Moto 3D printing slicer workflow"
+    ],
+    "tech": ["Python", "CairoSVG", "ReportLab", "PyPDF2"],
+    "links": {
+      "github": "https://github.com/GoodAlex223/svg_layer_processor"
+    },
+    "screenshots": [],
+    "status": null,
+    "updated": "Sep 2025"
   }
 }
