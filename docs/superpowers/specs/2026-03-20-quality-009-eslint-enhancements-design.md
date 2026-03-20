@@ -18,7 +18,7 @@ Strengthen the ESLint configuration with two targeted enhancements:
 | Playwright plugin preset | `flat/recommended` + cherry-picked rules | Safety net of recommended without the full strictness of `flat/playwright-test`; avoids unnecessary churn |
 | Cherry-picked rules | `prefer-web-first-assertions: "error"` | Called out in TODO.md; promotes Playwright best practices (auto-waiting assertions) |
 | `no-console` scope | `js/**/*.js` only (browser code) | Build scripts (`scripts/**/*.js`) legitimately use `console.*` for CLI output |
-| `no-console` level | `"warn"` with no allowed methods | Zero `console.*` calls exist today; purely preventative. Portfolio site has no runtime error reporting needs |
+| `no-console` level | `"error"` with no allowed methods | Zero `console.*` calls exist today; `"error"` ensures CI lint gate catches violations (ESLint exits 0 on warnings-only). Portfolio site has no runtime error reporting needs |
 | `no-console` in tests | Not applied | Test files may use console for debugging during development; Playwright has its own logging |
 
 ## Changes
@@ -26,10 +26,10 @@ Strengthen the ESLint configuration with two targeted enhancements:
 ### 1. New Dependency
 
 ```bash
-npm install -D eslint-plugin-playwright
+npm install -D eslint-plugin-playwright@^2
 ```
 
-- Package: `eslint-plugin-playwright` (v2.x)
+- Package: `eslint-plugin-playwright` (v2.x — v2+ required for `flat/recommended` export)
 - Purpose: Playwright-specific ESLint rules for `tests/**/*.js`
 
 ### 2. ESLint Config Modifications
@@ -44,7 +44,7 @@ Add `no-console` rule:
 rules: {
   "no-var": "error",
   "prefer-const": "error",
-  "no-console": "warn",
+  "no-console": "error",
 },
 ```
 
@@ -55,9 +55,14 @@ Integrate `eslint-plugin-playwright` recommended preset and cherry-pick `prefer-
 ```js
 const playwright = require("eslint-plugin-playwright");
 
-// Playwright test files (Node.js, ESM)
+// Playwright test files: recommended preset (registers plugin + base rules)
 {
   ...playwright.configs["flat/recommended"],
+  files: ["tests/**/*.js"],
+},
+
+// Playwright test files: project overrides (languageOptions, custom rules)
+{
   files: ["tests/**/*.js"],
   languageOptions: {
     ecmaVersion: 2021,
@@ -65,15 +70,31 @@ const playwright = require("eslint-plugin-playwright");
     globals: { ...globals.node, ...globals.browser },
   },
   rules: {
-    ...playwright.configs["flat/recommended"].rules,
     "no-var": "error",
     "prefer-const": "error",
+    "playwright/expect-expect": ["error", {
+      "assertFunctionNames": ["checkAccessibility"]
+    }],
     "playwright/prefer-web-first-assertions": "error",
   },
 },
 ```
 
-**Key detail**: The spread of `flat/recommended` provides the plugin reference and base rules. Our explicit `languageOptions` and `rules` override the preset's defaults, preserving browser globals (needed for `page.evaluate()` callbacks) and our existing `no-var`/`prefer-const` rules.
+**Two-entry pattern**: The first entry spreads `flat/recommended` to register the `playwright` plugin and its base rules, scoped to `tests/**/*.js`. The second entry layers our project overrides on top — `languageOptions` (browser globals for `page.evaluate()`) and custom rules. This avoids the anti-pattern of spreading and immediately overwriting keys in a single object.
+
+#### SEO test file override (`tests/seo/**/*.js`)
+
+Disable `prefer-web-first-assertions` for SEO tests that compare attribute values across locators:
+
+```js
+// SEO tests: getAttribute() needed for cross-tag value comparison
+{
+  files: ["tests/seo/**/*.js"],
+  rules: {
+    "playwright/prefer-web-first-assertions": "off",
+  },
+},
+```
 
 #### No changes to
 
@@ -88,7 +109,13 @@ const playwright = require("eslint-plugin-playwright");
 - `js/main.js`: No `console.*` calls exist today
 - `tests/**/*.js`: No `console.*` calls; test patterns generally follow Playwright best practices
 
-If violations surface from Playwright plugin rules (e.g., `expect-expect` on helper functions, `no-conditional-in-test` patterns), fix them inline in the affected test files.
+**Known patterns requiring configuration**:
+
+1. **`expect-expect` + `checkAccessibility()` delegation**: The `checkAccessibility()` helper in `tests/utils/axe-helper.js` delegates `expect()` calls outside the test body. The `expect-expect` rule is configured with `assertFunctionNames: ["checkAccessibility"]` to recognize this delegation pattern.
+
+2. **`prefer-web-first-assertions` + cross-tag comparison tests**: `tests/seo/meta-tags.spec.js` uses `getAttribute("content")` to fetch two locator values and compare them (e.g., `og:title` must equal `twitter:title`). This cannot be rewritten with `toHaveAttribute()` because that matcher takes a literal value, not another locator's attribute. Fix: add a file-level override in `eslint.config.js` to disable `playwright/prefer-web-first-assertions` for `tests/seo/**/*.js` (SEO structural tests, not UI interaction tests where auto-retry matters).
+
+If additional violations surface from Playwright plugin rules, fix them inline in the affected test files.
 
 ### 4. Verification
 
