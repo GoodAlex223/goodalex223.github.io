@@ -58,6 +58,7 @@ module.exports = [
       "no-var": "error",
       "prefer-const": "error",
       "playwright/expect-expect": ["error", {
+        // Sorted alphabetically — update when adding new POM assertion methods
         "assertFunctionNames": [
           "checkAccessibility",
           "expectActiveFilter",
@@ -87,8 +88,8 @@ module.exports = [
           "expectVisibleCardCount",
         ],
       }],
-      "playwright/no-skipped-test": "off",
-      "playwright/no-wait-for-timeout": "off",
+      "playwright/no-skipped-test": "off", // browser-specific test.skip() in modal/accessibility
+      "playwright/no-wait-for-timeout": "off", // CSS animation timing waits throughout POM helpers
       "playwright/prefer-web-first-assertions": "error",
     },
   },
