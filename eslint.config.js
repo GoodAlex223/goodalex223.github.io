@@ -1,5 +1,6 @@
 const js = require("@eslint/js");
 const globals = require("globals");
+const playwright = require("eslint-plugin-playwright");
 
 module.exports = [
   // Ignore generated files, dependencies, and root config files
@@ -37,7 +38,13 @@ module.exports = [
     },
   },
 
-  // Playwright test files (Node.js, ESM)
+  // Playwright test files: recommended preset (registers plugin + base rules)
+  {
+    ...playwright.configs["flat/recommended"],
+    files: ["tests/**/*.js"],
+  },
+
+  // Playwright test files: project overrides (languageOptions, custom rules)
   // Browser globals (document, getComputedStyle, etc.) included because
   // page.evaluate() callbacks execute in browser context.
   {
@@ -50,6 +57,18 @@ module.exports = [
     rules: {
       "no-var": "error",
       "prefer-const": "error",
+      "playwright/expect-expect": ["error", {
+        "assertFunctionNames": ["checkAccessibility"],
+      }],
+      "playwright/prefer-web-first-assertions": "error",
+    },
+  },
+
+  // SEO tests: getAttribute() needed for cross-tag value comparison
+  {
+    files: ["tests/seo/**/*.js"],
+    rules: {
+      "playwright/prefer-web-first-assertions": "off",
     },
   },
 ];
