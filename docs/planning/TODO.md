@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-20 (CONTENT-001 completed)
+**Last Updated**: 2026-03-20 (QUALITY-009 completed)
 
 ---
 
@@ -27,11 +27,7 @@ _None currently_
 
 ### Tue — ~~CONTENT-001: Populate Remaining Project Cards with Detail Data~~ → moved to [DONE.md](DONE.md)
 
-### Wed — QUALITY-009: ESLint Enhancements (Playwright plugin + no-console)
-- Add `eslint-plugin-playwright` for test-specific rules (`no-conditional-in-test`, `prefer-web-first-assertions`)
-- Add `no-console: "warn"` rule for `js/**/*.js` browser code
-- Fix any violations surfaced by new rules
-- **Origin**: [BACKLOG.md — QUALITY-007 spawned tasks](BACKLOG.md#from-quality-007-eslint-integration-2026-03-12)
+### Wed — ~~QUALITY-009: ESLint Enhancements (Playwright plugin + no-console)~~ → moved to [DONE.md](DONE.md)
 
 ### Thu — QUALITY-010: commitlint for Conventional Commits
 - Add `@commitlint/cli` with `@commitlint/config-conventional`
