@@ -19,6 +19,7 @@ module.exports = [
     rules: {
       "no-var": "error",
       "prefer-const": "error",
+      "no-console": "error",
     },
   },
 
