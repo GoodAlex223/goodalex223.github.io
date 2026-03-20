@@ -1,8 +1,23 @@
 # DONE
 
-**Last Updated**: 2026-03-19 (CHALLENGE-002 completed)
+**Last Updated**: 2026-03-20 (CONTENT-001 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-03-20
+
+### CONTENT-001: Populate Remaining Project Cards with Detail Data
+
+**Plan**: No plan file (implemented via feature-dev workflow)
+**Summary**: Added project detail modal data for all 4 remaining portfolio cards (lubrication, hx711-scale, dropshipping, svg-processor). Each entry includes 3-paragraph descriptions, 6 highlights, tech stack, and links. Added `data-project` attributes and "View Details" buttons to all cards in `index.html`. Screenshots left empty for future capture.
+**Key Changes**:
+- `data/projects.json` — 4 new entries with descriptions, highlights, tech, links (screenshots: [])
+- `index.html` — `data-project` attributes and "View Details" buttons on 4 cards
+- `tests/pages/ModalPage.js` — `PROJECTS_WITH_DETAILS` expanded from 3 to 7
+- `tests/modal/basic-modal.spec.js` — 4 new content count assertion tests
+**Spawned Tasks**: 2 items added to BACKLOG.md (detail screenshots, dropshipping description review)
 
 ---
 

@@ -145,7 +145,8 @@ goodalex223/
 │   │   ├── close-modal.spec.js    # Close via button, ESC, backdrop; focus restore
 │   │   ├── accessibility.spec.js  # ARIA attributes, focus trap, details button
 │   │   ├── url-hash.spec.js       # URL hash (#project=id), browser navigation
-│   │   └── reduced-motion.spec.js # Modal with prefers-reduced-motion
+│   │   ├── reduced-motion.spec.js # Modal with prefers-reduced-motion
+│   │   └── axe-scan.spec.js       # WCAG 2.1 AA accessibility scanning (axe-core), scoped to modal element
 │   ├── seo/
 │   │   └── meta-tags.spec.js  # SEO meta tag validation (OG, Twitter Card, JSON-LD, canonical)
 │   ├── pages/
@@ -153,7 +154,7 @@ goodalex223/
 │   │   └── ModalPage.js    # Page Object Model for project detail modal
 │   └── utils/
 │       ├── timing.js       # Animation timing utilities (reads CSS variables)
-│       └── axe-helper.js   # Accessibility testing utilities (axe-core integration)
+│       └── axe-helper.js   # Accessibility testing utilities (axe-core integration; supports include/exclude scoping)
 ├── images/
 │   └── projects/           # Project detail screenshots (webp, lazy-loaded in modal)
 ├── fonts/
@@ -528,7 +529,7 @@ Progressive reveal animations using Intersection Observer:
      - Category counts stored as constants (`CATEGORY_COUNTS`) for assertions
      - `waitForScrollAnimations()` waits 700ms for scroll-in animations to settle (prevents false axe-core failures)
    - `ModalPage.js` — encapsulates project detail modal interactions
-     - `PROJECTS_WITH_DETAILS` constant: `["rating-bot", "rule-indicators", "media-viewer"]`
+     - `PROJECTS_WITH_DETAILS` constant: all 7 project IDs (`"rating-bot"`, `"rule-indicators"`, `"media-viewer"`, `"lubrication"`, `"hx711-scale"`, `"dropshipping"`, `"svg-processor"`)
      - Navigation: `goto()`, `gotoWithProjectHash(projectId)`
      - Actions: `clickCard()`, `clickClose()`, `pressEscape()`, `clickBackdrop()`
      - Assertions: `expectOpen/Closed/Title/Category()`, `expectDescriptionCount/HighlightsCount/TechPillsCount/ScreenshotsCount/LinksCount()`, `expectScrollLocked/Unlocked()`, `expectFocusOnClose()`, `expectAriaModal()`, `expectAriaLabelledBy()`, `expectUrlHash()`
@@ -540,9 +541,9 @@ Progressive reveal animations using Intersection Observer:
 5. **Accessibility Testing**: `axe-helper.js` provides WCAG compliance scanning using `@axe-core/playwright`
    - `checkAccessibility(page, options)` — Runs axe scan on current page state
    - Configured for WCAG 2.1 Level A and AA tags by default
-   - Supports custom tags and selector exclusions via options object
+   - Supports `options.include` (CSS selector to scope scan), `options.exclude` (selectors to exclude), `options.tags` (custom axe tag list)
    - Formats violation reports with impact level, help text, node HTML, and helpUrl
-   - Used in `axe-scan.spec.js` to verify zero violations across all interaction states
+   - Used in filter and modal `axe-scan.spec.js` suites to verify zero violations across all interaction states
 6. **Test Coverage**:
    - **filter/basic-filtering.spec.js**: Category filtering, card visibility, URL hash updates
    - **filter/toggle-behavior.spec.js**: Toggle-to-reset, sequential filter changes
@@ -553,11 +554,12 @@ Progressive reveal animations using Intersection Observer:
    - **filter/rapid-clicks.spec.js**: Race conditions, animation interruption, state consistency
    - **filter/axe-scan.spec.js**: WCAG 2.1 AA compliance scanning (page load, all filters, toggle-to-reset, keyboard nav, URL hash, explicit light theme, explicit dark theme)
    - **filter/reduced-motion.spec.js**: Reduced motion accessibility — element visibility (`[data-animate]` at opacity 1), filter function without animations, toggle-to-reset, URL hash, WCAG 2.1 AA scans (page load, active filter, light theme, dark theme); `enableReducedMotion()` called BEFORE `goto()` so CSS media query is active at page load
-   - **modal/basic-modal.spec.js**: Modal open by card click, content rendering for all 3 projects, scroll lock/unlock
+   - **modal/basic-modal.spec.js**: Modal open by card click, content rendering for all 7 projects, scroll lock/unlock
    - **modal/close-modal.spec.js**: Close via button, ESC key, backdrop click; focus restores to `.project-card__details-btn`
    - **modal/accessibility.spec.js**: ARIA attrs (`role=dialog`, `aria-modal`, `aria-labelledby`), focus on open, focus trap Tab/Shift+Tab (Chromium only — browser quirks), `aria-haspopup=dialog` on trigger buttons
    - **modal/url-hash.spec.js**: Hash updates on open (`#project=id`), removed on close, page load with hash, invalid hash ignored, coexists with `#filter=` hash, browser back closes modal
    - **modal/reduced-motion.spec.js**: Modal open/close/content with `prefers-reduced-motion` active
+   - **modal/axe-scan.spec.js**: WCAG 2.1 AA scanning for modal open state — each of 7 projects individually (different content structures), explicit light theme, explicit dark theme, reduced-motion; scan scoped to `#project-modal` via `MODAL_SCOPE` to avoid false-positive contrast violations from semi-transparent backdrop on background elements
    - **seo/meta-tags.spec.js**: SEO meta tag validation — Open Graph (8 tags), Twitter Card (5 tags), core SEO (title, description, canonical), JSON-LD structured data (Person + WebSite schemas), and cross-tag consistency checks; uses `EXPECTED` constants object as single source of truth; direct locators via `ogMeta()`/`namedMeta()` helpers (no Page Object Model)
 7. **CI Integration**: Tests run after build job, before deployment
    - `forbidOnly: true` in CI prevents `.only()` commits
@@ -572,8 +574,9 @@ Progressive reveal animations using Intersection Observer:
    - Reuses existing dev server if running
 9. **Accessibility Regression Testing**: Automated WCAG 2.1 AA scanning prevents accessibility violations
    - Uses `@axe-core/playwright` for comprehensive accessibility audits
-   - Scans page on load and after every interaction state (filter changes, keyboard nav, URL hash)
-   - Explicitly tests both light and dark themes via `fp.setTheme()` to catch cross-theme color-contrast regressions
+   - Filter suite: scans page on load and after every interaction state (filter changes, keyboard nav, URL hash)
+   - Modal suite: scans modal open state for each project (7 projects × 4 variants: default, light, dark, reduced-motion); scan scoped to `#project-modal` to avoid false positives from semi-transparent backdrop
+   - Explicitly tests both light and dark themes via `setTheme()` to catch cross-theme color-contrast regressions
    - Waits for scroll animations to settle (700ms) to prevent false color-contrast failures from opacity transitions
    - Discovered and fixed 4 light-theme + 1 dark-theme color contrast violations (muted text, category badges, status indicators)
 
