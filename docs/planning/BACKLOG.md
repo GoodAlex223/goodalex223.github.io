@@ -653,6 +653,14 @@ _Extracted from implementation plan:_
 
 ---
 
+## From QUALITY-010: commitlint for Conventional Commits (2026-03-21)
+**Origin**: docs/archive/plans/2026-03-21-quality-010-commitlint.md
+
+- [ ] ESLint ignores for root CJS configs could use a glob pattern — Currently manually listing each root config (`eslint.config.js`, `commitlint.config.js`). If more root CJS configs are added, a glob like `*.config.js` would be cleaner.
+- [ ] Investigate memory-updater hook friction on rapid commits — Hook triggers on every commit attempt even when CLAUDE.md is already up to date, causing significant friction during multi-step implementations.
+
+---
+
 ## Notes
 
 ~~**GitHub Profile README**: Consider updating [GoodAlex223/GoodAlex223](https://github.com/GoodAlex223/GoodAlex223) repository README to mention AI-assisted development workflows.~~ **DONE** (2026-01-20) - Updated with professional overview, tech stack, featured projects, and AI-assisted development mention.

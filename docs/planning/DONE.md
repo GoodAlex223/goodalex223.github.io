@@ -1,8 +1,24 @@
 # DONE
 
-**Last Updated**: 2026-03-20 (QUALITY-009 completed)
+**Last Updated**: 2026-03-21 (QUALITY-010 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-03-21
+
+### QUALITY-010: commitlint for Conventional Commits
+
+**Plan**: [docs/archive/plans/2026-03-21-quality-010-commitlint.md](../archive/plans/2026-03-21-quality-010-commitlint.md)
+**Summary**: Added commitlint with `@commitlint/config-conventional` to enforce Conventional Commits format on all commit messages via a husky `commit-msg` hook. Configured 72-char header limit and disabled `subject-case` to preserve existing uppercase subject style. Also added `commitlint.config.js` to ESLint ignores.
+**Key Changes**:
+- `package.json` — Added `@commitlint/cli` and `@commitlint/config-conventional` devDependencies
+- `commitlint.config.js` — New config extending conventional preset with 72-char header limit and `subject-case: [0]`
+- `.husky/commit-msg` — New hook running `npx --no -- commitlint --edit $1`
+- `eslint.config.js` — Added `commitlint.config.js` to ignores (root CJS file)
+- `CLAUDE.md` — Documented commitlint config, hook, and conventions
+**Spawned Tasks**: 2 items added to BACKLOG.md (ESLint glob for root configs, memory-updater hook friction)
 
 ---
 
