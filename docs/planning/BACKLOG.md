@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-03-21 (QUALITY-009 code review)
+**Last Updated**: 2026-03-21 (QUALITY-010 code review)
 
 Future ideas and improvements for the portfolio.
 
@@ -658,6 +658,14 @@ _Extracted from implementation plan:_
 
 - [ ] ESLint ignores for root CJS configs could use a glob pattern — Currently manually listing each root config (`eslint.config.js`, `commitlint.config.js`). If more root CJS configs are added, a glob like `*.config.js` would be cleaner.
 - [ ] Investigate memory-updater hook friction on rapid commits — Hook triggers on every commit attempt even when CLAUDE.md is already up to date, causing significant friction during multi-step implementations.
+
+---
+
+## From QUALITY-010 Code Review (2026-03-21)
+**Origin**: Code review of PR #49
+
+- [ ] CLAUDE.md has duplicate JS Linting descriptions with inconsistent ignores lists — Build System section lists `eslint.config.js` and `commitlint.config.js` in ignores, but Code Conventions section still says `Ignores: dist/**, node_modules/**`. Sync both sections or consolidate into one.
+- [ ] lint-staged `*.js` glob bypasses ESLint ignores for root config files — `"*.js": "eslint --fix"` passes files directly to ESLint by filename, which may not respect the `ignores` array in flat config. Pre-existing for `eslint.config.js`, now also affects `commitlint.config.js`. Consider using a negated glob in lint-staged (e.g., `"*.js": "eslint --fix --ignore-pattern commitlint.config.js"`) or switching to `"js/**/*.js scripts/**/*.js tests/**/*.js"` to scope lint-staged explicitly.
 
 ---
 
