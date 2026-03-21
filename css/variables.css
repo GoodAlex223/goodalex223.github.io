@@ -129,6 +129,10 @@
     --color-error: #c62828;
     --color-error-bg: rgb(198 40 40 / 0.08);
 
+    /* Success colors (reuse status-active) */
+    --color-success: var(--color-status-active);
+    --color-success-bg: var(--color-status-active-bg);
+
     /* Focus indicators */
     --focus-outline-color-high-contrast: rgb(15 15 35 / 0.9);
 
@@ -165,6 +169,10 @@
   /* Error colors adjusted for light backgrounds */
   --color-error: #c62828;
   --color-error-bg: rgb(198 40 40 / 0.08);
+
+  /* Success colors (reuse status-active) */
+  --color-success: var(--color-status-active);
+  --color-success-bg: var(--color-status-active-bg);
 
   /* Focus indicators */
   --focus-outline-color-high-contrast: rgb(15 15 35 / 0.9);

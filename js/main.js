@@ -1095,7 +1095,7 @@ function initContactForm() {
   const honeypot = form.querySelector("[name='_gotcha']");
 
   const fields = form.querySelectorAll(
-    ".contact-form__input:not(.contact-form__honeypot input)"
+    ".contact-form__input"
   );
 
   // Validate on blur
@@ -1249,7 +1249,7 @@ function clearFieldError(field) {
  */
 function validateForm(form) {
   const fields = form.querySelectorAll(
-    ".contact-form__input:not(.contact-form__honeypot input)"
+    ".contact-form__input"
   );
   let firstInvalid = null;
 
