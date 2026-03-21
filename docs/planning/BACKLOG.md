@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-03-21 (QUALITY-010 code review)
+**Last Updated**: 2026-03-21 (CHALLENGE-003 contact form)
 
 Future ideas and improvements for the portfolio.
 
@@ -666,6 +666,16 @@ _Extracted from implementation plan:_
 
 - [ ] CLAUDE.md has duplicate JS Linting descriptions with inconsistent ignores lists — Build System section lists `eslint.config.js` and `commitlint.config.js` in ignores, but Code Conventions section still says `Ignores: dist/**, node_modules/**`. Sync both sections or consolidate into one.
 - [ ] lint-staged `*.js` glob bypasses ESLint ignores for root config files — `"*.js": "eslint --fix"` passes files directly to ESLint by filename, which may not respect the `ignores` array in flat config. Pre-existing for `eslint.config.js`, now also affects `commitlint.config.js`. Consider using a negated glob in lint-staged (e.g., `"*.js": "eslint --fix --ignore-pattern commitlint.config.js"`) or switching to `"js/**/*.js scripts/**/*.js tests/**/*.js"` to scope lint-staged explicitly.
+
+---
+
+## From CHALLENGE-003: Contact Form (2026-03-21)
+**Origin**: docs/archive/plans/2026-03-21_challenge-003-contact-form.md
+
+- [ ] Add reCAPTCHA v3 as fallback if honeypot proves insufficient — monitor Formspree spam dashboard for 2-4 weeks before deciding
+- [ ] Add character count indicator on message textarea (e.g., "42/2000") — improves UX for the 2000-char maxlength constraint
+- [ ] Add form analytics (submission success rate, field error frequency) — helps understand conversion funnel
+- [ ] Pre-existing axe-scan flakiness in scroll animation timing — `waitForScrollAnimations(700ms)` is sometimes insufficient across browsers; consider a deterministic wait (e.g., polling `is-visible` class) instead of a fixed timeout
 
 ---
 

@@ -1,12 +1,27 @@
 # DONE
 
-**Last Updated**: 2026-03-21 (QUALITY-010 completed)
+**Last Updated**: 2026-03-21 (CHALLENGE-003 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-03-21
+
+### CHALLENGE-003: Contact Form
+
+**Plan**: [docs/archive/plans/2026-03-21_challenge-003-contact-form.md](../archive/plans/2026-03-21_challenge-003-contact-form.md)
+**Summary**: Added accessible contact form replacing the email mailto link, with Formspree integration, hybrid client-side validation, inline success/error feedback, and honeypot spam protection. Full Playwright test suite (102 tests across 3 browsers).
+**Key Changes**:
+- `css/variables.css` — Added `--color-error`, `--color-error-bg`, `--color-success`, `--color-success-bg` design tokens (dark + light themes)
+- `css/form.css` — New form stylesheet with BEM naming, validation states, status messages, reduced-motion support
+- `css/main.css` — Added `@import url("form.css")`, added `.contact-form__input` to theme transition group
+- `index.html` — Replaced email `<li>` with `<form>` + status container; kept 4 social links
+- `js/main.js` — Added `initContactForm()` + 6 supporting functions (validation, submission, status, reset)
+- `tests/pages/FormPage.js` — New Page Object Model with Formspree mocking
+- `tests/form/` — 4 test suites: validation, submission, accessibility, axe-scan (WCAG 2.1 AA)
+- `eslint.config.js` — Added 11 FormPage assertion methods to `expect-expect`
+**Spawned Tasks**: 4 items added to BACKLOG.md
 
 ### QUALITY-010: commitlint for Conventional Commits
 
