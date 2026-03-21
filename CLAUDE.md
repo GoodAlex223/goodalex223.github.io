@@ -85,8 +85,6 @@ npx playwright show-report
 
 **Commit Message Linting**: commitlint validates commit message format via Conventional Commits specification. Configured in `commitlint.config.js` with `@commitlint/config-conventional` preset, enforcing `<type>(<scope>): <subject>` format with 72-character header limit (classic git recommendation for clean `git log` output). Subject case rule disabled (`subject-case: [0]`) — uppercase subjects allowed (e.g. `"docs: Add ..."` not `"docs: add ..."`). Integrated via husky v9 `commit-msg` hook (`.husky/commit-msg`), runs on every commit attempt. Hook is invoked via `npx --no -- commitlint --edit $1` (no shebang, husky v9 shell-agnostic pattern).
 
-**Commit Message Linting**: commitlint validates commit message format via Conventional Commits specification. Configured in `commitlint.config.js` with `@commitlint/config-conventional` preset, enforcing `<type>(<scope>): <subject>` format with 72-character header limit (classic git recommendation for clean `git log` output). Subject case rule disabled (`subject-case: [0]`) — uppercase subjects allowed (e.g. `"docs: Add ..."` not `"docs: add ..."`). Integrated via husky v9 `commit-msg` hook (`.husky/commit-msg`), runs on every commit attempt. Hook is invoked via `npx --no -- commitlint --edit $1` (no shebang, husky v9 shell-agnostic pattern).
-
 **Lighthouse CI**: `npm run lighthouse` runs `lhci autorun` using `lighthouserc.js`. Audits 3 times against the local test server (desktop preset, `throttlingMethod: "provided"`), takes the median, and fails if any category (performance, accessibility, best-practices, seo) drops below 90/100. Reports saved to `.lighthouseci/` (gitignored).
 
 **Deployment**: Automatic via GitHub Actions on push to `main` branch. Workflow runs lint (CSS + JS) → build → (test + lighthouse in parallel) → deploy. Linting, tests, and Lighthouse audit must all pass before deployment proceeds.
@@ -259,7 +257,7 @@ MCP server config lives in `.mcp.json` (gitignored). Use `.mcp.json.example` as 
 **JS Linting**: ESLint v10 flat config (`eslint.config.js`) enforces code quality across three environments:
 - `js/**/*.js` — browser ES6+ script (`sourceType: "script"`, browser globals); `no-console: "error"` prevents accidental console usage in production
 - `scripts/**/*.js` — Node.js CommonJS build utilities (`sourceType: "commonjs"`, node globals)
-- `tests/**/*.js` — Playwright test files (`sourceType: "module"`, node + browser globals — browser globals needed for `page.evaluate()` callbacks); uses `eslint-plugin-playwright` `flat/recommended` preset with two-entry pattern (preset + overrides); `prefer-web-first-assertions: "error"` (disabled for `tests/seo/**` cross-tag comparisons); `expect-expect` configured with POM assertion method names in `assertFunctionNames`
+- `tests/**/*.js` — Playwright test files (`sourceType: "module"`, node + browser globals — browser globals needed for `page.evaluate()` callbacks); uses `eslint-plugin-playwright` `flat/recommended` preset with two-entry pattern (preset + overrides); `prefer-web-first-assertions: "error"` (disabled for `tests/seo/**` cross-tag comparisons); `no-skipped-test: "off"` (browser-specific `test.skip()` in modal/accessibility); `no-wait-for-timeout: "off"` (CSS animation timing waits in POM helpers); `expect-expect` configured with alphabetically-sorted POM assertion method names in `assertFunctionNames` (covers FilterPage, ModalPage, FormPage, and `checkAccessibility`)
 - Rules: `eslint:recommended` + `no-var: error` + `prefer-const: error`
 - lint-staged: `*.js` files auto-fixed on commit via husky
 - Ignores: `dist/**`, `node_modules/**`, `eslint.config.js`, `commitlint.config.js`
@@ -506,7 +504,7 @@ Progressive reveal animations using Intersection Observer:
 4. **Submission**: `fetch()` POST to `https://formspree.io/f/{FORM_ID}` with `Content-Type: application/json` and `Accept: application/json`; standard `action`+`method="POST"` on `<form>` as no-JS fallback
 5. **Validation**: Hybrid HTML5 + custom JS via Constraint Validation API (`input.validity.typeMismatch` for email — no custom regex); blur validation on each field; full `validateForm()` on submit; focuses first invalid field on failure
 6. **Feedback**: Inline replacement — form fades out, `#contact-form-status` fades in with success/error message + action button ("Send another" / "Try again")
-7. **JS Functions** in `js/main.js`: `initContactForm()`, `validateField()`, `showFieldError()`, `clearFieldError()`, `validateForm()`, `submitForm()`, `showFormStatus()`, `resetForm()`
+7. **JS Functions** in `js/main.js`: `initContactForm()`, `validateField()`, `showFieldError()`, `clearFieldError()`, `validateForm()`, `showFormStatus()`, `resetForm()` (submit logic is inline in `initContactForm()`'s `submit` event handler)
 8. **CSS** in `css/form.css`:
    - BEM: `.contact-form`, `.contact-form__field`, `.contact-form__label`, `.contact-form__input`, `.contact-form__input--textarea`, `.contact-form__input--invalid`, `.contact-form__error`, `.contact-form__submit`, `.contact-form__submit-text`, `.contact-form__submit-loading`, `.contact-form__status`, `.contact-form__status-icon`, `.contact-form__status-message`, `.contact-form__status-action`
    - New design tokens in `variables.css`: `--color-error` (#ef5350 dark / #c62828 light), `--color-error-bg`; `--color-success` (alias `--color-status-active`), `--color-success-bg`
@@ -514,8 +512,8 @@ Progressive reveal animations using Intersection Observer:
    - `.contact-form__input` added to theme transition group in `main.css`
    - `prefers-reduced-motion`: form fade transition set to `none`
 9. **Accessibility**: `aria-invalid="true"` + `aria-describedby` on each input linking to its error `<p>`; error elements use `role="alert"` + `aria-live="polite"`; status container uses `role="alert"` + `aria-live="polite"`; button disabled + loading text announced during submission
-10. **Testing** in `tests/form/` — mocks Formspree via `page.route('https://formspree.io/f/*', ...)`:
-    - `FormPage.js` POM: `fillField()`, `submitForm()`, `expectFieldError()`, `expectNoFieldError()`, `expectSuccess()`, `expectError()`, `enableReducedMotion()`, `setTheme()`
+10. **Testing** in `tests/form/` — Formspree mocked in `FormPage.js` via `page.route("**/formspree.io/f/*", ...)`:
+    - `FormPage.js` POM: `fillName()`, `fillEmail()`, `fillMessage()`, `fillAllFields()`, `clickSubmit()`, `clickStatusAction()`, `blurField()`, `mockFormspreeSuccess()`, `mockFormspreeError()`, `mockFormspreeNetworkError()`, `expectFieldError()`, `expectNoFieldError()`, `expectFieldInvalid()`, `expectFieldValid()`, `expectFormVisible()`, `expectFormHidden()`, `expectSuccess()`, `expectError()`, `expectSubmitDisabled()`, `expectSubmitEnabled()`, `expectLoadingState()`, `enableReducedMotion()`, `setTheme()`, `waitForScrollAnimations()`
     - `validation.spec.js` — required, email format, minlength, maxlength, blur validation, focus on first error
     - `submission.spec.js` — success mock, error mock, loading state, honeypot silent-succeed, "Send another"/"Try again"
     - `accessibility.spec.js` — ARIA, label associations, focus management, keyboard navigation
@@ -580,10 +578,13 @@ Progressive reveal animations using Intersection Observer:
    - Started automatically by Playwright via `webServer` config
 3. **Page Object Models**:
    - `FormPage.js` — encapsulates contact form interactions
-     - Actions: `fillField()`, `submitForm()`
-     - Assertions: `expectFieldError()`, `expectNoFieldError()`, `expectSuccess()`, `expectError()`
-     - Media & theme helpers: `enableReducedMotion()`, `setTheme(theme)`
-     - Formspree mocked via `page.route('https://formspree.io/f/*', ...)` for controlled responses
+     - Navigation: `goto()` — navigates to `/`, waits for filter button counts to confirm JS init
+     - Actions: `fillName()`, `fillEmail()`, `fillMessage()`, `fillAllFields({name, email, message})`, `clickSubmit()`, `clickStatusAction()`, `blurField(field)`
+     - Formspree mocking: `mockFormspreeSuccess()`, `mockFormspreeError(statusCode=500)`, `mockFormspreeNetworkError()` — all use `page.route("**/formspree.io/f/*", ...)`
+     - Assertions: `expectFieldError()`, `expectNoFieldError()`, `expectFieldInvalid()`, `expectFieldValid()`, `expectFormVisible()`, `expectFormHidden()`, `expectSuccess()`, `expectError()`, `expectSubmitDisabled()`, `expectSubmitEnabled()`, `expectLoadingState()`
+       - Default success message: `"Thanks! I'll get back to you soon."` / error: `"Something went wrong. Please try again."`
+       - Status action texts: `"Send another message"` (success) / `"Try again"` (error)
+     - Media & theme helpers: `enableReducedMotion()`, `setTheme(theme)` (sets `data-theme` + waits 400ms), `waitForScrollAnimations()` (700ms)
    - `FilterPage.js` — encapsulates filter system interactions
      - Centralized locators for toolbar, buttons, cards, animation states
      - Helper methods: `clickFilter()`, `clickFilterNoWait()`, `expectVisibleCardCount()`, `expectNoAnimationClasses()`, `expectAllVisibleCardsAreCategory()`, `getActiveFilterCategory()`, `waitForScrollAnimations()`
@@ -607,7 +608,7 @@ Progressive reveal animations using Intersection Observer:
    - Configured for WCAG 2.1 Level A and AA tags by default
    - Supports `options.include` (CSS selector to scope scan), `options.exclude` (selectors to exclude), `options.tags` (custom axe tag list)
    - Formats violation reports with impact level, help text, node HTML, and helpUrl
-   - Used in filter and modal `axe-scan.spec.js` suites to verify zero violations across all interaction states
+   - Used in filter, modal, and form `axe-scan.spec.js` suites to verify zero violations across all interaction states
 6. **Test Coverage**:
    - **filter/basic-filtering.spec.js**: Category filtering, card visibility, URL hash updates
    - **filter/toggle-behavior.spec.js**: Toggle-to-reset, sequential filter changes
@@ -628,7 +629,7 @@ Progressive reveal animations using Intersection Observer:
    - **form/validation.spec.js**: Required field errors, email format, minlength/maxlength, blur validation, focus moves to first invalid field on submit
    - **form/submission.spec.js**: Formspree mocked via `page.route()`; success path, error path, loading state, honeypot silent-succeed, "Send another"/"Try again" actions
    - **form/accessibility.spec.js**: ARIA attributes, label associations, focus management on validation failure, keyboard navigation
-   - **form/axe-scan.spec.js**: WCAG 2.1 AA scanning — default state, field errors visible, success state, light theme, dark theme, reduced-motion
+   - **form/axe-scan.spec.js**: WCAG 2.1 AA scanning — default state (full page), errors/success/error states (scoped to `#contact` via `FORM_SCOPE`), explicit light theme, explicit dark theme, reduced-motion (fresh `page.goto()` after `enableReducedMotion()`)
 7. **CI Integration**: Tests run after build job, before deployment
    - `forbidOnly: true` in CI prevents `.only()` commits
    - 2 retries for flaky tests in CI
