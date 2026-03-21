@@ -77,7 +77,7 @@ The contact form replaces the first `<li>` (email link) in the existing `<ul cla
     </form>
 
     <!-- Success/Error feedback (inline replacement) -->
-    <div class="contact-form__status" id="contact-form-status" hidden>
+    <div class="contact-form__status" id="contact-form-status" role="alert" aria-live="polite" hidden>
       <div class="contact-form__status-icon" aria-hidden="true"></div>
       <p class="contact-form__status-message"></p>
       <button class="contact-form__status-action btn btn--secondary" type="button"></button>
@@ -222,6 +222,7 @@ User clicks Submit
 | Focus management | On validation failure, focus moves to first invalid field |
 | Keyboard | Full Tab navigation; Enter submits form |
 | Honeypot isolation | `aria-hidden="true"` + `tabindex="-1"` on honeypot container |
+| Form status | Status container has `role="alert"` + `aria-live="polite"` for screen reader announcement |
 | Submit state | Button disabled during submission; loading text announced |
 | Reduced motion | Fade animations disabled via `prefers-reduced-motion` |
 | Color contrast | Error colors meet WCAG AA (4.5:1) in both themes |
