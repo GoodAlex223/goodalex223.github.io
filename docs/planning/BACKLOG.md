@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-03-20 (QUALITY-009 completed)
+**Last Updated**: 2026-03-21 (QUALITY-009 code review)
 
 Future ideas and improvements for the portfolio.
 
@@ -642,6 +642,14 @@ _Extracted from implementation plan:_
 
 - [ ] `eslint-plugin-playwright` `assertFunctionNames` glob patterns don't match member expressions — `expect*` doesn't match `fp.expectSomething()`. Explicit list is the only working approach. Document this limitation if the plugin adds glob support for member expressions in future versions.
 - [ ] Future lint rule additions: scan codebase for actual violations before estimating scope — QUALITY-009 spec predicted "zero or minimal" but found 81 violations (70 expect-expect + 11 warnings). Pre-scan with `npx eslint --rule '{"rule": "error"}' "glob"` catches this before planning.
+
+---
+
+## From QUALITY-009 Code Review (2026-03-21)
+**Origin**: Code review of PR #48
+
+- [ ] Consolidate `docs/superpowers/` into standard directory structure — Plan and spec files created under `docs/superpowers/plans/` and `docs/superpowers/specs/` instead of CLAUDE.md-mandated `docs/planning/plans/`. Move existing files and update DONE.md references. Update `docs/README.md` index if keeping `docs/superpowers/` as a permanent directory.
+- [ ] Archive QUALITY-009 plan to `docs/archive/plans/` — Completed plan still in working directory, not archived per Task Completion Documentation phase requirements.
 
 ---
 
