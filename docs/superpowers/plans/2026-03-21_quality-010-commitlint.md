@@ -8,7 +8,7 @@
 
 **Tech Stack:** commitlint, husky v9
 
-**Spec:** `docs/superpowers/specs/2026-03-21-quality-010-commitlint-design.md`
+**Spec:** `docs/superpowers/specs/2026-03-21_quality-010-commitlint-design.md`
 
 ---
 

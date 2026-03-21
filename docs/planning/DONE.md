@@ -10,7 +10,7 @@ Completed tasks for the portfolio project.
 
 ### QUALITY-010: commitlint for Conventional Commits
 
-**Plan**: [docs/archive/plans/2026-03-21-quality-010-commitlint.md](../archive/plans/2026-03-21-quality-010-commitlint.md)
+**Plan**: [docs/archive/plans/2026-03-21_quality-010-commitlint.md](../archive/plans/2026-03-21_quality-010-commitlint.md)
 **Summary**: Added commitlint with `@commitlint/config-conventional` to enforce Conventional Commits format on all commit messages via a husky `commit-msg` hook. Configured 72-char header limit and disabled `subject-case` to preserve existing uppercase subject style. Also added `commitlint.config.js` to ESLint ignores.
 **Key Changes**:
 - `package.json` — Added `@commitlint/cli` and `@commitlint/config-conventional` devDependencies
