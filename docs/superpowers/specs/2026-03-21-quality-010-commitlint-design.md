@@ -12,6 +12,7 @@ The project follows Conventional Commits by convention, but nothing enforces it.
 
 - Use `@commitlint/config-conventional` preset as-is (all standard types allowed)
 - Override `header-max-length` to 72 characters (classic git recommendation)
+- Disable `subject-case` — preserve existing uppercase subject style (`docs: Add ...`, `feat: Archive ...`)
 - Header-only enforcement — no body line-length rules
 - Dedicated JS config file (`commitlint.config.js`) matching existing project patterns
 
@@ -32,6 +33,8 @@ module.exports = {
   rules: {
     // Classic git recommendation: 72-char headers for clean git log output
     'header-max-length': [2, 'always', 72],
+    // Preserve existing uppercase subject style (e.g., "docs: Add ..." not "docs: add ...")
+    'subject-case': [0],
   },
 };
 ```
@@ -39,12 +42,17 @@ module.exports = {
 **Enforced rules (from preset):**
 - Valid type prefix: `feat`, `fix`, `docs`, `chore`, `style`, `test`, `build`, `ci`, `perf`, `refactor`, `revert`
 - Optional scope in parentheses: `type(scope): subject`
-- Lowercase subject, no trailing period
+- No trailing period on subject
 - 72-char max header length (overridden from default 100)
 
+**Explicitly disabled:**
+- `subject-case` — the preset default rejects uppercase subjects, but this project's existing convention uses them (`docs: Add ...`, `feat: Archive ...`). Disabled to preserve current style.
+
 **Not enforced:**
-- Body/footer line length — URLs, bullet lists, and code snippets make strict wrapping impractical
+- Body/footer line length — URLs, bullet lists, and code snippets make strict wrapping impractical. Note: `Co-Authored-By` trailers are in the commit body and are unaffected by `header-max-length`.
 - Scope restrictions — any scope is valid
+
+**Windows compatibility note:** Husky v9 runs hooks through `sh` (Git Bash on Windows), so `$1` in the commit-msg hook resolves correctly on Windows 11.
 
 ### `.husky/commit-msg` (new file)
 
@@ -82,7 +90,12 @@ Runs commitlint against the commit message on every `git commit`. Rejects non-co
 2. **Invalid type fails**: `git commit --allow-empty -m "bad message"` — should be rejected
 3. **Over-length header fails**: a commit message header exceeding 72 characters — should be rejected
 4. **Scoped message passes**: `git commit --allow-empty -m "feat(lint): add commitlint"` — should succeed
-5. **Existing pre-commit hook still works**: lint-staged runs before commit-msg hook
+5. **Uppercase subject passes**: `git commit --allow-empty -m "feat: Add new feature"` — should succeed (subject-case disabled)
+6. **Existing pre-commit hook still works**: lint-staged runs before commit-msg hook
+
+## Rollback
+
+To revert: delete `commitlint.config.js`, `.husky/commit-msg`, and remove `@commitlint/cli` + `@commitlint/config-conventional` from devDependencies.
 
 ## Design Rationale
 
@@ -94,6 +107,9 @@ Classic git recommendation. The project's existing commits are 50-80 chars. 72 k
 
 ### Why header-only enforcement?
 The body is for context and reasoning — enforcing line wraps there is impractical (URLs, code snippets, bullet lists) and modern tools handle display wrapping.
+
+### Why disable `subject-case`?
+The preset default rejects uppercase subjects (`subject-case: [2, 'never', ['sentence-case', ...]]`). This project's existing convention consistently uses uppercase subjects (`docs: Add ...`, `feat: Archive ...`). Changing this would create friction with no benefit — the convention is consistent and readable. Disabling the rule preserves the established style.
 
 ### Why JS config file?
 Matches existing project patterns (`eslint.config.js`, `postcss.config.js`, `lighthouserc.js`). JS format allows inline comments for rationale.
