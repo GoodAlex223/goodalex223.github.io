@@ -649,7 +649,7 @@ _Extracted from implementation plan:_
 **Origin**: Code review of PR #48
 
 - [ ] Consolidate `docs/superpowers/` into standard directory structure — Plan and spec files created under `docs/superpowers/plans/` and `docs/superpowers/specs/` instead of CLAUDE.md-mandated `docs/planning/plans/`. Move existing files and update DONE.md references. Update `docs/README.md` index if keeping `docs/superpowers/` as a permanent directory.
-- [ ] Archive QUALITY-009 plan to `docs/archive/plans/` — Completed plan still in working directory, not archived per Task Completion Documentation phase requirements.
+- [x] Archive QUALITY-009 plan to `docs/archive/plans/` — Done (2026-03-21)
 
 ---
 

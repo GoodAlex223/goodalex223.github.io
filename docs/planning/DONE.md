@@ -10,7 +10,7 @@ Completed tasks for the portfolio project.
 
 ### QUALITY-009: ESLint Enhancements (Playwright plugin + no-console)
 
-**Plan**: [docs/superpowers/plans/2026-03-20-quality-009-eslint-enhancements.md](../superpowers/plans/2026-03-20-quality-009-eslint-enhancements.md)
+**Plan**: [docs/archive/plans/2026-03-20_quality-009-eslint-enhancements.md](../archive/plans/2026-03-20_quality-009-eslint-enhancements.md)
 **Summary**: Added `eslint-plugin-playwright` with `flat/recommended` preset for test-specific linting and `no-console: "error"` for browser code. Configured two-entry flat config pattern, 27 POM assertion methods in `assertFunctionNames`, SEO file exception for cross-tag comparisons, and disabled `no-wait-for-timeout`/`no-skipped-test` rules for intentional patterns.
 **Key Changes**:
 - `package.json` — Added `eslint-plugin-playwright` devDependency
