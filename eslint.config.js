@@ -1,5 +1,6 @@
 const js = require("@eslint/js");
 const globals = require("globals");
+const playwright = require("eslint-plugin-playwright");
 
 module.exports = [
   // Ignore generated files, dependencies, and root config files
@@ -19,6 +20,7 @@ module.exports = [
     rules: {
       "no-var": "error",
       "prefer-const": "error",
+      "no-console": "error",
     },
   },
 
@@ -36,7 +38,13 @@ module.exports = [
     },
   },
 
-  // Playwright test files (Node.js, ESM)
+  // Playwright test files: recommended preset (registers plugin + base rules)
+  {
+    ...playwright.configs["flat/recommended"],
+    files: ["tests/**/*.js"],
+  },
+
+  // Playwright test files: project overrides (languageOptions, custom rules)
   // Browser globals (document, getComputedStyle, etc.) included because
   // page.evaluate() callbacks execute in browser context.
   {
@@ -49,6 +57,48 @@ module.exports = [
     rules: {
       "no-var": "error",
       "prefer-const": "error",
+      "playwright/expect-expect": ["error", {
+        // Sorted alphabetically — update when adding new POM assertion methods
+        "assertFunctionNames": [
+          "checkAccessibility",
+          "expectActiveFilter",
+          "expectAllVisibleCardsAreCategory",
+          "expectAriaLabelledBy",
+          "expectAriaModal",
+          "expectButtonPressed",
+          "expectCategory",
+          "expectClosed",
+          "expectDescriptionCount",
+          "expectDetailsBtnFocused",
+          "expectDetailsButtonAccessibility",
+          "expectFocused",
+          "expectFocusOnClose",
+          "expectHighlightsCount",
+          "expectLinksCount",
+          "expectLiveRegionText",
+          "expectNoAnimationClasses",
+          "expectOpen",
+          "expectScreenshotsCount",
+          "expectScrollLocked",
+          "expectScrollUnlocked",
+          "expectTabindex",
+          "expectTechPillsCount",
+          "expectTitle",
+          "expectUrlHash",
+          "expectVisibleCardCount",
+        ],
+      }],
+      "playwright/no-skipped-test": "off", // browser-specific test.skip() in modal/accessibility
+      "playwright/no-wait-for-timeout": "off", // CSS animation timing waits throughout POM helpers
+      "playwright/prefer-web-first-assertions": "error",
+    },
+  },
+
+  // SEO tests: getAttribute() needed for cross-tag value comparison
+  {
+    files: ["tests/seo/**/*.js"],
+    rules: {
+      "playwright/prefer-web-first-assertions": "off",
     },
   },
 ];

@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-03-19 (TEST-007 completed)
+**Last Updated**: 2026-03-20 (QUALITY-009 completed)
 
 Future ideas and improvements for the portfolio.
 
@@ -634,6 +634,14 @@ _Extracted from implementation plan:_
 - [ ] Verify dropshipping project description accuracy — Description references Next.js 14 App Router, BullMQ, Stripe, 249 unit tests based on repo README; should be validated against actual codebase state
 - [ ] Reconcile dropshipping card tech vs modal tech — Card shows `TypeScript, React, Docker, Vercel` (4 items) but `data/projects.json` has `TypeScript, Next.js, React, PostgreSQL, Stripe, Docker` (6 items); `Vercel` absent from JSON, `Next.js`/`PostgreSQL`/`Stripe` absent from card (code review finding, confidence 50/100)
 - [ ] Add `expectScreenshotsCount` to `rule-indicators` test — Pre-existing gap: `rule-indicators` has 2 screenshots in JSON but `basic-modal.spec.js` test omits `expectScreenshotsCount(2)`; all other projects now have this assertion (code review finding, confidence 25/100)
+
+---
+
+## From QUALITY-009: ESLint Enhancements (2026-03-20)
+**Origin**: QUALITY-009 implementation
+
+- [ ] `eslint-plugin-playwright` `assertFunctionNames` glob patterns don't match member expressions — `expect*` doesn't match `fp.expectSomething()`. Explicit list is the only working approach. Document this limitation if the plugin adds glob support for member expressions in future versions.
+- [ ] Future lint rule additions: scan codebase for actual violations before estimating scope — QUALITY-009 spec predicted "zero or minimal" but found 81 violations (70 expect-expect + 11 warnings). Pre-scan with `npx eslint --rule '{"rule": "error"}' "glob"` catches this before planning.
 
 ---
 

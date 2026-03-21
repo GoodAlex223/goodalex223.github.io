@@ -1,12 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-03-20 (CONTENT-001 completed)
+**Last Updated**: 2026-03-20 (QUALITY-009 completed)
 
 Completed tasks for the portfolio project.
 
 ---
 
 ## 2026-03-20
+
+### QUALITY-009: ESLint Enhancements (Playwright plugin + no-console)
+
+**Plan**: [docs/superpowers/plans/2026-03-20-quality-009-eslint-enhancements.md](../superpowers/plans/2026-03-20-quality-009-eslint-enhancements.md)
+**Summary**: Added `eslint-plugin-playwright` with `flat/recommended` preset for test-specific linting and `no-console: "error"` for browser code. Configured two-entry flat config pattern, 27 POM assertion methods in `assertFunctionNames`, SEO file exception for cross-tag comparisons, and disabled `no-wait-for-timeout`/`no-skipped-test` rules for intentional patterns.
+**Key Changes**:
+- `package.json` — Added `eslint-plugin-playwright` devDependency
+- `eslint.config.js` — Playwright plugin (two-entry pattern + SEO override), `no-console: "error"` for browser code, POM assertion methods config
+- `CLAUDE.md` — ESLint v9 → v10 across all references, documented new rules and plugin
+**Spawned Tasks**: 2 items added to BACKLOG.md (assertFunctionNames glob limitation, pre-scan process improvement)
 
 ### CONTENT-001: Populate Remaining Project Cards with Detail Data
 
