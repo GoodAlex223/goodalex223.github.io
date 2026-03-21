@@ -649,7 +649,15 @@ _Extracted from implementation plan:_
 **Origin**: Code review of PR #48
 
 - [ ] Consolidate `docs/superpowers/` into standard directory structure — Plan and spec files created under `docs/superpowers/plans/` and `docs/superpowers/specs/` instead of CLAUDE.md-mandated `docs/planning/plans/`. Move existing files and update DONE.md references. Update `docs/README.md` index if keeping `docs/superpowers/` as a permanent directory.
-- [ ] Archive QUALITY-009 plan to `docs/archive/plans/` — Completed plan still in working directory, not archived per Task Completion Documentation phase requirements.
+- [x] Archive QUALITY-009 plan to `docs/archive/plans/` — Done (2026-03-21)
+
+---
+
+## From QUALITY-010: commitlint for Conventional Commits (2026-03-21)
+**Origin**: docs/archive/plans/2026-03-21_quality-010-commitlint.md
+
+- [ ] ESLint ignores for root CJS configs could use a glob pattern — Currently manually listing each root config (`eslint.config.js`, `commitlint.config.js`). If more root CJS configs are added, a glob like `*.config.js` would be cleaner.
+- [ ] Investigate memory-updater hook friction on rapid commits — Hook triggers on every commit attempt even when CLAUDE.md is already up to date, causing significant friction during multi-step implementations.
 
 ---
 

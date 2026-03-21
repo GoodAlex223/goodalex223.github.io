@@ -9,7 +9,7 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 - **Live Site**: [goodalex223.github.io](https://goodalex223.github.io)
 - **Tech Stack**: HTML5, CSS3 (Custom Properties, Grid, Flexbox), ES6+
-- **Build Tools**: PostCSS (CSS bundling), Critters (critical CSS inlining), terser (JS minification)
+- **Build Tools**: PostCSS (CSS bundling), Critters (critical CSS inlining), terser (JS minification), commitlint (Conventional Commits enforcement)
 - **Hosting**: GitHub Pages (deploys via GitHub Actions)
 
 <!-- END AUTO-MANAGED -->
@@ -81,7 +81,9 @@ npx playwright show-report
 
 **CSS Linting**: Stylelint validates CSS code style and conventions. Configured via `.stylelintrc.json` with BEM naming enforcement, kebab-case for custom properties, and modern color notation. Linting runs locally (`npm run lint:css`) and in CI pipeline before build.
 
-**JS Linting**: ESLint v10 flat config (`eslint.config.js`) validates JavaScript across three environments: browser ES6+ (`js/**/*.js`), Node.js CommonJS (`scripts/**/*.js`), and Playwright ESM tests (`tests/**/*.js`). Rules: `eslint:recommended` + `no-var` + `prefer-const` + `no-console: "error"` (browser code only). Playwright tests use `eslint-plugin-playwright` with `flat/recommended` preset + `prefer-web-first-assertions: "error"` (disabled for `tests/seo/**` cross-tag comparisons). Runs locally (`npm run lint:js`) and in CI before build. Auto-fixes on commit via lint-staged.
+**JS Linting**: ESLint v10 flat config (`eslint.config.js`) validates JavaScript across three environments: browser ES6+ (`js/**/*.js`), Node.js CommonJS (`scripts/**/*.js`), and Playwright ESM tests (`tests/**/*.js`). Rules: `eslint:recommended` + `no-var` + `prefer-const` + `no-console: "error"` (browser code only). Playwright tests use `eslint-plugin-playwright` with `flat/recommended` preset + `prefer-web-first-assertions: "error"` (disabled for `tests/seo/**` cross-tag comparisons). Ignores: `dist/**`, `node_modules/**`, `eslint.config.js`, `commitlint.config.js`. Runs locally (`npm run lint:js`) and in CI before build. Auto-fixes on commit via lint-staged.
+
+**Commit Message Linting**: commitlint validates commit message format via Conventional Commits specification. Configured in `commitlint.config.js` with `@commitlint/config-conventional` preset, enforcing `<type>(<scope>): <subject>` format with 72-character header limit (classic git recommendation for clean `git log` output). Subject case rule disabled (`subject-case: [0]`) — uppercase subjects allowed (e.g. `"docs: Add ..."` not `"docs: add ..."`). Integrated via husky v9 `commit-msg` hook (`.husky/commit-msg`), runs on every commit attempt. Hook is invoked via `npx --no -- commitlint --edit $1` (no shebang, husky v9 shell-agnostic pattern).
 
 **Lighthouse CI**: `npm run lighthouse` runs `lhci autorun` using `lighthouserc.js`. Audits 3 times against the local test server (desktop preset, `throttlingMethod: "provided"`), takes the median, and fails if any category (performance, accessibility, best-practices, seo) drops below 90/100. Reports saved to `.lighthouseci/` (gitignored).
 
@@ -104,7 +106,11 @@ goodalex223/
 ├── lighthouserc.js         # Lighthouse CI configuration (≥90/100 all categories, desktop preset)
 ├── .stylelintrc.json       # Stylelint configuration (CSS linting rules)
 ├── eslint.config.js        # ESLint v10 flat config (browser/Node CJS/Node ESM environments)
+├── commitlint.config.js    # commitlint config (Conventional Commits, 72-char header limit)
 ├── .mcp.json.example       # MCP server config template (memory, context7, playwright, github, firecrawl)
+├── .husky/
+│   ├── pre-commit          # Git hook: runs lint-staged on staged files
+│   └── commit-msg          # Git hook: runs commitlint to validate commit message format
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml      # GitHub Actions CI/CD pipeline
@@ -181,6 +187,7 @@ goodalex223/
 - [scripts/serve.js](scripts/serve.js) — Test server (port 4173)
 - [.stylelintrc.json](.stylelintrc.json) — CSS linting configuration
 - [eslint.config.js](eslint.config.js) — ESLint v10 flat config (three environment blocks: browser, Node CJS, Playwright ESM)
+- [commitlint.config.js](commitlint.config.js) — commitlint config: extends `@commitlint/config-conventional`, overrides `header-max-length` to 72
 - [.mcp.json.example](.mcp.json.example) — MCP server config template (copy to `.mcp.json`, configure memory/context7/playwright/github/firecrawl servers)
 - [lighthouserc.js](lighthouserc.js) — Lighthouse CI config: 3 runs, desktop preset, ≥90 threshold for all 4 categories
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (lint → build → test + lighthouse → deploy)
@@ -241,7 +248,18 @@ MCP server config lives in `.mcp.json` (gitignored). Use `.mcp.json.example` as 
 - `tests/**/*.js` — Playwright test files (`sourceType: "module"`, node + browser globals — browser globals needed for `page.evaluate()` callbacks); uses `eslint-plugin-playwright` `flat/recommended` preset with two-entry pattern (preset + overrides); `prefer-web-first-assertions: "error"` (disabled for `tests/seo/**` cross-tag comparisons); `expect-expect` configured with POM assertion method names in `assertFunctionNames`
 - Rules: `eslint:recommended` + `no-var: error` + `prefer-const: error`
 - lint-staged: `*.js` files auto-fixed on commit via husky
-- Ignores: `dist/**`, `node_modules/**`
+- Ignores: `dist/**`, `node_modules/**`, `eslint.config.js`, `commitlint.config.js`
+
+**Commit Message Linting**: commitlint enforces Conventional Commits on every `git commit` via `.husky/commit-msg`:
+- Config: `commitlint.config.js` extends `@commitlint/config-conventional`
+- Valid types: `feat`, `fix`, `docs`, `chore`, `style`, `test`, `build`, `ci`, `perf`, `refactor`, `revert`
+- Optional scope: `type(scope): subject`
+- Header max length: 72 characters (overrides preset default of 100)
+- Subject case rule disabled (`subject-case: [0]`) — uppercase subjects allowed (e.g. `"docs: Add ..."` not `"docs: add ..."`)
+- Body/footer line length not enforced
+- Merge commits ignored by default
+- Packages: `@commitlint/cli`, `@commitlint/config-conventional`
+- Hook is invoked via `npx --no -- commitlint --edit $1` (no shebang, husky v9 shell-agnostic pattern)
 
 ### CSS Architecture
 CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/style.css`:

@@ -1,8 +1,24 @@
 # DONE
 
-**Last Updated**: 2026-03-20 (QUALITY-009 completed)
+**Last Updated**: 2026-03-21 (QUALITY-010 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-03-21
+
+### QUALITY-010: commitlint for Conventional Commits
+
+**Plan**: [docs/archive/plans/2026-03-21_quality-010-commitlint.md](../archive/plans/2026-03-21_quality-010-commitlint.md)
+**Summary**: Added commitlint with `@commitlint/config-conventional` to enforce Conventional Commits format on all commit messages via a husky `commit-msg` hook. Configured 72-char header limit and disabled `subject-case` to preserve existing uppercase subject style. Also added `commitlint.config.js` to ESLint ignores.
+**Key Changes**:
+- `package.json` — Added `@commitlint/cli` and `@commitlint/config-conventional` devDependencies
+- `commitlint.config.js` — New config extending conventional preset with 72-char header limit and `subject-case: [0]`
+- `.husky/commit-msg` — New hook running `npx --no -- commitlint --edit $1`
+- `eslint.config.js` — Added `commitlint.config.js` to ignores (root CJS file)
+- `CLAUDE.md` — Documented commitlint config, hook, and conventions
+**Spawned Tasks**: 2 items added to BACKLOG.md (ESLint glob for root configs, memory-updater hook friction)
 
 ---
 
@@ -10,7 +26,7 @@ Completed tasks for the portfolio project.
 
 ### QUALITY-009: ESLint Enhancements (Playwright plugin + no-console)
 
-**Plan**: [docs/superpowers/plans/2026-03-20-quality-009-eslint-enhancements.md](../superpowers/plans/2026-03-20-quality-009-eslint-enhancements.md)
+**Plan**: [docs/archive/plans/2026-03-20_quality-009-eslint-enhancements.md](../archive/plans/2026-03-20_quality-009-eslint-enhancements.md)
 **Summary**: Added `eslint-plugin-playwright` with `flat/recommended` preset for test-specific linting and `no-console: "error"` for browser code. Configured two-entry flat config pattern, 27 POM assertion methods in `assertFunctionNames`, SEO file exception for cross-tag comparisons, and disabled `no-wait-for-timeout`/`no-skipped-test` rules for intentional patterns.
 **Key Changes**:
 - `package.json` — Added `eslint-plugin-playwright` devDependency

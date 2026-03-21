@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-20 (QUALITY-009 completed)
+**Last Updated**: 2026-03-21 (QUALITY-010 completed)
 
 ---
 
@@ -29,11 +29,7 @@ _None currently_
 
 ### Wed — ~~QUALITY-009: ESLint Enhancements (Playwright plugin + no-console)~~ → moved to [DONE.md](DONE.md)
 
-### Thu — QUALITY-010: commitlint for Conventional Commits
-- Add `@commitlint/cli` with `@commitlint/config-conventional`
-- Add `commit-msg` husky hook to enforce conventional commit format (feat:, fix:, docs:, etc.)
-- Verify existing commit history follows convention (document any deviations)
-- **Origin**: [BACKLOG.md — QUALITY-004 spawned tasks](BACKLOG.md#from-quality-004-pre-commit-hook-with-husky-2026-02-17)
+### Thu — ~~QUALITY-010: commitlint for Conventional Commits~~ → moved to [DONE.md](DONE.md)
 
 ### Fri — CHALLENGE-003: Contact Form
 - Replace email link with accessible contact form (name, email, message fields)
