@@ -4,7 +4,7 @@ const playwright = require("eslint-plugin-playwright");
 
 module.exports = [
   // Ignore generated files, dependencies, and root config files
-  { ignores: ["dist/**", "node_modules/**", "eslint.config.js"] },
+  { ignores: ["dist/**", "node_modules/**", "eslint.config.js", "commitlint.config.js"] },
 
   // Recommended rules applied to all JS files
   js.configs.recommended,
