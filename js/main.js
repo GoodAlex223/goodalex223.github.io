@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize project detail modal
   initProjectModal();
+
+  // Initialize contact form
+  initContactForm();
 });
 
 /**
@@ -1072,4 +1075,243 @@ function initProjectModal() {
   if (initialProject) {
     openModal(initialProject, { updateHash: false });
   }
+}
+
+/**
+ * Contact Form
+ * - Client-side validation with inline error messages
+ * - Async Formspree submission with loading state
+ * - Honeypot spam protection
+ * - Inline success/error feedback
+ */
+function initContactForm() {
+  const form = document.getElementById("contact-form");
+  if (!form) return;
+
+  const statusContainer = document.getElementById("contact-form-status");
+  const submitButton = form.querySelector(".contact-form__submit");
+  const submitText = form.querySelector(".contact-form__submit-text");
+  const submitLoading = form.querySelector(".contact-form__submit-loading");
+  const honeypot = form.querySelector("[name='_gotcha']");
+
+  const fields = form.querySelectorAll(
+    ".contact-form__input"
+  );
+
+  // Validate on blur
+  fields.forEach((field) => {
+    field.addEventListener("blur", () => {
+      // Only validate if field has been interacted with (has value or was touched)
+      if (field.value.trim() !== "") {
+        const result = validateField(field);
+        if (!result.valid) {
+          showFieldError(field, result.message);
+        } else {
+          clearFieldError(field);
+        }
+      }
+    });
+
+    // Clear error on input (while typing)
+    field.addEventListener("input", () => {
+      if (field.classList.contains("contact-form__input--invalid")) {
+        const result = validateField(field);
+        if (result.valid) {
+          clearFieldError(field);
+        }
+      }
+    });
+  });
+
+  // Handle form submission
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Validate all fields
+    if (!validateForm(form)) return;
+
+    // Honeypot check — silently "succeed" if bot filled it
+    if (honeypot && honeypot.value) {
+      showFormStatus(form, statusContainer, "success", "Thanks! I'll get back to you soon.");
+      return;
+    }
+
+    // Disable submit, show loading
+    submitButton.disabled = true;
+    submitText.hidden = true;
+    submitLoading.hidden = false;
+    submitLoading.setAttribute("aria-hidden", "false");
+
+    try {
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      const response = await fetch(form.action, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        showFormStatus(form, statusContainer, "success", "Thanks! I'll get back to you soon.");
+      } else {
+        showFormStatus(form, statusContainer, "error", "Something went wrong. Please try again.");
+      }
+    } catch {
+      showFormStatus(form, statusContainer, "error", "Something went wrong. Please try again.");
+    } finally {
+      // Re-enable submit
+      submitButton.disabled = false;
+      submitText.hidden = false;
+      submitLoading.hidden = true;
+      submitLoading.setAttribute("aria-hidden", "true");
+    }
+  });
+
+  // Status action button (Send another / Try again)
+  const actionButton = statusContainer.querySelector(".contact-form__status-action");
+  actionButton.addEventListener("click", () => {
+    resetForm(form, statusContainer);
+  });
+}
+
+/**
+ * Validate a single field
+ * @param {HTMLInputElement|HTMLTextAreaElement} field
+ * @returns {{ valid: boolean, message: string }}
+ */
+function validateField(field) {
+  const value = field.value.trim();
+  const name = field.name;
+
+  // Required check
+  if (field.required && value === "") {
+    const labels = { name: "your name", email: "your email address", message: "a message" };
+    return { valid: false, message: `Please enter ${labels[name] || "this field"}` };
+  }
+
+  // Email format (using Constraint Validation API)
+  if (field.type === "email" && value !== "" && field.validity.typeMismatch) {
+    return { valid: false, message: "Please enter a valid email address" };
+  }
+
+  // Minlength check
+  const minlength = field.getAttribute("minlength");
+  if (minlength && value.length < parseInt(minlength, 10)) {
+    const fieldLabels = { name: "Name", message: "Message" };
+    const label = fieldLabels[name] || "This field";
+    return { valid: false, message: `${label} must be at least ${minlength} characters` };
+  }
+
+  return { valid: true, message: "" };
+}
+
+/**
+ * Show inline error for a field
+ * @param {HTMLInputElement|HTMLTextAreaElement} field
+ * @param {string} message
+ */
+function showFieldError(field, message) {
+  field.classList.add("contact-form__input--invalid");
+  field.setAttribute("aria-invalid", "true");
+
+  const errorId = field.getAttribute("aria-describedby");
+  const errorElement = document.getElementById(errorId);
+  if (errorElement) {
+    errorElement.textContent = message;
+    errorElement.hidden = false;
+  }
+}
+
+/**
+ * Clear inline error for a field
+ * @param {HTMLInputElement|HTMLTextAreaElement} field
+ */
+function clearFieldError(field) {
+  field.classList.remove("contact-form__input--invalid");
+  field.removeAttribute("aria-invalid");
+
+  const errorId = field.getAttribute("aria-describedby");
+  const errorElement = document.getElementById(errorId);
+  if (errorElement) {
+    errorElement.textContent = "";
+    errorElement.hidden = true;
+  }
+}
+
+/**
+ * Validate all form fields, focus first invalid
+ * @param {HTMLFormElement} form
+ * @returns {boolean}
+ */
+function validateForm(form) {
+  const fields = form.querySelectorAll(
+    ".contact-form__input"
+  );
+  let firstInvalid = null;
+
+  fields.forEach((field) => {
+    const result = validateField(field);
+    if (!result.valid) {
+      showFieldError(field, result.message);
+      if (!firstInvalid) firstInvalid = field;
+    } else {
+      clearFieldError(field);
+    }
+  });
+
+  if (firstInvalid) {
+    firstInvalid.focus();
+    return false;
+  }
+
+  return true;
+}
+
+/**
+ * Show success or error status, hide form
+ * @param {HTMLFormElement} form
+ * @param {HTMLElement} statusContainer
+ * @param {"success"|"error"} type
+ * @param {string} message
+ */
+function showFormStatus(form, statusContainer, type, message) {
+  // Hide the form
+  form.hidden = true;
+
+  // Configure status container
+  statusContainer.className = `contact-form__status contact-form__status--${type}`;
+
+  const icon = statusContainer.querySelector(".contact-form__status-icon");
+  icon.textContent = type === "success" ? "\u2713" : "\u2717";
+
+  const messageEl = statusContainer.querySelector(".contact-form__status-message");
+  messageEl.textContent = message;
+
+  const actionButton = statusContainer.querySelector(".contact-form__status-action");
+  actionButton.textContent = type === "success" ? "Send another message" : "Try again";
+
+  // Show status
+  statusContainer.hidden = false;
+}
+
+/**
+ * Reset form and show it again, hide status
+ * @param {HTMLFormElement} form
+ * @param {HTMLElement} statusContainer
+ */
+function resetForm(form, statusContainer) {
+  // Hide status
+  statusContainer.hidden = true;
+
+  // Reset form fields and errors
+  form.reset();
+  const fields = form.querySelectorAll(".contact-form__input--invalid");
+  fields.forEach((field) => clearFieldError(field));
+
+  // Show form
+  form.hidden = false;
 }

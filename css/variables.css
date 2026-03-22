@@ -20,6 +20,14 @@
   --color-status-active: #4caf50;
   --color-status-active-bg: rgb(76 175 80 / 0.15);
 
+  /* Error colors */
+  --color-error: #ef5350;
+  --color-error-bg: rgb(239 83 80 / 0.1);
+
+  /* Success colors (reuse status-active) */
+  --color-success: var(--color-status-active);
+  --color-success-bg: var(--color-status-active-bg);
+
   /* Typography */
   --font-family-base: "Inter", -apple-system, blinkmacsystemfont, "Segoe UI",
     roboto, sans-serif;
@@ -117,6 +125,14 @@
     --color-status-active: #256b28;
     --color-status-active-bg: rgb(37 107 40 / 0.12);
 
+    /* Error colors adjusted for light backgrounds */
+    --color-error: #c62828;
+    --color-error-bg: rgb(198 40 40 / 0.08);
+
+    /* Success colors (reuse status-active) */
+    --color-success: var(--color-status-active);
+    --color-success-bg: var(--color-status-active-bg);
+
     /* Focus indicators */
     --focus-outline-color-high-contrast: rgb(15 15 35 / 0.9);
 
@@ -149,6 +165,14 @@
   /* Status colors adjusted for light backgrounds */
   --color-status-active: #256b28;
   --color-status-active-bg: rgb(37 107 40 / 0.12);
+
+  /* Error colors adjusted for light backgrounds */
+  --color-error: #c62828;
+  --color-error-bg: rgb(198 40 40 / 0.08);
+
+  /* Success colors (reuse status-active) */
+  --color-success: var(--color-status-active);
+  --color-success-bg: var(--color-status-active-bg);
 
   /* Focus indicators */
   --focus-outline-color-high-contrast: rgb(15 15 35 / 0.9);

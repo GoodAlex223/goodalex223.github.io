@@ -4,6 +4,7 @@
 @import url("utilities.css");
 @import url("components.css");
 @import url("modal.css");
+@import url("form.css");
 
 /* ===================
    THEME TRANSITIONS
@@ -13,7 +14,8 @@ body,
 .site-header,
 .project-card,
 .skill-group,
-.contact__link {
+.contact__link,
+.contact-form__input {
   transition:
     background-color var(--transition-base),
     border-color var(--transition-base),

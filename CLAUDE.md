@@ -77,13 +77,11 @@ npx playwright show-report
 
 **Cache-Busting**: `scripts/hash-assets.js` computes SHA-256 hashes of built CSS and JS, renames files to `style.[hash].css` and `main.[hash].js` in `dist/`, and updates HTML references in `index.html` and `404.html`. JS is minified by terser before hashing. Watch mode unhashes references for easier development.
 
-**Testing**: Playwright end-to-end tests validate filter functionality, animations, accessibility, keyboard navigation, URL hash integration, SEO meta tags (Open Graph, Twitter Card, JSON-LD), and project detail modal behavior. Test server (`scripts/serve.js`) runs on port 4173. Tests use Page Object Model pattern (`FilterPage.js`, `ModalPage.js`) and timing utilities that read CSS custom properties.
+**Testing**: Playwright end-to-end tests validate filter functionality, animations, accessibility, keyboard navigation, URL hash integration, SEO meta tags (Open Graph, Twitter Card, JSON-LD), project detail modal behavior, and contact form submission. Test server (`scripts/serve.js`) runs on port 4173. Tests use Page Object Model pattern (`FilterPage.js`, `ModalPage.js`, `FormPage.js`) and timing utilities that read CSS custom properties.
 
 **CSS Linting**: Stylelint validates CSS code style and conventions. Configured via `.stylelintrc.json` with BEM naming enforcement, kebab-case for custom properties, and modern color notation. Linting runs locally (`npm run lint:css`) and in CI pipeline before build.
 
 **JS Linting**: ESLint v10 flat config (`eslint.config.js`) validates JavaScript across three environments: browser ES6+ (`js/**/*.js`), Node.js CommonJS (`scripts/**/*.js`), and Playwright ESM tests (`tests/**/*.js`). Rules: `eslint:recommended` + `no-var` + `prefer-const` + `no-console: "error"` (browser code only). Playwright tests use `eslint-plugin-playwright` with `flat/recommended` preset + `prefer-web-first-assertions: "error"` (disabled for `tests/seo/**` cross-tag comparisons). Ignores: `dist/**`, `node_modules/**`, `eslint.config.js`, `commitlint.config.js`. Runs locally (`npm run lint:js`) and in CI before build. Auto-fixes on commit via lint-staged.
-
-**Commit Message Linting**: commitlint validates commit message format via Conventional Commits specification. Configured in `commitlint.config.js` with `@commitlint/config-conventional` preset, enforcing `<type>(<scope>): <subject>` format with 72-character header limit (classic git recommendation for clean `git log` output). Subject case rule disabled (`subject-case: [0]`) — uppercase subjects allowed (e.g. `"docs: Add ..."` not `"docs: add ..."`). Integrated via husky v9 `commit-msg` hook (`.husky/commit-msg`), runs on every commit attempt. Hook is invoked via `npx --no -- commitlint --edit $1` (no shebang, husky v9 shell-agnostic pattern).
 
 **Commit Message Linting**: commitlint validates commit message format via Conventional Commits specification. Configured in `commitlint.config.js` with `@commitlint/config-conventional` preset, enforcing `<type>(<scope>): <subject>` format with 72-character header limit (classic git recommendation for clean `git log` output). Subject case rule disabled (`subject-case: [0]`) — uppercase subjects allowed (e.g. `"docs: Add ..."` not `"docs: add ..."`). Integrated via husky v9 `commit-msg` hook (`.husky/commit-msg`), runs on every commit attempt. Hook is invoked via `npx --no -- commitlint --edit $1` (no shebang, husky v9 shell-agnostic pattern).
 
@@ -123,7 +121,8 @@ goodalex223/
 │   ├── reset.css           # Browser normalization
 │   ├── utilities.css       # Reusable utility classes
 │   ├── components.css      # UI components (cards, buttons, links)
-│   └── modal.css           # Project detail modal styles (overlay, dialog, transitions)
+│   ├── modal.css           # Project detail modal styles (overlay, dialog, transitions)
+│   └── form.css            # Contact form styles (fields, validation states, status messages)
 ├── data/
 │   └── projects.json       # Project detail data (descriptions, highlights, tech, screenshots, links)
 ├── dist/
@@ -136,7 +135,7 @@ goodalex223/
 │   ├── serve.js            # Minimal static file server for Playwright tests (port 4173)
 │   └── update-sitemap.js   # Auto-update sitemap.xml lastmod from git history (runs first in build)
 ├── js/
-│   └── main.js             # Theme toggle, project filtering, scroll animations, project modal, copyright year
+│   └── main.js             # Theme toggle, project filtering, scroll animations, project modal, contact form, copyright year
 ├── tests/
 │   ├── filter/             # Filter functionality test suites
 │   │   ├── basic-filtering.spec.js    # Category filtering validation
@@ -155,11 +154,17 @@ goodalex223/
 │   │   ├── url-hash.spec.js       # URL hash (#project=id), browser navigation
 │   │   ├── reduced-motion.spec.js # Modal with prefers-reduced-motion
 │   │   └── axe-scan.spec.js       # WCAG 2.1 AA accessibility scanning (axe-core), scoped to modal element
+│   ├── form/
+│   │   ├── validation.spec.js     # Field validation: required, email format, minlength, maxlength, blur
+│   │   ├── submission.spec.js     # Submission: success/error mock, loading state, honeypot, actions
+│   │   ├── accessibility.spec.js  # ARIA attributes, label associations, focus management, keyboard
+│   │   └── axe-scan.spec.js       # WCAG 2.1 AA scanning: default, errors, success, light, dark, reduced-motion
 │   ├── seo/
 │   │   └── meta-tags.spec.js  # SEO meta tag validation (OG, Twitter Card, JSON-LD, canonical)
 │   ├── pages/
 │   │   ├── FilterPage.js   # Page Object Model for filter system
-│   │   └── ModalPage.js    # Page Object Model for project detail modal
+│   │   ├── ModalPage.js    # Page Object Model for project detail modal
+│   │   └── FormPage.js     # Page Object Model for contact form
 │   └── utils/
 │       ├── timing.js       # Animation timing utilities (reads CSS variables)
 │       └── axe-helper.js   # Accessibility testing utilities (axe-core integration; supports include/exclude scoping)
@@ -169,6 +174,9 @@ goodalex223/
 │   ├── inter-latin.woff2     # Self-hosted Inter font (Latin subset)
 │   └── inter-latin-ext.woff2 # Self-hosted Inter font (Latin Extended subset)
 ├── docs/                   # Project documentation
+│   └── superpowers/        # Agentic workflow plans and design specs
+│       ├── plans/          # Implementation plans (CHALLENGE-*, QUALITY-*, etc.)
+│       └── specs/          # Design/spec documents for planned features
 ├── freecodecamp/           # Learning projects (FreeCodeCamp)
 ├── frontendmentor/         # Learning projects (Frontend Mentor)
 ├── MDN/                    # Learning projects (MDN tutorials)
@@ -195,8 +203,10 @@ goodalex223/
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — CI/CD deployment workflow (lint → build → test + lighthouse → deploy)
 - [tests/pages/FilterPage.js](tests/pages/FilterPage.js) — Page Object Model for filter system tests
 - [tests/pages/ModalPage.js](tests/pages/ModalPage.js) — Page Object Model for project detail modal tests
+- [tests/pages/FormPage.js](tests/pages/FormPage.js) — Page Object Model for contact form tests
 - [data/projects.json](data/projects.json) — Project detail data (lazy-fetched by modal JS)
 - [css/modal.css](css/modal.css) — Project detail modal styles
+- [css/form.css](css/form.css) — Contact form styles (fields, validation states, status messages)
 - [docs/SEO_TESTING.md](docs/SEO_TESTING.md) — Social card & SEO validation checklist
 - [docs/size-history.json](docs/size-history.json) — Build size trend history (appended by `report-sizes.js` on each build)
 - [docs/learning-backlog.md](docs/learning-backlog.md) — Learning topics captured from development sessions (explored further after task completion)
@@ -247,7 +257,7 @@ MCP server config lives in `.mcp.json` (gitignored). Use `.mcp.json.example` as 
 **JS Linting**: ESLint v10 flat config (`eslint.config.js`) enforces code quality across three environments:
 - `js/**/*.js` — browser ES6+ script (`sourceType: "script"`, browser globals); `no-console: "error"` prevents accidental console usage in production
 - `scripts/**/*.js` — Node.js CommonJS build utilities (`sourceType: "commonjs"`, node globals)
-- `tests/**/*.js` — Playwright test files (`sourceType: "module"`, node + browser globals — browser globals needed for `page.evaluate()` callbacks); uses `eslint-plugin-playwright` `flat/recommended` preset with two-entry pattern (preset + overrides); `prefer-web-first-assertions: "error"` (disabled for `tests/seo/**` cross-tag comparisons); `expect-expect` configured with POM assertion method names in `assertFunctionNames`
+- `tests/**/*.js` — Playwright test files (`sourceType: "module"`, node + browser globals — browser globals needed for `page.evaluate()` callbacks); uses `eslint-plugin-playwright` `flat/recommended` preset with two-entry pattern (preset + overrides); `prefer-web-first-assertions: "error"` (disabled for `tests/seo/**` cross-tag comparisons); `no-skipped-test: "off"` (browser-specific `test.skip()` in modal/accessibility); `no-wait-for-timeout: "off"` (CSS animation timing waits in POM helpers); `expect-expect` configured with alphabetically-sorted POM assertion method names in `assertFunctionNames` (covers FilterPage, ModalPage, FormPage, and `checkAccessibility`)
 - Rules: `eslint:recommended` + `no-var: error` + `prefer-const: error`
 - lint-staged: `*.js` files auto-fixed on commit via husky
 - Ignores: `dist/**`, `node_modules/**`, `eslint.config.js`, `commitlint.config.js`
@@ -271,7 +281,8 @@ CSS source files use `@import` in `css/main.css`, bundled by PostCSS into `dist/
 4. `utilities.css` — Utility classes
 5. `components.css` — UI components
 6. `modal.css` — Project detail modal (overlay, dialog, animations)
-7. `main.css` — Layout and section styles
+7. `form.css` — Contact form (fields, validation states, status messages)
+8. `main.css` — Layout and section styles
 
 **Build Process**: PostCSS with `postcss-import` plugin resolves all `@import` statements, then cssnano minifies in production builds (`--env production`). Outputs single bundled file to `dist/style.css`. HTML files reference the built file, not source files.
 
@@ -485,6 +496,29 @@ Progressive reveal animations using Intersection Observer:
 9. **CSS**: `css/modal.css` — `--modal-animation-duration: 250ms`, `visibility: hidden / opacity: 0` base state, `.project-modal--open` activates; `prefers-reduced-motion` sets `transition: none`
 10. **Deploy**: `data/` directory copied to `_site/` in GitHub Actions deploy job (required for `fetch("data/projects.json")` to work on GitHub Pages)
 
+### Contact Form Pattern
+**Accessible contact form with Formspree submission**: Replaces mailto link, hybrid validation, inline status feedback
+1. **Placement**: Replaces email `<li>` in contact section; sits above social links `<ul class="contact__links">`
+2. **Fields**: Name (required, minlength 2, maxlength 100), Email (required), Message (required, minlength 10, maxlength 2000); all use `autocomplete` attributes
+3. **Spam Protection**: Honeypot field `_gotcha` (hidden via `position: absolute; left: -9999px; opacity: 0`); hidden with `aria-hidden="true"` + `tabindex="-1"` on wrapper; if filled, silently shows success without sending (don't reveal detection to bots)
+4. **Submission**: `fetch()` POST to `https://formspree.io/f/{FORM_ID}` with `Content-Type: application/json` and `Accept: application/json`; standard `action`+`method="POST"` on `<form>` as no-JS fallback
+5. **Validation**: Hybrid HTML5 + custom JS via Constraint Validation API (`input.validity.typeMismatch` for email — no custom regex); blur validation on each field; full `validateForm()` on submit; focuses first invalid field on failure
+6. **Feedback**: Inline replacement — form fades out, `#contact-form-status` fades in with success/error message + action button ("Send another" / "Try again")
+7. **JS Functions** in `js/main.js`: `initContactForm()`, `validateField()`, `showFieldError()`, `clearFieldError()`, `validateForm()`, `showFormStatus()`, `resetForm()` (submit logic is inline in `initContactForm()`'s `submit` event handler)
+8. **CSS** in `css/form.css`:
+   - BEM: `.contact-form`, `.contact-form__field`, `.contact-form__label`, `.contact-form__input`, `.contact-form__input--textarea`, `.contact-form__input--invalid`, `.contact-form__error`, `.contact-form__submit`, `.contact-form__submit-text`, `.contact-form__submit-loading`, `.contact-form__status`, `.contact-form__status-icon`, `.contact-form__status-message`, `.contact-form__status-action`
+   - New design tokens in `variables.css`: `--color-error` (#ef5350 dark / #c62828 light), `--color-error-bg`; `--color-success` (alias `--color-status-active`), `--color-success-bg`
+   - Responsive: max-width 32rem at 37.5em+ breakpoint, single column at all widths
+   - `.contact-form__input` added to theme transition group in `main.css`
+   - `prefers-reduced-motion`: form fade transition set to `none`
+9. **Accessibility**: `aria-invalid="true"` + `aria-describedby` on each input linking to its error `<p>`; error elements use `role="alert"` + `aria-live="polite"`; status container uses `role="alert"` + `aria-live="polite"`; button disabled + loading text announced during submission
+10. **Testing** in `tests/form/` — Formspree mocked in `FormPage.js` via `page.route("**/formspree.io/f/*", ...)`:
+    - `FormPage.js` POM: `fillName()`, `fillEmail()`, `fillMessage()`, `fillAllFields()`, `clickSubmit()`, `clickStatusAction()`, `blurField()`, `mockFormspreeSuccess()`, `mockFormspreeError()`, `mockFormspreeNetworkError()`, `expectFieldError()`, `expectNoFieldError()`, `expectFieldInvalid()`, `expectFieldValid()`, `expectFormVisible()`, `expectFormHidden()`, `expectSuccess()`, `expectError()`, `expectSubmitDisabled()`, `expectSubmitEnabled()`, `expectLoadingState()`, `enableReducedMotion()`, `setTheme()`, `waitForScrollAnimations()`
+    - `validation.spec.js` — required, email format, minlength, maxlength, blur validation, focus on first error
+    - `submission.spec.js` — success mock, error mock, loading state, honeypot silent-succeed, "Send another"/"Try again"
+    - `accessibility.spec.js` — ARIA, label associations, focus management, keyboard navigation
+    - `axe-scan.spec.js` — WCAG 2.1 AA: default state, errors visible, success state, light theme, dark theme, reduced-motion
+
 ### Build System Pattern
 **PostCSS CSS Bundling with Critical CSS Inlining and Cache-Busting**: Modular CSS development with production bundling, critical CSS inlining, minification, and content-hashed filenames
 1. **Source**: Modular CSS files in `css/` directory with `@import` statements; JS in `js/main.js`
@@ -543,6 +577,14 @@ Progressive reveal animations using Intersection Observer:
    - Error handling: `EADDRINUSE` (port in use), `EACCES` (permission denied), generic — all print descriptive messages and `process.exit(1)`
    - Started automatically by Playwright via `webServer` config
 3. **Page Object Models**:
+   - `FormPage.js` — encapsulates contact form interactions
+     - Navigation: `goto()` — navigates to `/`, waits for filter button counts to confirm JS init
+     - Actions: `fillName()`, `fillEmail()`, `fillMessage()`, `fillAllFields({name, email, message})`, `clickSubmit()`, `clickStatusAction()`, `blurField(field)`
+     - Formspree mocking: `mockFormspreeSuccess()`, `mockFormspreeError(statusCode=500)`, `mockFormspreeNetworkError()` — all use `page.route("**/formspree.io/f/*", ...)`
+     - Assertions: `expectFieldError()`, `expectNoFieldError()`, `expectFieldInvalid()`, `expectFieldValid()`, `expectFormVisible()`, `expectFormHidden()`, `expectSuccess()`, `expectError()`, `expectSubmitDisabled()`, `expectSubmitEnabled()`, `expectLoadingState()`
+       - Default success message: `"Thanks! I'll get back to you soon."` / error: `"Something went wrong. Please try again."`
+       - Status action texts: `"Send another message"` (success) / `"Try again"` (error)
+     - Media & theme helpers: `enableReducedMotion()`, `setTheme(theme)` (sets `data-theme` + waits 400ms), `waitForScrollAnimations()` (700ms)
    - `FilterPage.js` — encapsulates filter system interactions
      - Centralized locators for toolbar, buttons, cards, animation states
      - Helper methods: `clickFilter()`, `clickFilterNoWait()`, `expectVisibleCardCount()`, `expectNoAnimationClasses()`, `expectAllVisibleCardsAreCategory()`, `getActiveFilterCategory()`, `waitForScrollAnimations()`
@@ -566,7 +608,7 @@ Progressive reveal animations using Intersection Observer:
    - Configured for WCAG 2.1 Level A and AA tags by default
    - Supports `options.include` (CSS selector to scope scan), `options.exclude` (selectors to exclude), `options.tags` (custom axe tag list)
    - Formats violation reports with impact level, help text, node HTML, and helpUrl
-   - Used in filter and modal `axe-scan.spec.js` suites to verify zero violations across all interaction states
+   - Used in filter, modal, and form `axe-scan.spec.js` suites to verify zero violations across all interaction states
 6. **Test Coverage**:
    - **filter/basic-filtering.spec.js**: Category filtering, card visibility, URL hash updates
    - **filter/toggle-behavior.spec.js**: Toggle-to-reset, sequential filter changes
@@ -584,6 +626,10 @@ Progressive reveal animations using Intersection Observer:
    - **modal/reduced-motion.spec.js**: Modal open/close/content with `prefers-reduced-motion` active
    - **modal/axe-scan.spec.js**: WCAG 2.1 AA scanning for modal open state — each of 7 projects individually (different content structures), explicit light theme, explicit dark theme, reduced-motion; scan scoped to `#project-modal` via `MODAL_SCOPE` to avoid false-positive contrast violations from semi-transparent backdrop on background elements
    - **seo/meta-tags.spec.js**: SEO meta tag validation — Open Graph (8 tags), Twitter Card (5 tags), core SEO (title, description, canonical), JSON-LD structured data (Person + WebSite schemas), and cross-tag consistency checks; uses `EXPECTED` constants object as single source of truth; direct locators via `ogMeta()`/`namedMeta()` helpers (no Page Object Model)
+   - **form/validation.spec.js**: Required field errors, email format, minlength/maxlength, blur validation, focus moves to first invalid field on submit
+   - **form/submission.spec.js**: Formspree mocked via `page.route()`; success path, error path, loading state, honeypot silent-succeed, "Send another"/"Try again" actions
+   - **form/accessibility.spec.js**: ARIA attributes, label associations, focus management on validation failure, keyboard navigation
+   - **form/axe-scan.spec.js**: WCAG 2.1 AA scanning — default state (full page), errors/success/error states (scoped to `#contact` via `FORM_SCOPE`), explicit light theme, explicit dark theme, reduced-motion (fresh `page.goto()` after `enableReducedMotion()`)
 7. **CI Integration**: Tests run after build job, before deployment
    - `forbidOnly: true` in CI prevents `.only()` commits
    - 2 retries for flaky tests in CI

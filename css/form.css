@@ -1,0 +1,158 @@
+/* ===================
+   CONTACT FORM
+   =================== */
+
+/* Form container */
+.contact-form {
+  max-width: 32rem;
+  margin-inline: auto;
+  margin-bottom: var(--space-6);
+  text-align: left;
+}
+
+/* Honeypot - hidden from humans */
+.contact-form__honeypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Field wrapper */
+.contact-form__field {
+  margin-bottom: var(--space-5);
+}
+
+/* Labels */
+.contact-form__label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Inputs and textarea */
+.contact-form__input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    outline-color var(--transition-fast);
+}
+
+.contact-form__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.contact-form__input:focus-visible {
+  border-color: var(--color-accent);
+  outline: var(--focus-outline-width) solid var(--focus-outline-color);
+  outline-offset: var(--focus-outline-offset);
+}
+
+/* Textarea modifier */
+.contact-form__input--textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+/* Invalid state */
+.contact-form__input--invalid {
+  border-color: var(--color-error);
+}
+
+.contact-form__input--invalid:focus-visible {
+  border-color: var(--color-error);
+  outline-color: var(--color-error);
+}
+
+/* Error messages */
+.contact-form__error {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+}
+
+/* Submit button */
+.contact-form__submit {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Loading state */
+.contact-form__submit[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Status container (success/error feedback) */
+.contact-form__status {
+  max-width: 32rem;
+  margin-inline: auto;
+  margin-bottom: var(--space-6);
+  padding: var(--space-6);
+  text-align: center;
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.contact-form__status:not([hidden]) {
+  opacity: 1;
+}
+
+/* Status icon */
+.contact-form__status-icon {
+  width: 3rem;
+  height: 3rem;
+  margin-inline: auto;
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xl);
+}
+
+.contact-form__status--success .contact-form__status-icon {
+  background-color: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.contact-form__status--error .contact-form__status-icon {
+  background-color: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+/* Status message */
+.contact-form__status-message {
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+}
+
+/* Status action button */
+.contact-form__status-action {
+  margin-inline: auto;
+}
+
+/* ===================
+   REDUCED MOTION
+   =================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-form__status {
+    transition: none;
+  }
+}

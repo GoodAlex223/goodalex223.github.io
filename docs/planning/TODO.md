@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-21 (QUALITY-010 completed)
+**Last Updated**: 2026-03-21 (CHALLENGE-003 completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **CHALLENGE-003**: Contact Form → moved to [DONE.md](DONE.md)
 - **CHALLENGE-002**: Project Detail Modal → moved to [DONE.md](DONE.md)
 - **QUALITY-008**: Stylelint Rule to Prevent `transition: all` → moved to [DONE.md](DONE.md)
 - **TEST-006**: Automated OG Meta Tag Validation → moved to [DONE.md](DONE.md)
@@ -31,15 +32,7 @@ _None currently_
 
 ### Thu — ~~QUALITY-010: commitlint for Conventional Commits~~ → moved to [DONE.md](DONE.md)
 
-### Fri — CHALLENGE-003: Contact Form
-- Replace email link with accessible contact form (name, email, message fields)
-- Use Formspree (or similar) for serverless form submission — no backend needed
-- Client-side validation with clear error states
-- Success/error feedback after submission
-- Responsive layout matching portfolio design system
-- ARIA labels, focus management, keyboard navigation
-- Spam protection (honeypot field or reCAPTCHA)
-- **Origin**: [ROADMAP.md v2.0](ROADMAP.md) + [BACKLOG.md — Contact Form](BACKLOG.md#contact-form)
+### Fri — ~~CHALLENGE-003: Contact Form~~ → moved to [DONE.md](DONE.md)
 
 ---
 
@@ -82,10 +75,7 @@ _None currently_
 
 ## Weekly Challenge
 
-### CHALLENGE-003: Contact Form (Fri 2026-03-28)
-- **Goal**: Add a working contact form to the portfolio — first v2.0 roadmap feature
-- **Scope**: Form UI, client-side validation, Formspree integration, success/error states, accessibility, responsive design, spam protection
-- **Why**: Direct recruiter/employer contact path; replaces passive email link with active engagement
+### ~~CHALLENGE-003: Contact Form~~ (Completed 2026-03-21) → moved to [DONE.md](DONE.md)
 
 ---
 
