@@ -144,7 +144,7 @@ goodalex223/
 │   │   ├── animation-states.spec.js   # Animation choreography
 │   │   ├── keyboard-nav.spec.js       # Keyboard navigation (roving tabindex)
 │   │   ├── accessibility.spec.js      # ARIA attributes, live regions
-│   │   ├── rapid-clicks.spec.js       # Rapid interaction handling
+│   │   ├── rapid-clicks.spec.js       # Rapid interaction handling, deterministic toggle-to-reset on rapid double-click
 │   │   ├── axe-scan.spec.js           # WCAG 2.1 AA accessibility scanning (axe-core)
 │   │   └── reduced-motion.spec.js     # Reduced motion: visibility, filter function, WCAG scans
 │   ├── modal/
@@ -174,6 +174,7 @@ goodalex223/
 │   ├── inter-latin.woff2     # Self-hosted Inter font (Latin subset)
 │   └── inter-latin-ext.woff2 # Self-hosted Inter font (Latin Extended subset)
 ├── docs/                   # Project documentation
+│   ├── PORTFOLIO_REQUIREMENTS.md  # Project quality standards and audit checklist by tier
 │   └── superpowers/        # Agentic workflow plans and design specs
 │       ├── plans/          # Implementation plans (CHALLENGE-*, QUALITY-*, etc.)
 │       └── specs/          # Design/spec documents for planned features
@@ -207,6 +208,7 @@ goodalex223/
 - [data/projects.json](data/projects.json) — Project detail data (lazy-fetched by modal JS)
 - [css/modal.css](css/modal.css) — Project detail modal styles
 - [css/form.css](css/form.css) — Contact form styles (fields, validation states, status messages)
+- [docs/PORTFOLIO_REQUIREMENTS.md](docs/PORTFOLIO_REQUIREMENTS.md) — Project quality standards: 3 tiers (Production, Hardware, Utilities), per-tier requirements, audit checklist, current project gap snapshot
 - [docs/SEO_TESTING.md](docs/SEO_TESTING.md) — Social card & SEO validation checklist
 - [docs/size-history.json](docs/size-history.json) — Build size trend history (appended by `report-sizes.js` on each build)
 - [docs/learning-backlog.md](docs/learning-backlog.md) — Learning topics captured from development sessions (explored further after task completion)
