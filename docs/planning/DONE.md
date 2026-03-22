@@ -1,8 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-03-21 (CHALLENGE-003 completed)
+**Last Updated**: 2026-03-22 (BUG-004 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-03-22
+
+### BUG-004: Filter Toggle-to-Reset Race Condition on Rapid Clicks
+
+**Plan**: [docs/archive/plans/2026-03-22-bug-004-filter-race-condition.md](../archive/plans/2026-03-22-bug-004-filter-race-condition.md)
+**Summary**: Fixed race condition where `currentFilter` was stale during animation, causing toggle-to-reset to misroute rapid clicks. Moved `currentFilter` update to the start of `filterProjects()` (eager update), simplified `activateFilter` guard, and made rapid-click tests deterministic.
+**Key Changes**:
+- `js/main.js` — Moved `currentFilter = category` to top of `filterProjects()`, removed 3 redundant assignments, simplified `activateFilter` guard (removed `!isAnimating` escape hatch)
+- `tests/filter/rapid-clicks.spec.js` — Double-click test now asserts deterministic toggle-to-reset; mid-exit test uses DOM state polling instead of timing-based wait
+- `tests/filter/toggle-behavior.spec.js` — Added test for toggle-to-reset during animation (core BUG-004 scenario)
+**Spawned Tasks**: 2 items added to BACKLOG.md, 2 existing items marked resolved
 
 ---
 
