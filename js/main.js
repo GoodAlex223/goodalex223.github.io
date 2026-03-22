@@ -270,6 +270,10 @@ function initProjectFilter() {
     // Cancel any pending animations from rapid clicks
     cancelFilterAnimations();
 
+    // Update filter state immediately (before animation) so toggle-to-reset
+    // and activateFilter guard always see the intended filter, not stale state
+    currentFilter = category;
+
     // Separate cards into show/hide groups
     // All visible cards exit (fade out), all target cards enter (fade in).
     // Cards visible in both states go through the full exit→enter cycle
@@ -295,7 +299,6 @@ function initProjectFilter() {
 
     // Nothing to animate (e.g., clicking the already-active filter)
     if (cardsToHide.length === 0 && cardsToShow.length === 0) {
-      currentFilter = category;
       return;
     }
 
@@ -307,7 +310,6 @@ function initProjectFilter() {
         const shouldShow = category === "all" || cardCategory === category;
         card.classList.toggle("project-card--hidden", !shouldShow);
       });
-      currentFilter = category;
       announceFilterResults(category, cardsToShow.length);
       return;
     }
@@ -379,8 +381,6 @@ function initProjectFilter() {
           card.classList.add("is-visible");
         });
 
-        // Update state only after all animations complete
-        currentFilter = category;
         isAnimating = false;
       }, totalEntranceTime);
       animationTimeouts.push(cleanupTimeout);
