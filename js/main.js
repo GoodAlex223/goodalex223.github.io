@@ -139,7 +139,6 @@ function initProjectFilter() {
   let currentFilter = "all";
 
   // Animation state tracking for filter animations
-  let isAnimating = false;
   let animationTimeouts = [];
   let animationFrame = null;
 
@@ -270,6 +269,10 @@ function initProjectFilter() {
     // Cancel any pending animations from rapid clicks
     cancelFilterAnimations();
 
+    // Update filter state immediately (before animation) so toggle-to-reset
+    // and activateFilter guard always see the intended filter, not stale state
+    currentFilter = category;
+
     // Separate cards into show/hide groups
     // All visible cards exit (fade out), all target cards enter (fade in).
     // Cards visible in both states go through the full exit→enter cycle
@@ -295,7 +298,6 @@ function initProjectFilter() {
 
     // Nothing to animate (e.g., clicking the already-active filter)
     if (cardsToHide.length === 0 && cardsToShow.length === 0) {
-      currentFilter = category;
       return;
     }
 
@@ -307,7 +309,6 @@ function initProjectFilter() {
         const shouldShow = category === "all" || cardCategory === category;
         card.classList.toggle("project-card--hidden", !shouldShow);
       });
-      currentFilter = category;
       announceFilterResults(category, cardsToShow.length);
       return;
     }
@@ -325,9 +326,6 @@ function initProjectFilter() {
 
     // Announce results immediately (before animations) for instant screen reader feedback
     announceFilterResults(category, cardsToShow.length);
-
-    // Mark animation as in progress
-    isAnimating = true;
 
     // Calculate when entrance should start:
     // - If cards are exiting, wait for exit to finish before entrance
@@ -378,10 +376,6 @@ function initProjectFilter() {
           // revert to [data-animate] opacity: 0 after filter classes are removed
           card.classList.add("is-visible");
         });
-
-        // Update state only after all animations complete
-        currentFilter = category;
-        isAnimating = false;
       }, totalEntranceTime);
       animationTimeouts.push(cleanupTimeout);
     }, entranceDelay);
@@ -436,15 +430,14 @@ function initProjectFilter() {
 
   /**
    * Activate a specific category filter.
-   * No-op if already showing the requested category (unless mid-animation,
-   * where currentFilter may be stale from cancelled animation cleanup).
+   * No-op if already showing the requested category.
    * @param {string} category - Category to activate
    * @param {Object} [options] - Configuration options
    * @param {boolean} [options.shouldUpdateHash=true] - Whether to update URL hash
    * @param {boolean} [options.conditionalFocus=false] - Move focus only if already in toolbar
    */
   function activateFilter(category, { shouldUpdateHash = true, conditionalFocus = false } = {}) {
-    if (category === currentFilter && !isAnimating) return;
+    if (category === currentFilter) return;
 
     const targetButton = document.querySelector(`[data-filter="${category}"]`);
     if (!targetButton) return;

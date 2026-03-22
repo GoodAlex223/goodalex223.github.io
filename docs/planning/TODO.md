@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-21 (CHALLENGE-003 completed)
+**Last Updated**: 2026-03-22 (BUG-004 completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **BUG-004**: Filter Toggle-to-Reset Race Condition → moved to [DONE.md](DONE.md)
 - **CHALLENGE-003**: Contact Form → moved to [DONE.md](DONE.md)
 - **CHALLENGE-002**: Project Detail Modal → moved to [DONE.md](DONE.md)
 - **QUALITY-008**: Stylelint Rule to Prevent `transition: all` → moved to [DONE.md](DONE.md)
@@ -38,11 +39,7 @@ _None currently_
 
 ## High Priority
 
-### BUG-004: Filter Toggle-to-Reset Race Condition on Rapid Clicks
-- **Repro**: Click a filter → click it again quickly (toggle-to-reset to "all") → immediately click the same filter again → stays on "all" instead of activating the filter
-- **Also**: Rapid-clicking between different filters causes incorrect state transitions — previous filter's toggle-to-reset fires late, resetting to "all" unexpectedly
-- **Root cause**: Likely `isAnimating` guard dropping clicks during animation, combined with stale `currentFilter` state
-- **Related**: [BACKLOG.md — Stabilize rapid-click timing tests](BACKLOG.md#from-quality-002-centralize-activatefilter-2026-02-10)
+_None currently_
 
 ---
 

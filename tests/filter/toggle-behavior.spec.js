@@ -32,4 +32,16 @@ test.describe("Toggle-to-Reset Behavior", () => {
     await fp.clickFilter("backend"); // Toggle reset
     await fp.expectFocused("all");
   });
+
+  test("toggle-to-reset works during animation", async () => {
+    // Click IoT without waiting for animation to complete
+    await fp.clickFilterNoWait("iot");
+    // Immediately click IoT again (toggle-to-reset during animation)
+    await fp.clickFilter("iot");
+
+    // Should have reset to "all" even though first animation was in progress
+    await fp.expectVisibleCardCount(CATEGORY_COUNTS.all);
+    await fp.expectActiveFilter("all");
+    await fp.expectUrlHash("");
+  });
 });

@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-03-21 (CHALLENGE-003 contact form)
+**Last Updated**: 2026-03-22 (BUG-004 filter race condition)
 
 Future ideas and improvements for the portfolio.
 
@@ -348,7 +348,7 @@ Future ideas and improvements for the portfolio.
 ## From QUALITY-002: Centralize activateFilter() (2026-02-10)
 **Origin**: docs/archive/plans/2026-02-10_quality-002-centralize-activate-filter.md
 
-- [ ] Stabilize rapid-click timing tests — `rapid-clicks.spec.js:25` uses `page.waitForTimeout(duration * 0.3)` which is timing-sensitive across Firefox/WebKit; consider DOM state polling instead of percentage-based timing
+- [x] ~~Stabilize rapid-click timing tests~~ *(resolved 2026-03-22, BUG-004: replaced `waitForTimeout` with DOM state polling for `.project-card--filtering-out`)*
 - [ ] Unify resetFilter into activateFilter — `resetFilter()` could become `activateFilter("all", { manageFocus: true })` to further reduce duplication (current separation is clearer for distinct use cases)
 - [ ] Simplify `applyHashFilter()` JSDoc — Comment describes implementation details (conditional focus, hash non-update) now delegated to `activateFilter()`; update to reference options rather than restate behavior (code review finding, confidence 62/100)
 
@@ -578,7 +578,7 @@ _Extracted from implementation plan:_
 
 - [ ] Add `eslint-plugin-playwright` — Playwright-specific rules for test files (e.g., `no-conditional-in-test`, `prefer-web-first-assertions`)
 - [ ] Add `no-console` rule for browser code — `warn` level for `js/**/*.js` to catch accidental console.log in production code
-- [ ] Investigate flaky Firefox rapid-clicks test — `rapid-clicks.spec.js:25` intermittently fails on Firefox; timing-sensitive mid-exit animation assertion (pre-existing)
+- [x] ~~Investigate flaky Firefox rapid-clicks test~~ *(resolved 2026-03-22, BUG-004: replaced timing-based wait with DOM state polling)*
 
 ---
 
@@ -687,6 +687,14 @@ _Extracted from implementation plan:_
 - [ ] Reduced-motion axe test: use `fp.goto()` (POM method with readiness assertion) instead of `fp.page.goto("/")`
 - [ ] Consider SVG icons for status indicators instead of Unicode text characters (`✓`/`✗`) — aligns with codebase "Inline SVG icons" convention
 - [ ] Add `.contact-form__status` to theme transition group for smooth theme switching when status is visible
+
+---
+
+## From BUG-004: Filter Race Condition Fix (2026-03-22)
+**Origin**: docs/archive/plans/2026-03-22-bug-004-filter-race-condition.md
+
+- [ ] Debounce live region announcements on rapid filter clicks — `announceFilterResults()` fires eagerly before animation, so rapid clicks queue overlapping screen reader announcements (pre-existing, noted in A11Y-001 backlog)
+- [ ] Unify `resetFilter()` into `activateFilter("all")` — with eager `currentFilter`, the separate `resetFilter()` function is even more redundant; could become `activateFilter("all", { manageFocus: true })` (pre-existing QUALITY-002 backlog item, now simpler to implement)
 
 ---
 

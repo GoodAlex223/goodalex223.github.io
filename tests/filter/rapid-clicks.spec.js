@@ -1,9 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { FilterPage, CATEGORY_COUNTS } from "../pages/FilterPage.js";
-import {
-  getAnimationDuration,
-  waitForFilterAnimation,
-} from "../utils/timing.js";
+import { waitForFilterAnimation } from "../utils/timing.js";
 
 test.describe("Rapid Click Handling", () => {
   let fp;
@@ -22,34 +19,32 @@ test.describe("Rapid Click Handling", () => {
     await fp.expectUrlHash("filter=tools");
   });
 
-  test("interrupting animation mid-exit reaches correct state", async ({
-    page,
-  }) => {
-    // Start backend filter (don't wait)
+  test("interrupting animation mid-exit reaches correct state", async () => {
+    // Start backend filter (don't wait for animation to complete)
     await fp.clickFilterNoWait("backend");
-    // Interrupt at ~30% through exit animation
-    const duration = await getAnimationDuration(page);
-    await page.waitForTimeout(Math.floor(duration * 0.3));
+    // Wait for exit animation to actually start (DOM state, not timing)
+    await expect(fp.exitingCards).not.toHaveCount(0);
+    // Interrupt with a different filter
     await fp.clickFilterNoWait("iot");
 
-    await waitForFilterAnimation(page);
+    await waitForFilterAnimation(fp.page);
 
     // Second click should win
     await fp.expectVisibleCardCount(CATEGORY_COUNTS.iot);
     await fp.expectAllVisibleCardsAreCategory("iot");
   });
 
-  test("rapid double-click on same filter ends in consistent state", async () => {
-    // Clicking same button twice rapidly: second click may re-apply filter
-    // (if currentFilter hasn't updated yet) OR toggle-to-reset (if it has).
-    // Both are valid — verify no broken intermediate state.
+  test("rapid double-click on same filter triggers toggle-to-reset", async () => {
+    // First click activates filter, second click triggers toggle-to-reset
+    // With eager currentFilter update, this is deterministic: always resets to "all"
     await fp.clickFilterNoWait("iot");
     await fp.button("iot").click();
     await waitForFilterAnimation(fp.page);
 
     await fp.expectNoAnimationClasses();
-    const count = await fp.getVisibleCardCount();
-    expect([CATEGORY_COUNTS.iot, CATEGORY_COUNTS.all]).toContain(count);
+    await fp.expectVisibleCardCount(CATEGORY_COUNTS.all);
+    await fp.expectActiveFilter("all");
+    await fp.expectUrlHash("");
   });
 
   test("no animation classes remain after rapid clicks", async () => {
