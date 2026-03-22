@@ -34,17 +34,17 @@ test.describe("Rapid Click Handling", () => {
     await fp.expectAllVisibleCardsAreCategory("iot");
   });
 
-  test("rapid double-click on same filter ends in consistent state", async () => {
-    // Clicking same button twice rapidly: second click may re-apply filter
-    // (if currentFilter hasn't updated yet) OR toggle-to-reset (if it has).
-    // Both are valid — verify no broken intermediate state.
+  test("rapid double-click on same filter triggers toggle-to-reset", async () => {
+    // First click activates filter, second click triggers toggle-to-reset
+    // With eager currentFilter update, this is deterministic: always resets to "all"
     await fp.clickFilterNoWait("iot");
     await fp.button("iot").click();
     await waitForFilterAnimation(fp.page);
 
     await fp.expectNoAnimationClasses();
-    const count = await fp.getVisibleCardCount();
-    expect([CATEGORY_COUNTS.iot, CATEGORY_COUNTS.all]).toContain(count);
+    await fp.expectVisibleCardCount(CATEGORY_COUNTS.all);
+    await fp.expectActiveFilter("all");
+    await fp.expectUrlHash("");
   });
 
   test("no animation classes remain after rapid clicks", async () => {
