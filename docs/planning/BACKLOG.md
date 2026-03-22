@@ -691,7 +691,7 @@ _Extracted from implementation plan:_
 ---
 
 ## From BUG-004: Filter Race Condition Fix (2026-03-22)
-**Origin**: docs/superpowers/plans/2026-03-22-bug-004-filter-race-condition.md
+**Origin**: docs/archive/plans/2026-03-22-bug-004-filter-race-condition.md
 
 - [ ] Debounce live region announcements on rapid filter clicks — `announceFilterResults()` fires eagerly before animation, so rapid clicks queue overlapping screen reader announcements (pre-existing, noted in A11Y-001 backlog)
 - [ ] Unify `resetFilter()` into `activateFilter("all")` — with eager `currentFilter`, the separate `resetFilter()` function is even more redundant; could become `activateFilter("all", { manageFocus: true })` (pre-existing QUALITY-002 backlog item, now simpler to implement)
