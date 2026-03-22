@@ -36,16 +36,14 @@ test.describe("Form Accessibility", () => {
     await fp.expectFieldValid(fp.nameField);
   });
 
-  test("error messages have role=alert and aria-live", async () => {
-    await expect(fp.nameError).toHaveAttribute("role", "alert");
-    await expect(fp.nameError).toHaveAttribute("aria-live", "polite");
-    await expect(fp.emailError).toHaveAttribute("role", "alert");
-    await expect(fp.messageError).toHaveAttribute("role", "alert");
+  test("error messages have role=status for polite announcements", async () => {
+    await expect(fp.nameError).toHaveAttribute("role", "status");
+    await expect(fp.emailError).toHaveAttribute("role", "status");
+    await expect(fp.messageError).toHaveAttribute("role", "status");
   });
 
-  test("status container has role=alert and aria-live", async () => {
+  test("status container has role=alert for assertive announcements", async () => {
     await expect(fp.statusContainer).toHaveAttribute("role", "alert");
-    await expect(fp.statusContainer).toHaveAttribute("aria-live", "polite");
   });
 
   test("honeypot is hidden from assistive technology", async () => {
