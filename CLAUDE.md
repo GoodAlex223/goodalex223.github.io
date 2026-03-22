@@ -665,7 +665,7 @@ Progressive reveal animations using Intersection Observer:
 - **Async loading**: Full CSS bundle loads via `media="print" onload="this.media='all'"` pattern
 - **Fallback**: `<noscript>` tag loads full CSS synchronously for non-JS users
 - **Theme handling**: Temporarily adds `data-theme="light"` during processing so critters includes light theme selectors; post-processes to inject `[data-theme="light"]` variable overrides that critters misses (CSS custom properties don't trigger critical extraction)
-- **Size**: index.html ~16 KB inline CSS, 404.html ~8 KB inline CSS (14 KB TCP slow-start guideline noted)
+- **Size**: index.html ~26 KB inline CSS, 404.html ~8 KB inline CSS (contact form CSS included after challenge-003; 14 KB TCP slow-start guideline exceeded — monitor Lighthouse performance score)
 - **Idempotency**: `cleanInlineArtifacts()` shared function removes all critters artifacts before re-processing
 - **Development**: `--restore` mode strips inline CSS for watch mode debugging
 

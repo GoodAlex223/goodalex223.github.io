@@ -677,6 +677,17 @@ _Extracted from implementation plan:_
 - [ ] Add form analytics (submission success rate, field error frequency) — helps understand conversion funnel
 - [ ] Pre-existing axe-scan flakiness in scroll animation timing — `waitForScrollAnimations(700ms)` is sometimes insufficient across browsers; consider a deterministic wait (e.g., polling `is-visible` class) instead of a fixed timeout
 
+## From CHALLENGE-003 Code Review (2026-03-22)
+**Origin**: Code review of PR #50
+
+- [ ] Form inputs: use `outline-color` only in `:focus-visible` (not full `outline` shorthand) and add base transparent outline — aligns with documented focus transition pattern in CLAUDE.md
+- [ ] Add focus management after form submission — `showFormStatus()` hides the form but doesn't move focus to status container or action button; keyboard/screen reader users lose context
+- [ ] Resolve CSS cascade conflict: `.contact-form__input` in theme transition group overrides `form.css` component transition — follow `.btn` exclusion precedent documented in CLAUDE.md
+- [ ] Use `test.expect()` → imported `expect()` in form tests, and replace `page.evaluate(() => document.activeElement.id)` with web-first `expect(locator).toBeFocused()` in `validation.spec.js`
+- [ ] Reduced-motion axe test: use `fp.goto()` (POM method with readiness assertion) instead of `fp.page.goto("/")`
+- [ ] Consider SVG icons for status indicators instead of Unicode text characters (`✓`/`✗`) — aligns with codebase "Inline SVG icons" convention
+- [ ] Add `.contact-form__status` to theme transition group for smooth theme switching when status is visible
+
 ---
 
 ## Notes
