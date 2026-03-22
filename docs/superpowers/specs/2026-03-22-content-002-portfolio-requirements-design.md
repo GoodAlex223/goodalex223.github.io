@@ -21,6 +21,8 @@ Freelance clients ask: "Can this person build something like what I need?" They 
 
 Projects are classified into three tiers with requirements scaled to what matters for each type. A one-size-fits-all checklist would either be too strict for hardware projects or too lax for production apps.
 
+**Tiers are orthogonal to portfolio categories.** Categories (Backend, IoT, Web, Tools) describe the technology domain; tiers describe the quality bar. A Web-category project can be Tier 1 if it meets Full-Stack criteria.
+
 ### "In Development" Projects Are Welcome
 
 Projects marked "In Development" can appear on the portfolio. They signal active growth and ongoing work. The key constraint: any demo or link must work end-to-end even if the project isn't feature-complete.
@@ -35,7 +37,7 @@ Rapid prototypes built under time constraints (e.g., "MVP in one week") are allo
 
 Projects with real users, deployment infrastructure, or significant scope. These are flagship portfolio pieces that demonstrate end-to-end delivery capability.
 
-**Current projects**: rating_bot, dropshipping (e-commerce prototype)
+**Current projects**: rating_bot, dropshipping
 
 **Criteria for classification**: Has a backend with database, runs in production or has a deployed URL, involves multiple integrated systems (e.g., API + frontend + database + CI/CD).
 
@@ -64,8 +66,8 @@ Smaller tools, CLI utilities, desktop applications, or rapid prototypes. The val
 | Area | Requirement |
 |------|-------------|
 | **README** | Full: description, screenshots, tech stack, setup instructions, architecture overview |
-| **Live Demo** | Required — deployed URL that a client can visit and interact with |
-| **Code Quality** | Clean structure, consistent patterns, no obvious hacks or dead code |
+| **Live Demo** | Required — deployed URL that a client can visit and interact with. For bot/CLI projects where a traditional URL is not possible, acceptable alternatives include: a video/GIF demo, screenshots of interaction flow, or a showcase repo with thorough documentation. CONTENT-004 must resolve any gaps. |
+| **Code Quality** | Clean structure, consistent patterns, no obvious hacks or dead code. Review is a surface-level scan (5-10 minutes per repo): reasonable file structure, no broken/placeholder files at root, no committed secrets. Deep code review is out of scope. |
 | **Modal Data** | Complete: description, highlights, tech pills, links, at least 1 screenshot |
 | **Status** | "In Development" is fine, but the demo must work end-to-end |
 
@@ -75,7 +77,7 @@ Smaller tools, CLI utilities, desktop applications, or rapid prototypes. The val
 |------|-------------|
 | **README** | Description, hardware requirements, wiring diagram or schematic reference, photos of real deployment if available |
 | **Live Demo** | Wokwi simulation strongly preferred; if not possible, README photos/video showing the real hardware in action |
-| **Code Quality** | Clear code comments (hardware context matters more than architecture), readable pin mappings and configuration |
+| **Code Quality** | Clear code comments (hardware context matters more than architecture), readable pin mappings and configuration. Surface-level scan: 5-10 minutes per repo. |
 | **Modal Data** | Complete: description, highlights, tech pills, links, at least 1 screenshot (simulation or real hardware) |
 | **Status** | "Completed" expected — hardware projects are typically point-in-time deliveries |
 
@@ -85,10 +87,10 @@ Smaller tools, CLI utilities, desktop applications, or rapid prototypes. The val
 |------|-------------|
 | **README** | Description, usage examples with clear input/output, installation steps |
 | **Live Demo** | Nice to have, not required — GitHub repo with good README is acceptable |
-| **Code Quality** | Functional and readable; speed builds get a pass on polish but shouldn't have broken or embarrassing code |
+| **Code Quality** | Functional and readable; speed builds get a pass on polish but shouldn't have broken or embarrassing code. Surface-level scan: 5-10 minutes per repo. |
 | **Modal Data** | At minimum: description, tech pills, GitHub link. Screenshots optional for CLI tools |
 | **Status** | Any — "In Development" or "Completed" both fine |
-| **Speed Build Label** | If the project is a rapid prototype, the description must mention the timeframe (e.g., "MVP built in one week") as a positive signal |
+| **Speed Build Label** | If the project is a rapid prototype, the description must mention the timeframe as a demonstration of rapid delivery capability (e.g., "Full MVP delivered in one week"). Avoid apologetic language like "this was rushed" or "no time for polish." The project must still meet all other Tier 3 requirements. |
 
 ### Universal Requirements (All Tiers)
 
@@ -97,7 +99,7 @@ These apply to every project regardless of tier:
 1. **GitHub repo link must be live and accessible** — no 404s, no private repos
 2. **All external links must work** — demo URLs, simulation links, documentation references
 3. **Portfolio card description must be accurate** — reflects current project state, not outdated aspirations
-4. **`data-updated` date must reflect actual last meaningful update** — not the date it was added to the portfolio
+4. **`data-updated` date must reflect actual last meaningful update** — not the date it was added to the portfolio. A meaningful update is a change to the project's functionality, documentation, or dependencies — not a portfolio metadata edit. Use the date of the last commit that changed project behavior or content.
 5. **Project must demonstrate a relevant skill** — should be recognizable to the freelance target audience as something they might need built
 
 ## Audit Checklist
@@ -118,6 +120,7 @@ For each project, check:
 - [ ] **Card description accurate** — Matches current project reality
 - [ ] **`data-updated` date correct** — Reflects last meaningful change
 - [ ] **All external links live** — Every URL in the card, modal, and README works
+- [ ] **Speed build labeled** (Tier 3 only) — If rapid prototype, description mentions timeframe
 
 ### Adding a New Project
 
@@ -134,7 +137,7 @@ Snapshot of where each project stands against these requirements (detailed audit
 
 | Project | Tier | Demo | Modal Screenshots | Known Gaps |
 |---------|------|------|-------------------|------------|
-| rating_bot | 1 | Showcase repo only (no live URL) | 2 | Verify README quality; no interactive demo |
+| rating_bot | 1 | Showcase repo only (no live URL) | 2 | Verify README quality; no traditional demo URL — CONTENT-004 must resolve via alternative (video/screenshots/showcase docs) |
 | dropshipping | 1 | Vercel link exists | 0 | Need screenshots; verify demo works; verify README |
 | rule-indicators | 2 | Wokwi simulation | 2 | Verify README has hardware context |
 | lubrication | 2 | Wokwi simulation | 0 | Need screenshots; verify README |
@@ -155,6 +158,12 @@ A single document (`docs/PORTFOLIO_REQUIREMENTS.md`) containing:
 - Current audit summary snapshot
 
 This document becomes the quality standard referenced by CONTENT-003 (Add Cleaning Site), CONTENT-004 (Update Project Information), and any future content tasks.
+
+After creating the document, add an entry to `docs/README.md` to index it.
+
+## Maintenance
+
+Re-audit all projects against the checklist quarterly, or whenever a project's status changes. Automated link checking in CI is a future improvement (add to BACKLOG if not already there).
 
 ## Out of Scope
 
