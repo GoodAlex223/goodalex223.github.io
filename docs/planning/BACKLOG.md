@@ -698,6 +698,14 @@ _Extracted from implementation plan:_
 
 ---
 
+## From BUG-004 Code Review (2026-03-22)
+**Origin**: Code review of PR #51
+
+- [ ] Update `docs/archive/README.md` to index new `specs/` subdirectory — PR #51 created `docs/archive/specs/` but did not update the archive README or `docs/README.md` to reference it (CLAUDE.md: "New documentation created → Index in docs/README.md")
+- [ ] Update `filterProjects()` JSDoc to document eager `currentFilter` update contract — `activateFilter()` JSDoc was updated but `filterProjects()` JSDoc still omits the behavioral change that `currentFilter` reflects intent immediately upon call, not after animation completion
+
+---
+
 ## Notes
 
 ~~**GitHub Profile README**: Consider updating [GoodAlex223/GoodAlex223](https://github.com/GoodAlex223/GoodAlex223) repository README to mention AI-assisted development workflows.~~ **DONE** (2026-01-20) - Updated with professional overview, tech stack, featured projects, and AI-assisted development mention.
