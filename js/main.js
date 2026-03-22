@@ -139,7 +139,6 @@ function initProjectFilter() {
   let currentFilter = "all";
 
   // Animation state tracking for filter animations
-  let isAnimating = false;
   let animationTimeouts = [];
   let animationFrame = null;
 
@@ -328,9 +327,6 @@ function initProjectFilter() {
     // Announce results immediately (before animations) for instant screen reader feedback
     announceFilterResults(category, cardsToShow.length);
 
-    // Mark animation as in progress
-    isAnimating = true;
-
     // Calculate when entrance should start:
     // - If cards are exiting, wait for exit to finish before entrance
     // - If no cards to exit, entrance starts immediately
@@ -380,8 +376,6 @@ function initProjectFilter() {
           // revert to [data-animate] opacity: 0 after filter classes are removed
           card.classList.add("is-visible");
         });
-
-        isAnimating = false;
       }, totalEntranceTime);
       animationTimeouts.push(cleanupTimeout);
     }, entranceDelay);
@@ -436,15 +430,14 @@ function initProjectFilter() {
 
   /**
    * Activate a specific category filter.
-   * No-op if already showing the requested category (unless mid-animation,
-   * where currentFilter may be stale from cancelled animation cleanup).
+   * No-op if already showing the requested category.
    * @param {string} category - Category to activate
    * @param {Object} [options] - Configuration options
    * @param {boolean} [options.shouldUpdateHash=true] - Whether to update URL hash
    * @param {boolean} [options.conditionalFocus=false] - Move focus only if already in toolbar
    */
   function activateFilter(category, { shouldUpdateHash = true, conditionalFocus = false } = {}) {
-    if (category === currentFilter && !isAnimating) return;
+    if (category === currentFilter) return;
 
     const targetButton = document.querySelector(`[data-filter="${category}"]`);
     if (!targetButton) return;
