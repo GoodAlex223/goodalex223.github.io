@@ -1,9 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { FilterPage, CATEGORY_COUNTS } from "../pages/FilterPage.js";
-import {
-  getAnimationDuration,
-  waitForFilterAnimation,
-} from "../utils/timing.js";
+import { waitForFilterAnimation } from "../utils/timing.js";
 
 test.describe("Rapid Click Handling", () => {
   let fp;
@@ -22,17 +19,15 @@ test.describe("Rapid Click Handling", () => {
     await fp.expectUrlHash("filter=tools");
   });
 
-  test("interrupting animation mid-exit reaches correct state", async ({
-    page,
-  }) => {
-    // Start backend filter (don't wait)
+  test("interrupting animation mid-exit reaches correct state", async () => {
+    // Start backend filter (don't wait for animation to complete)
     await fp.clickFilterNoWait("backend");
-    // Interrupt at ~30% through exit animation
-    const duration = await getAnimationDuration(page);
-    await page.waitForTimeout(Math.floor(duration * 0.3));
+    // Wait for exit animation to actually start (DOM state, not timing)
+    await expect(fp.exitingCards).not.toHaveCount(0);
+    // Interrupt with a different filter
     await fp.clickFilterNoWait("iot");
 
-    await waitForFilterAnimation(page);
+    await waitForFilterAnimation(fp.page);
 
     // Second click should win
     await fp.expectVisibleCardCount(CATEGORY_COUNTS.iot);
