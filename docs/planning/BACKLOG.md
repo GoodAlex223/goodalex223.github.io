@@ -728,6 +728,12 @@ _Extracted from implementation plan:_
 - [ ] Audit test files for hardcoded project counts — accessibility.spec.js had "7" instead of using `CATEGORY_COUNTS.all`; other tests may have similar fragile literals
 - [ ] Add a `scripts/convert-screenshot.js` utility for PNG→webp conversion with resize — currently ad-hoc via `sharp` install; would streamline future CONTENT tasks
 
+### From CONTENT-003 Code Review (2026-03-24)
+**Origin**: Code review of PR #53
+
+- [ ] Update "Adding New Projects" template in CLAUDE.md to include `data-animate` and `data-animate-delay` attributes — every real project card uses them but the template omits them, which could mislead future additions
+- [ ] Archive completed design spec `docs/superpowers/specs/2026-03-23_content-003-cleaning-site-design.md` to `docs/archive/specs/` — completed task specs should follow the archive precedent set by BUG-004 (`docs/archive/specs/`), not remain in `docs/superpowers/specs/` ("planned features")
+
 ## Notes
 
 ~~**GitHub Profile README**: Consider updating [GoodAlex223/GoodAlex223](https://github.com/GoodAlex223/GoodAlex223) repository README to mention AI-assisted development workflows.~~ **DONE** (2026-01-20) - Updated with professional overview, tech stack, featured projects, and AI-assisted development mention.
