@@ -175,6 +175,9 @@ goodalex223/
 │   └── inter-latin-ext.woff2 # Self-hosted Inter font (Latin Extended subset)
 ├── docs/                   # Project documentation
 │   ├── PORTFOLIO_REQUIREMENTS.md  # Project quality standards and audit checklist by tier
+│   ├── archive/            # Historical plans and specs (YYYY-MM-DD_task-name.md naming)
+│   │   ├── plans/          # Completed implementation plans
+│   │   └── specs/          # Archived design/spec documents
 │   └── superpowers/        # Agentic workflow plans and design specs
 │       ├── plans/          # Implementation plans (CHALLENGE-*, QUALITY-*, etc.)
 │       └── specs/          # Design/spec documents for planned features
@@ -391,7 +394,7 @@ All text colors meet WCAG 2.1 Level AA contrast requirements (4.5:1 for normal t
   - **Keyboard navigation**: Arrow keys, Home, End to navigate filter buttons
   - **Live region**: `#filter-status` with `aria-live="polite"` announces filter results to screen readers
     - Announced immediately before animations (not delayed until after)
-    - Grammar: "Showing all 7 projects" or "Showing 3 IoT projects" (preserves button text casing)
+    - Grammar: "Showing all 8 projects" or "Showing 3 IoT projects" (preserves button text casing)
 - **Theme Toggle**: `.theme-toggle` button with icon transitions (sun/moon)
   - Icons swap via opacity/transform based on `[data-theme]` attribute
   - Updates `aria-label` dynamically for accessibility
@@ -437,6 +440,7 @@ Client-side category filtering with subtle staggered animations:
    - **State Preservation**: `.is-visible` class added after filter cleanup prevents [data-animate] from reverting to opacity: 0
    - **Animation Guard**: Skip animation if no cards need visibility change (prevents unnecessary work)
 4. **Toggle Behavior**: Clicking active category filter resets to "all"
+   - **Eager state update**: `currentFilter = category` is set at the top of `filterProjects()` before animation starts — ensures toggle-to-reset and guard clauses always see the intended filter, not stale state from a previous animation cycle (BUG-004 fix)
 5. **URL Hash Integration**: Shareable filter links with browser history support
    - **URL Format**: `#filter=backend`, `#filter=iot`, `#filter=web`, `#filter=tools`
    - **Clean URLs**: Hash removed when filter is "all" (default state)
@@ -452,7 +456,7 @@ Client-side category filtering with subtle staggered animations:
    - **Roving tabindex pattern**: Only one button has `tabindex="0"`, others `tabindex="-1"`
    - **Keyboard navigation**: Arrow keys (left/right/up/down) cycle through buttons, Home/End jump to first/last, Escape resets to "all"
    - **Live region**: `#filter-status` with `aria-live="polite"` announces results immediately before animations
-     - Grammar: "Showing all 7 projects" (all) or "Showing 3 IoT projects" (specific category)
+     - Grammar: "Showing all 8 projects" (all) or "Showing 3 IoT projects" (specific category)
      - Display label extracted from button text to preserve casing (e.g., "IoT" not "iot")
      - Count passed as parameter (`cardsToShow.length`) — what WILL be visible, not current DOM state
    - **Focus management**: `setActiveButton()` calls `updateTabindex()` to sync tabindex with active state; toggle-to-reset explicitly moves focus to "all" button
@@ -595,7 +599,7 @@ Progressive reveal animations using Intersection Observer:
      - Category counts stored as constants (`CATEGORY_COUNTS`) for assertions
      - `waitForScrollAnimations()` waits 700ms for scroll-in animations to settle (prevents false axe-core failures)
    - `ModalPage.js` — encapsulates project detail modal interactions
-     - `PROJECTS_WITH_DETAILS` constant: all 7 project IDs (`"rating-bot"`, `"rule-indicators"`, `"media-viewer"`, `"lubrication"`, `"hx711-scale"`, `"dropshipping"`, `"svg-processor"`)
+     - `PROJECTS_WITH_DETAILS` constant: all 8 project IDs (`"rating-bot"`, `"rule-indicators"`, `"media-viewer"`, `"lubrication"`, `"hx711-scale"`, `"dropshipping"`, `"svg-processor"`, `"cleanspark"`)
      - Navigation: `goto()`, `gotoWithProjectHash(projectId)`
      - Actions: `clickCard()` (scrolls into view + polls computed opacity === "1" before clicking — Firefox cross-browser fix for scroll animation timing), `clickClose()`, `pressEscape()`, `clickBackdrop()`
      - Assertions: `expectOpen/Closed/Title/Category()`, `expectDescriptionCount/HighlightsCount/TechPillsCount/ScreenshotsCount/LinksCount()`, `expectScrollLocked/Unlocked()`, `expectFocusOnClose()` (close button focused on open), `expectDetailsBtnFocused(projectId)` (details-btn refocused after close), `expectAriaModal()`, `expectAriaLabelledBy()`, `expectUrlHash()`
@@ -621,12 +625,12 @@ Progressive reveal animations using Intersection Observer:
    - **filter/rapid-clicks.spec.js**: Race conditions, animation interruption, state consistency
    - **filter/axe-scan.spec.js**: WCAG 2.1 AA compliance scanning (page load, all filters, toggle-to-reset, keyboard nav, URL hash, explicit light theme, explicit dark theme)
    - **filter/reduced-motion.spec.js**: Reduced motion accessibility — element visibility (`[data-animate]` at opacity 1), filter function without animations, toggle-to-reset, URL hash, WCAG 2.1 AA scans (page load, active filter, light theme, dark theme); `enableReducedMotion()` called BEFORE `goto()` so CSS media query is active at page load
-   - **modal/basic-modal.spec.js**: Modal open by card click, content rendering for all 7 projects, scroll lock/unlock
+   - **modal/basic-modal.spec.js**: Modal open by card click, content rendering for all 8 projects, scroll lock/unlock
    - **modal/close-modal.spec.js**: Close via button, ESC key, backdrop click; focus restores to `.project-card__details-btn`
    - **modal/accessibility.spec.js**: ARIA attrs (`role=dialog`, `aria-modal`, `aria-labelledby`), focus on open, focus trap Tab/Shift+Tab (Chromium only — browser quirks), `aria-haspopup=dialog` on trigger buttons
    - **modal/url-hash.spec.js**: Hash updates on open (`#project=id`), removed on close, page load with hash, invalid hash ignored, coexists with `#filter=` hash, browser back closes modal
    - **modal/reduced-motion.spec.js**: Modal open/close/content with `prefers-reduced-motion` active
-   - **modal/axe-scan.spec.js**: WCAG 2.1 AA scanning for modal open state — each of 7 projects individually (different content structures), explicit light theme, explicit dark theme, reduced-motion; scan scoped to `#project-modal` via `MODAL_SCOPE` to avoid false-positive contrast violations from semi-transparent backdrop on background elements
+   - **modal/axe-scan.spec.js**: WCAG 2.1 AA scanning for modal open state — each of 8 projects individually (different content structures), explicit light theme, explicit dark theme, reduced-motion; scan scoped to `#project-modal` via `MODAL_SCOPE` to avoid false-positive contrast violations from semi-transparent backdrop on background elements
    - **seo/meta-tags.spec.js**: SEO meta tag validation — Open Graph (8 tags), Twitter Card (5 tags), core SEO (title, description, canonical), JSON-LD structured data (Person + WebSite schemas), and cross-tag consistency checks; uses `EXPECTED` constants object as single source of truth; direct locators via `ogMeta()`/`namedMeta()` helpers (no Page Object Model)
    - **form/validation.spec.js**: Required field errors, email format, minlength/maxlength, blur validation, focus moves to first invalid field on submit
    - **form/submission.spec.js**: Formspree mocked via `page.route()`; success path, error path, loading state, honeypot silent-succeed, "Send another"/"Try again" actions
@@ -646,7 +650,7 @@ Progressive reveal animations using Intersection Observer:
 9. **Accessibility Regression Testing**: Automated WCAG 2.1 AA scanning prevents accessibility violations
    - Uses `@axe-core/playwright` for comprehensive accessibility audits
    - Filter suite: scans page on load and after every interaction state (filter changes, keyboard nav, URL hash)
-   - Modal suite: scans modal open state for each project (7 projects × 4 variants: default, light, dark, reduced-motion); scan scoped to `#project-modal` to avoid false positives from semi-transparent backdrop
+   - Modal suite: scans modal open state for each project (8 projects × 4 variants: default, light, dark, reduced-motion); scan scoped to `#project-modal` to avoid false positives from semi-transparent backdrop
    - Explicitly tests both light and dark themes via `setTheme()` to catch cross-theme color-contrast regressions
    - Waits for scroll animations to settle (700ms) to prevent false color-contrast failures from opacity transitions
    - Discovered and fixed 4 light-theme + 1 dark-theme color contrast violations (muted text, category badges, status indicators)
