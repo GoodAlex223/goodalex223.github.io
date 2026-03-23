@@ -10,7 +10,7 @@ Completed tasks for the portfolio project.
 
 ### CONTENT-002: Define Project Portfolio Requirements
 
-**Plan**: [docs/archive/plans/2026-03-22-content-002-portfolio-requirements.md](../archive/plans/2026-03-22-content-002-portfolio-requirements.md)
+**Plan**: [docs/archive/plans/2026-03-22_content-002-portfolio-requirements.md](../archive/plans/2026-03-22_content-002-portfolio-requirements.md)
 **Summary**: Created tiered quality standard for portfolio projects (Tier 1: Production, Tier 2: Hardware, Tier 3: Utilities/Speed Builds) with per-tier requirements and audit checklist.
 **Key Changes**:
 - Created `docs/PORTFOLIO_REQUIREMENTS.md` as the quality reference

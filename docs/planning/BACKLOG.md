@@ -699,7 +699,7 @@ _Extracted from implementation plan:_
 ---
 
 ## From CONTENT-002: Portfolio Requirements (2026-03-22)
-**Origin**: docs/archive/plans/2026-03-22-content-002-portfolio-requirements.md
+**Origin**: docs/archive/plans/2026-03-22_content-002-portfolio-requirements.md
 
 - [ ] Automated link checking in CI — verify all project GitHub/demo/simulation URLs are live on each deploy
 - [ ] Portfolio requirements linter — script that validates `data-updated` dates against git history
