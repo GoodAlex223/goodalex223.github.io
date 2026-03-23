@@ -706,6 +706,14 @@ _Extracted from implementation plan:_
 
 ---
 
+## From CONTENT-002 Code Review (2026-03-23)
+**Origin**: Code review of PR #52
+
+- [ ] Rename CONTENT-002 design spec to underscore convention — `docs/archive/plans/2026-03-22-content-002-portfolio-requirements-design.md` still uses hyphens after the date (should be `2026-03-22_content-002-portfolio-requirements-design.md`), same issue that was fixed for the plan file in commit b0684bf
+- [ ] Move CONTENT-002 design spec to `docs/archive/specs/` — spec file is in `archive/plans/` but should be in the newly created `archive/specs/` directory (BUG-004 spec was correctly moved there in the same PR)
+
+---
+
 ## From BUG-004 Code Review (2026-03-22)
 **Origin**: Code review of PR #51
 
