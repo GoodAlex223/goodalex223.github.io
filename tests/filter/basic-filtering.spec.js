@@ -9,7 +9,7 @@ test.describe("Basic Filtering", () => {
     await fp.goto();
   });
 
-  test("shows all 7 projects by default", async () => {
+  test("shows all 8 projects by default", async () => {
     await fp.expectVisibleCardCount(CATEGORY_COUNTS.all);
     await fp.expectActiveFilter("all");
     await fp.expectUrlHash("");

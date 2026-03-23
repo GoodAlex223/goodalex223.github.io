@@ -105,7 +105,7 @@ Smaller tools, CLI utilities, desktop applications, or rapid prototypes.
 
 ## Current Audit Summary
 
-Snapshot as of 2026-03-22 (detailed audit is CONTENT-004 scope):
+Snapshot as of 2026-03-23 (detailed audit is CONTENT-004 scope):
 
 | Project | Tier | Demo | Screenshots | Known Gaps |
 |---------|------|------|-------------|------------|
@@ -116,6 +116,7 @@ Snapshot as of 2026-03-22 (detailed audit is CONTENT-004 scope):
 | hx711-scale | 2 | Wokwi simulation | 0 | Need screenshots; verify README |
 | media-viewer | 3 | GitHub only | 2 | Acceptable for Tier 3 |
 | svg-processor | 3 | GitHub only | 0 | Optional for CLI; verify README |
+| cleanspark | 3 | Vercel live demo | 5 | Speed build; verify README meets Tier 3 bar |
 
 ## "In Development" Projects
 

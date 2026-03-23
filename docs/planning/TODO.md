@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-22 (BUG-004 completed)
+**Last Updated**: 2026-03-23 (CONTENT-003 completed)
 
 ---
 
@@ -45,11 +45,7 @@ _None currently_
 
 ## Medium Priority
 
-### CONTENT-003: Add Cleaning Site to Portfolio
-- Add the cleaning site project as a new portfolio card
-- Freeze its development (mark as completed)
-- Note in the description that the entire MVP was built in one week (no polish or fixes applied)
-- Add appropriate `data-project` entry in `data/projects.json` with detail data
+### ~~CONTENT-003: Add Cleaning Site to Portfolio~~ → moved to [DONE.md](DONE.md)
 
 ### CONTENT-004: Update Project Information
 - Review and update descriptions, tech stacks, links, and metadata for all existing project cards

@@ -84,7 +84,7 @@ test.describe("Accessibility", () => {
     await fp.expectLiveRegionText("Showing 1 Backend project");
 
     await fp.clickFilter("all");
-    await fp.expectLiveRegionText("Showing all 7 projects");
+    await fp.expectLiveRegionText(`Showing all ${CATEGORY_COUNTS.all} projects`);
   });
 
   test("live region has correct ARIA attributes", async () => {

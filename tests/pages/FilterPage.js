@@ -7,10 +7,10 @@ import { waitForFilterAnimation } from "../utils/timing.js";
 
 /** Category → expected card count (source of truth for assertions) */
 export const CATEGORY_COUNTS = {
-  all: 7,
+  all: 8,
   backend: 1,
   iot: 3,
-  web: 1,
+  web: 2,
   tools: 2,
 };
 

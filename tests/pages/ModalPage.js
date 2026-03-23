@@ -13,6 +13,7 @@ export const PROJECTS_WITH_DETAILS = [
   "hx711-scale",
   "dropshipping",
   "svg-processor",
+  "cleanspark",
 ];
 
 export class ModalPage {

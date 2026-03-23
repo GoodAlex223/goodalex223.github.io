@@ -197,5 +197,51 @@
     "screenshots": [],
     "status": null,
     "updated": "Sep 2025"
+  },
+  "cleanspark": {
+    "title": "CleanSpark",
+    "category": "Web",
+    "description": [
+      "A multi-theme cleaning business website built with Astro 5, TypeScript, and Tailwind CSS 4. Features 5 radically different design themes \u2014 not CSS variable swaps, but complete layout systems with unique component structures, animations, typography, and UX patterns. Full MVP delivered in one week.",
+      "Each theme is a self-contained design system: Minimal Zen (warm neutrals, Apple-like simplicity), Bold Spark (vibrant geometric energy), Trust Shield (corporate professionalism), Bubbly Clean (playful pastels), and Noir Luxe (dark luxury elegance). Themes switch in real time with cookie-based persistence and server-side rendering.",
+      "Built with Astro\u2019s islands architecture \u2014 static HTML by default, JavaScript only for interactive components. Includes 962 automated tests (78 unit + 218 E2E across 4 browsers), WCAG 2.1 AA accessibility compliance verified with axe-core across all 30 theme/page combinations."
+    ],
+    "highlights": [
+      "5 complete design themes with unique layouts, animations, and typography",
+      "Real-time theme switching with SSR and cookie persistence",
+      "962 automated tests across 4 browsers (Vitest + Playwright)",
+      "WCAG 2.1 AA accessibility verified across all 30 theme/page combinations",
+      "Islands architecture \u2014 static HTML by default, JS only where needed",
+      "Full MVP delivered in one week"
+    ],
+    "tech": ["Astro", "TypeScript", "Tailwind CSS", "Playwright", "Vitest", "Vercel"],
+    "links": {
+      "github": "https://github.com/GoodAlex223/cleaning-test",
+      "demo": "https://cleanspark-virid.vercel.app"
+    },
+    "screenshots": [
+      {
+        "src": "images/projects/cleanspark-minimal.webp",
+        "alt": "Minimal Zen theme \u2014 warm neutrals with generous whitespace"
+      },
+      {
+        "src": "images/projects/cleanspark-bold.webp",
+        "alt": "Bold Spark theme \u2014 vibrant orange with geometric CSS art"
+      },
+      {
+        "src": "images/projects/cleanspark-trust.webp",
+        "alt": "Trust Shield theme \u2014 corporate navy with serif typography"
+      },
+      {
+        "src": "images/projects/cleanspark-bubbly.webp",
+        "alt": "Bubbly Clean theme \u2014 pastel purple with floating bubble decorations"
+      },
+      {
+        "src": "images/projects/cleanspark-noir.webp",
+        "alt": "Noir Luxe theme \u2014 black and gold luxury aesthetic"
+      }
+    ],
+    "status": null,
+    "updated": "Mar 2026"
   }
 }

@@ -722,6 +722,12 @@ _Extracted from implementation plan:_
 
 ---
 
+## From CONTENT-003: Add CleanSpark to Portfolio (2026-03-23)
+**Origin**: docs/archive/plans/2026-03-23_content-003-cleaning-site.md
+
+- [ ] Audit test files for hardcoded project counts — accessibility.spec.js had "7" instead of using `CATEGORY_COUNTS.all`; other tests may have similar fragile literals
+- [ ] Add a `scripts/convert-screenshot.js` utility for PNG→webp conversion with resize — currently ad-hoc via `sharp` install; would streamline future CONTENT tasks
+
 ## Notes
 
 ~~**GitHub Profile README**: Consider updating [GoodAlex223/GoodAlex223](https://github.com/GoodAlex223/GoodAlex223) repository README to mention AI-assisted development workflows.~~ **DONE** (2026-01-20) - Updated with professional overview, tech stack, featured projects, and AI-assisted development mention.

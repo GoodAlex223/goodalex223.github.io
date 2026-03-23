@@ -1,8 +1,25 @@
 # DONE
 
-**Last Updated**: 2026-03-22 (BUG-004 completed)
+**Last Updated**: 2026-03-23 (CONTENT-003 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-03-23
+
+### CONTENT-003: Add CleanSpark to Portfolio
+
+**Plan**: [docs/archive/plans/2026-03-23_content-003-cleaning-site.md](../archive/plans/2026-03-23_content-003-cleaning-site.md)
+**Summary**: Added CleanSpark (multi-theme cleaning business website) as the 8th portfolio project card with full modal detail data, 5 theme screenshots, and repo rename fix.
+**Key Changes**:
+- Renamed GitHub repo `clening-test` → `cleaning-test` via API
+- Added project card to `index.html` (Web category, Tier 3 speed build)
+- Added modal data to `data/projects.json` (3 descriptions, 6 highlights, 5 screenshots)
+- Created 6 webp images (1 thumbnail + 5 modal screenshots, one per theme)
+- Updated test constants (`FilterPage.js`, `ModalPage.js`) and fixed hardcoded count in accessibility test
+- Updated `PORTFOLIO_REQUIREMENTS.md` audit table and `CLAUDE.md` project counts
+**Spawned Tasks**: 2 items added to BACKLOG.md
 
 ---
 
