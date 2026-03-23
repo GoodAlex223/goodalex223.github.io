@@ -37,7 +37,7 @@ New `<article class="project-card">` in `index.html`, placed after `svg-processo
 - Title: "CleanSpark"
 - Description: "Multi-theme cleaning business website with 5 complete design systems. Full MVP delivered in one week."
 - Tech pills: Astro, TypeScript, Tailwind CSS (3 most recognizable)
-- Links: GitHub (`cleaning-test` repo) + demo (`cleanspark-virid.vercel.app`)
+- Links: GitHub (`cleaning-test` repo, `aria-label="View source on GitHub"`) + demo (`cleanspark-virid.vercel.app`, `aria-label="View live demo"`)
 - Footer: `<time datetime="2026-03">Updated Mar 2026</time>` + View Details button
 - Thumbnail: `images/projects/cleanspark.webp` (Bold Spark theme, 640x360)
 
@@ -65,6 +65,7 @@ Key `"cleanspark"` added to `data/projects.json`:
 **Screenshots** (5): One per theme with descriptive alt text.
 
 **Status**: `null` (completed/frozen)
+**Updated**: `"Mar 2026"`
 
 ## Section 3: Images
 
@@ -89,6 +90,7 @@ Rename GitHub repo `clening-test` -> `cleaning-test` via GitHub API. GitHub auto
 |------|--------|---------|
 | Filter button counts | Web: 1 -> 2 | No (JS calculates dynamically) |
 | `tests/pages/FilterPage.js` | `CATEGORY_COUNTS.web`: 1 -> 2, total 7 -> 8 | Yes |
+| `tests/pages/ModalPage.js` | Add `"cleanspark"` to `PROJECTS_WITH_DETAILS` array | Yes |
 | `docs/PORTFOLIO_REQUIREMENTS.md` | Add CleanSpark to Tier 3 in audit table | Yes |
 | `CLAUDE.md` | Update architecture section if needed | Check |
 
