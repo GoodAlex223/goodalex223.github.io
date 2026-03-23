@@ -8,6 +8,17 @@ Completed tasks for the portfolio project.
 
 ## 2026-03-22
 
+### CONTENT-002: Define Project Portfolio Requirements
+
+**Plan**: [docs/archive/plans/2026-03-22_content-002-portfolio-requirements.md](../archive/plans/2026-03-22_content-002-portfolio-requirements.md)
+**Summary**: Created tiered quality standard for portfolio projects (Tier 1: Production, Tier 2: Hardware, Tier 3: Utilities/Speed Builds) with per-tier requirements and audit checklist.
+**Key Changes**:
+- Created `docs/PORTFOLIO_REQUIREMENTS.md` as the quality reference
+- Defined 3 project tiers with scaled requirements
+- Created audit checklist for existing and new projects
+- Indexed in `docs/README.md`
+**Spawned Tasks**: 2 items added to BACKLOG.md
+
 ### BUG-004: Filter Toggle-to-Reset Race Condition on Rapid Clicks
 
 **Plan**: [docs/archive/plans/2026-03-22-bug-004-filter-race-condition.md](../archive/plans/2026-03-22-bug-004-filter-race-condition.md)

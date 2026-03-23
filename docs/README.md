@@ -24,6 +24,7 @@ Central hub for all project documentation.
 |----------|---------|--------------|
 | [ARCHITECTURE.md](ARCHITECTURE.md) | CSS/HTML architecture and design decisions | 2026-01-20 |
 | [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) | Decisions, patterns, context | 2026-01-20 |
+| [PORTFOLIO_REQUIREMENTS.md](PORTFOLIO_REQUIREMENTS.md) | Project showcase quality standard and audit checklist | 2026-03-22 |
 
 ---
 

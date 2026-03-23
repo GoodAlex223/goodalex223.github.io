@@ -45,14 +45,6 @@ _None currently_
 
 ## Medium Priority
 
-### CONTENT-002: Define Project Portfolio Requirements
-- Write clear criteria/rules for what qualifies a project to be showcased on the portfolio
-- Audit all existing projects against the requirements
-- All completed projects (no longer in active development) must be polished to near-production quality before showcasing
-  - Review READMEs, documentation, code quality
-  - Ensure demos/live links work
-  - Fix any obvious rough edges
-
 ### CONTENT-003: Add Cleaning Site to Portfolio
 - Add the cleaning site project as a new portfolio card
 - Freeze its development (mark as completed)
