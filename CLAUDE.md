@@ -373,6 +373,7 @@ All text colors meet WCAG 2.1 Level AA contrast requirements (4.5:1 for normal t
   - Filterable via category with fade-then-reflow animation
   - **Metadata footer**: `.project-card__footer` with last-updated date and optional status badge
     - Dates use `<time datetime="YYYY-MM">` for semantics, stored as `data-updated` on card
+    - **4 date sync locations** (must all agree): `data-updated` on `<article>`, `<time datetime="">` attribute, `<time>` display text ("Updated Jan 2026"), `projects.json` `updated` field
     - Active projects use `data-status="active"` with pulsing dot indicator
     - Status badge: `.project-card__status` with `.project-card__status-dot` (CSS pulse animation)
     - Footer uses explicit `margin-top: var(--space-4)` spacing (card is flex column, but `auto` margins don't work in CSS columns layout)
@@ -764,6 +765,8 @@ Add project card to `index.html` projects section:
 ```
 
 **For modal support**: also add a matching entry to `data/projects.json` keyed by `data-project` value, with `title`, `category`, `description[]`, `highlights[]`, `tech[]`, `links{}`, `screenshots[]`, `status`, `updated` fields.
+
+**Updating existing project dates**: sync all 4 locations — `data-updated` attribute, `<time datetime="">`, display text, and `projects.json` `updated`. Use "meaningful commit" as the date source: last commit that changed project behavior or content (exclude portfolio metadata edits, dependency bumps, CI-only changes). After changing `tech[]` arrays in `projects.json`, run `npm test` — modal `techPillsCount` assertions in `modal/basic-modal.spec.js` may need updating.
 
 <!-- END AUTO-MANAGED -->
 

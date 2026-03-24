@@ -8,6 +8,8 @@
 
 Portfolio project cards and modal data may have stale descriptions, incomplete tech stacks, inaccurate dates, and potentially dead external links. The TODO.md task calls for a full review and update of all 8 projects.
 
+**Reference**: `docs/PORTFOLIO_REQUIREMENTS.md` defines tier-based quality standards and a per-project audit checklist that this task executes against.
+
 ## Scope
 
 ### In Scope
@@ -21,9 +23,10 @@ Portfolio project cards and modal data may have stale descriptions, incomplete t
 ### Out of Scope
 - HTML structure or CSS changes
 - Modal rendering logic (`js/main.js`)
-- Screenshots in `projects.json`
+- Screenshots in `projects.json` — PORTFOLIO_REQUIREMENTS.md identifies screenshot gaps for dropshipping, lubrication, hx711-scale, and svg-processor. These require capturing actual screenshots from repos/demos, which is a separate task (add to BACKLOG.md during task completion).
 - Project ordering in `index.html`
 - Adding or removing projects
+- Contact section links (e.g., Wokwi maker profile) — project links only
 
 ## Approach
 
@@ -35,6 +38,8 @@ GitHub API audit (Approach A) — use GitHub MCP to programmatically check each 
 
 #### 1.1 Date Check
 For each of the 8 GitHub repos, use GitHub MCP `list_commits` to get the most recent commit date. Compare against current `data-updated` values in `index.html` and `projects.json`.
+
+**"Meaningful commit" definition** (per PORTFOLIO_REQUIREMENTS.md): last commit that changed project behavior or content — not portfolio metadata edits, not dependency bumps, not CI-only changes.
 
 **Repos to check**:
 | Project ID | Repository |
@@ -57,7 +62,13 @@ HTTP fetch all 13 external URLs. Record status codes and flag any non-200 respon
 - 2 Vercel demo URLs
 
 #### 1.3 Repo Content Scan
-For each repo, read README and key config files (package.json, requirements.txt, platformio.ini, etc.) to verify:
+For each repo, read README and key config files to verify. Files to check per category:
+- **Backend (Python)**: `requirements.txt`, `pyproject.toml`, `Dockerfile`
+- **IoT (Arduino)**: `platformio.ini`, `.ino` files
+- **Web (Node)**: `package.json`, `tsconfig.json`
+- **Tools**: varies by project
+
+Verify:
 - Tech stacks are accurate and complete
 - Descriptions reflect actual project capabilities
 - Any notable features not captured in current portfolio content
@@ -69,12 +80,15 @@ Compare "active/in-development" status badges against actual repo activity:
 - Whether project appears maintained or archived
 
 #### 1.5 Audit Report
-Present compiled findings to user:
+Present compiled findings to user, evaluated against the per-project audit checklist from `docs/PORTFOLIO_REQUIREMENTS.md`:
 - Date corrections needed (current → suggested)
 - Dead/redirected links (flagged for user decision)
 - Tech stack additions/corrections per project
 - Status mismatches (flagged for user decision)
 - Description improvement opportunities
+- Tier-specific gaps (README quality, demo status, modal data completeness)
+
+**Note**: CleanSpark (added 2026-03-24) needs only a quick verification pass — its data was written fresh during CONTENT-003.
 
 **User reviews and decides on flagged items before proceeding.**
 
@@ -124,7 +138,7 @@ Run `npm run build` — CSS/JS pipeline must succeed.
 #### 3.3 Tests
 Run `npm test` — all Playwright suites must pass:
 - `filter/` — project counts in filter buttons
-- `modal/` — content rendering for all 8 projects
+- `modal/` — content rendering for all 8 projects (note: `techPillsCount` assertions may need updating if tech arrays changed)
 - `seo/` — meta tags unchanged
 
 #### 3.4 Lighthouse
@@ -142,3 +156,8 @@ Open site locally and review each card and modal for content correctness.
 5. `projects.json` updated where repo content is richer than current data
 6. All tests pass, build succeeds, Lighthouse >= 90
 7. Status mismatches resolved per user decision
+8. Per-project audit checklist from PORTFOLIO_REQUIREMENTS.md satisfied (excluding screenshot gaps — deferred)
+
+## Rollback
+
+All changes are on branch `content/content-004-update-project-info`. If build or tests fail after Phase 2, `git checkout -- index.html data/projects.json` reverts to pre-update state.
