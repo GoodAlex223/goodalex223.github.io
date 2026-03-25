@@ -1,8 +1,27 @@
 # DONE
 
-**Last Updated**: 2026-03-23 (CONTENT-003 completed)
+**Last Updated**: 2026-03-25 (CONTENT-004 completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-03-25
+
+### CONTENT-004: Update Project Information
+
+**Plan**: [docs/archive/plans/2026-03-24_content-004-update-project-info.md](../archive/plans/2026-03-24_content-004-update-project-info.md)
+**Summary**: Full audit and update of all 8 portfolio projects against their GitHub repos. Updated descriptions, tech stacks, dates, and modal data based on GitHub API findings.
+**Key Changes**:
+- Audited all 8 repos via GitHub API for commit dates, tech stacks, and README content
+- Rewrote card descriptions to highlight strongest aspects of each project
+- Expanded card tech stacks to match `projects.json` (all 8 projects had missing items)
+- Updated `data-updated` dates to reflect actual last meaningful commits
+- Fixed svg-processor tech stack: CairoSVG → svglib (code uses svglib, not CairoSVG)
+- Updated dropshipping tech stack with 3 additional technologies (Next.js, PostgreSQL, Stripe)
+- Updated modal test assertions for changed `techPillsCount` values
+- Verified all external links live, flagged status mismatches for user review
+**Spawned Tasks**: 5 items added to BACKLOG.md (screenshots, rating_bot showcase update, social-stats showcase, svg-processor README fixes)
 
 ---
 
