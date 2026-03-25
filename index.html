@@ -211,15 +211,17 @@
               </div>
               <h3 class="project-card__title">rating_bot</h3>
               <p class="project-card__description">
-                Production Telegram bot with ML-based personalized recommendations.
-                Hexagonal architecture, multi-language support, Prometheus/Grafana
-                monitoring, and CI/CD pipeline.
+                Production Telegram bot with ML-powered personalized recommendations.
+                Hexagonal architecture, 5-language support (EN/RU/ES/FR/DE),
+                Prometheus/Grafana monitoring, and full CI/CD pipeline.
               </p>
               <ul class="project-card__tech">
                 <li>Python</li>
                 <li>PostgreSQL</li>
                 <li>Redis</li>
                 <li>Docker</li>
+                <li>Prometheus</li>
+                <li>Grafana</li>
               </ul>
               <footer class="project-card__footer">
                 <time class="project-card__updated" datetime="2026-01">Updated Jan 2026</time>
@@ -237,7 +239,7 @@
             </article>
 
             <!-- rule_indicators -->
-            <article class="project-card" data-category="iot" data-project="rule-indicators" data-updated="2025-08" data-animate data-animate-delay="150">
+            <article class="project-card" data-category="iot" data-project="rule-indicators" data-updated="2026-01" data-animate data-animate-delay="150">
               <div class="project-card__thumbnail">
                 <img src="images/projects/rule-indicators.webp" alt="Industrial rule indicator with 7-segment display showing temperature and time" loading="lazy" width="640" height="360">
               </div>
@@ -258,17 +260,19 @@
               </div>
               <h3 class="project-card__title">Industrial Rule Indicators</h3>
               <p class="project-card__description">
-                Multi-mode industrial display system with RTC, temperature monitoring,
-                motor/spindle hour tracking, and 7-segment display. Deployed on real machinery.
+                Multi-mode industrial display deployed on real manufacturing machinery.
+                5 operating modes including time, temperature, motor/spindle hours
+                with overheat protection and EEPROM persistence.
               </p>
               <ul class="project-card__tech">
                 <li>C++</li>
                 <li>Arduino</li>
                 <li>RTC</li>
                 <li>DS18B20</li>
+                <li>7-Segment Display</li>
               </ul>
               <footer class="project-card__footer">
-                <time class="project-card__updated" datetime="2025-08">Updated Aug 2025</time>
+                <time class="project-card__updated" datetime="2026-01">Updated Jan 2026</time>
                 <button class="project-card__details-btn" aria-haspopup="dialog">
                   View Details
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -279,7 +283,7 @@
             </article>
 
             <!-- automatic_machine_lubrication -->
-            <article class="project-card" data-category="iot" data-project="lubrication" data-updated="2025-06" data-animate data-animate-delay="200">
+            <article class="project-card" data-category="iot" data-project="lubrication" data-updated="2026-01" data-animate data-animate-delay="200">
               <div class="project-card__thumbnail">
                 <img src="images/projects/lubrication.webp" alt="Automatic lubrication system dashboard with oil level display" loading="lazy" width="640" height="360">
               </div>
@@ -300,17 +304,18 @@
               </div>
               <h3 class="project-card__title">Automatic Machine Lubrication</h3>
               <p class="project-card__description">
-                Industrial IoT lubrication monitoring system. Real-time oil
-                level tracking with display functionality and tank sensor
-                integration.
+                Timer-based automatic lubrication system for industrial machinery.
+                Non-blocking timer with EEPROM persistence, manual override, oil
+                level monitoring via floater sensor, and LED status indicators.
               </p>
               <ul class="project-card__tech">
                 <li>C++</li>
                 <li>Arduino</li>
                 <li>Sensors</li>
+                <li>EEPROM</li>
               </ul>
               <footer class="project-card__footer">
-                <time class="project-card__updated" datetime="2025-06">Updated Jun 2025</time>
+                <time class="project-card__updated" datetime="2026-01">Updated Jan 2026</time>
                 <button class="project-card__details-btn" aria-haspopup="dialog">
                   View Details
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -321,7 +326,7 @@
             </article>
 
             <!-- 8-HX711-WiFi -->
-            <article class="project-card" data-category="iot" data-project="hx711-scale" data-updated="2025-07" data-animate data-animate-delay="250">
+            <article class="project-card" data-category="iot" data-project="hx711-scale" data-updated="2026-01" data-animate data-animate-delay="250">
               <div class="project-card__thumbnail">
                 <img src="images/projects/hx711-scale.webp" alt="Multi-scale weighing system interface with HX711 sensor readings" loading="lazy" width="640" height="360">
               </div>
@@ -342,17 +347,19 @@
               </div>
               <h3 class="project-card__title">HX711 Multi-Scale System</h3>
               <p class="project-card__description">
-                8 HX711 load cell amplifiers on single Arduino Nano. Calibration,
-                tare capabilities, and serial communication for multi-point weighing.
+                8 HX711 load cell amplifiers on a single Arduino Nano. Interactive
+                serial calibration, EEPROM-persisted values, tare with configurable
+                tolerance, and automatic error recovery.
               </p>
               <ul class="project-card__tech">
                 <li>C++</li>
                 <li>HX711</li>
                 <li>Arduino</li>
                 <li>Serial</li>
+                <li>EEPROM</li>
               </ul>
               <footer class="project-card__footer">
-                <time class="project-card__updated" datetime="2025-07">Updated Jul 2025</time>
+                <time class="project-card__updated" datetime="2026-01">Updated Jan 2026</time>
                 <button class="project-card__details-btn" aria-haspopup="dialog">
                   View Details
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -363,7 +370,7 @@
             </article>
 
             <!-- dropshipping-test -->
-            <article class="project-card" data-category="web" data-project="dropshipping" data-updated="2026-01" data-status="active" data-animate data-animate-delay="300">
+            <article class="project-card" data-category="web" data-project="dropshipping" data-updated="2026-02" data-animate data-animate-delay="300">
               <div class="project-card__thumbnail">
                 <img src="images/projects/dropshipping.webp" alt="E-commerce storefront with product catalog" loading="lazy" width="640" height="360">
               </div>
@@ -386,32 +393,34 @@
               </div>
               <h3 class="project-card__title">E-commerce Prototype</h3>
               <p class="project-card__description">
-                Full-stack e-commerce dropshipping prototype with product
-                catalog, shopping cart, and cloud deployment on Vercel.
+                Full-stack e-commerce platform with Next.js 14, Stripe checkout,
+                admin panel, and background job processing. 249 unit tests, SEO
+                pipeline with Google Shopping feed, and GDPR compliance.
               </p>
               <ul class="project-card__tech">
                 <li>TypeScript</li>
                 <li>React</li>
                 <li>Docker</li>
                 <li>Vercel</li>
+                <li>Next.js</li>
+                <li>PostgreSQL</li>
+                <li>Stripe</li>
+                <li>Tailwind CSS</li>
+                <li>Prisma</li>
               </ul>
               <footer class="project-card__footer">
-                <time class="project-card__updated" datetime="2026-01">Updated Jan 2026</time>
+                <time class="project-card__updated" datetime="2026-02">Updated Feb 2026</time>
                 <button class="project-card__details-btn" aria-haspopup="dialog">
                   View Details
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <polyline points="9 18 15 12 9 6"/>
                   </svg>
                 </button>
-                <span class="project-card__status" aria-label="Project status: In Development">
-                  <span class="project-card__status-dot" aria-hidden="true"></span>
-                  In Development
-                </span>
               </footer>
             </article>
 
             <!-- media-viewer -->
-            <article class="project-card" data-category="tools" data-project="media-viewer" data-updated="2026-01" data-status="active" data-animate data-animate-delay="350">
+            <article class="project-card" data-category="tools" data-project="media-viewer" data-updated="2026-03" data-status="active" data-animate data-animate-delay="350">
               <div class="project-card__thumbnail">
                 <img src="images/projects/media-viewer.webp" alt="Media viewer desktop application interface" loading="lazy" width="640" height="360">
               </div>
@@ -427,16 +436,18 @@
               </div>
               <h3 class="project-card__title">Media Viewer</h3>
               <p class="project-card__description">
-                Electron desktop app for browsing and rating media files. Features
-                ML-based preference learning and visual similarity sorting.
+                Electron desktop app for browsing, rating, and organizing media
+                files. ML-based preference learning, face detection, perceptual
+                hashing, and visual similarity sorting for 10,000+ file libraries.
               </p>
               <ul class="project-card__tech">
                 <li>Electron</li>
                 <li>JavaScript</li>
                 <li>ML</li>
+                <li>Node.js</li>
               </ul>
               <footer class="project-card__footer">
-                <time class="project-card__updated" datetime="2026-01">Updated Jan 2026</time>
+                <time class="project-card__updated" datetime="2026-03">Updated Mar 2026</time>
                 <button class="project-card__details-btn" aria-haspopup="dialog">
                   View Details
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -451,7 +462,7 @@
             </article>
 
             <!-- svg_layer_processor -->
-            <article class="project-card" data-category="tools" data-project="svg-processor" data-updated="2025-09" data-animate data-animate-delay="400">
+            <article class="project-card" data-category="tools" data-project="svg-processor" data-updated="2025-11" data-animate data-animate-delay="400">
               <div class="project-card__thumbnail">
                 <img src="images/projects/svg-processor.webp" alt="SVG layer processor output showing numbered pages" loading="lazy" width="640" height="360">
               </div>
@@ -467,17 +478,18 @@
               </div>
               <h3 class="project-card__title">SVG Layer Processor</h3>
               <p class="project-card__description">
-                Specialized tool for 3D printing workflows. Automatically
-                numbers multi-layer SVG files and converts them to paginated PDF
-                format.
+                Python CLI for 3D printing workflows with Kiri:Moto. Automatically
+                numbers multi-layer SVG files (500+ layers) and converts them to
+                paginated A4 PDF documents.
               </p>
               <ul class="project-card__tech">
                 <li>Python</li>
-                <li>CairoSVG</li>
+                <li>svglib</li>
                 <li>ReportLab</li>
+                <li>PyPDF2</li>
               </ul>
               <footer class="project-card__footer">
-                <time class="project-card__updated" datetime="2025-09">Updated Sep 2025</time>
+                <time class="project-card__updated" datetime="2025-11">Updated Nov 2025</time>
                 <button class="project-card__details-btn" aria-haspopup="dialog">
                   View Details
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -518,6 +530,9 @@
                 <li>Astro</li>
                 <li>TypeScript</li>
                 <li>Tailwind CSS</li>
+                <li>Playwright</li>
+                <li>Vitest</li>
+                <li>Vercel</li>
               </ul>
               <footer class="project-card__footer">
                 <time class="project-card__updated" datetime="2026-03">Updated Mar 2026</time>
