@@ -743,6 +743,12 @@ _Extracted from implementation plan:_
 - [ ] Fix svg-processor README — references CairoSVG but code uses svglib; README is in Russian only
 - [ ] Translate svg-processor README to English (or add English section)
 
+### From CONTENT-004 Code Review (2026-03-26)
+**Origin**: Code review of PR #54
+
+- [ ] Standardize task completion archive workflow — CONTENT-004 left plan/spec duplicates in `docs/superpowers/` after archiving to `docs/archive/`, required a fix commit. Consider adding a pre-merge checklist or script that verifies no duplicates exist between superpowers/ and archive/ directories
+- [ ] Audit existing `docs/superpowers/` for stale files that should have been archived or deleted after task completion (CONTENT-003 spec already flagged in previous backlog entry)
+
 ## Notes
 
 ~~**GitHub Profile README**: Consider updating [GoodAlex223/GoodAlex223](https://github.com/GoodAlex223/GoodAlex223) repository README to mention AI-assisted development workflows.~~ **DONE** (2026-01-20) - Updated with professional overview, tech stack, featured projects, and AI-assisted development mention.
