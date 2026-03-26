@@ -734,6 +734,15 @@ _Extracted from implementation plan:_
 - [ ] Update "Adding New Projects" template in CLAUDE.md to include `data-animate` and `data-animate-delay` attributes — every real project card uses them but the template omits them, which could mislead future additions
 - [ ] Archive completed design spec `docs/superpowers/specs/2026-03-23_content-003-cleaning-site-design.md` to `docs/archive/specs/` — completed task specs should follow the archive precedent set by BUG-004 (`docs/archive/specs/`), not remain in `docs/superpowers/specs/` ("planned features")
 
+## From CONTENT-004: Update Project Information (2026-03-25)
+**Origin**: docs/archive/plans/2026-03-24_content-004-update-project-info.md
+
+- [ ] Capture project screenshots for modal data (dropshipping, lubrication, hx711-scale, svg-processor) — PORTFOLIO_REQUIREMENTS.md identifies these gaps
+- [ ] Update rating_bot_showcase repo from main rating_bot repo — showcase is stale (single initial commit from Jan 2026)
+- [ ] Create showcase repo for [social-stats](https://github.com/GoodAlex223/social-stats) and add as new portfolio project card with "In Development" status
+- [ ] Fix svg-processor README — references CairoSVG but code uses svglib; README is in Russian only
+- [ ] Translate svg-processor README to English (or add English section)
+
 ## Notes
 
 ~~**GitHub Profile README**: Consider updating [GoodAlex223/GoodAlex223](https://github.com/GoodAlex223/GoodAlex223) repository README to mention AI-assisted development workflows.~~ **DONE** (2026-01-20) - Updated with professional overview, tech stack, featured projects, and AI-assisted development mention.

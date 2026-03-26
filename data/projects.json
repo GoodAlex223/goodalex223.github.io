@@ -5,7 +5,7 @@
     "description": [
       "A production Telegram bot that provides personalized content recommendations using machine learning. Users rate items on a 1-10 scale, and the system learns their preferences to suggest new content they are likely to enjoy.",
       "Built with hexagonal architecture to keep business logic independent of external services. The recommendation engine uses collaborative filtering and content-based approaches, with Redis caching for fast response times under load.",
-      "Features multi-language support (English and Russian), comprehensive monitoring via Prometheus and Grafana dashboards, and a full CI/CD pipeline with automated testing and deployment."
+      "Features multi-language support (English, Russian, Spanish, French, and German), comprehensive monitoring via Prometheus and Grafana dashboards, and a full CI/CD pipeline with automated testing and deployment."
     ],
     "highlights": [
       "ML-based recommendation engine with collaborative filtering",
@@ -64,14 +64,14 @@
       }
     ],
     "status": null,
-    "updated": "Aug 2025"
+    "updated": "Jan 2026"
   },
   "media-viewer": {
     "title": "Media Viewer",
     "category": "Tools",
     "description": [
       "An Electron desktop application for browsing, rating, and organizing media files. The app provides a clean interface for viewing images and videos, with the ability to rate content and track viewing history.",
-      "Features an ML-based preference learning system that analyzes user ratings to understand visual preferences. The similarity sorting algorithm groups visually related content together, making it easier to find and organize media.",
+      "Features an ML-based preference learning system that analyzes user ratings to understand visual preferences. The similarity sorting algorithm uses perceptual hashing and face detection to group visually related content together, making it easier to find and organize media.",
       "Built as a cross-platform desktop app using Electron, with a focus on performance when handling large media libraries containing thousands of files."
     ],
     "highlights": [
@@ -97,7 +97,7 @@
       }
     ],
     "status": "In Development",
-    "updated": "Jan 2026"
+    "updated": "Mar 2026"
   },
   "lubrication": {
     "title": "Automatic Machine Lubrication",
@@ -122,7 +122,7 @@
     },
     "screenshots": [],
     "status": null,
-    "updated": "Jun 2025"
+    "updated": "Jan 2026"
   },
   "hx711-scale": {
     "title": "HX711 Multi-Scale System",
@@ -147,7 +147,7 @@
     },
     "screenshots": [],
     "status": null,
-    "updated": "Jul 2025"
+    "updated": "Jan 2026"
   },
   "dropshipping": {
     "title": "E-commerce Prototype",
@@ -165,38 +165,38 @@
       "249 unit tests plus Playwright E2E coverage (~90% statements)",
       "CI/CD with GitHub Actions and dual deployment (Vercel/VPS)"
     ],
-    "tech": ["TypeScript", "Next.js", "React", "PostgreSQL", "Stripe", "Docker"],
+    "tech": ["TypeScript", "Next.js", "React", "PostgreSQL", "Stripe", "Docker", "Vercel", "Tailwind CSS", "Prisma"],
     "links": {
       "github": "https://github.com/GoodAlex223/dropshipping-test",
       "demo": "https://dropshipping-test.vercel.app"
     },
     "screenshots": [],
-    "status": "In Development",
-    "updated": "Jan 2026"
+    "status": null,
+    "updated": "Feb 2026"
   },
   "svg-processor": {
     "title": "SVG Layer Processor",
     "category": "Tools",
     "description": [
       "A Python command-line tool for processing multi-layer SVG files exported from Kiri:Moto, a web-based 3D printing slicer. The tool automatically numbers each layer and converts the result into paginated A4 PDF documents.",
-      "The workflow has three stages: first, it parses SVG path elements and adds visible layer numbers at each path's starting point. Then it converts the numbered SVG to a full-length PDF using CairoSVG. Finally, it splits the long PDF into standard A4 pages using ReportLab.",
+      "The workflow has three stages: first, it parses SVG path elements and adds visible layer numbers at each path's starting point. Then it converts the numbered SVG to a full-length PDF using svglib. Finally, it splits the long PDF into standard A4 pages using ReportLab.",
       "Supports configurable font size, text color, and number positioning via command-line arguments. Designed to handle files with hundreds of layers — tested with 525-layer SVGs producing 27+ page A4 documents."
     ],
     "highlights": [
       "Automatic layer numbering for multi-layer SVG files",
-      "High-quality SVG to PDF conversion via CairoSVG",
+      "High-quality SVG to PDF conversion via svglib",
       "Intelligent A4 page splitting with correct vertical offsets",
       "Configurable font size, color, and position via CLI arguments",
       "Handles 500+ layer files producing dozens of A4 pages",
       "Built for Kiri:Moto 3D printing slicer workflow"
     ],
-    "tech": ["Python", "CairoSVG", "ReportLab", "PyPDF2"],
+    "tech": ["Python", "svglib", "ReportLab", "PyPDF2"],
     "links": {
       "github": "https://github.com/GoodAlex223/svg_layer_processor"
     },
     "screenshots": [],
     "status": null,
-    "updated": "Sep 2025"
+    "updated": "Nov 2025"
   },
   "cleanspark": {
     "title": "CleanSpark",

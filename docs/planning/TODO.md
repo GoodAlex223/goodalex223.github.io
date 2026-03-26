@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-23 (CONTENT-003 completed)
+**Last Updated**: 2026-03-25 (CONTENT-004 completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **CONTENT-004**: Update Project Information → moved to [DONE.md](DONE.md)
 - **BUG-004**: Filter Toggle-to-Reset Race Condition → moved to [DONE.md](DONE.md)
 - **CHALLENGE-003**: Contact Form → moved to [DONE.md](DONE.md)
 - **CHALLENGE-002**: Project Detail Modal → moved to [DONE.md](DONE.md)
@@ -47,10 +48,7 @@ _None currently_
 
 ### ~~CONTENT-003: Add Cleaning Site to Portfolio~~ → moved to [DONE.md](DONE.md)
 
-### CONTENT-004: Update Project Information
-- Review and update descriptions, tech stacks, links, and metadata for all existing project cards
-- Ensure `data-updated` dates are accurate
-- Verify all external links (GitHub repos, demos, simulations) are still live
+### ~~CONTENT-004: Update Project Information~~ → moved to [DONE.md](DONE.md)
 
 ---
 

@@ -73,7 +73,7 @@ test.describe("Basic Modal", () => {
     await mp.expectCategory("Web");
     await mp.expectDescriptionCount(3);
     await mp.expectHighlightsCount(6);
-    await mp.expectTechPillsCount(6);
+    await mp.expectTechPillsCount(9);
     await mp.expectScreenshotsCount(0);
     await mp.expectLinksCount(2); // GitHub + Demo
   });
@@ -87,6 +87,17 @@ test.describe("Basic Modal", () => {
     await mp.expectTechPillsCount(4);
     await mp.expectScreenshotsCount(0);
     await mp.expectLinksCount(1); // GitHub only
+  });
+
+  test("displays correct content for cleanspark", async () => {
+    await mp.clickCard("cleanspark");
+    await mp.expectTitle("CleanSpark");
+    await mp.expectCategory("Web");
+    await mp.expectDescriptionCount(3);
+    await mp.expectHighlightsCount(6);
+    await mp.expectTechPillsCount(6);
+    await mp.expectScreenshotsCount(5);
+    await mp.expectLinksCount(2); // GitHub + Demo
   });
 
   test("does not open modal when clicking card links", async ({ page }) => {
