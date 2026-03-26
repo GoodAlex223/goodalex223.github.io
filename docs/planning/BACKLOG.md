@@ -735,7 +735,7 @@ _Extracted from implementation plan:_
 - [ ] Archive completed design spec `docs/superpowers/specs/2026-03-23_content-003-cleaning-site-design.md` to `docs/archive/specs/` — completed task specs should follow the archive precedent set by BUG-004 (`docs/archive/specs/`), not remain in `docs/superpowers/specs/` ("planned features")
 
 ## From CONTENT-004: Update Project Information (2026-03-25)
-**Origin**: docs/superpowers/plans/2026-03-24-content-004-update-project-info.md
+**Origin**: docs/archive/plans/2026-03-24_content-004-update-project-info.md
 
 - [ ] Capture project screenshots for modal data (dropshipping, lubrication, hx711-scale, svg-processor) — PORTFOLIO_REQUIREMENTS.md identifies these gaps
 - [ ] Update rating_bot_showcase repo from main rating_bot repo — showcase is stale (single initial commit from Jan 2026)
