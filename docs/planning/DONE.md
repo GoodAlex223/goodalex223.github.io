@@ -1,8 +1,25 @@
 # DONE
 
-**Last Updated**: 2026-03-25 (CONTENT-004 completed)
+**Last Updated**: 2026-03-27 (Archive Cleanup completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-03-27
+
+### Archive Cleanup: Documentation Debt & Archive Cleanup
+
+**Plan**: [docs/archive/plans/2026-03-27_archive-cleanup.md](../archive/plans/2026-03-27_archive-cleanup.md)
+**Summary**: Consolidated `docs/superpowers/` into the standard `docs/archive/` directory structure. Cleaned up accumulated documentation debt from prior task completions.
+**Key Changes**:
+- Deleted 4 duplicate files from `docs/superpowers/` (already existed in archive)
+- Archived 4 unique files from `docs/superpowers/` to `docs/archive/` (with underscore naming fix)
+- Moved 3 misplaced design specs from `archive/plans/` to `archive/specs/`
+- Updated stale spec references in 8 archived plan files
+- Added `specs/` directory to `docs/archive/README.md` index
+- Added `.gitkeep` files to preserve empty `docs/superpowers/` structure
+**Spawned Tasks**: 2 items added to BACKLOG.md (automate consolidation, enforce naming convention)
 
 ---
 

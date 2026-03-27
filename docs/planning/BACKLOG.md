@@ -709,15 +709,15 @@ _Extracted from implementation plan:_
 ## From CONTENT-002 Code Review (2026-03-23)
 **Origin**: Code review of PR #52
 
-- [ ] Rename CONTENT-002 design spec to underscore convention — `docs/archive/plans/2026-03-22-content-002-portfolio-requirements-design.md` still uses hyphens after the date (should be `2026-03-22_content-002-portfolio-requirements-design.md`), same issue that was fixed for the plan file in commit b0684bf
-- [ ] Move CONTENT-002 design spec to `docs/archive/specs/` — spec file is in `archive/plans/` but should be in the newly created `archive/specs/` directory (BUG-004 spec was correctly moved there in the same PR)
+- [x] ~~Rename CONTENT-002 design spec to underscore convention~~ *(completed 2026-03-27, archive-cleanup)*
+- [x] ~~Move CONTENT-002 design spec to `docs/archive/specs/`~~ *(completed 2026-03-27, archive-cleanup)*
 
 ---
 
 ## From BUG-004 Code Review (2026-03-22)
 **Origin**: Code review of PR #51
 
-- [ ] Update `docs/archive/README.md` to index new `specs/` subdirectory — PR #51 created `docs/archive/specs/` but did not update the archive README or `docs/README.md` to reference it (CLAUDE.md: "New documentation created → Index in docs/README.md")
+- [x] ~~Update `docs/archive/README.md` to index new `specs/` subdirectory~~ *(completed 2026-03-27, archive-cleanup)*
 - [ ] Update `filterProjects()` JSDoc to document eager `currentFilter` update contract — `activateFilter()` JSDoc was updated but `filterProjects()` JSDoc still omits the behavioral change that `currentFilter` reflects intent immediately upon call, not after animation completion
 
 ---
@@ -746,8 +746,16 @@ _Extracted from implementation plan:_
 ### From CONTENT-004 Code Review (2026-03-26)
 **Origin**: Code review of PR #54
 
-- [ ] Standardize task completion archive workflow — CONTENT-004 left plan/spec duplicates in `docs/superpowers/` after archiving to `docs/archive/`, required a fix commit. Consider adding a pre-merge checklist or script that verifies no duplicates exist between superpowers/ and archive/ directories
-- [ ] Audit existing `docs/superpowers/` for stale files that should have been archived or deleted after task completion (CONTENT-003 spec already flagged in previous backlog entry)
+- [x] ~~Standardize task completion archive workflow~~ *(completed 2026-03-27, archive-cleanup — all stale files consolidated)*
+- [x] ~~Audit existing `docs/superpowers/` for stale files~~ *(completed 2026-03-27, archive-cleanup — 4 duplicates deleted, 4 unique files archived)*
+
+## From Archive Cleanup (2026-03-27)
+**Origin**: docs/archive/plans/2026-03-27_archive-cleanup.md
+
+- [ ] Automate superpowers→archive consolidation on task completion — add a checklist step or script to the finishing-a-development-branch workflow that verifies `docs/superpowers/` contains no files already present in `docs/archive/`
+- [ ] Enforce underscore naming convention for archive files — add a CI check or pre-commit hook that validates all files in `docs/archive/` use `YYYY-MM-DD_` prefix (not `YYYY-MM-DD-`)
+
+---
 
 ## Notes
 
