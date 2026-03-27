@@ -8,7 +8,7 @@
 
 **Tech Stack:** git, bash
 
-**Spec:** `docs/superpowers/specs/2026-03-27_archive-cleanup-design.md`
+**Spec:** `docs/archive/specs/2026-03-27_archive-cleanup-design.md`
 
 ---
 
