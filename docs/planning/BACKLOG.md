@@ -755,6 +755,12 @@ _Extracted from implementation plan:_
 - [ ] Automate superpowers→archive consolidation on task completion — add a checklist step or script to the finishing-a-development-branch workflow that verifies `docs/superpowers/` contains no files already present in `docs/archive/`
 - [ ] Enforce underscore naming convention for archive files — add a CI check or pre-commit hook that validates all files in `docs/archive/` use `YYYY-MM-DD_` prefix (not `YYYY-MM-DD-`)
 
+### From Archive Cleanup Code Review (2026-03-27)
+**Origin**: Code review of PR #55
+
+- [ ] Add "Last Updated" header update to planning doc edit checklist — BACKLOG.md header was missed despite marking 5 items complete and adding a new section; DONE.md and TODO.md were updated but BACKLOG.md was not. Consider a pre-merge check or adding it to the finishing-a-development-branch workflow
+- [ ] Validate spec references after file moves — plan file's own `**Spec:**` line pointed to old `docs/superpowers/specs/` path after spec was moved to `docs/archive/specs/` in same PR. A grep for `superpowers/` in modified files could catch this
+
 ---
 
 ## Notes
