@@ -8,7 +8,7 @@
 
 **Tech Stack:** Vanilla JS (no framework), Playwright E2E tests
 
-**Spec:** `docs/superpowers/specs/2026-03-22-bug-004-filter-race-condition-design.md`
+**Spec:** `docs/archive/specs/2026-03-22_bug-004-filter-race-condition-design.md`
 
 ---
 

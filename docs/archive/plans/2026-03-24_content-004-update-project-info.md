@@ -8,7 +8,7 @@
 
 **Tech Stack:** GitHub MCP (repo data), WebFetch (link liveness), Playwright (tests), Lighthouse CI
 
-**Spec:** `docs/superpowers/specs/2026-03-24_content-004-update-project-info-design.md`
+**Spec:** `docs/archive/specs/2026-03-24_content-004-update-project-info-design.md`
 **Quality Standards:** `docs/PORTFOLIO_REQUIREMENTS.md`
 
 ---

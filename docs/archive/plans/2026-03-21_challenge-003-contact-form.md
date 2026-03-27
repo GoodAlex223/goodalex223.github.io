@@ -8,7 +8,7 @@
 
 **Tech Stack:** HTML5 forms, CSS3 (custom properties, BEM), vanilla JS (Constraint Validation API, Fetch API), Formspree, Playwright + axe-core
 
-**Spec:** `docs/superpowers/specs/2026-03-21_challenge-003-contact-form-design.md`
+**Spec:** `docs/archive/specs/2026-03-21_challenge-003-contact-form-design.md`
 
 ---
 
