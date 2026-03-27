@@ -155,10 +155,6 @@ export class FormPage {
     await expect(this.submitButton).toBeEnabled();
   }
 
-  async expectFocused(locator) {
-    await expect(locator).toBeFocused();
-  }
-
   async expectLoadingState() {
     await expect(this.submitText).toBeHidden();
     await expect(this.submitLoading).toBeVisible();
