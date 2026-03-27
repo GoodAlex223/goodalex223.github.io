@@ -19,10 +19,10 @@
 
 ### Monday — Documentation Debt & Archive Cleanup (7 pts)
 
-- [ ] **Consolidate `docs/superpowers/` into standard directory structure** — Move plan/spec files to `docs/archive/plans/` and `docs/archive/specs/`, update DONE.md references, update `docs/README.md` index *(IMPORTANT, 3 pts)*
-- [ ] **Update `docs/archive/README.md` to index `specs/` subdirectory** — Created by BUG-004 PR but never documented *(IMPORTANT, 2 pts)*
-- [ ] **Rename + move CONTENT-002 design spec** — Fix hyphen→underscore in filename, move from `archive/plans/` to `archive/specs/` *(1 pt)*
-- [ ] **Archive CONTENT-003 design spec** — Move from `docs/superpowers/specs/` to `docs/archive/specs/` *(1 pt)*
+- [x] **Consolidate `docs/superpowers/` into standard directory structure** — Move plan/spec files to `docs/archive/plans/` and `docs/archive/specs/`, update DONE.md references, update `docs/README.md` index *(IMPORTANT, 3 pts)*
+- [x] **Update `docs/archive/README.md` to index `specs/` subdirectory** — Created by BUG-004 PR but never documented *(IMPORTANT, 2 pts)*
+- [x] **Rename + move CONTENT-002 design spec** — Fix hyphen→underscore in filename, move from `archive/plans/` to `archive/specs/` *(1 pt)*
+- [x] **Archive CONTENT-003 design spec** — Move from `docs/superpowers/specs/` to `docs/archive/specs/` *(1 pt)*
 
 ### Tuesday — Contact Form Accessibility Hardening (6 pts)
 
@@ -54,10 +54,10 @@
 
 | Task | Priority | Day | Points | Status |
 |------|----------|-----|--------|--------|
-| Consolidate docs/superpowers/ | IMPORTANT | Mon | 3 | Planned |
-| Update archive/README.md index | IMPORTANT | Mon | 2 | Planned |
-| Rename + move CONTENT-002 spec | NICE TO HAVE | Mon | 1 | Planned |
-| Archive CONTENT-003 spec | NICE TO HAVE | Mon | 1 | Planned |
+| Consolidate docs/superpowers/ | IMPORTANT | Mon | 3 | Done |
+| Update archive/README.md index | IMPORTANT | Mon | 2 | Done |
+| Rename + move CONTENT-002 spec | NICE TO HAVE | Mon | 1 | Done |
+| Archive CONTENT-003 spec | NICE TO HAVE | Mon | 1 | Done |
 | Form submission focus management | IMPORTANT | Tue | 3 | Planned |
 | Form inputs focus-visible pattern | NICE TO HAVE | Tue | 2 | Planned |
 | Form status theme transition | NICE TO HAVE | Tue | 1 | Planned |
