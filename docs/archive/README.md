@@ -1,6 +1,6 @@
 # Archive
 
-**Last Updated**: 2026-01-26
+**Last Updated**: 2026-03-27
 
 Historical documentation that is no longer active but preserved for reference.
 
@@ -10,7 +10,8 @@ Historical documentation that is no longer active but preserved for reference.
 
 | Directory | Purpose | Last Updated |
 |-----------|---------|--------------|
-| [plans/](plans/) | Completed implementation plans | 2026-01-26 |
+| [plans/](plans/) | Completed implementation plans | 2026-03-27 |
+| [specs/](specs/) | Completed design specifications | 2026-03-27 |
 
 ---
 
