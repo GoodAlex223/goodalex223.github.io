@@ -1292,6 +1292,9 @@ function showFormStatus(form, statusContainer, type, message) {
 
   // Show status
   statusContainer.hidden = false;
+
+  // Move focus to action button for keyboard/screen reader users
+  actionButton.focus();
 }
 
 /**
@@ -1310,4 +1313,7 @@ function resetForm(form, statusContainer) {
 
   // Show form
   form.hidden = false;
+
+  // Restore focus to first field
+  form.querySelector(".contact-form__input").focus();
 }

@@ -134,7 +134,7 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - `data/` directory must be copied to `_site/` in deploy (required for `fetch("data/projects.json")` on GitHub Pages)
 
 ### Focus Accessibility
-- Permanent transparent outline on `a`/`button` in `reset.css`; `:focus-visible` changes only `outline-color`
+- Permanent transparent outline in base rule; `:focus-visible` changes only `outline-color` — applies to `a`/`button` (`reset.css`) and `.contact-form__input` (`form.css`)
 - **Gotcha**: Components with own `transition` declarations must include `outline-color` explicitly — CSS `transition` property replaces, not merges
 - `.btn` excluded from `main.css` theme transition group (component-level transition takes precedence)
 - High-contrast focus outline (`--focus-outline-color-high-contrast`) on colored backgrounds (primary buttons, active filter buttons)
