@@ -15,7 +15,7 @@ body,
 .project-card,
 .skill-group,
 .contact__link,
-.contact-form__input {
+.contact-form__status {
   transition:
     background-color var(--transition-base),
     border-color var(--transition-base),
