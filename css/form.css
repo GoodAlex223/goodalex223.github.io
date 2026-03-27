@@ -123,7 +123,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--font-size-xl);
 }
 
 .contact-form__status--success .contact-form__status-icon {
