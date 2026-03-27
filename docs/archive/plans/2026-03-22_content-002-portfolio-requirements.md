@@ -8,7 +8,7 @@
 
 **Tech Stack:** Markdown only. No code changes.
 
-**Spec:** `docs/superpowers/specs/2026-03-22-content-002-portfolio-requirements-design.md`
+**Spec:** `docs/archive/specs/2026-03-22_content-002-portfolio-requirements-design.md`
 
 ---
 
@@ -197,7 +197,7 @@ Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>"
 - Modify: `docs/planning/TODO.md`
 - Modify: `docs/planning/DONE.md`
 - Modify: `docs/planning/BACKLOG.md`
-- Move: `docs/superpowers/specs/2026-03-22-content-002-portfolio-requirements-design.md` → archive
+- Move: `docs/archive/specs/2026-03-22_content-002-portfolio-requirements-design.md` → archive
 - Move: `docs/superpowers/plans/2026-03-22-content-002-portfolio-requirements.md` → archive
 
 - [ ] **Step 1: Add improvements to BACKLOG.md**
@@ -215,8 +215,8 @@ Add to BACKLOG.md:
 - [ ] **Step 2: Archive spec and plan**
 
 ```bash
-mv docs/superpowers/specs/2026-03-22-content-002-portfolio-requirements-design.md docs/archive/plans/
-mv docs/superpowers/plans/2026-03-22-content-002-portfolio-requirements.md docs/archive/plans/
+mv docs/archive/specs/2026-03-22_content-002-portfolio-requirements-design.md docs/archive/specs/
+mv docs/archive/plans/2026-03-22_content-002-portfolio-requirements.md docs/archive/plans/
 ```
 
 - [ ] **Step 3: Move task from TODO.md to DONE.md**

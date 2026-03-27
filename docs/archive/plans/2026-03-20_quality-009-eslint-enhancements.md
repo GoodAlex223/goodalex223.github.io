@@ -8,7 +8,7 @@
 
 **Tech Stack:** ESLint v10 (flat config, CJS), eslint-plugin-playwright v2.x, @playwright/test
 
-**Spec:** `docs/superpowers/specs/2026-03-20-quality-009-eslint-enhancements-design.md`
+**Spec:** `docs/archive/specs/2026-03-20_quality-009-eslint-enhancements-design.md`
 
 ---
 

@@ -1,182 +1,119 @@
-# Weekly Planning
+# Weekly Plan
 
-<!--
-Copy this file to docs/planning/WEEKLY.md or docs/planning/WEEKLY_YYYY-MM-DD.md
-Use for weekly planning snapshots and progress tracking
--->
+**Week of**: March 30 - April 3, 2026
+**Created**: 2026-03-27
+**Sources**: ROADMAP.md, BACKLOG.md, TODO.md, DONE.md, git log (Mar 13-27)
 
-**Week of**: 2026-01-27 to 2026-02-02
-**Last Updated**: 2026-01-27
+**Context**: v1.1/v1.5 roadmap phases complete. Recent weeks focused on content population (CONTENT-001 through CONTENT-004), quality tooling (ESLint enhancements, commitlint), and the contact form challenge. This week shifts to debt cleanup, accessibility hardening, and test quality — areas where backlog items have accumulated from code reviews.
 
 ---
 
-## 🎯 Weekly Focus
+## Parallel Work
 
-**Primary Goal**: Complete v1.1 visual polish (screenshots, OG image, theme toggle)
-
-**Secondary Goals**:
-- Create custom 404 page
-- Start v1.5 features if time permits (filtering, animations)
+- Monitor Formspree spam dashboard (CHALLENGE-003 backlog: decide on reCAPTCHA v3 after 2-4 weeks)
+- GitHub Actions Node.js 24 upgrade tracking (deadline: June 2, 2026)
 
 ---
 
-## 📋 Planned Tasks
+## Daily Tasks
 
-### Must Complete (Critical)
+### Monday — Documentation Debt & Archive Cleanup (7 pts)
 
-| Task | Reference | Status | Notes |
-|------|-----------|--------|-------|
-| _None critical_ | — | — | — |
+- [x] **Consolidate `docs/superpowers/` into standard directory structure** — Move plan/spec files to `docs/archive/plans/` and `docs/archive/specs/`, update DONE.md references, update `docs/README.md` index *(IMPORTANT, 3 pts)*
+- [x] **Update `docs/archive/README.md` to index `specs/` subdirectory** — Created by BUG-004 PR but never documented *(IMPORTANT, 2 pts)*
+- [x] **Rename + move CONTENT-002 design spec** — Fix hyphen→underscore in filename, move from `archive/plans/` to `archive/specs/` *(1 pt)*
+- [x] **Archive CONTENT-003 design spec** — Move from `docs/superpowers/specs/` to `docs/archive/specs/` *(1 pt)*
 
-### Should Complete (Important)
+### Tuesday — Contact Form Accessibility Hardening (6 pts)
 
-| Task | Reference | Status | Notes |
-|------|-----------|--------|-------|
-| Add project screenshots | TODO.md MP-001 | 📋 Planned | Create thumbnails for project cards |
-| Add og:image | TODO.md MP-002 | 📋 Planned | Social sharing preview |
-| Consider theme toggle | TODO.md MP-003 | 📋 Planned | Dark/light mode switch |
+- [ ] **Add focus management after form submission** — `showFormStatus()` hides form but doesn't move focus to status container; keyboard/screen reader users lose context *(IMPORTANT, 3 pts)*
+- [ ] **Align form inputs with focus-visible pattern** — Use `outline-color` only in `:focus-visible` (not full `outline` shorthand), add base transparent outline per CLAUDE.md convention *(2 pts)*
+- [ ] **Add `.contact-form__status` to theme transition group** — Smooth theme switching when status message is visible *(1 pt)*
 
-### Nice to Have (If Time Permits)
+### Wednesday — Code Quality & Lint Fixes (6 pts)
 
-| Task | Reference | Status | Notes |
-|------|-----------|--------|-------|
-| Add project filtering | TODO.md LP-001 | 📋 Planned | CSS-only or JS solution |
-| Add scroll animations | TODO.md LP-002 | 📋 Planned | Subtle fade-in on scroll |
-| Create 404 page | TODO.md LP-003 | 📋 Planned | Custom error page for GitHub Pages |
+- [ ] **Fix lint-staged `*.js` glob bypassing ESLint ignores** — Direct filename passing may skip flat config `ignores` array for root config files; scope lint-staged to explicit directories *(IMPORTANT, 3 pts)*
+- [ ] **Fix CLAUDE.md duplicate JS Linting descriptions** — Build System section and Code Conventions section have inconsistent ignores lists *(IMPORTANT, 2 pts)*
+- [ ] **Update "Adding New Projects" template in CLAUDE.md** — Add `data-animate` and `data-animate-delay` attributes that every real card uses but template omits *(1 pt)*
 
----
+### Thursday — Test Quality Improvements (6 pts)
 
-## 🚧 Blockers & Risks
+- [ ] **Replace `page.evaluate` with web-first assertions in form tests** — Use `expect(locator).toBeFocused()` instead of `page.evaluate(() => document.activeElement.id)` in `validation.spec.js`; use imported `expect()` over `test.expect()` *(IMPORTANT, 3 pts)*
+- [ ] **Reduced motion test efficiency** — Remove double navigation in `modal/axe-scan.spec.js`, skip `waitForScrollAnimations()` under reduced motion *(2 pts)*
+- [ ] **Add `expectScreenshotsCount` to `rule-indicators` test** — Has 2 screenshots in JSON but `basic-modal.spec.js` omits the assertion *(1 pt)*
 
-| Blocker | Impact | Mitigation | Owner |
-|---------|--------|------------|-------|
-| _None currently_ | — | — | — |
+### Friday — Weekly Challenge (5 pts)
 
----
+- [ ] 🏆 **Automated link checking in CI** — Script or CI step that verifies all project GitHub/demo/simulation URLs return HTTP 200 on each deploy *(CHALLENGE, 5 pts)*
 
-## 📊 Progress Tracking
-
-### Daily Log
-
-#### Monday (2026-01-27)
-- [ ] **MP-001**: Capture screenshots for all 7 projects
-- [ ] Set up image directory structure (`imgs/projects/`)
-- [ ] Document screenshot specifications (dimensions, format)
-- **Completed**: —
-- **Blockers**: None
-
-#### Tuesday (2026-01-28)
-- [ ] **MP-001**: Optimize captured images for web (WebP, compression)
-- [ ] **MP-001**: Update project cards in index.html with thumbnails
-- [ ] **MP-001**: Test responsive image display
-- **Completed**: —
-- **Blockers**: —
-
-#### Wednesday (2026-01-29)
-- [ ] **MP-002**: Design Open Graph image (1200x630px)
-- [ ] **MP-002**: Add og:image meta tags to index.html
-- [ ] **MP-002**: Test social sharing preview (Twitter, LinkedIn, Facebook)
-- **Completed**: —
-- **Blockers**: —
-
-#### Thursday (2026-01-30)
-- [ ] **MP-003**: Design theme toggle UI (button/switch location, icon)
-- [ ] **MP-003**: Implement CSS variables for light theme
-- [ ] **MP-003**: Add toggle logic with localStorage persistence
-- [ ] **MP-003**: Test `prefers-color-scheme` integration
-- **Completed**: —
-- **Blockers**: —
-
-#### Friday (2026-01-31)
-- [ ] **LP-003**: Create 404.html matching site design
-- [ ] **LP-003**: Add navigation back to home page
-- [ ] **LP-003**: Test on GitHub Pages
-- [ ] Week review and documentation update
-- **Completed**: —
-- **Blockers**: —
-
-#### Weekend (Buffer)
-- [ ] **LP-001**: Add project filtering (if time permits)
-- [ ] **LP-002**: Add scroll animations (if time permits)
+**Why this challenge**: After CONTENT-002/003/004 added and updated many project links across 8 cards, there's no automated guard against link rot. This is a technical deep-dive that adds lasting CI value and directly protects recent content work.
 
 ---
 
-## 📈 Week Summary
+## Summary Table
 
-<!-- Fill at end of week -->
-
-### Completed
-
-| Task | Outcome | Time Spent |
-|------|---------|------------|
-| — | — | — |
-
-### Carried Over
-
-| Task | Reason | New Target |
-|------|--------|------------|
-| — | — | — |
-
-### Key Learnings
-
-- —
-
-### Metrics
-
-| Metric | Target | Actual |
-|--------|--------|--------|
-| Tasks completed | 4 (MP-001, MP-002, MP-003, LP-003) | — |
-| Stretch goals | 2 (LP-001, LP-002) | — |
+| Task | Priority | Day | Points | Status |
+|------|----------|-----|--------|--------|
+| Consolidate docs/superpowers/ | IMPORTANT | Mon | 3 | Done |
+| Update archive/README.md index | IMPORTANT | Mon | 2 | Done |
+| Rename + move CONTENT-002 spec | NICE TO HAVE | Mon | 1 | Done |
+| Archive CONTENT-003 spec | NICE TO HAVE | Mon | 1 | Done |
+| Form submission focus management | IMPORTANT | Tue | 3 | Planned |
+| Form inputs focus-visible pattern | NICE TO HAVE | Tue | 2 | Planned |
+| Form status theme transition | NICE TO HAVE | Tue | 1 | Planned |
+| Fix lint-staged ESLint ignores | IMPORTANT | Wed | 3 | Planned |
+| Fix CLAUDE.md duplicate lint docs | IMPORTANT | Wed | 2 | Planned |
+| Update "Adding New Projects" template | NICE TO HAVE | Wed | 1 | Planned |
+| Web-first assertions in form tests | IMPORTANT | Thu | 3 | Planned |
+| Reduced motion test efficiency | NICE TO HAVE | Thu | 2 | Planned |
+| Add rule-indicators screenshot assertion | NICE TO HAVE | Thu | 1 | Planned |
+| 🏆 Automated link checking in CI | CHALLENGE | Fri | 5 | Planned |
+| **Total** | | | **30** | |
 
 ---
 
-## 🔮 Next Week Preview
+## Notes
 
-**Tentative Focus**: v1.5 features (filtering, animations) or carryover tasks
+### Context
+- **Velocity**: Last week completed 5 planned tasks + 3 content tasks (CONTENT-002/003/004) across 4 days. Targeting ~6 pts/day (30 pts/week) is conservative but realistic for tasks requiring careful code review alignment.
+- **No carry-forward**: All previous week tasks complete. Clean slate.
 
-**Likely Tasks**:
-- LP-001: Add project filtering (if not completed)
-- LP-002: Add scroll animations (if not completed)
-- Start v1.5 features from ROADMAP
+### Dependencies
+- Monday's archive cleanup is prerequisite-free — front-loaded to establish clean docs state before code changes.
+- Tuesday's form a11y work builds on CHALLENGE-003 (contact form) completed last week.
+- Wednesday's lint-staged fix should be tested by committing a root config file change.
+- Friday's link checker needs network access in CI — verify GitHub Actions allows outbound HTTP.
 
-**Preparation Needed**:
-- [ ] Review BACKLOG.md for implementation details
-- [ ] Decide CSS-only vs JS approach for filtering
-- [ ] Research Intersection Observer patterns for animations
+### Risks
+- **lint-staged ESLint ignores** (Wed): May require changes to `package.json` and testing across all three ESLint environments. If flat config ignores work differently than expected, may need deeper investigation.
+- **Link checker in CI** (Fri): External URL availability is non-deterministic. Need retry logic or soft-fail strategy to avoid flaky CI.
+
+### Transition Notes
+- ROADMAP.md is stale (last updated Jan 2026) — all v1.5 items are complete. Consider updating ROADMAP.md to reflect current phase (Quality & Content) if time permits.
+- BACKLOG.md is rich with code review findings — most are low-confidence and optional. This week prioritizes items with real user impact (a11y, lint correctness).
 
 ---
 
-## Previous Week (2026-01-20 to 2026-01-26)
+## Previous Week Summary
 
-### Completed
+### Week of March 24-27, 2026
+
+**Focus**: Modal a11y, content population, quality tooling, contact form
 
 | Task | Outcome |
 |------|---------|
-| Add favicon | Adaptive SVG with theme support |
-| Test external links (HP-001) | All 16 links working |
-| Lighthouse audit (HP-002) | 100/100 all categories |
-| Format media-viewer (HP-003) | Added to portfolio |
-| Format dropshipping-test (HP-004) | Added to portfolio |
+| TEST-007: Axe-core WCAG scan for modal | Completed — axe-core scanning for modal in light/dark themes |
+| CONTENT-001: Populate remaining project cards | Completed — all 8 projects have modal detail data |
+| QUALITY-009: ESLint enhancements | Completed — eslint-plugin-playwright + no-console rule |
+| QUALITY-010: commitlint | Completed — Conventional Commits enforcement via husky hook |
+| CHALLENGE-003: Contact form | Completed — Formspree with validation, honeypot, a11y |
+| CONTENT-002: Portfolio requirements | Completed — requirements document, PR #52 merged |
+| CONTENT-003: Add CleanSpark | Completed — new project card + modal data, PR #53 merged |
+| CONTENT-004: Update project info | Completed — all 8 cards audited and updated, PR #54 merged |
 
-### Key Learnings
+**Velocity**: 8 tasks completed in 4 working days. High throughput driven by content tasks being well-scoped.
 
-- Minimal JavaScript results in zero blocking time
-- CSS @import chain doesn't significantly impact small sites
-- Wokwi simulation links add credibility to IoT projects
-
----
-
-## Status Legend
-
-| Symbol | Meaning |
-|--------|---------|
-| 📋 | Planned |
-| ⏳ | In Progress |
-| ✅ | Completed |
-| ⏸️ | On Hold |
-| ❌ | Canceled |
-| 🔄 | Carried Over |
-
----
-
-*Template: [.claude/TEMPLATES/weekly-planning.md](../../.claude/TEMPLATES/weekly-planning.md)*
+**Key Learnings**:
+- GitHub API audit approach (CONTENT-004) was efficient for bulk updates
+- docs/superpowers/ directory created organically but diverged from standard docs/planning/ structure — needs consolidation
+- Code review findings are accumulating in BACKLOG.md — this week addresses the highest-impact ones

@@ -166,7 +166,7 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - `sitemap.xml` `<lastmod>` auto-updated from git history on each build
 
 ### Adding New Projects
-1. Add `<article class="project-card" data-category="..." data-project="id" data-updated="YYYY-MM">` to `index.html` — copy structure from existing card
+1. Add `<article class="project-card" data-category="..." data-project="id" data-updated="YYYY-MM" data-animate data-animate-delay="NNN">` to `index.html` — copy structure from existing card. Increment `data-animate-delay` by 50ms per card (100, 150, 200, …)
 2. Include: header (category badge + links), title, description, tech list, footer (time + optional status badge + optional details-btn with `aria-haspopup="dialog"`)
 3. For modal support: add entry to `data/projects.json` keyed by `data-project` value, with `title`, `category`, `description[]`, `highlights[]`, `tech[]`, `links{}`, `screenshots[]`, `status`, `updated`
 

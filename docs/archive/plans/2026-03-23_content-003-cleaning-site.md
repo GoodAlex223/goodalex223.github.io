@@ -8,7 +8,7 @@
 
 **Tech Stack:** HTML, JSON, GitHub API (repo rename), image conversion (PNG → webp)
 
-**Spec:** `docs/superpowers/specs/2026-03-23_content-003-cleaning-site-design.md`
+**Spec:** `docs/archive/specs/2026-03-23_content-003-cleaning-site-design.md`
 
 ---
 

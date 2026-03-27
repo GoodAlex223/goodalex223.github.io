@@ -8,7 +8,7 @@
 
 **Tech Stack:** Claude Code plugin system (Markdown + YAML frontmatter), Bash hooks, git CLI, GitHub CLI (`gh`)
 
-**Spec:** `docs/superpowers/specs/2026-03-18-workflow-plugin-design.md`
+**Spec:** `docs/archive/specs/2026-03-18_workflow-plugin-design.md`
 
 ---
 

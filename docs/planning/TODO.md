@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-03-25 (CONTENT-004 completed)
+**Last Updated**: 2026-03-27 (Archive Cleanup completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **Archive Cleanup**: Documentation Debt & Archive Cleanup → moved to [DONE.md](DONE.md)
 - **CONTENT-004**: Update Project Information → moved to [DONE.md](DONE.md)
 - **BUG-004**: Filter Toggle-to-Reset Race Condition → moved to [DONE.md](DONE.md)
 - **CHALLENGE-003**: Contact Form → moved to [DONE.md](DONE.md)
