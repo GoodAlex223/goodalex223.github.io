@@ -691,7 +691,7 @@ _Extracted from implementation plan:_
 ---
 
 ## From Contact Form A11Y Hardening (2026-03-28)
-**Origin**: docs/archive/specs/2026-03-27_contact-form-a11y-hardening-design.md
+**Origin**: docs/archive/plans/2026-03-27_a11y-contact-form-hardening.md
 
 - [ ] Firefox rapid-click filter tests are flaky — `rapid-clicks.spec.js` passes inconsistently on Firefox due to animation timing sensitivity. Consider `toPass()` retry wrapper or increased timeouts for Firefox specifically
 - [ ] Extend focus-visible pattern to other custom components — modal close button, filter buttons, and any future interactive components should be audited for the same base-transparent-outline + outline-color-only pattern
