@@ -26,9 +26,9 @@
 
 ### Tuesday — Contact Form Accessibility Hardening (6 pts)
 
-- [ ] **Add focus management after form submission** — `showFormStatus()` hides form but doesn't move focus to status container; keyboard/screen reader users lose context *(IMPORTANT, 3 pts)*
-- [ ] **Align form inputs with focus-visible pattern** — Use `outline-color` only in `:focus-visible` (not full `outline` shorthand), add base transparent outline per CLAUDE.md convention *(2 pts)*
-- [ ] **Add `.contact-form__status` to theme transition group** — Smooth theme switching when status message is visible *(1 pt)*
+- [x] **Add focus management after form submission** — `showFormStatus()` hides form but doesn't move focus to status container; keyboard/screen reader users lose context *(IMPORTANT, 3 pts)*
+- [x] **Align form inputs with focus-visible pattern** — Use `outline-color` only in `:focus-visible` (not full `outline` shorthand), add base transparent outline per CLAUDE.md convention *(2 pts)*
+- [x] **Add `.contact-form__status` to theme transition group** — Smooth theme switching when status message is visible *(1 pt)*
 
 ### Wednesday — Code Quality & Lint Fixes (6 pts)
 
@@ -58,9 +58,9 @@
 | Update archive/README.md index | IMPORTANT | Mon | 2 | Done |
 | Rename + move CONTENT-002 spec | NICE TO HAVE | Mon | 1 | Done |
 | Archive CONTENT-003 spec | NICE TO HAVE | Mon | 1 | Done |
-| Form submission focus management | IMPORTANT | Tue | 3 | Planned |
-| Form inputs focus-visible pattern | NICE TO HAVE | Tue | 2 | Planned |
-| Form status theme transition | NICE TO HAVE | Tue | 1 | Planned |
+| Form submission focus management | IMPORTANT | Tue | 3 | Done |
+| Form inputs focus-visible pattern | NICE TO HAVE | Tue | 2 | Done |
+| Form status theme transition | NICE TO HAVE | Tue | 1 | Done |
 | Fix lint-staged ESLint ignores | IMPORTANT | Wed | 3 | Planned |
 | Fix CLAUDE.md duplicate lint docs | IMPORTANT | Wed | 2 | Planned |
 | Update "Adding New Projects" template | NICE TO HAVE | Wed | 1 | Planned |
