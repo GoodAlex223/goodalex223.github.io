@@ -22,7 +22,7 @@
   },
   "lint-staged": {
     "*.css": "stylelint --fix",
-    "*.js": "eslint --fix"
+    "{js,scripts,tests}/**/*.js": "eslint --fix"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",
