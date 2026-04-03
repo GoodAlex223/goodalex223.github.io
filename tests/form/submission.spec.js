@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormPage } from "../pages/FormPage.js";
 
 test.describe("Form Submission", () => {
@@ -77,6 +77,25 @@ test.describe("Form Submission", () => {
 
     await fp.clickStatusAction();
     await fp.expectFormVisible();
+  });
+
+  test("focuses action button after successful submission", async () => {
+    await fp.mockFormspreeSuccess();
+    await fp.fillAllFields();
+    await fp.clickSubmit();
+    await fp.expectSuccess();
+    await expect(fp.statusAction).toBeFocused();
+  });
+
+  test("focuses first field after clicking Send another message", async () => {
+    await fp.mockFormspreeSuccess();
+    await fp.fillAllFields();
+    await fp.clickSubmit();
+    await fp.expectSuccess();
+
+    await fp.clickStatusAction();
+    await fp.expectFormVisible();
+    await expect(fp.nameField).toBeFocused();
   });
 
   test("Try again resets to form after error", async () => {

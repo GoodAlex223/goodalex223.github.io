@@ -43,6 +43,8 @@
   color: var(--color-text-primary);
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
+  outline: var(--focus-outline-width) solid transparent;
+  outline-offset: var(--focus-outline-offset);
   transition:
     border-color var(--transition-fast),
     background-color var(--transition-fast),
@@ -55,8 +57,7 @@
 
 .contact-form__input:focus-visible {
   border-color: var(--color-accent);
-  outline: var(--focus-outline-width) solid var(--focus-outline-color);
-  outline-offset: var(--focus-outline-offset);
+  outline-color: var(--focus-outline-color);
 }
 
 /* Textarea modifier */
@@ -122,7 +123,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--font-size-xl);
 }
 
 .contact-form__status--success .contact-form__status-icon {

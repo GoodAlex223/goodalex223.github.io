@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormPage } from "../pages/FormPage.js";
 
 test.describe("Form Validation", () => {
@@ -16,11 +16,10 @@ test.describe("Form Validation", () => {
     await fp.expectFieldError(fp.messageError, "Please enter a message");
   });
 
-  test("focuses first invalid field on submit", async ({ page }) => {
+  test("focuses first invalid field on submit", async () => {
     await fp.clickSubmit();
     await fp.expectFieldInvalid(fp.nameField);
-    const focused = await page.evaluate(() => document.activeElement.id);
-    test.expect(focused).toBe("contact-name");
+    await expect(fp.nameField).toBeFocused();
   });
 
   test("shows error for name too short", async () => {

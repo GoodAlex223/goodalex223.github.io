@@ -1282,7 +1282,9 @@ function showFormStatus(form, statusContainer, type, message) {
   statusContainer.className = `contact-form__status contact-form__status--${type}`;
 
   const icon = statusContainer.querySelector(".contact-form__status-icon");
-  icon.textContent = type === "success" ? "\u2713" : "\u2717";
+  icon.innerHTML = type === "success"
+    ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>'
+    : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
 
   const messageEl = statusContainer.querySelector(".contact-form__status-message");
   messageEl.textContent = message;
@@ -1292,6 +1294,9 @@ function showFormStatus(form, statusContainer, type, message) {
 
   // Show status
   statusContainer.hidden = false;
+
+  // Move focus to action button for keyboard/screen reader users
+  actionButton.focus();
 }
 
 /**
@@ -1310,4 +1315,7 @@ function resetForm(form, statusContainer) {
 
   // Show form
   form.hidden = false;
+
+  // Restore focus to first field
+  form.querySelector(".contact-form__input").focus();
 }

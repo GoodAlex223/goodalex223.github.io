@@ -1,8 +1,26 @@
 # DONE
 
-**Last Updated**: 2026-03-27 (Archive Cleanup completed)
+**Last Updated**: 2026-03-28 (Contact Form A11Y Hardening completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-03-28
+
+### Contact Form Accessibility Hardening
+
+**Plan**: [docs/archive/plans/2026-03-27_a11y-contact-form-hardening.md](../archive/plans/2026-03-27_a11y-contact-form-hardening.md)
+**Spec**: [docs/archive/specs/2026-03-27_contact-form-a11y-hardening-design.md](../archive/specs/2026-03-27_contact-form-a11y-hardening-design.md)
+**Summary**: Fixed 7 accessibility and quality issues in the contact form — 3 WEEKLY items (6 pts) + 4 BACKLOG items from CHALLENGE-003 code review.
+**Key Changes**:
+- Added focus management: `showFormStatus()` focuses action button, `resetForm()` focuses first field
+- Aligned form input focus-visible pattern with reset.css convention (base transparent outline + outline-color only)
+- Fixed CSS cascade conflict: removed `.contact-form__input` from theme transition group, added `.contact-form__status`
+- Replaced Unicode status icons (✓/✗) with inline SVG (stroke-based checkmark/X)
+- Replaced `page.evaluate` focus check with web-first `toBeFocused()` assertion + 2 new focus tests
+- Fixed reduced-motion axe test to use POM `goto()` instead of direct `page.goto()`
+**Spawned Tasks**: 2 items added to BACKLOG.md (Firefox rapid-click flakiness, extend focus-visible pattern to other components)
 
 ---
 

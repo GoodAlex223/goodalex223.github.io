@@ -680,13 +680,21 @@ _Extracted from implementation plan:_
 ## From CHALLENGE-003 Code Review (2026-03-22)
 **Origin**: Code review of PR #50
 
-- [ ] Form inputs: use `outline-color` only in `:focus-visible` (not full `outline` shorthand) and add base transparent outline — aligns with documented focus transition pattern in CLAUDE.md
-- [ ] Add focus management after form submission — `showFormStatus()` hides the form but doesn't move focus to status container or action button; keyboard/screen reader users lose context
-- [ ] Resolve CSS cascade conflict: `.contact-form__input` in theme transition group overrides `form.css` component transition — follow `.btn` exclusion precedent documented in CLAUDE.md
-- [ ] Use `test.expect()` → imported `expect()` in form tests, and replace `page.evaluate(() => document.activeElement.id)` with web-first `expect(locator).toBeFocused()` in `validation.spec.js`
-- [ ] Reduced-motion axe test: use `fp.goto()` (POM method with readiness assertion) instead of `fp.page.goto("/")`
-- [ ] Consider SVG icons for status indicators instead of Unicode text characters (`✓`/`✗`) — aligns with codebase "Inline SVG icons" convention
-- [ ] Add `.contact-form__status` to theme transition group for smooth theme switching when status is visible
+- [x] ~~Form inputs: use `outline-color` only in `:focus-visible`~~ *(completed 2026-03-28, a11y/contact-form-hardening)*
+- [x] ~~Add focus management after form submission~~ *(completed 2026-03-28, a11y/contact-form-hardening)*
+- [x] ~~Resolve CSS cascade conflict: `.contact-form__input` in theme transition group~~ *(completed 2026-03-28, a11y/contact-form-hardening)*
+- [x] ~~Use web-first `expect(locator).toBeFocused()` in form tests~~ *(completed 2026-03-28, a11y/contact-form-hardening)*
+- [x] ~~Reduced-motion axe test: use `fp.goto()`~~ *(completed 2026-03-28, a11y/contact-form-hardening)*
+- [x] ~~SVG icons for status indicators~~ *(completed 2026-03-28, a11y/contact-form-hardening)*
+- [x] ~~Add `.contact-form__status` to theme transition group~~ *(completed 2026-03-28, a11y/contact-form-hardening)*
+
+---
+
+## From Contact Form A11Y Hardening (2026-03-28)
+**Origin**: docs/archive/plans/2026-03-27_a11y-contact-form-hardening.md
+
+- [ ] Firefox rapid-click filter tests are flaky — `rapid-clicks.spec.js` passes inconsistently on Firefox due to animation timing sensitivity. Consider `toPass()` retry wrapper or increased timeouts for Firefox specifically
+- [ ] Extend focus-visible pattern to other custom components — modal close button, filter buttons, and any future interactive components should be audited for the same base-transparent-outline + outline-color-only pattern
 
 ---
 
