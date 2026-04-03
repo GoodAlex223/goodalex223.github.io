@@ -99,7 +99,7 @@ Config in `.mcp.json` (gitignored). Template: `.mcp.json.example`.
 
 ### JS
 - **Linting** (`eslint.config.js`): 3 environments — browser `js/` (`no-console: "error"`), Node CJS `scripts/`, Playwright ESM `tests/` (`prefer-web-first-assertions`, disabled for SEO tests)
-- **Auto-fix**: lint-staged runs ESLint fix on commit via husky pre-commit hook
+- **Auto-fix**: lint-staged runs ESLint fix on commit via husky pre-commit hook; scoped to `{js,scripts,tests}/**/*.js` (root config files are excluded)
 
 ### Commits
 - Conventional Commits via commitlint + husky `commit-msg` hook

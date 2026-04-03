@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-03-22 (BUG-004 filter race condition)
+**Last Updated**: 2026-04-03 (Code Quality & Lint Fixes)
 
 Future ideas and improvements for the portfolio.
 
@@ -777,6 +777,12 @@ _Extracted from implementation plan:_
 
 - [ ] Add "Last Updated" header update to planning doc edit checklist — BACKLOG.md header was missed despite marking 5 items complete and adding a new section; DONE.md and TODO.md were updated but BACKLOG.md was not. Consider a pre-merge check or adding it to the finishing-a-development-branch workflow
 - [ ] Validate spec references after file moves — plan file's own `**Spec:**` line pointed to old `docs/superpowers/specs/` path after spec was moved to `docs/archive/specs/` in same PR. A grep for `superpowers/` in modified files could catch this
+
+## From Code Quality & Lint Fixes (2026-04-03)
+**Origin**: docs/planning/plans/2026-04-03_code-quality-lint-fixes.md
+
+- [ ] Fix pre-existing flaky Firefox filter accessibility test — `tests/filter/accessibility.spec.js:28` (`aria-pressed updates when filter changes`) intermittently fails in Firefox only; likely a timing issue with filter button state updates
+- [ ] Add remaining root config files to ESLint `ignores` array — `postcss.config.js` and `playwright.config.js` are not in `eslint.config.js` ignores; while lint-staged is now scoped, direct `npx eslint .` would still try to lint them
 
 ---
 
