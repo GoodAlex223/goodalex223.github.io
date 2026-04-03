@@ -664,8 +664,8 @@ _Extracted from implementation plan:_
 ## From QUALITY-010 Code Review (2026-03-21)
 **Origin**: Code review of PR #49
 
-- [ ] CLAUDE.md has duplicate JS Linting descriptions with inconsistent ignores lists — Build System section lists `eslint.config.js` and `commitlint.config.js` in ignores, but Code Conventions section still says `Ignores: dist/**, node_modules/**`. Sync both sections or consolidate into one.
-- [ ] lint-staged `*.js` glob bypasses ESLint ignores for root config files — `"*.js": "eslint --fix"` passes files directly to ESLint by filename, which may not respect the `ignores` array in flat config. Pre-existing for `eslint.config.js`, now also affects `commitlint.config.js`. Consider using a negated glob in lint-staged (e.g., `"*.js": "eslint --fix --ignore-pattern commitlint.config.js"`) or switching to `"js/**/*.js scripts/**/*.js tests/**/*.js"` to scope lint-staged explicitly.
+- [x] ~~CLAUDE.md has duplicate JS Linting descriptions with inconsistent ignores lists~~ *(resolved — Build System section no longer exists in CLAUDE.md; only one JS linting description remains in Code Conventions section)*
+- [x] ~~lint-staged `*.js` glob bypasses ESLint ignores for root config files~~ *(fixed 2026-04-03, quality/code-lint-fixes — scoped lint-staged to `{js,scripts,tests}/**/*.js`)*
 
 ---
 
@@ -748,7 +748,7 @@ _Extracted from implementation plan:_
 ### From CONTENT-003 Code Review (2026-03-24)
 **Origin**: Code review of PR #53
 
-- [ ] Update "Adding New Projects" template in CLAUDE.md to include `data-animate` and `data-animate-delay` attributes — every real project card uses them but the template omits them, which could mislead future additions
+- [x] ~~Update "Adding New Projects" template in CLAUDE.md to include `data-animate` and `data-animate-delay` attributes~~ *(resolved — template already includes `data-animate data-animate-delay="NNN"` as of current CLAUDE.md)*
 - [ ] Archive completed design spec `docs/superpowers/specs/2026-03-23_content-003-cleaning-site-design.md` to `docs/archive/specs/` — completed task specs should follow the archive precedent set by BUG-004 (`docs/archive/specs/`), not remain in `docs/superpowers/specs/` ("planned features")
 
 ## From CONTENT-004: Update Project Information (2026-03-25)

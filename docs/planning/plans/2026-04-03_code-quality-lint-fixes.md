@@ -68,7 +68,7 @@
 
 ## Progress
 
-- [ ] Fix lint-staged glob in `package.json`
-- [ ] Verify fix works (stage root config + lintable file)
-- [ ] Mark backlog items as complete
-- [ ] Update WEEKLY.md task checkboxes
+- [x] Fix lint-staged glob in `package.json`
+- [x] Verify fix works (stage root config + lintable file)
+- [x] Mark backlog items as complete
+- [x] Update WEEKLY.md task checkboxes
