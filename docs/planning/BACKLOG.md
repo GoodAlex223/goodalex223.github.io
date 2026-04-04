@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-03 (Code Quality & Lint Fixes)
+**Last Updated**: 2026-04-04 (Code Quality & Lint Fixes Code Review)
 
 Future ideas and improvements for the portfolio.
 
@@ -782,7 +782,13 @@ _Extracted from implementation plan:_
 **Origin**: docs/archive/plans/2026-04-03_code-quality-lint-fixes.md
 
 - [ ] Fix pre-existing flaky Firefox filter accessibility test — `tests/filter/accessibility.spec.js:28` (`aria-pressed updates when filter changes`) intermittently fails in Firefox only; likely a timing issue with filter button state updates
-- [ ] Add remaining root config files to ESLint `ignores` array — `postcss.config.js` and `playwright.config.js` are not in `eslint.config.js` ignores; while lint-staged is now scoped, direct `npx eslint .` would still try to lint them
+- [ ] Add remaining root config files to ESLint `ignores` array — `postcss.config.js`, `playwright.config.js`, and `lighthouserc.js` are not in `eslint.config.js` ignores; while lint-staged is now scoped, direct `npx eslint .` would still try to lint them
+
+### From Code Quality & Lint Fixes Code Review (2026-04-04)
+**Origin**: Code review of PR #57
+
+- [ ] Automate BACKLOG Origin path validation — the same broken-origin-path bug (planning path instead of archive path) has recurred in PRs #51, #56, and #57. Consider a pre-commit or CI check that greps BACKLOG.md for `docs/planning/plans/` references (all archived plans should point to `docs/archive/plans/`)
+- [ ] Consolidate redundant plan archive files — task completion workflow sometimes produces two plan files for one task (e.g., `*_task-name.md` + `*_task-name-plan.md`). Consider standardizing on a single file per task or documenting when two are appropriate
 
 ---
 
