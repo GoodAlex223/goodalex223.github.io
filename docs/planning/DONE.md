@@ -1,8 +1,22 @@
 # DONE
 
-**Last Updated**: 2026-03-28 (Contact Form A11Y Hardening completed)
+**Last Updated**: 2026-04-03 (Code Quality & Lint Fixes completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-04-03
+
+### Code Quality & Lint Fixes
+
+**Plan**: [docs/archive/plans/2026-04-03_code-quality-lint-fixes.md](../archive/plans/2026-04-03_code-quality-lint-fixes.md)
+**Summary**: Fixed lint-staged JS glob bypassing ESLint ignores; verified and marked 2 backlog items as already-resolved.
+**Key Changes**:
+- Scoped lint-staged from `"*.js"` to `"{js,scripts,tests}/**/*.js"` — prevents root config files from being passed to ESLint during pre-commit
+- Confirmed CLAUDE.md duplicate JS linting descriptions already consolidated (Build System section removed)
+- Confirmed "Adding New Projects" template already includes `data-animate` attributes
+**Spawned Tasks**: 2 items added to BACKLOG.md (flaky Firefox filter test, ESLint ignores for root configs)
 
 ---
 

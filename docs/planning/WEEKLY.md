@@ -32,9 +32,9 @@
 
 ### Wednesday — Code Quality & Lint Fixes (6 pts)
 
-- [ ] **Fix lint-staged `*.js` glob bypassing ESLint ignores** — Direct filename passing may skip flat config `ignores` array for root config files; scope lint-staged to explicit directories *(IMPORTANT, 3 pts)*
-- [ ] **Fix CLAUDE.md duplicate JS Linting descriptions** — Build System section and Code Conventions section have inconsistent ignores lists *(IMPORTANT, 2 pts)*
-- [ ] **Update "Adding New Projects" template in CLAUDE.md** — Add `data-animate` and `data-animate-delay` attributes that every real card uses but template omits *(1 pt)*
+- [x] **Fix lint-staged `*.js` glob bypassing ESLint ignores** — Direct filename passing may skip flat config `ignores` array for root config files; scope lint-staged to explicit directories *(IMPORTANT, 3 pts)*
+- [x] **Fix CLAUDE.md duplicate JS Linting descriptions** — Build System section and Code Conventions section have inconsistent ignores lists *(IMPORTANT, 2 pts)*
+- [x] **Update "Adding New Projects" template in CLAUDE.md** — Add `data-animate` and `data-animate-delay` attributes that every real card uses but template omits *(1 pt)*
 
 ### Thursday — Test Quality Improvements (6 pts)
 
@@ -61,9 +61,9 @@
 | Form submission focus management | IMPORTANT | Tue | 3 | Done |
 | Form inputs focus-visible pattern | NICE TO HAVE | Tue | 2 | Done |
 | Form status theme transition | NICE TO HAVE | Tue | 1 | Done |
-| Fix lint-staged ESLint ignores | IMPORTANT | Wed | 3 | Planned |
-| Fix CLAUDE.md duplicate lint docs | IMPORTANT | Wed | 2 | Planned |
-| Update "Adding New Projects" template | NICE TO HAVE | Wed | 1 | Planned |
+| Fix lint-staged ESLint ignores | IMPORTANT | Wed | 3 | Done |
+| Fix CLAUDE.md duplicate lint docs | IMPORTANT | Wed | 2 | Done |
+| Update "Adding New Projects" template | NICE TO HAVE | Wed | 1 | Done |
 | Web-first assertions in form tests | IMPORTANT | Thu | 3 | Planned |
 | Reduced motion test efficiency | NICE TO HAVE | Thu | 2 | Planned |
 | Add rule-indicators screenshot assertion | NICE TO HAVE | Thu | 1 | Planned |

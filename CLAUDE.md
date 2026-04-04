@@ -99,7 +99,7 @@ Config in `.mcp.json` (gitignored). Template: `.mcp.json.example`.
 
 ### JS
 - **Linting** (`eslint.config.js`): 3 environments — browser `js/` (`no-console: "error"`), Node CJS `scripts/`, Playwright ESM `tests/` (`prefer-web-first-assertions`, disabled for SEO tests)
-- **Auto-fix**: lint-staged runs ESLint fix on commit via husky pre-commit hook
+- **Auto-fix**: lint-staged runs ESLint fix on commit via husky pre-commit hook; scoped to `{js,scripts,tests}/**/*.js` (root config files are excluded)
 
 ### Commits
 - Conventional Commits via commitlint + husky `commit-msg` hook
@@ -141,9 +141,13 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 
 ### Contact Form
 - Formspree submission (`fetch` POST with JSON, `action`+`method="POST"` as no-JS fallback)
-- **Honeypot**: `_gotcha` field — if filled, silently show success without sending (don't reveal detection to bots)
+- **Honeypot**: DOM field `#contact-phone` (`_gotcha` Formspree name) — if filled, silently show success without sending (don't reveal detection to bots)
 - Hybrid HTML5 + Constraint Validation API for email (`validity.typeMismatch` — no custom regex)
-- Blur validation per field; `validateForm()` on submit focuses first invalid field
+- **Validation rules**: name ≥ 2 chars, message ≥ 10 chars; blur validation only fires after prior interaction (empty-field blur does NOT show error); submit validates all fields regardless
+- `validateForm()` on submit focuses first invalid field; sets `aria-invalid="true"` + `.contact-form__input--invalid` class
+- **Submission state machine**: form visible → loading (submit disabled, spinner `.contact-form__submit-loading` shown) → form hidden, `#contact-form-status` shown. Success: "Send another message" (resets form, focuses `#contact-name`). Error: "Try again" (resets form). Focus moves to `.contact-form__status-action` automatically after submission
+- Status icons (success/error) are inline SVGs injected via `icon.innerHTML` in `showFormStatus()` — not Unicode characters. SVGs use `stroke="currentColor"` to inherit color from modifier classes. **Pending**: these SVGs lack `aria-hidden="true"` (unlike every other inline SVG in the codebase)
+- **Pending**: `.contact-form__input` transition lists `border-color`, `background-color`, `outline-color` but omits `color` — text color snaps on theme switch while other properties animate
 
 ### Testing
 - Playwright E2E with Page Object Models (`FilterPage.js`, `ModalPage.js`, `FormPage.js`)
@@ -151,6 +155,9 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - `axe-core` WCAG 2.1 AA scanning in `axe-scan.spec.js` suites — tests both light and dark themes explicitly via `setTheme()`
 - `waitForScrollAnimations()` (700ms) before axe scans prevents false color-contrast failures from opacity transitions
 - After changing `tech[]` in `projects.json`, run tests — `techPillsCount` assertions in `modal/basic-modal.spec.js` may need updating
+- **FormPage POM** (`tests/pages/FormPage.js`): use `mockFormspreeSuccess()`, `mockFormspreeError(statusCode)`, `mockFormspreeNetworkError()` to intercept Formspree requests in form tests. `goto()` waits for filter button counts to confirm JS is initialized (cross-component dependency)
+- **Form axe-scan suite** (`tests/form/axe-scan.spec.js`): 7 WCAG states — default, validation errors, success, error, light theme, dark theme, reduced motion. All tests use `fp.goto()` (not `fp.page.goto()`) to ensure consistent JS-initialized state
+- **Pending**: `tests/form/submission.spec.js` lines 69 and 118 still use `test.expect(requestMade).toBe(false)` — rest of file uses imported `expect()` directly; migration incomplete
 
 ### Critical CSS Inlining
 - Critters inlines above-fold CSS; full CSS loads async via `media="print" onload="this.media='all'"`
