@@ -32,6 +32,7 @@ test.describe("Basic Modal", () => {
     await mp.expectDescriptionCount(3);
     await mp.expectHighlightsCount(6);
     await mp.expectTechPillsCount(5);
+    await mp.expectScreenshotsCount(2);
     await mp.expectLinksCount(2); // GitHub + Demo
   });
 
