@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-04 (Code Quality & Lint Fixes Code Review)
+**Last Updated**: 2026-04-05 (Test Quality Improvements Code Review)
 
 Future ideas and improvements for the portfolio.
 
@@ -789,6 +789,17 @@ _Extracted from implementation plan:_
 
 - [ ] Automate BACKLOG Origin path validation — the same broken-origin-path bug (planning path instead of archive path) has recurred in PRs #51, #56, and #57. Consider a pre-commit or CI check that greps BACKLOG.md for `docs/planning/plans/` references (all archived plans should point to `docs/archive/plans/`)
 - [ ] Consolidate redundant plan archive files — task completion workflow sometimes produces two plan files for one task (e.g., `*_task-name.md` + `*_task-name-plan.md`). Consider standardizing on a single file per task or documenting when two are appropriate
+
+## From Test Quality Improvements (2026-04-05)
+**Origin**: docs/archive/plans/2026-04-05_test-quality-improvements.md
+
+- [ ] Replace remaining `page.evaluate` calls in modal accessibility tests with web-first assertions — `tests/modal/accessibility.spec.js` lines 40, 51, 70 still use `page.evaluate` for DOM queries (focus trap counting, dialog containment, last-focusable detection); some may need POM helper methods since they query complex DOM state rather than simple focus
+- [ ] Apply reduced-motion `waitForScrollAnimations()` optimization to form and filter axe-scan suites — the same pattern fixed in `tests/modal/axe-scan.spec.js` (removing redundant 700ms wait under reduced motion) likely applies to `tests/form/axe-scan.spec.js` and `tests/filter/axe-scan.spec.js` reduced-motion blocks, if they have them
+
+### From Test Quality Improvements Code Review (2026-04-05)
+**Origin**: Code review of PR #58
+
+- No issues found during code review
 
 ---
 
