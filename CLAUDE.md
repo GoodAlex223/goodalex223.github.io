@@ -173,6 +173,14 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - Open Graph + Twitter Card meta tags. Validation checklist: `docs/SEO_TESTING.md`
 - `sitemap.xml` `<lastmod>` auto-updated from git history on each build
 
+### Link Checker (`scripts/check-links.js`)
+- Extracts external URLs from `index.html` (`href="https://..."`) and `data/projects.json` (`links{}` values), deduplicates, checks concurrently (5 at a time)
+- **HEAD→GET fallback**: tries HEAD first; falls back to GET if HEAD returns 405 or network error
+- **Retry logic**: 3 attempts with 2s delay between retries before marking a URL as broken
+- **LinkedIn skip-list**: LinkedIn returns HTTP 999 for all bots regardless of URL validity — these URLs are skipped with a warning, not treated as failures
+- **User-Agent header**: required for Wokwi (blocks bare `fetch()` requests)
+- Exits non-zero on any broken link; CI runs it parallel with `build` after `lint`
+
 ### Adding New Projects
 1. Add `<article class="project-card" data-category="..." data-project="id" data-updated="YYYY-MM" data-animate data-animate-delay="NNN">` to `index.html` — copy structure from existing card. Increment `data-animate-delay` by 50ms per card (100, 150, 200, …)
 2. Include: header (category badge + links), title, description, tech list, footer (time + optional status badge + optional details-btn with `aria-haspopup="dialog"`)
