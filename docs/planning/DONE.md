@@ -1,8 +1,24 @@
 # DONE
 
-**Last Updated**: 2026-04-03 (Code Quality & Lint Fixes completed)
+**Last Updated**: 2026-04-05 (Test Quality Improvements completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-04-05
+
+### Test Quality Improvements
+
+**Plan**: [docs/archive/plans/2026-04-05_test-quality-improvements.md](../archive/plans/2026-04-05_test-quality-improvements.md)
+**Spec**: [docs/archive/specs/2026-04-05_test-quality-improvements-design.md](../archive/specs/2026-04-05_test-quality-improvements-design.md)
+**Summary**: Fixed 3 test quality issues — replaced `page.evaluate` with web-first assertions, optimized reduced-motion test setup, added missing screenshot assertion.
+**Key Changes**:
+- Replaced 4 `page.evaluate(() => document.activeElement.id)` with `expect(locator).toBeFocused()` in `accessibility.spec.js`
+- Fixed 2 `test.expect()` → `expect()` for consistency in `submission.spec.js`
+- Removed redundant `ModalPage` re-creation and `waitForScrollAnimations()` in reduced-motion `beforeEach` of `modal/axe-scan.spec.js`
+- Added `expectScreenshotsCount(2)` to rule-indicators test in `basic-modal.spec.js`
+**Resolved BACKLOG items**: 3 items (reduced-motion efficiency ×2, expectScreenshotsCount)
 
 ---
 

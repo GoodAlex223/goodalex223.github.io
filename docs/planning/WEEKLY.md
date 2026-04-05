@@ -38,9 +38,9 @@
 
 ### Thursday — Test Quality Improvements (6 pts)
 
-- [ ] **Replace `page.evaluate` with web-first assertions in form tests** — Use `expect(locator).toBeFocused()` instead of `page.evaluate(() => document.activeElement.id)` in `validation.spec.js`; use imported `expect()` over `test.expect()` *(IMPORTANT, 3 pts)*
-- [ ] **Reduced motion test efficiency** — Remove double navigation in `modal/axe-scan.spec.js`, skip `waitForScrollAnimations()` under reduced motion *(2 pts)*
-- [ ] **Add `expectScreenshotsCount` to `rule-indicators` test** — Has 2 screenshots in JSON but `basic-modal.spec.js` omits the assertion *(1 pt)*
+- [x] **Replace `page.evaluate` with web-first assertions in form tests** — Use `expect(locator).toBeFocused()` instead of `page.evaluate(() => document.activeElement.id)` in `validation.spec.js`; use imported `expect()` over `test.expect()` *(IMPORTANT, 3 pts)*
+- [x] **Reduced motion test efficiency** — Remove double navigation in `modal/axe-scan.spec.js`, skip `waitForScrollAnimations()` under reduced motion *(2 pts)*
+- [x] **Add `expectScreenshotsCount` to `rule-indicators` test** — Has 2 screenshots in JSON but `basic-modal.spec.js` omits the assertion *(1 pt)*
 
 ### Friday — Weekly Challenge (5 pts)
 

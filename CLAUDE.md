@@ -152,12 +152,12 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 ### Testing
 - Playwright E2E with Page Object Models (`FilterPage.js`, `ModalPage.js`, `FormPage.js`)
 - Test server on port 4173 (`scripts/serve.js`), started automatically by Playwright `webServer` config
-- `axe-core` WCAG 2.1 AA scanning in `axe-scan.spec.js` suites — tests both light and dark themes explicitly via `setTheme()`
+- `axe-core` WCAG 2.1 AA scanning in `axe-scan.spec.js` suites — tests light, dark, and reduced-motion explicitly. Modal suite scopes scans to `#project-modal` (`MODAL_SCOPE`) to avoid false positives from semi-transparent backdrop altering perceived contrast of background cards
 - `waitForScrollAnimations()` (700ms) before axe scans prevents false color-contrast failures from opacity transitions
+- **Reduced-motion axe pattern**: outer `beforeEach` runs first (creates POM, `goto()`, `waitForScrollAnimations()`); inner reduced-motion `beforeEach` calls `enableReducedMotion()` then `goto()` to reload with the media query active — no re-creation of POM or second `waitForScrollAnimations()` needed
 - After changing `tech[]` in `projects.json`, run tests — `techPillsCount` assertions in `modal/basic-modal.spec.js` may need updating
 - **FormPage POM** (`tests/pages/FormPage.js`): use `mockFormspreeSuccess()`, `mockFormspreeError(statusCode)`, `mockFormspreeNetworkError()` to intercept Formspree requests in form tests. `goto()` waits for filter button counts to confirm JS is initialized (cross-component dependency)
 - **Form axe-scan suite** (`tests/form/axe-scan.spec.js`): 7 WCAG states — default, validation errors, success, error, light theme, dark theme, reduced motion. All tests use `fp.goto()` (not `fp.page.goto()`) to ensure consistent JS-initialized state
-- **Pending**: `tests/form/submission.spec.js` lines 69 and 118 still use `test.expect(requestMade).toBe(false)` — rest of file uses imported `expect()` directly; migration incomplete
 
 ### Critical CSS Inlining
 - Critters inlines above-fold CSS; full CSS loads async via `media="print" onload="this.media='all'"`

@@ -621,8 +621,8 @@ _Extracted from implementation plan:_
 ## From TEST-007: Axe-core WCAG Scan for Modal (2026-03-19)
 **Origin**: Code review of PR #46
 
-- [ ] Reduced motion test efficiency — `modal/axe-scan.spec.js` reduced-motion `beforeEach` reassigns `mp` and calls `goto()` redundantly (outer `beforeEach` already does this); remove the double navigation to save ~1s per test
-- [ ] Skip `waitForScrollAnimations()` under reduced motion — When `prefers-reduced-motion` is active, scroll animations are disabled and elements appear immediately at opacity 1; the 700ms wait is unnecessary (filter reduced-motion tests already skip it)
+- [x] ~~Reduced motion test efficiency~~ *(completed 2026-04-05, quality/test-quality-improvements)*
+- [x] ~~Skip `waitForScrollAnimations()` under reduced motion~~ *(completed 2026-04-05, quality/test-quality-improvements)*
 - [ ] Normalize axe-helper API — `checkAccessibility()` accepts `include` as a single CSS selector string but `exclude` as an array of strings; align both to accept the same type for consistency
 
 ---
@@ -633,7 +633,7 @@ _Extracted from implementation plan:_
 - [ ] Capture detail screenshots for 4 new projects — lubrication, hx711-scale, dropshipping, svg-processor all have `screenshots: []` in `data/projects.json`; need 2 detail screenshots each (matching existing projects' pattern)
 - [ ] Verify dropshipping project description accuracy — Description references Next.js 14 App Router, BullMQ, Stripe, 249 unit tests based on repo README; should be validated against actual codebase state
 - [ ] Reconcile dropshipping card tech vs modal tech — Card shows `TypeScript, React, Docker, Vercel` (4 items) but `data/projects.json` has `TypeScript, Next.js, React, PostgreSQL, Stripe, Docker` (6 items); `Vercel` absent from JSON, `Next.js`/`PostgreSQL`/`Stripe` absent from card (code review finding, confidence 50/100)
-- [ ] Add `expectScreenshotsCount` to `rule-indicators` test — Pre-existing gap: `rule-indicators` has 2 screenshots in JSON but `basic-modal.spec.js` test omits `expectScreenshotsCount(2)`; all other projects now have this assertion (code review finding, confidence 25/100)
+- [x] ~~Add `expectScreenshotsCount` to `rule-indicators` test~~ *(completed 2026-04-05, quality/test-quality-improvements)*
 
 ---
 
