@@ -28,12 +28,13 @@ npm test               # E2E tests (headless Playwright)
 npm run test:ui        # Tests with UI mode
 npm run test:headed    # Tests with visible browser
 npm run lighthouse     # Lighthouse CI audit (≥90/100 all categories)
+npm run check-links    # Check all external links in index.html + projects.json (HEAD→GET fallback, 3 retries)
 npx serve              # Local server (or python -m http.server 8000)
 ```
 
 **Build pipeline**: `update-sitemap` → `build:css` (PostCSS + cssnano) → `unhash` → `inline:css` (Critters critical CSS) → `hash:assets` (SHA-256 content hashes + terser JS minification) → `report-sizes` (budget: CSS gzip 20 KB, JS gzip 10 KB; appends to `docs/size-history.json`). Outputs `dist/style.[hash].css` and `dist/main.[hash].js`.
 
-**CI/CD** (`.github/workflows/deploy.yml`): lint → build → (test + lighthouse in parallel) → deploy to GitHub Pages. All gates must pass.
+**CI/CD** (`.github/workflows/deploy.yml`): lint → (build + check-links in parallel) → (test + lighthouse in parallel) → deploy to GitHub Pages. All gates must pass.
 
 <!-- END AUTO-MANAGED -->
 
@@ -54,7 +55,7 @@ goodalex223/
 ├── js/main.js                    # All client JS (theme, filter, scroll animations, modal, form)
 ├── data/projects.json            # Project detail data (lazy-fetched by modal)
 ├── dist/                         # Built CSS/JS with content hashes (generated, gitignored)
-├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve)
+├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-links)
 ├── tests/
 │   ├── filter/                   # Filter system tests (9 spec files)
 │   ├── modal/                    # Modal tests (6 spec files)
