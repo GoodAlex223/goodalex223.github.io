@@ -52,27 +52,23 @@ test.describe("Form Accessibility", () => {
     await expect(honeypotContainer).toHaveAttribute("tabindex", "-1");
   });
 
-  test("focus moves to first invalid field on submit", async ({ page }) => {
+  test("focus moves to first invalid field on submit", async () => {
     await fp.clickSubmit();
-    const focusedId = await page.evaluate(() => document.activeElement.id);
-    expect(focusedId).toBe("contact-name");
+    await expect(fp.nameField).toBeFocused();
   });
 
-  test("focus moves to second field when first is valid", async ({ page }) => {
+  test("focus moves to second field when first is valid", async () => {
     await fp.fillName("Valid Name");
     await fp.clickSubmit();
-    const focusedId = await page.evaluate(() => document.activeElement.id);
-    expect(focusedId).toBe("contact-email");
+    await expect(fp.emailField).toBeFocused();
   });
 
-  test("form is keyboard navigable with Tab", async ({ page }) => {
+  test("form is keyboard navigable with Tab", async () => {
     await fp.nameField.focus();
-    await page.keyboard.press("Tab");
-    const secondFocused = await page.evaluate(() => document.activeElement.id);
-    expect(secondFocused).toBe("contact-email");
+    await fp.page.keyboard.press("Tab");
+    await expect(fp.emailField).toBeFocused();
 
-    await page.keyboard.press("Tab");
-    const thirdFocused = await page.evaluate(() => document.activeElement.id);
-    expect(thirdFocused).toBe("contact-message");
+    await fp.page.keyboard.press("Tab");
+    await expect(fp.messageField).toBeFocused();
   });
 });

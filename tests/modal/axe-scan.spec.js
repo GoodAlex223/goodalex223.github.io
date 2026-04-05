@@ -62,11 +62,9 @@ test.describe("Modal Accessibility Scanning (Axe-Core)", () => {
   // Verify modal remains accessible with prefers-reduced-motion enabled.
 
   test.describe("Reduced motion", () => {
-    test.beforeEach(async ({ page }) => {
-      mp = new ModalPage(page);
+    test.beforeEach(async () => {
       await mp.enableReducedMotion();
       await mp.goto();
-      await mp.waitForScrollAnimations();
     });
 
     for (const projectId of PROJECTS_WITH_DETAILS) {

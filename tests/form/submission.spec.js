@@ -66,7 +66,7 @@ test.describe("Form Submission", () => {
     await fp.clickSubmit();
 
     await fp.expectSuccess();
-    test.expect(requestMade).toBe(false);
+    expect(requestMade).toBe(false);
   });
 
   test("Send another message resets to form", async () => {
@@ -115,7 +115,7 @@ test.describe("Form Submission", () => {
     });
 
     await fp.clickSubmit();
-    test.expect(requestMade).toBe(false);
+    expect(requestMade).toBe(false);
     await fp.expectFormVisible();
   });
 });

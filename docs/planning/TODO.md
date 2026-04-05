@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-04-03 (Code Quality & Lint Fixes completed)
+**Last Updated**: 2026-04-05 (Test Quality Improvements completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **Test Quality Improvements**: web-first assertions, reduced-motion efficiency, missing screenshot assertion → moved to [DONE.md](DONE.md)
 - **Code Quality & Lint Fixes**: lint-staged glob fix + backlog cleanup → moved to [DONE.md](DONE.md)
 - **Archive Cleanup**: Documentation Debt & Archive Cleanup → moved to [DONE.md](DONE.md)
 - **CONTENT-004**: Update Project Information → moved to [DONE.md](DONE.md)
