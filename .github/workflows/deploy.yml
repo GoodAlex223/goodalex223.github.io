@@ -72,6 +72,21 @@ jobs:
             dist/
           retention-days: 1
 
+  check-links:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check external links
+        run: npm run check-links
+
   test:
     runs-on: ubuntu-latest
     needs: build
@@ -147,7 +162,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [build, test, lighthouse]
+    needs: [build, test, lighthouse, check-links]
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
