@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-04-05 (Test Quality Improvements completed)
+**Last Updated**: 2026-04-05 (Automated Link Checking challenge completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **Automated Link Checking**: CI link checker script with HEAD/GET fallback, retry, User-Agent, LinkedIn skip-list → moved to [DONE.md](DONE.md)
 - **Test Quality Improvements**: web-first assertions, reduced-motion efficiency, missing screenshot assertion → moved to [DONE.md](DONE.md)
 - **Code Quality & Lint Fixes**: lint-staged glob fix + backlog cleanup → moved to [DONE.md](DONE.md)
 - **Archive Cleanup**: Documentation Debt & Archive Cleanup → moved to [DONE.md](DONE.md)
@@ -60,6 +61,8 @@ _None currently_
 ---
 
 ## Weekly Challenge
+
+### ~~Automated Link Checking in CI~~ (Completed 2026-04-05) → moved to [DONE.md](DONE.md)
 
 ### ~~CHALLENGE-003: Contact Form~~ (Completed 2026-03-21) → moved to [DONE.md](DONE.md)
 

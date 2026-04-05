@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-05 (Test Quality Improvements Code Review)
+**Last Updated**: 2026-04-05 (Automated Link Checking challenge)
 
 Future ideas and improvements for the portfolio.
 
@@ -718,7 +718,7 @@ _Extracted from implementation plan:_
 ## From CONTENT-002: Portfolio Requirements (2026-03-22)
 **Origin**: docs/archive/plans/2026-03-22_content-002-portfolio-requirements.md
 
-- [ ] Automated link checking in CI — verify all project GitHub/demo/simulation URLs are live on each deploy
+- [x] ~~Automated link checking in CI~~ *(completed 2026-04-05, challenge/automated-link-checking)*
 - [ ] Portfolio requirements linter — script that validates `data-updated` dates against git history
 
 ---
@@ -800,6 +800,12 @@ _Extracted from implementation plan:_
 **Origin**: Code review of PR #58
 
 - No issues found during code review
+
+## From Automated Link Checking Challenge (2026-04-05)
+**Origin**: docs/superpowers/specs/2026-04-05-automated-link-checking-design.md
+
+- [ ] Add internal asset link checking — verify local resources (images, fonts) referenced in HTML exist on disk. Currently only external URLs are checked; broken local image paths would only surface as visual regressions
+- [ ] Replace `checkBatch` callback parameter with direct `checkUrl` call — `checkBatch(urls, checkFn)` accepts a callback but only ever receives `checkUrl`. Remove the indirection unless unit testing is planned
 
 ---
 
