@@ -807,6 +807,12 @@ _Extracted from implementation plan:_
 - [ ] Add internal asset link checking — verify local resources (images, fonts) referenced in HTML exist on disk. Currently only external URLs are checked; broken local image paths would only surface as visual regressions
 - [ ] Replace `checkBatch` callback parameter with direct `checkUrl` call — `checkBatch(urls, checkFn)` accepts a callback but only ever receives `checkUrl`. Remove the indirection unless unit testing is planned
 
+### From Automated Link Checking Code Review (2026-04-07)
+**Origin**: Code review of PR #59
+
+- [ ] Add `cache: 'npm'` to `check-links` CI job's `setup-node` step — all other jobs include it for faster dependency caching; `check-links` is the only job that omits it
+- [ ] Add file-level JSDoc comment to `scripts/check-links.js` — all other scripts in `scripts/` follow the convention of a JSDoc header describing purpose and behavior
+
 ---
 
 ## Notes
