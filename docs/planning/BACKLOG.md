@@ -802,7 +802,7 @@ _Extracted from implementation plan:_
 - No issues found during code review
 
 ## From Automated Link Checking Challenge (2026-04-05)
-**Origin**: docs/superpowers/specs/2026-04-05-automated-link-checking-design.md
+**Origin**: docs/archive/plans/2026-04-05_automated-link-checking.md
 
 - [ ] Add internal asset link checking — verify local resources (images, fonts) referenced in HTML exist on disk. Currently only external URLs are checked; broken local image paths would only surface as visual regressions
 - [ ] Replace `checkBatch` callback parameter with direct `checkUrl` call — `checkBatch(urls, checkFn)` accepts a callback but only ever receives `checkUrl`. Remove the indirection unless unit testing is planned

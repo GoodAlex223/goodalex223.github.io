@@ -175,7 +175,7 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 
 ### Link Checker (`scripts/check-links.js`)
 - Extracts external URLs from `index.html` (`href="https://..."`) and `data/projects.json` (`links{}` values), deduplicates, checks concurrently (5 at a time)
-- **HEAD→GET fallback**: tries HEAD first; falls back to GET if HEAD returns 405 or network error
+- **HEAD→GET fallback**: tries HEAD first; falls back to GET on any non-OK HEAD response (many servers mishandle HEAD — e.g., Wokwi returns 404 for HEAD but 200 for GET)
 - **Retry logic**: 3 attempts with 2s delay between retries before marking a URL as broken
 - **LinkedIn skip-list**: LinkedIn returns HTTP 999 for all bots regardless of URL validity — these URLs are skipped with a warning, not treated as failures
 - **User-Agent header**: required for Wokwi (blocks bare `fetch()` requests)

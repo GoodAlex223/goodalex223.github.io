@@ -91,6 +91,7 @@ async function checkUrl(url) {
 }
 
 async function checkUrlWithRetry(url, method) {
+  let lastStatus = 'network error';
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
       const response = await fetch(url, {
@@ -102,6 +103,7 @@ async function checkUrlWithRetry(url, method) {
       if (response.ok) {
         return { url, ok: true, status: response.status };
       }
+      lastStatus = response.status;
       // 4xx — no point retrying
       if (response.status >= 400 && response.status < 500) {
         return { url, ok: false, status: response.status };
@@ -112,12 +114,13 @@ async function checkUrlWithRetry(url, method) {
       }
     } catch {
       // Network error — retry after delay
+      lastStatus = 'network error';
       if (attempt < MAX_RETRIES) {
         await delay(RETRY_DELAY_MS);
       }
     }
   }
-  return { url, ok: false, status: 'network error' };
+  return { url, ok: false, status: lastStatus };
 }
 
 async function checkBatch(urls, checkFn) {
