@@ -44,7 +44,7 @@
 
 ### Friday — Weekly Challenge (5 pts)
 
-- [ ] 🏆 **Automated link checking in CI** — Script or CI step that verifies all project GitHub/demo/simulation URLs return HTTP 200 on each deploy *(CHALLENGE, 5 pts)*
+- [x] 🏆 ~~**Automated link checking in CI** — Script or CI step that verifies all project GitHub/demo/simulation URLs return HTTP 200 on each deploy~~ *(CHALLENGE, 5 pts)*
 
 **Why this challenge**: After CONTENT-002/003/004 added and updated many project links across 8 cards, there's no automated guard against link rot. This is a technical deep-dive that adds lasting CI value and directly protects recent content work.
 
@@ -64,10 +64,10 @@
 | Fix lint-staged ESLint ignores | IMPORTANT | Wed | 3 | Done |
 | Fix CLAUDE.md duplicate lint docs | IMPORTANT | Wed | 2 | Done |
 | Update "Adding New Projects" template | NICE TO HAVE | Wed | 1 | Done |
-| Web-first assertions in form tests | IMPORTANT | Thu | 3 | Planned |
-| Reduced motion test efficiency | NICE TO HAVE | Thu | 2 | Planned |
-| Add rule-indicators screenshot assertion | NICE TO HAVE | Thu | 1 | Planned |
-| 🏆 Automated link checking in CI | CHALLENGE | Fri | 5 | Planned |
+| Web-first assertions in form tests | IMPORTANT | Thu | 3 | Done |
+| Reduced motion test efficiency | NICE TO HAVE | Thu | 2 | Done |
+| Add rule-indicators screenshot assertion | NICE TO HAVE | Thu | 1 | Done |
+| 🏆 Automated link checking in CI | CHALLENGE | Fri | 5 | Done |
 | **Total** | | | **30** | |
 
 ---

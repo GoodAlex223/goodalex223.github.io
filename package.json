@@ -18,6 +18,7 @@
     "lint:js:fix": "eslint \"js/**/*.js\" \"scripts/**/*.js\" \"tests/**/*.js\" --fix",
     "lint": "npm run lint:css && npm run lint:js",
     "lighthouse": "lhci autorun",
+    "check-links": "node scripts/check-links.js",
     "prepare": "husky"
   },
   "lint-staged": {
