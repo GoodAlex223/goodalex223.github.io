@@ -137,6 +137,7 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 ### Focus Accessibility
 - Permanent transparent outline in base rule; `:focus-visible` changes only `outline-color` — applies to `a`/`button` (`reset.css`) and `.contact-form__input` (`form.css`)
 - **Gotcha**: Components with own `transition` declarations must include `outline-color` explicitly — CSS `transition` property replaces, not merges
+- **Gotcha**: Components with own `transition` declarations must also include `color` if they display text — omitting it causes text to snap on theme switch while borders/background animate (`.contact-form__input` and `.btn` both include `color` in their component-level transitions)
 - `.btn` excluded from `main.css` theme transition group (component-level transition takes precedence)
 - High-contrast focus outline (`--focus-outline-color-high-contrast`) on colored backgrounds (primary buttons, active filter buttons)
 
