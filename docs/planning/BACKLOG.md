@@ -701,9 +701,9 @@ _Extracted from implementation plan:_
 ## From Contact Form A11Y Hardening Code Review (2026-04-03)
 **Origin**: Code review of PR #56
 
-- [ ] Add `aria-hidden="true"` to decorative SVGs in `showFormStatus()` — every other inline SVG in the codebase includes it; the status icon SVGs omit it (score 50, not blocking but inconsistent)
-- [ ] Add `color` to `.contact-form__input` component-level transition — removing input from theme transition group dropped the `color` animation; text snaps on theme switch while background/border animate smoothly (`.btn` precedent includes `color` in its own transition)
-- [ ] Complete `test.expect()` → `expect()` migration in `tests/form/submission.spec.js` — lines 69 and 118 still use `test.expect(requestMade).toBe(false)` while rest of file uses imported `expect`
+- [x] ~~Add `aria-hidden="true"` to decorative SVGs in `showFormStatus()`~~ *(completed 2026-04-08, polish/form-a11y-polish)*
+- [x] ~~Add `color` to `.contact-form__input` component-level transition~~ *(completed 2026-04-08, polish/form-a11y-polish)*
+- [x] ~~Complete `test.expect()` → `expect()` migration in `tests/form/submission.spec.js`~~ *(already completed in prior commit 0f751f2)*
 
 ---
 
