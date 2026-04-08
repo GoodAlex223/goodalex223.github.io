@@ -49,10 +49,10 @@
 
 ### Monday — Form Polish & CI Cleanup (8 SP)
 
-**Form & A11Y Polish** `[batch]` — 4 SP
-- [ ] Add `aria-hidden="true"` to decorative SVGs in `showFormStatus()` *(1 SP)*
-- [ ] Add `color` to `.contact-form__input` component-level transition *(2 SP)*
-- [ ] Complete `test.expect()` → `expect()` migration in `submission.spec.js` *(1 SP)*
+**Form & A11Y Polish** `[batch]` — 4 SP ✅
+- [x] Add `aria-hidden="true"` to decorative SVGs in `showFormStatus()` *(1 SP)*
+- [x] Add `color` to `.contact-form__input` component-level transition *(2 SP)*
+- [x] Complete `test.expect()` → `expect()` migration in `submission.spec.js` *(1 SP — already done in prior commit)*
 
 **CI Hardening** `[batch]` — 4 SP
 - [ ] Add `cache: 'npm'` to `check-links` CI job's `setup-node` step *(1 SP)*
@@ -89,7 +89,7 @@
 
 | Group | Domain | Tasks | Total SP | Day | Status |
 |-------|--------|-------|----------|-----|--------|
-| Form & A11Y Polish `[batch]` | CSS/A11Y | 3 | 4 | Mon | Planned |
+| Form & A11Y Polish `[batch]` | CSS/A11Y | 3 | 4 | Mon | ✅ Done |
 | CI Hardening `[batch]` | CI/Build | 3 | 4 | Mon | Planned |
 | Firefox & Test Audit `[batch]` | Testing | 2 | 5 | Tue | Planned |
 | Test Robustness `[batch]` | Testing | 2 | 5 | Wed | Planned |

@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-05 (Automated Link Checking challenge)
+**Last Updated**: 2026-04-08 (Form & A11Y Polish)
 
 Future ideas and improvements for the portfolio.
 
@@ -812,6 +812,12 @@ _Extracted from implementation plan:_
 
 - [ ] Add `cache: 'npm'` to `check-links` CI job's `setup-node` step — all other jobs include it for faster dependency caching; `check-links` is the only job that omits it
 - [ ] Add file-level JSDoc comment to `scripts/check-links.js` — all other scripts in `scripts/` follow the convention of a JSDoc header describing purpose and behavior
+
+### From Form & A11Y Polish (2026-04-08)
+**Origin**: docs/archive/plans/2026-04-08-form-a11y-polish.md
+
+- [ ] Audit all dynamically-injected HTML for missing `aria-hidden` on decorative elements — the `showFormStatus()` SVGs were found missing during code review; other dynamic injection sites (modal, filter) should be proactively audited
+- [ ] Audit component-level transitions for missing `color` property — `.contact-form__input` omitted `color` causing text snap on theme switch; other components with their own `transition` declarations may have the same gap
 
 ---
 

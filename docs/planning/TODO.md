@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-04-05 (Automated Link Checking challenge completed)
+**Last Updated**: 2026-04-08 (Form & A11Y Polish completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **Form & A11Y Polish**: SVG aria-hidden fix, input color transition, backlog cleanup → moved to [DONE.md](DONE.md)
 - **Automated Link Checking**: CI link checker script with HEAD/GET fallback, retry, User-Agent, LinkedIn skip-list → moved to [DONE.md](DONE.md)
 - **Test Quality Improvements**: web-first assertions, reduced-motion efficiency, missing screenshot assertion → moved to [DONE.md](DONE.md)
 - **Code Quality & Lint Fixes**: lint-staged glob fix + backlog cleanup → moved to [DONE.md](DONE.md)
