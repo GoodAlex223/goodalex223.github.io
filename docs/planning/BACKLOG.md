@@ -819,6 +819,11 @@ _Extracted from implementation plan:_
 - [ ] Audit all dynamically-injected HTML for missing `aria-hidden` on decorative elements — the `showFormStatus()` SVGs were found missing during code review; other dynamic injection sites (modal, filter) should be proactively audited
 - [ ] Audit component-level transitions for missing `color` property — `.contact-form__input` omitted `color` causing text snap on theme switch; other components with their own `transition` declarations may have the same gap
 
+### From Form & A11Y Polish Code Review (2026-04-09)
+**Origin**: PR #60 code review
+
+- [ ] Add plan file naming validation to CI or pre-commit hook — the `YYYY-MM-DD_task-name.md` underscore convention has been violated in PRs #51, #54, #56, #57, #59, and #60 despite repeated code review flags; a script check would catch this automatically
+
 ---
 
 ## Notes

@@ -150,7 +150,6 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - **Submission state machine**: form visible → loading (submit disabled, spinner `.contact-form__submit-loading` shown) → form hidden, `#contact-form-status` shown. Success: "Send another message" (resets form, focuses `#contact-name`). Error: "Try again" (resets form). Focus moves to `.contact-form__status-action` automatically after submission
 - Status icons (success/error) are inline SVGs injected via `icon.innerHTML` in `showFormStatus()` — not Unicode characters. SVGs use `stroke="currentColor"` to inherit color from modifier classes and `aria-hidden="true"` to hide from screen readers (consistent with all other inline SVGs in the codebase)
 
-
 ### Testing
 - Playwright E2E with Page Object Models (`FilterPage.js`, `ModalPage.js`, `FormPage.js`)
 - Test server on port 4173 (`scripts/serve.js`), started automatically by Playwright `webServer` config
