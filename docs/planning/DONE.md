@@ -1,8 +1,23 @@
 # DONE
 
-**Last Updated**: 2026-04-08 (Form & A11Y Polish completed)
+**Last Updated**: 2026-04-09 (CI Hardening completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-04-09
+
+### CI Hardening
+
+**Plan**: [docs/archive/plans/2026-04-09_ci-hardening.md](../archive/plans/2026-04-09_ci-hardening.md)
+**Spec**: [docs/superpowers/specs/2026-04-09_ci-hardening-design.md](../../docs/superpowers/specs/2026-04-09_ci-hardening-design.md)
+**Summary**: Three independent CI/build improvements from PR #57 and #59 code reviews.
+**Key Changes**:
+- Added `cache: 'npm'` to `check-links` CI job's `setup-node` step for consistency with the other 4 jobs
+- Added `lighthouserc.js`, `playwright.config.js`, `postcss.config.js` to ESLint `ignores` array — eliminated 10 false-positive `no-undef` errors
+- Added file-level JSDoc comment to `scripts/check-links.js` matching the `serve.js` pattern
+**Resolved BACKLOG items**: 0 (task sourced from WEEKLY.md review findings)
 
 ---
 

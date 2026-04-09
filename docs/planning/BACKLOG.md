@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-08 (Form & A11Y Polish)
+**Last Updated**: 2026-04-09 (CI Hardening)
 
 Future ideas and improvements for the portfolio.
 
@@ -825,6 +825,11 @@ _Extracted from implementation plan:_
 - [ ] Add plan file naming validation to CI or pre-commit hook — the `YYYY-MM-DD_task-name.md` underscore convention has been violated in PRs #51, #54, #56, #57, #59, and #60 despite repeated code review flags; a script check would catch this automatically
 
 ---
+
+## From CI Hardening (2026-04-09)
+
+- [ ] **CI: Add `npm ci` to check-links job if external dependencies are added** — Currently the check-links script uses only Node built-ins, so `npm ci` is skipped. The `cache: 'npm'` was added for consistency. If the script ever gains external dependencies (e.g., a URL parsing library), add `npm ci` to the job.
+- [ ] **ESLint: Consider glob pattern for root config ignores** — Currently all 5 root config files are individually listed in the `ignores` array (`eslint.config.js`, `commitlint.config.js`, `lighthouserc.js`, `playwright.config.js`, `postcss.config.js`). A glob like `"*.config.js"` plus `"lighthouserc.js"` would be more maintainable if more root configs are added, but risks accidentally ignoring legitimate source files.
 
 ## Notes
 
