@@ -10,7 +10,7 @@ Completed tasks for the portfolio project.
 
 ### Form & A11Y Polish
 
-**Plan**: [docs/archive/plans/2026-04-08-form-a11y-polish.md](../archive/plans/2026-04-08-form-a11y-polish.md)
+**Plan**: [docs/archive/plans/2026-04-08_form-a11y-polish.md](../archive/plans/2026-04-08_form-a11y-polish.md)
 **Spec**: [docs/archive/specs/2026-04-08_form-a11y-polish-design.md](../archive/specs/2026-04-08_form-a11y-polish-design.md)
 **Summary**: Fixed three consistency gaps from PR #56 code review — SVG accessibility, input color transition, and backlog cleanup.
 **Key Changes**:
