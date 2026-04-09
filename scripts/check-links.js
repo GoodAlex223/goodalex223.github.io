@@ -1,3 +1,10 @@
+/**
+ * Validates external URLs from index.html and data/projects.json.
+ * HEAD-first with GET fallback, 3 retries on 5xx/network errors.
+ * LinkedIn domains are skipped (HTTP 999 for all bots).
+ * Exits non-zero on any broken link (CI gate).
+ */
+
 const fs = require('fs');
 const path = require('path');
 
