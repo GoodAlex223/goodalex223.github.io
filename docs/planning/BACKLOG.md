@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-05 (Automated Link Checking challenge)
+**Last Updated**: 2026-04-08 (Form & A11Y Polish)
 
 Future ideas and improvements for the portfolio.
 
@@ -701,9 +701,9 @@ _Extracted from implementation plan:_
 ## From Contact Form A11Y Hardening Code Review (2026-04-03)
 **Origin**: Code review of PR #56
 
-- [ ] Add `aria-hidden="true"` to decorative SVGs in `showFormStatus()` — every other inline SVG in the codebase includes it; the status icon SVGs omit it (score 50, not blocking but inconsistent)
-- [ ] Add `color` to `.contact-form__input` component-level transition — removing input from theme transition group dropped the `color` animation; text snaps on theme switch while background/border animate smoothly (`.btn` precedent includes `color` in its own transition)
-- [ ] Complete `test.expect()` → `expect()` migration in `tests/form/submission.spec.js` — lines 69 and 118 still use `test.expect(requestMade).toBe(false)` while rest of file uses imported `expect`
+- [x] ~~Add `aria-hidden="true"` to decorative SVGs in `showFormStatus()`~~ *(completed 2026-04-08, polish/form-a11y-polish)*
+- [x] ~~Add `color` to `.contact-form__input` component-level transition~~ *(completed 2026-04-08, polish/form-a11y-polish)*
+- [x] ~~Complete `test.expect()` → `expect()` migration in `tests/form/submission.spec.js`~~ *(already completed in prior commit 0f751f2)*
 
 ---
 
@@ -812,6 +812,12 @@ _Extracted from implementation plan:_
 
 - [ ] Add `cache: 'npm'` to `check-links` CI job's `setup-node` step — all other jobs include it for faster dependency caching; `check-links` is the only job that omits it
 - [ ] Add file-level JSDoc comment to `scripts/check-links.js` — all other scripts in `scripts/` follow the convention of a JSDoc header describing purpose and behavior
+
+### From Form & A11Y Polish (2026-04-08)
+**Origin**: docs/archive/plans/2026-04-08_form-a11y-polish.md
+
+- [ ] Audit all dynamically-injected HTML for missing `aria-hidden` on decorative elements — the `showFormStatus()` SVGs were found missing during code review; other dynamic injection sites (modal, filter) should be proactively audited
+- [ ] Audit component-level transitions for missing `color` property — `.contact-form__input` omitted `color` causing text snap on theme switch; other components with their own `transition` declarations may have the same gap
 
 ---
 
