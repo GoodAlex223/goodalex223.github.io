@@ -36,19 +36,6 @@ export async function getStaggerDelay(page) {
   );
 }
 
-/**
- * Wait for the full filter animation cycle to complete.
- * exit (duration) + entrance (duration) + max stagger (7 cards * delay) + buffer
- * @param {import('@playwright/test').Page} page
- */
-export async function waitForFilterAnimation(page) {
-  const duration = await getAnimationDuration(page);
-  const stagger = await getStaggerDelay(page);
-  const maxCards = 7;
-  const buffer = 300;
-  const totalTime = duration * 2 + stagger * maxCards + buffer;
-  await page.waitForTimeout(totalTime);
-}
 
 /**
  * Wait for the filter animation cycle to complete by polling DOM state.
