@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-10 (CI Hardening Code Review)
+**Last Updated**: 2026-04-10 (Firefox & Test Audit)
 
 Future ideas and improvements for the portfolio.
 
@@ -835,6 +835,12 @@ _Extracted from implementation plan:_
 
 - [ ] **Cleanup: Remove duplicate plan from `docs/superpowers/plans/`** — After archiving to `docs/archive/plans/`, the working copy at `docs/superpowers/plans/2026-04-09_ci-hardening.md` was not removed. CLAUDE.md specifies plans archive to `docs/archive/plans/` as the single source of truth. Check if prior tasks also left duplicates in `docs/superpowers/plans/`.
 - [ ] **CI: Remove `cache: 'npm'` from check-links job until `npm ci` is needed** — The cache adds overhead (key computation, lookup) with zero benefit since there's no `npm ci` step. Re-add when external dependencies are introduced. (Overlaps with existing backlog item above but recommends removal rather than future addition.)
+
+## From Firefox & Test Audit (2026-04-10)
+**Origin**: docs/superpowers/plans/2026-04-10_firefox-test-audit.md
+
+- [ ] Remove unused `getAnimationDuration()` and `getStaggerDelay()` from `tests/utils/timing.js` — these were only used by the now-removed `waitForFilterAnimation()`. No callers remain. Keep only if future tests need to read CSS custom property timing values
+- [ ] Harden `filterProjects()` animation interruption — the `toPass()` retry wrapper in `rapid-clicks.spec.js:22` masks a genuine app-level race: when a second filter click fires during exit animation, overlapping `setTimeout` cleanup callbacks can briefly produce wrong visible card counts on Firefox. Consider cancelling all pending animation timeouts at the top of `filterProjects()` before starting new animation
 
 ## Notes
 

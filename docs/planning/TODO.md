@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-04-09 (CI Hardening completed)
+**Last Updated**: 2026-04-10 (Firefox & Test Audit completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **Firefox & Test Audit**: DOM polling filter waits, Firefox flaky test fix, hardcoded counts audit → moved to [DONE.md](DONE.md)
 - **CI Hardening**: npm cache consistency, ESLint root config ignores, check-links JSDoc → moved to [DONE.md](DONE.md)
 - **Form & A11Y Polish**: SVG aria-hidden fix, input color transition, backlog cleanup → moved to [DONE.md](DONE.md)
 - **Automated Link Checking**: CI link checker script with HEAD/GET fallback, retry, User-Agent, LinkedIn skip-list → moved to [DONE.md](DONE.md)
