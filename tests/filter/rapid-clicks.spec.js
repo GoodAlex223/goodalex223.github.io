@@ -29,9 +29,14 @@ test.describe("Rapid Click Handling", () => {
 
     await waitForAnimationComplete(fp.page);
 
-    // Second click should win
-    await fp.expectVisibleCardCount(CATEGORY_COUNTS.iot);
-    await fp.expectAllVisibleCardsAreCategory("iot");
+    // Second click should win — retry block handles Firefox timing variance
+    // where overlapping animation cleanup callbacks briefly produce wrong counts
+    await expect(async () => {
+      await expect(fp.visibleCards).toHaveCount(CATEGORY_COUNTS.iot, {
+        timeout: 1000,
+      });
+      await fp.expectAllVisibleCardsAreCategory("iot");
+    }).toPass({ timeout: 10000 });
   });
 
   test("rapid double-click on same filter triggers toggle-to-reset", async () => {

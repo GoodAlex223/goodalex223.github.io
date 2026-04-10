@@ -41,10 +41,19 @@ export async function getStaggerDelay(page) {
  * Wait for the filter animation cycle to complete by polling DOM state.
  * Replaces fixed-timeout waitForFilterAnimation() — immune to browser
  * timing variance (Firefox flaky test fix).
+ *
+ * Uses a brief initial delay to ensure the click handler's setTimeout
+ * callbacks have fired and animation classes are present in the DOM
+ * before polling for their removal.
+ *
  * @param {import('@playwright/test').Page} page
  * @param {{ timeout?: number }} [options]
  */
 export async function waitForAnimationComplete(page, { timeout = 5000 } = {}) {
+  // Allow the click handler's setTimeout callbacks to fire (animation classes
+  // are added asynchronously via staggered setTimeout in filterProjects())
+  await page.waitForTimeout(50);
+
   await expect(page.locator(".project-card--filtering-out")).toHaveCount(0, {
     timeout,
   });
