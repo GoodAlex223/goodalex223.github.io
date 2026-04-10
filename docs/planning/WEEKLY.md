@@ -54,10 +54,10 @@
 - [x] Add `color` to `.contact-form__input` component-level transition *(2 SP)*
 - [x] Complete `test.expect()` → `expect()` migration in `submission.spec.js` *(1 SP — already done in prior commit)*
 
-**CI Hardening** `[batch]` — 4 SP
-- [ ] Add `cache: 'npm'` to `check-links` CI job's `setup-node` step *(1 SP)*
-- [ ] Add remaining root config files to ESLint `ignores` array *(2 SP)*
-- [ ] Add file-level JSDoc comment to `scripts/check-links.js` *(1 SP)*
+**CI Hardening** `[batch]` — 4 SP ✅
+- [x] Add `cache: 'npm'` to `check-links` CI job's `setup-node` step *(1 SP)*
+- [x] Add remaining root config files to ESLint `ignores` array *(2 SP)*
+- [x] Add file-level JSDoc comment to `scripts/check-links.js` *(1 SP)*
 
 ### Tuesday — Test Stability (5 SP)
 
@@ -90,7 +90,7 @@
 | Group | Domain | Tasks | Total SP | Day | Status |
 |-------|--------|-------|----------|-----|--------|
 | Form & A11Y Polish `[batch]` | CSS/A11Y | 3 | 4 | Mon | ✅ Done |
-| CI Hardening `[batch]` | CI/Build | 3 | 4 | Mon | Planned |
+| CI Hardening `[batch]` | CI/Build | 3 | 4 | Mon | ✅ Done |
 | Firefox & Test Audit `[batch]` | Testing | 2 | 5 | Tue | Planned |
 | Test Robustness `[batch]` | Testing | 2 | 5 | Wed | Planned |
 | Code Quality `[batch]` | JS Logic | 3 | 5 | Thu | Planned |
