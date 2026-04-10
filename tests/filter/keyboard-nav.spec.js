@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
 import { FilterPage, CATEGORY_COUNTS } from "../pages/FilterPage.js";
-import { waitForFilterAnimation } from "../utils/timing.js";
+import { waitForAnimationComplete } from "../utils/timing.js";
 
 test.describe("Keyboard Navigation", () => {
   let fp;
@@ -60,7 +60,7 @@ test.describe("Keyboard Navigation", () => {
     await fp.focusButton("iot");
 
     await fp.pressKey("Escape");
-    await waitForFilterAnimation(page);
+    await waitForAnimationComplete(page);
 
     await fp.expectVisibleCardCount(CATEGORY_COUNTS.all);
     await fp.expectActiveFilter("all");
