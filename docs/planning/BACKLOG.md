@@ -693,7 +693,7 @@ _Extracted from implementation plan:_
 ## From Contact Form A11Y Hardening (2026-03-28)
 **Origin**: docs/archive/plans/2026-03-27_a11y-contact-form-hardening.md
 
-- [ ] Firefox rapid-click filter tests are flaky — `rapid-clicks.spec.js` passes inconsistently on Firefox due to animation timing sensitivity. Consider `toPass()` retry wrapper or increased timeouts for Firefox specifically
+- [x] ~~Firefox rapid-click filter tests are flaky~~ *(resolved 2026-04-10, replaced waitForFilterAnimation fixed timeout with waitForAnimationComplete DOM polling + toPass() retry for interruption test)*
 - [ ] Extend focus-visible pattern to other custom components — modal close button, filter buttons, and any future interactive components should be audited for the same base-transparent-outline + outline-color-only pattern
 
 ---
@@ -742,7 +742,7 @@ _Extracted from implementation plan:_
 ## From CONTENT-003: Add CleanSpark to Portfolio (2026-03-23)
 **Origin**: docs/archive/plans/2026-03-23_content-003-cleaning-site.md
 
-- [ ] Audit test files for hardcoded project counts — accessibility.spec.js had "7" instead of using `CATEGORY_COUNTS.all`; other tests may have similar fragile literals
+- [x] ~~Audit test files for hardcoded project counts~~ *(resolved 2026-04-10, audit confirmed: filter tests use CATEGORY_COUNTS throughout; modal basic-modal.spec.js has per-project content assertions that are intentionally specific, not global counts)*
 - [ ] Add a `scripts/convert-screenshot.js` utility for PNG→webp conversion with resize — currently ad-hoc via `sharp` install; would streamline future CONTENT tasks
 
 ### From CONTENT-003 Code Review (2026-03-24)
@@ -781,7 +781,7 @@ _Extracted from implementation plan:_
 ## From Code Quality & Lint Fixes (2026-04-03)
 **Origin**: docs/archive/plans/2026-04-03_code-quality-lint-fixes.md
 
-- [ ] Fix pre-existing flaky Firefox filter accessibility test — `tests/filter/accessibility.spec.js:28` (`aria-pressed updates when filter changes`) intermittently fails in Firefox only; likely a timing issue with filter button state updates
+- [x] ~~Fix pre-existing flaky Firefox filter accessibility test~~ *(resolved 2026-04-10, replaced waitForFilterAnimation fixed timeout with waitForAnimationComplete DOM polling)*
 - [ ] Add remaining root config files to ESLint `ignores` array — `postcss.config.js`, `playwright.config.js`, and `lighthouserc.js` are not in `eslint.config.js` ignores; while lint-staged is now scoped, direct `npx eslint .` would still try to lint them
 
 ### From Code Quality & Lint Fixes Code Review (2026-04-04)
