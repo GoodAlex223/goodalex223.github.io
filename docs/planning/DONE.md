@@ -1,8 +1,25 @@
 # DONE
 
-**Last Updated**: 2026-04-09 (CI Hardening completed)
+**Last Updated**: 2026-04-10 (Firefox & Test Audit completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-04-10
+
+### Firefox & Test Audit
+
+**Plan**: [docs/archive/plans/2026-04-10_firefox-test-audit-plan.md](../archive/plans/2026-04-10_firefox-test-audit-plan.md)
+**Spec**: [docs/archive/plans/2026-04-10_firefox-test-audit-spec.md](../archive/plans/2026-04-10_firefox-test-audit-spec.md)
+**Summary**: Eliminated Firefox flaky filter tests by replacing fixed-timeout waits with DOM state polling, audited test files for hardcoded project counts.
+**Key Changes**:
+- Added `waitForAnimationComplete()` — Playwright web-first assertions polling for animation class removal (replaces ~1210ms fixed timeout)
+- Migrated all 6 callers across 5 files (FilterPage POM + 4 spec files), removed deprecated `waitForFilterAnimation()`
+- Added 50ms initial delay to ensure click handler setTimeout callbacks fire before polling
+- Added `toPass()` retry wrapper for inherently racy "interrupting animation mid-exit" test
+- Audited hardcoded project counts: filter tests clean (CATEGORY_COUNTS), modal tests intentionally specific
+**Resolved BACKLOG items**: 3 (Firefox filter a11y flaky test, Firefox rapid-click flaky test, hardcoded project counts audit)
 
 ---
 

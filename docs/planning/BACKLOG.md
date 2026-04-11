@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-10 (CI Hardening Code Review)
+**Last Updated**: 2026-04-10 (Firefox & Test Audit)
 
 Future ideas and improvements for the portfolio.
 
@@ -693,7 +693,7 @@ _Extracted from implementation plan:_
 ## From Contact Form A11Y Hardening (2026-03-28)
 **Origin**: docs/archive/plans/2026-03-27_a11y-contact-form-hardening.md
 
-- [ ] Firefox rapid-click filter tests are flaky — `rapid-clicks.spec.js` passes inconsistently on Firefox due to animation timing sensitivity. Consider `toPass()` retry wrapper or increased timeouts for Firefox specifically
+- [x] ~~Firefox rapid-click filter tests are flaky~~ *(resolved 2026-04-10, replaced waitForFilterAnimation fixed timeout with waitForAnimationComplete DOM polling + toPass() retry for interruption test)*
 - [ ] Extend focus-visible pattern to other custom components — modal close button, filter buttons, and any future interactive components should be audited for the same base-transparent-outline + outline-color-only pattern
 
 ---
@@ -742,7 +742,7 @@ _Extracted from implementation plan:_
 ## From CONTENT-003: Add CleanSpark to Portfolio (2026-03-23)
 **Origin**: docs/archive/plans/2026-03-23_content-003-cleaning-site.md
 
-- [ ] Audit test files for hardcoded project counts — accessibility.spec.js had "7" instead of using `CATEGORY_COUNTS.all`; other tests may have similar fragile literals
+- [x] ~~Audit test files for hardcoded project counts~~ *(resolved 2026-04-10, audit confirmed: filter tests use CATEGORY_COUNTS throughout; modal basic-modal.spec.js has per-project content assertions that are intentionally specific, not global counts)*
 - [ ] Add a `scripts/convert-screenshot.js` utility for PNG→webp conversion with resize — currently ad-hoc via `sharp` install; would streamline future CONTENT tasks
 
 ### From CONTENT-003 Code Review (2026-03-24)
@@ -781,7 +781,7 @@ _Extracted from implementation plan:_
 ## From Code Quality & Lint Fixes (2026-04-03)
 **Origin**: docs/archive/plans/2026-04-03_code-quality-lint-fixes.md
 
-- [ ] Fix pre-existing flaky Firefox filter accessibility test — `tests/filter/accessibility.spec.js:28` (`aria-pressed updates when filter changes`) intermittently fails in Firefox only; likely a timing issue with filter button state updates
+- [x] ~~Fix pre-existing flaky Firefox filter accessibility test~~ *(resolved 2026-04-10, replaced waitForFilterAnimation fixed timeout with waitForAnimationComplete DOM polling)*
 - [ ] Add remaining root config files to ESLint `ignores` array — `postcss.config.js`, `playwright.config.js`, and `lighthouserc.js` are not in `eslint.config.js` ignores; while lint-staged is now scoped, direct `npx eslint .` would still try to lint them
 
 ### From Code Quality & Lint Fixes Code Review (2026-04-04)
@@ -835,6 +835,12 @@ _Extracted from implementation plan:_
 
 - [ ] **Cleanup: Remove duplicate plan from `docs/superpowers/plans/`** — After archiving to `docs/archive/plans/`, the working copy at `docs/superpowers/plans/2026-04-09_ci-hardening.md` was not removed. CLAUDE.md specifies plans archive to `docs/archive/plans/` as the single source of truth. Check if prior tasks also left duplicates in `docs/superpowers/plans/`.
 - [ ] **CI: Remove `cache: 'npm'` from check-links job until `npm ci` is needed** — The cache adds overhead (key computation, lookup) with zero benefit since there's no `npm ci` step. Re-add when external dependencies are introduced. (Overlaps with existing backlog item above but recommends removal rather than future addition.)
+
+## From Firefox & Test Audit (2026-04-10)
+**Origin**: docs/superpowers/plans/2026-04-10_firefox-test-audit.md
+
+- [ ] Remove unused `getAnimationDuration()` and `getStaggerDelay()` from `tests/utils/timing.js` — these were only used by the now-removed `waitForFilterAnimation()`. No callers remain. Keep only if future tests need to read CSS custom property timing values
+- [ ] Harden `filterProjects()` animation interruption — the `toPass()` retry wrapper in `rapid-clicks.spec.js:22` masks a genuine app-level race: when a second filter click fires during exit animation, overlapping `setTimeout` cleanup callbacks can briefly produce wrong visible card counts on Firefox. Consider cancelling all pending animation timeouts at the top of `filterProjects()` before starting new animation
 
 ## Notes
 

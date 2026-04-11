@@ -3,7 +3,7 @@
  * Encapsulates all filter-related locators and actions.
  */
 import { expect } from "@playwright/test";
-import { waitForFilterAnimation } from "../utils/timing.js";
+import { waitForAnimationComplete } from "../utils/timing.js";
 
 /** Category → expected card count (source of truth for assertions) */
 export const CATEGORY_COUNTS = {
@@ -58,7 +58,7 @@ export class FilterPage {
 
   async gotoWithHash(category) {
     await this.page.goto(`/#filter=${category}`);
-    await waitForFilterAnimation(this.page);
+    await waitForAnimationComplete(this.page);
   }
 
   // ── Filter actions ──────────────────────────────────────
@@ -66,7 +66,7 @@ export class FilterPage {
   /** Click a filter button by category and wait for animation to finish */
   async clickFilter(category) {
     await this.button(category).click();
-    await waitForFilterAnimation(this.page);
+    await waitForAnimationComplete(this.page);
   }
 
   /** Click a filter button WITHOUT waiting (for testing mid-animation state) */
@@ -79,7 +79,7 @@ export class FilterPage {
     for (const cat of categories) {
       await this.button(cat).click();
     }
-    await waitForFilterAnimation(this.page);
+    await waitForAnimationComplete(this.page);
   }
 
   // ── Button locators ─────────────────────────────────────

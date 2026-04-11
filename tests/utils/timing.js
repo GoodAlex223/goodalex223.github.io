@@ -2,6 +2,7 @@
  * Animation timing utilities for Playwright tests.
  * Reads durations from CSS custom properties (single source of truth).
  */
+import { expect } from "@playwright/test";
 
 /**
  * Get filter animation duration from CSS custom property
@@ -35,16 +36,31 @@ export async function getStaggerDelay(page) {
   );
 }
 
+
 /**
- * Wait for the full filter animation cycle to complete.
- * exit (duration) + entrance (duration) + max stagger (7 cards * delay) + buffer
+ * Wait for the filter animation cycle to complete by polling DOM state.
+ * Replaces fixed-timeout waitForFilterAnimation() — immune to browser
+ * timing variance (Firefox flaky test fix).
+ *
+ * Uses a brief initial delay to ensure the click handler's setTimeout
+ * callbacks have fired and animation classes are present in the DOM
+ * before polling for their removal.
+ *
  * @param {import('@playwright/test').Page} page
+ * @param {{ timeout?: number }} [options]
  */
-export async function waitForFilterAnimation(page) {
-  const duration = await getAnimationDuration(page);
-  const stagger = await getStaggerDelay(page);
-  const maxCards = 7;
-  const buffer = 300;
-  const totalTime = duration * 2 + stagger * maxCards + buffer;
-  await page.waitForTimeout(totalTime);
+export async function waitForAnimationComplete(page, { timeout = 5000 } = {}) {
+  // Allow the click handler's setTimeout callbacks to fire (animation classes
+  // are added asynchronously via staggered setTimeout in filterProjects())
+  await page.waitForTimeout(50);
+
+  await expect(page.locator(".project-card--filtering-out")).toHaveCount(0, {
+    timeout,
+  });
+  await expect(page.locator(".project-card--filtering-in")).toHaveCount(0, {
+    timeout,
+  });
+  await expect(page.locator(".project-card.is-filtering")).toHaveCount(0, {
+    timeout,
+  });
 }

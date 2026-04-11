@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { FilterPage, CATEGORY_COUNTS } from "../pages/FilterPage.js";
-import { waitForFilterAnimation } from "../utils/timing.js";
+import { waitForAnimationComplete } from "../utils/timing.js";
 
 test.describe("Rapid Click Handling", () => {
   let fp;
@@ -27,11 +27,16 @@ test.describe("Rapid Click Handling", () => {
     // Interrupt with a different filter
     await fp.clickFilterNoWait("iot");
 
-    await waitForFilterAnimation(fp.page);
+    await waitForAnimationComplete(fp.page);
 
-    // Second click should win
-    await fp.expectVisibleCardCount(CATEGORY_COUNTS.iot);
-    await fp.expectAllVisibleCardsAreCategory("iot");
+    // Second click should win — retry block handles Firefox timing variance
+    // where overlapping animation cleanup callbacks briefly produce wrong counts
+    await expect(async () => {
+      await expect(fp.visibleCards).toHaveCount(CATEGORY_COUNTS.iot, {
+        timeout: 1000,
+      });
+      await fp.expectAllVisibleCardsAreCategory("iot");
+    }).toPass({ timeout: 10000 });
   });
 
   test("rapid double-click on same filter triggers toggle-to-reset", async () => {
@@ -39,7 +44,7 @@ test.describe("Rapid Click Handling", () => {
     // With eager currentFilter update, this is deterministic: always resets to "all"
     await fp.clickFilterNoWait("iot");
     await fp.button("iot").click();
-    await waitForFilterAnimation(fp.page);
+    await waitForAnimationComplete(fp.page);
 
     await fp.expectNoAnimationClasses();
     await fp.expectVisibleCardCount(CATEGORY_COUNTS.all);

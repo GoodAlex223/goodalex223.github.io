@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
 import { FilterPage } from "../pages/FilterPage.js";
 import { checkAccessibility } from "../utils/axe-helper.js";
-import { waitForFilterAnimation } from "../utils/timing.js";
+import { waitForAnimationComplete } from "../utils/timing.js";
 
 test.describe("Accessibility Scanning (Axe-Core)", () => {
   let fp;
@@ -53,7 +53,7 @@ test.describe("Accessibility Scanning (Axe-Core)", () => {
     await fp.focusButton("all");
     await fp.pressKey("ArrowRight");
     await fp.pressKey("Enter");
-    await waitForFilterAnimation(page);
+    await waitForAnimationComplete(page);
     await fp.waitForScrollAnimations();
     await checkAccessibility(page);
   });

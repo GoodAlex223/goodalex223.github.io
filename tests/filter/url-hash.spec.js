@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
 import { FilterPage, CATEGORY_COUNTS } from "../pages/FilterPage.js";
-import { waitForFilterAnimation } from "../utils/timing.js";
+import { waitForAnimationComplete } from "../utils/timing.js";
 
 test.describe("URL Hash Integration", () => {
   let fp;
@@ -46,7 +46,7 @@ test.describe("URL Hash Integration", () => {
     await fp.clickFilter("web");
 
     await page.goBack();
-    await waitForFilterAnimation(page);
+    await waitForAnimationComplete(page);
 
     await fp.expectVisibleCardCount(CATEGORY_COUNTS.iot);
     await fp.expectActiveFilter("iot");
@@ -59,10 +59,10 @@ test.describe("URL Hash Integration", () => {
     await fp.clickFilter("web");
 
     await page.goBack();
-    await waitForFilterAnimation(page);
+    await waitForAnimationComplete(page);
 
     await page.goForward();
-    await waitForFilterAnimation(page);
+    await waitForAnimationComplete(page);
 
     await fp.expectVisibleCardCount(CATEGORY_COUNTS.web);
     await fp.expectActiveFilter("web");

@@ -100,6 +100,7 @@ Config in `.mcp.json` (gitignored). Template: `.mcp.json.example`.
 
 ### JS
 - **Linting** (`eslint.config.js`): 3 environments — browser `js/` (`no-console: "error"`), Node CJS `scripts/`, Playwright ESM `tests/` (`prefer-web-first-assertions`, disabled for SEO tests)
+- **Ignores**: `dist/**`, `node_modules/**`, `eslint.config.js`, `commitlint.config.js`, `lighthouserc.js`, `playwright.config.js`, `postcss.config.js` — root config files outside the 3 environments are excluded to prevent false-positive `no-undef` errors
 - **Auto-fix**: lint-staged runs ESLint fix on commit via husky pre-commit hook; scoped to `{js,scripts,tests}/**/*.js` (root config files are excluded)
 
 ### Commits
@@ -155,6 +156,8 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - Test server on port 4173 (`scripts/serve.js`), started automatically by Playwright `webServer` config
 - `axe-core` WCAG 2.1 AA scanning in `axe-scan.spec.js` suites — tests light, dark, and reduced-motion explicitly. Modal suite scopes scans to `#project-modal` (`MODAL_SCOPE`) to avoid false positives from semi-transparent backdrop altering perceived contrast of background cards
 - `waitForScrollAnimations()` (700ms) before axe scans prevents false color-contrast failures from opacity transitions
+- **Filter animation wait**: use `waitForAnimationComplete(page)` from `tests/utils/timing.js` — polls DOM for absence of `.project-card--filtering-out`, `.project-card--filtering-in`, `.project-card.is-filtering` classes (default 5s timeout). Uses 50ms initial delay to let click handler setTimeout callbacks fire before polling. Immune to browser timing variance, eliminates Firefox flaky failures. Do NOT use fixed timeouts for filter animations. Filter axe-scan keyboard nav test uses `waitForAnimationComplete(page)` then `fp.waitForScrollAnimations()` (animation completes first, then scroll animations settle)
+- **Rapid-click filter testing**: `fp.clickFilterNoWait(category)` clicks without waiting (used to test mid-animation state); `fp.rapidClickFilters(categories[])` clicks sequentially then waits once. Mid-animation interruption test (`rapid-clicks.spec.js`) wraps assertions in `expect(async () => {...}).toPass({ timeout: 10000 })` to handle Firefox timing variance where overlapping animation cleanup callbacks briefly produce wrong counts
 - **Reduced-motion axe pattern**: outer `beforeEach` runs first (creates POM, `goto()`, `waitForScrollAnimations()`); inner reduced-motion `beforeEach` calls `enableReducedMotion()` then `goto()` to reload with the media query active — no re-creation of POM or second `waitForScrollAnimations()` needed
 - After changing `tech[]` in `projects.json`, run tests — `techPillsCount` assertions in `modal/basic-modal.spec.js` may need updating
 - **FormPage POM** (`tests/pages/FormPage.js`): use `mockFormspreeSuccess()`, `mockFormspreeError(statusCode)`, `mockFormspreeNetworkError()` to intercept Formspree requests in form tests. `goto()` waits for filter button counts to confirm JS is initialized (cross-component dependency)
