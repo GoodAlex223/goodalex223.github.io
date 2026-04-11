@@ -837,10 +837,15 @@ _Extracted from implementation plan:_
 - [ ] **CI: Remove `cache: 'npm'` from check-links job until `npm ci` is needed** — The cache adds overhead (key computation, lookup) with zero benefit since there's no `npm ci` step. Re-add when external dependencies are introduced. (Overlaps with existing backlog item above but recommends removal rather than future addition.)
 
 ## From Firefox & Test Audit (2026-04-10)
-**Origin**: docs/superpowers/plans/2026-04-10_firefox-test-audit.md
+**Origin**: docs/archive/plans/2026-04-10_firefox-test-audit-plan.md
 
 - [ ] Remove unused `getAnimationDuration()` and `getStaggerDelay()` from `tests/utils/timing.js` — these were only used by the now-removed `waitForFilterAnimation()`. No callers remain. Keep only if future tests need to read CSS custom property timing values
 - [ ] Harden `filterProjects()` animation interruption — the `toPass()` retry wrapper in `rapid-clicks.spec.js:22` masks a genuine app-level race: when a second filter click fires during exit animation, overlapping `setTimeout` cleanup callbacks can briefly produce wrong visible card counts on Firefox. Consider cancelling all pending animation timeouts at the top of `filterProjects()` before starting new animation
+
+### From Firefox & Test Audit Code Review (2026-04-11)
+
+- [ ] **Cleanup: Remove duplicate plans/specs from `docs/superpowers/`** — `docs/superpowers/plans/2026-04-10_firefox-test-audit.md` and `docs/superpowers/specs/2026-04-10_firefox-test-audit-design.md` duplicate archived copies in `docs/archive/plans/`. Extends existing CI Hardening backlog item — batch-remove all `docs/superpowers/` duplicates in one pass
+- [ ] **Automate BACKLOG Origin path validation** — The BACKLOG Origin path pointing to `docs/superpowers/` instead of `docs/archive/` has recurred in PRs #51, #56, #57, #59, and now #62. Consider a CI check or pre-commit hook that validates Origin paths in BACKLOG.md point to `docs/archive/plans/`
 
 ## Notes
 
