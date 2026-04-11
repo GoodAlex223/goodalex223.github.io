@@ -28,7 +28,7 @@ test.describe("Modal Accessibility", () => {
 
   // Focus trap Tab behavior varies across browser engines;
   // WebKit and Firefox have platform-specific tab focus order quirks.
-  test("focus trap: Tab keeps focus within modal dialog", async ({ page, browserName }) => {
+  test("focus trap: Tab keeps focus within modal dialog", async ({ browserName }) => {
     test.skip(browserName !== "chromium", "Tab focus behavior varies across browsers");
 
     await mp.clickCard("rating-bot");
@@ -37,28 +37,21 @@ test.describe("Modal Accessibility", () => {
     await mp.expectFocusOnClose();
 
     // Tab through all focusable elements + 1 to test wrapping
-    const focusableCount = await page.evaluate(() => {
-      const dialog = document.querySelector(".project-modal__dialog");
-      const selector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
-      return dialog.querySelectorAll(selector).length;
-    });
+    const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const focusableCount = await mp.dialog.locator(focusableSelector).count();
 
     expect(focusableCount).toBeGreaterThan(1);
 
     // Tab through all elements and verify focus stays within dialog
     for (let i = 0; i < focusableCount + 1; i++) {
       await mp.pressTab();
-      const isInDialog = await page.evaluate(() => {
-        const dialog = document.querySelector(".project-modal__dialog");
-        return dialog && dialog.contains(document.activeElement);
-      });
-      expect(isInDialog).toBe(true);
+      await expect(mp.dialog.locator(':focus')).toHaveCount(1);
     }
   });
 
   // Focus trap Tab/Shift+Tab behavior varies across browser engines;
   // WebKit and Firefox have platform-specific tab focus order quirks.
-  test("focus trap: Shift+Tab wraps from first to last", async ({ page, browserName }) => {
+  test("focus trap: Shift+Tab wraps from first to last", async ({ browserName }) => {
     test.skip(browserName !== "chromium", "Tab focus behavior varies across browsers");
     await mp.clickCard("rating-bot");
     await mp.expectFocusOnClose();
@@ -67,11 +60,7 @@ test.describe("Modal Accessibility", () => {
     await mp.pressShiftTab();
 
     // Should be on the last focusable element (a link)
-    const lastFocusableTag = await page.evaluate(() => {
-      const el = document.activeElement;
-      return el ? el.tagName.toLowerCase() : null;
-    });
-    expect(lastFocusableTag).toBe("a");
+    await expect(mp.dialog.locator('a:focus')).toHaveCount(1);
   });
 
   test("details button opens modal on click", async ({ page }) => {
