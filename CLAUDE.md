@@ -161,7 +161,7 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - **Reduced-motion axe pattern**: outer `beforeEach` runs first (creates POM, `goto()`, `waitForScrollAnimations()`); inner reduced-motion `beforeEach` calls `enableReducedMotion()` then `goto()` to reload with the media query active — no re-creation of POM or second `waitForScrollAnimations()` needed
 - After changing `tech[]` in `projects.json`, run tests — `techPillsCount` assertions in `modal/basic-modal.spec.js` may need updating
 - **FormPage POM** (`tests/pages/FormPage.js`): use `mockFormspreeSuccess()`, `mockFormspreeError(statusCode)`, `mockFormspreeNetworkError()` to intercept Formspree requests in form tests. `goto()` waits for filter button counts to confirm JS is initialized (cross-component dependency)
-- **Form axe-scan suite** (`tests/form/axe-scan.spec.js`): 7 WCAG states — default, validation errors, success, error, light theme, dark theme, reduced motion. All tests use `fp.goto()` (not `fp.page.goto()`) to ensure consistent JS-initialized state
+- **Form axe-scan suite** (`tests/form/axe-scan.spec.js`): 7 WCAG states — default, validation errors, success, error, light theme, dark theme, reduced motion. Uses a flat structure (single outer `beforeEach` with `fp.goto()` + `waitForScrollAnimations()`); reduced-motion test calls `enableReducedMotion()` then `fp.goto()` inline in the test body — no inner `beforeEach`, no extra `waitForScrollAnimations()` after `goto()` (POM handles it). All tests use `fp.goto()` (not `fp.page.goto()`) to ensure consistent JS-initialized state
 
 ### Critical CSS Inlining
 - Critters inlines above-fold CSS; full CSS loads async via `media="print" onload="this.media='all'"`
