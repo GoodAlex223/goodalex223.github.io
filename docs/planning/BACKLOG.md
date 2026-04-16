@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-16 (Test Robustness Code Review)
+**Last Updated**: 2026-04-16 (Code Quality batch)
 
 Future ideas and improvements for the portfolio.
 
@@ -735,7 +735,7 @@ _Extracted from implementation plan:_
 **Origin**: Code review of PR #51
 
 - [x] ~~Update `docs/archive/README.md` to index new `specs/` subdirectory~~ *(completed 2026-03-27, archive-cleanup)*
-- [ ] Update `filterProjects()` JSDoc to document eager `currentFilter` update contract — `activateFilter()` JSDoc was updated but `filterProjects()` JSDoc still omits the behavioral change that `currentFilter` reflects intent immediately upon call, not after animation completion
+- [x] ~~Update `filterProjects()` JSDoc to document eager `currentFilter` update contract~~ *(completed 2026-04-16, quality/code-quality)*
 
 ---
 
@@ -787,7 +787,7 @@ _Extracted from implementation plan:_
 ### From Code Quality & Lint Fixes Code Review (2026-04-04)
 **Origin**: Code review of PR #57
 
-- [ ] Automate BACKLOG Origin path validation — the same broken-origin-path bug (planning path instead of archive path) has recurred in PRs #51, #56, and #57. Consider a pre-commit or CI check that greps BACKLOG.md for `docs/planning/plans/` references (all archived plans should point to `docs/archive/plans/`)
+- [x] ~~Automate BACKLOG Origin path validation~~ *(completed 2026-04-16, quality/code-quality — pre-commit hook in scripts/validate-backlog-paths.js)*
 - [ ] Consolidate redundant plan archive files — task completion workflow sometimes produces two plan files for one task (e.g., `*_task-name.md` + `*_task-name-plan.md`). Consider standardizing on a single file per task or documenting when two are appropriate
 
 ## From Test Quality Improvements (2026-04-05)
@@ -805,7 +805,7 @@ _Extracted from implementation plan:_
 **Origin**: docs/archive/plans/2026-04-05_automated-link-checking.md
 
 - [ ] Add internal asset link checking — verify local resources (images, fonts) referenced in HTML exist on disk. Currently only external URLs are checked; broken local image paths would only surface as visual regressions
-- [ ] Replace `checkBatch` callback parameter with direct `checkUrl` call — `checkBatch(urls, checkFn)` accepts a callback but only ever receives `checkUrl`. Remove the indirection unless unit testing is planned
+- [x] ~~Replace `checkBatch` callback parameter with direct `checkUrl` call~~ *(completed 2026-04-16, quality/code-quality — inlined into main())*
 
 ### From Automated Link Checking Code Review (2026-04-07)
 **Origin**: Code review of PR #59
