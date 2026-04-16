@@ -1,8 +1,23 @@
 # DONE
 
-**Last Updated**: 2026-04-10 (Firefox & Test Audit completed)
+**Last Updated**: 2026-04-11 (Test Robustness completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-04-11
+
+### Test Robustness
+
+**Plan**: [docs/archive/plans/2026-04-11_test-robustness.md](../archive/plans/2026-04-11_test-robustness.md)
+**Spec**: [docs/archive/plans/2026-04-11_test-robustness-spec.md](../archive/plans/2026-04-11_test-robustness-spec.md)
+**Summary**: Replaced raw `page.evaluate` calls in modal accessibility tests with Playwright locator-based assertions and optimized reduced-motion axe-scan suites by removing redundant `waitForScrollAnimations()` delays.
+**Key Changes**:
+- Replaced 3 `page.evaluate` calls in focus trap tests with `mp.dialog.locator()` queries and web-first assertions (auto-retry, proper scoping)
+- Removed redundant 700ms `waitForScrollAnimations()` from form axe-scan reduced-motion test
+- Added reduced-motion WCAG scan block to filter axe-scan suite (2 new tests, fills coverage gap matching modal/form pattern)
+**Resolved BACKLOG items**: 2 (page.evaluate in modal a11y tests, reduced-motion waitForScrollAnimations optimization)
 
 ---
 

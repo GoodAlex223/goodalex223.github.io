@@ -102,4 +102,24 @@ test.describe("Accessibility Scanning (Axe-Core)", () => {
       await checkAccessibility(page);
     });
   });
+
+  // ── Reduced motion WCAG AA scans ──────────────────────────────────────
+  // Verify page remains accessible with prefers-reduced-motion enabled.
+  // No waitForScrollAnimations() — animations are disabled under reduced motion.
+
+  test.describe("Reduced motion", () => {
+    test.beforeEach(async () => {
+      await fp.enableReducedMotion();
+      await fp.goto();
+    });
+
+    test("initial page load passes WCAG 2.1 AA", async ({ page }) => {
+      await checkAccessibility(page);
+    });
+
+    test("active filter passes WCAG 2.1 AA", async ({ page }) => {
+      await fp.clickFilter("iot");
+      await checkAccessibility(page);
+    });
+  });
 });

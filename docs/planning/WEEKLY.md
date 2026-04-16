@@ -68,8 +68,8 @@
 ### Wednesday — Test Modernization (5 SP)
 
 **Test Robustness** `[batch]` — 5 SP
-- [ ] Replace remaining `page.evaluate` in modal accessibility tests *(3 SP, IMPORTANT)*
-- [ ] Apply reduced-motion `waitForScrollAnimations()` optimization to form/filter suites *(2 SP)*
+- [x] Replace remaining `page.evaluate` in modal accessibility tests *(3 SP, IMPORTANT)*
+- [x] Apply reduced-motion `waitForScrollAnimations()` optimization to form/filter suites *(2 SP)*
 
 ### Thursday — Code Quality (5 SP)
 
@@ -92,7 +92,7 @@
 | Form & A11Y Polish `[batch]` | CSS/A11Y | 3 | 4 | Mon | ✅ Done |
 | CI Hardening `[batch]` | CI/Build | 3 | 4 | Mon | ✅ Done |
 | Firefox & Test Audit `[batch]` | Testing | 2 | 5 | Tue | Planned |
-| Test Robustness `[batch]` | Testing | 2 | 5 | Wed | Planned |
+| Test Robustness `[batch]` | Testing | 2 | 5 | Wed | ✅ Done |
 | Code Quality `[batch]` | JS Logic | 3 | 5 | Thu | Planned |
 | 🏆 Internal Asset Link Checking | Build/CI | 1 | 5 | Fri | Planned |
 | **Total** | | **14** | **28** | | |

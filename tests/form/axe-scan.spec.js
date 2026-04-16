@@ -54,7 +54,6 @@ test.describe("Form WCAG Scan", () => {
   test("passes axe scan with reduced motion", async ({ page }) => {
     await fp.enableReducedMotion();
     await fp.goto();
-    await fp.waitForScrollAnimations();
     await checkAccessibility(page);
   });
 });

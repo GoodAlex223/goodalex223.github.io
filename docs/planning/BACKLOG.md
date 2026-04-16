@@ -793,8 +793,8 @@ _Extracted from implementation plan:_
 ## From Test Quality Improvements (2026-04-05)
 **Origin**: docs/archive/plans/2026-04-05_test-quality-improvements.md
 
-- [ ] Replace remaining `page.evaluate` calls in modal accessibility tests with web-first assertions — `tests/modal/accessibility.spec.js` lines 40, 51, 70 still use `page.evaluate` for DOM queries (focus trap counting, dialog containment, last-focusable detection); some may need POM helper methods since they query complex DOM state rather than simple focus
-- [ ] Apply reduced-motion `waitForScrollAnimations()` optimization to form and filter axe-scan suites — the same pattern fixed in `tests/modal/axe-scan.spec.js` (removing redundant 700ms wait under reduced motion) likely applies to `tests/form/axe-scan.spec.js` and `tests/filter/axe-scan.spec.js` reduced-motion blocks, if they have them
+- [x] ~~Replace remaining `page.evaluate` calls in modal accessibility tests with web-first assertions~~ *(completed 2026-04-11, quality/test-robustness)*
+- [x] ~~Apply reduced-motion `waitForScrollAnimations()` optimization to form and filter axe-scan suites~~ *(completed 2026-04-11, quality/test-robustness)*
 
 ### From Test Quality Improvements Code Review (2026-04-05)
 **Origin**: Code review of PR #58
@@ -846,6 +846,14 @@ _Extracted from implementation plan:_
 
 - [ ] **Cleanup: Remove duplicate plans/specs from `docs/superpowers/`** — `docs/superpowers/plans/2026-04-10_firefox-test-audit.md` and `docs/superpowers/specs/2026-04-10_firefox-test-audit-design.md` duplicate archived copies in `docs/archive/plans/`. Extends existing CI Hardening backlog item — batch-remove all `docs/superpowers/` duplicates in one pass
 - [ ] **Automate BACKLOG Origin path validation** — The BACKLOG Origin path pointing to `docs/superpowers/` instead of `docs/archive/` has recurred in PRs #51, #56, #57, #59, and now #62. Consider a CI check or pre-commit hook that validates Origin paths in BACKLOG.md point to `docs/archive/plans/`
+
+## From Test Robustness (2026-04-11)
+**Origin**: docs/archive/plans/2026-04-11_test-robustness.md
+
+- [ ] Replace `waitForScrollAnimations()` with deterministic polling — the 700ms fixed timeout is fragile across browsers. A polling approach (similar to `waitForAnimationComplete()` for filter animations) that checks `is-visible` class or computed opacity would be more robust. Currently used in ~20 test locations across all suites
+- [ ] Investigate pre-existing WebKit form submission flaky test — `tests/form/submission.spec.js:36` ("shows loading state during submission") fails intermittently on WebKit with `toBeHidden()` timeout on submit button text. May need a more resilient assertion or WebKit-specific handling
+
+---
 
 ## Notes
 
