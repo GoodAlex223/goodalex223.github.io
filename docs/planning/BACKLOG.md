@@ -166,7 +166,7 @@ Future ideas and improvements for the portfolio.
 - [x] ~~Monitor with Lighthouse CI~~ *(completed 2026-03-11, CHALLENGE-001 — `@lhci/cli` in CI pipeline, all categories >= 90)*
 
 ### From PERF-003: Bundle CSS Files (2026-02-03)
-**Origin**: docs/planning/plans/2026-02-03_perf-003-bundle-css.md
+**Origin**: docs/archive/plans/2026-02-03_perf-003-bundle-css.md
 
 - [x] ~~Add CSS minification with cssnano~~ *(completed 2026-02-09, PERF-004)*
 - [x] ~~Add cache-busting with content hash~~ *(completed 2026-02-09, PERF-005)*
@@ -281,7 +281,7 @@ Future ideas and improvements for the portfolio.
 ---
 
 ## From FEAT-003: Enhanced Filter Animations (2026-02-03)
-**Origin**: docs/planning/plans/2026-02-03_feat-003-enhanced-filter-animations.md
+**Origin**: docs/archive/plans/2026-02-03_feat-003-enhanced-filter-animations.md
 
 - [x] ~~Playwright animation tests~~ *(completed 2026-02-09, TEST-001)*
 
@@ -489,7 +489,7 @@ _Extracted from implementation plan:_
 ---
 
 ## From PERF-006: Inline Critical CSS (2026-02-16)
-**Origin**: docs/planning/plans/2026-02-16_perf-006-inline-critical-css.md
+**Origin**: docs/archive/plans/2026-02-16_perf-006-inline-critical-css.md
 
 - [ ] Reduce inline CSS size — index.html at 16.1 KB exceeds 14 KB TCP slow-start guideline. Investigate Critters config or manual exclusions to reduce critical CSS extraction scope.
 - [ ] Upstream CSS custom property extraction — Critters doesn't extract `[data-theme=light]{--var:val}` blocks. Consider contributing fix or using PostCSS API for more precise extraction.
