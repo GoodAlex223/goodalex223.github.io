@@ -130,23 +130,18 @@ async function checkUrlWithRetry(url, method) {
   return { url, ok: false, status: lastStatus };
 }
 
-async function checkBatch(urls, checkFn) {
-  const results = [];
-  for (let i = 0; i < urls.length; i += CONCURRENCY) {
-    const batch = urls.slice(i, i + CONCURRENCY);
-    const batchResults = await Promise.all(batch.map(checkFn));
-    results.push(...batchResults);
-  }
-  return results;
-}
-
 async function main() {
   const urlSources = extractUrls();
   const urls = [...urlSources.keys()];
 
   console.log(`Checking ${urls.length} links...\n`);
 
-  const results = await checkBatch(urls, checkUrl);
+  const results = [];
+  for (let i = 0; i < urls.length; i += CONCURRENCY) {
+    const batch = urls.slice(i, i + CONCURRENCY);
+    const batchResults = await Promise.all(batch.map(checkUrl));
+    results.push(...batchResults);
+  }
 
   let passed = 0;
   let failed = 0;
