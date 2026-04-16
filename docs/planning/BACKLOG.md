@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-10 (Firefox & Test Audit)
+**Last Updated**: 2026-04-16 (Test Robustness Code Review)
 
 Future ideas and improvements for the portfolio.
 
@@ -852,6 +852,10 @@ _Extracted from implementation plan:_
 
 - [ ] Replace `waitForScrollAnimations()` with deterministic polling — the 700ms fixed timeout is fragile across browsers. A polling approach (similar to `waitForAnimationComplete()` for filter animations) that checks `is-visible` class or computed opacity would be more robust. Currently used in ~20 test locations across all suites
 - [ ] Investigate pre-existing WebKit form submission flaky test — `tests/form/submission.spec.js:36` ("shows loading state during submission") fails intermittently on WebKit with `toBeHidden()` timeout on submit button text. May need a more resilient assertion or WebKit-specific handling
+
+### From Test Robustness Code Review (2026-04-16)
+
+- [ ] Add inline comment explaining omitted `waitForScrollAnimations()` after `clickFilter()` in reduced-motion filter axe-scan test — Light/Dark theme equivalent tests both retain the wait after `clickFilter("iot")`; the reduced-motion test correctly omits it (animations are instant) but lacks an explanatory comment. The existing block comment only covers the `beforeEach` omission, not the post-`clickFilter` case (code review finding, confidence 75/100)
 
 ---
 
