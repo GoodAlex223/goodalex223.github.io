@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-16 (Code Quality batch)
+**Last Updated**: 2026-04-16 (Code Quality batch + code review findings)
 
 Future ideas and improvements for the portfolio.
 
@@ -856,6 +856,21 @@ _Extracted from implementation plan:_
 ### From Test Robustness Code Review (2026-04-16)
 
 - [ ] Add inline comment explaining omitted `waitForScrollAnimations()` after `clickFilter()` in reduced-motion filter axe-scan test — Light/Dark theme equivalent tests both retain the wait after `clickFilter("iot")`; the reduced-motion test correctly omits it (animations are instant) but lacks an explanatory comment. The existing block comment only covers the `beforeEach` omission, not the post-`clickFilter` case (code review finding, confidence 75/100)
+
+---
+
+## From Code Quality batch (2026-04-16)
+**Origin**: docs/archive/plans/2026-04-16_code-quality.md
+
+- [ ] Investigate pre-existing Firefox flaky test `tests/filter/accessibility.spec.js:44` — "tabindex updates when filter changes" fails intermittently on Firefox with received tabindex="0" instead of "-1". Previous Firefox fix (2026-04-10) addressed rapid-click tests via DOM polling; this test uses a different pattern and still flakes. Root cause analysis needed
+- [ ] Extend `validate-backlog-paths.js` to catch `docs/superpowers/` Origin paths — currently only detects `docs/planning/plans/`. BACKLOG line 848 notes the same broken-origin-path bug has recurred with `docs/superpowers/` references. Expand regex to both (code review finding, confidence 75/100)
+- [ ] Read BACKLOG.md from git index, not working tree — `validate-backlog-paths.js` uses `fs.readFileSync(BACKLOG_PATH)` which reads the working-tree copy. If staged and unstaged changes coexist in BACKLOG.md, validator inspects unstaged content. Canonical approach: `git show :docs/planning/BACKLOG.md` (code review finding, confidence 50/100)
+- [ ] Add `npm run validate-backlog` script — makes validator discoverable and callable standalone outside the pre-commit hook. Mirrors `npm run check-links` pattern
+- [ ] Add success output to `validate-backlog-paths.js` — currently exits silently on clean. Other gate scripts (check-links) print a confirmation message. Add `console.log('BACKLOG Origin paths: OK')` for consistency
+
+### From Code Quality batch Code Review (2026-04-16)
+
+- [ ] Document shell gotcha: `&&` vs `if/fi` with grep exit code — pre-commit hook initially used `grep -q 'BACKLOG.md' && node script` pattern. When grep didn't match, its exit code (1) became the script's exit code, blocking all commits unrelated to BACKLOG.md. Fixed with `if/fi`. Document this pattern in CLAUDE.md or a shell scripting gotcha doc so it doesn't recur
 
 ---
 

@@ -1,8 +1,26 @@
 # DONE
 
-**Last Updated**: 2026-04-11 (Test Robustness completed)
+**Last Updated**: 2026-04-16 (Code Quality batch completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-04-16
+
+### Code Quality
+
+**Plan**: [docs/archive/plans/2026-04-16_code-quality.md](../archive/plans/2026-04-16_code-quality.md)
+**Spec**: [docs/archive/specs/2026-04-16_code-quality-design.md](../archive/specs/2026-04-16_code-quality-design.md)
+**Summary**: Three independent code quality improvements — automated BACKLOG Origin path validation via pre-commit hook, removed `checkBatch` callback indirection in check-links.js, and documented eager `currentFilter` update contract in `filterProjects()` JSDoc.
+**Key Changes**:
+- Created `scripts/validate-backlog-paths.js` — blocks commits when `BACKLOG.md` `**Origin**` lines reference `docs/planning/plans/` instead of `docs/archive/plans/`
+- Added conditional validator invocation to `.husky/pre-commit` using `if/fi` pattern (avoids grep exit-code propagation bug)
+- Short-circuited `npx lint-staged` with `|| exit 1` to prevent validator running after lint failure
+- Archived 3 stale plan files (`2026-02-03_perf-003-bundle-css.md`, `2026-02-03_feat-003-enhanced-filter-animations.md`, `2026-02-16_perf-006-inline-critical-css.md`) and fixed corresponding Origin paths
+- Inlined `checkBatch` batching loop directly into `main()` in `scripts/check-links.js` (removed callback-parameter indirection)
+- Added JSDoc bullet to `filterProjects()` documenting BUG-004 eager `currentFilter` update contract
+**Resolved BACKLOG items**: 3 (BACKLOG Origin validation automation, `checkBatch` callback removal, `filterProjects()` JSDoc update)
 
 ---
 

@@ -107,6 +107,7 @@ Config in `.mcp.json` (gitignored). Template: `.mcp.json.example`.
 - Conventional Commits via commitlint + husky `commit-msg` hook
 - Types: `feat`, `fix`, `docs`, `chore`, `style`, `test`, `build`, `ci`, `perf`, `refactor`, `revert`
 - Header: 72 chars max. Uppercase subjects allowed (`subject-case` disabled)
+- **Pre-commit hook** (`.husky/pre-commit`): runs `npx lint-staged || exit 1`, then conditionally runs `scripts/validate-backlog-paths.js` only when `BACKLOG.md` is staged. Uses `if/fi` (not `&&`) to prevent `grep`'s non-zero exit from aborting commits when `BACKLOG.md` is not staged
 - **Pre-commit BACKLOG validation**: `scripts/validate-backlog-paths.js` runs when `BACKLOG.md` is staged — blocks commits if any `**Origin**:` line references `docs/planning/plans/` (must be `docs/archive/plans/` after task completion). Only `**Origin**:` lines are checked; other mentions of the planning path are allowed
 
 ### Theme System
