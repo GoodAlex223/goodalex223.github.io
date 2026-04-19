@@ -55,7 +55,7 @@ goodalex223/
 ├── js/main.js                    # All client JS (theme, filter, scroll animations, modal, form)
 ├── data/projects.json            # Project detail data (lazy-fetched by modal)
 ├── dist/                         # Built CSS/JS with content hashes (generated, gitignored)
-├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-links)
+├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-links, validate-backlog-paths)
 ├── tests/
 │   ├── filter/                   # Filter system tests (9 spec files)
 │   ├── modal/                    # Modal tests (6 spec files)
@@ -107,6 +107,8 @@ Config in `.mcp.json` (gitignored). Template: `.mcp.json.example`.
 - Conventional Commits via commitlint + husky `commit-msg` hook
 - Types: `feat`, `fix`, `docs`, `chore`, `style`, `test`, `build`, `ci`, `perf`, `refactor`, `revert`
 - Header: 72 chars max. Uppercase subjects allowed (`subject-case` disabled)
+- **Pre-commit hook** (`.husky/pre-commit`): runs `npx lint-staged || exit 1`, then conditionally runs `scripts/validate-backlog-paths.js` only when `BACKLOG.md` is staged. Uses `if/fi` (not `&&`) to prevent `grep`'s non-zero exit from aborting commits when `BACKLOG.md` is not staged
+- **Pre-commit BACKLOG validation**: `scripts/validate-backlog-paths.js` runs when `BACKLOG.md` is staged — blocks commits if any `**Origin**:` line references `docs/planning/plans/` (must be `docs/archive/plans/` after task completion). Only `**Origin**:` lines are checked; other mentions of the planning path are allowed
 
 ### Theme System
 - `data-theme="light"|"dark"` on `<html>`, variables in `variables.css`
@@ -183,6 +185,10 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - **LinkedIn skip-list**: LinkedIn returns HTTP 999 for all bots regardless of URL validity — these URLs are skipped with a warning, not treated as failures
 - **User-Agent header**: required for Wokwi (blocks bare `fetch()` requests)
 - Exits non-zero on any broken link; CI runs it parallel with `build` after `lint`
+
+### BACKLOG Origin Paths
+- `**Origin**` lines in `BACKLOG.md` must reference `docs/archive/plans/` (completed plan archive), never `docs/planning/plans/` (active plans). Pre-commit hook enforces this via `scripts/validate-backlog-paths.js`
+- When extracting improvements to BACKLOG after task completion, always reference the archived path (plan moves to `docs/archive/plans/` during the Archive step of task completion workflow)
 
 ### Adding New Projects
 1. Add `<article class="project-card" data-category="..." data-project="id" data-updated="YYYY-MM" data-animate data-animate-delay="NNN">` to `index.html` — copy structure from existing card. Increment `data-animate-delay` by 50ms per card (100, 150, 200, …)

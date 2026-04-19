@@ -259,6 +259,8 @@ function initProjectFilter() {
    * - Stagger delay creates choreographed effect
    * - Respects prefers-reduced-motion
    * - Handles rapid clicks gracefully (cancels pending animations)
+   * - Updates currentFilter immediately (before animation) so callers always
+   *   see the intended state, not stale pre-animation state (BUG-004)
    * @param {string} category - Category to filter by, or "all" to show all
    */
   function filterProjects(category) {

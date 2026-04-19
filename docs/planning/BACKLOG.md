@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-16 (Test Robustness Code Review)
+**Last Updated**: 2026-04-16 (Code Quality batch + code review findings)
 
 Future ideas and improvements for the portfolio.
 
@@ -166,7 +166,7 @@ Future ideas and improvements for the portfolio.
 - [x] ~~Monitor with Lighthouse CI~~ *(completed 2026-03-11, CHALLENGE-001 — `@lhci/cli` in CI pipeline, all categories >= 90)*
 
 ### From PERF-003: Bundle CSS Files (2026-02-03)
-**Origin**: docs/planning/plans/2026-02-03_perf-003-bundle-css.md
+**Origin**: docs/archive/plans/2026-02-03_perf-003-bundle-css.md
 
 - [x] ~~Add CSS minification with cssnano~~ *(completed 2026-02-09, PERF-004)*
 - [x] ~~Add cache-busting with content hash~~ *(completed 2026-02-09, PERF-005)*
@@ -281,7 +281,7 @@ Future ideas and improvements for the portfolio.
 ---
 
 ## From FEAT-003: Enhanced Filter Animations (2026-02-03)
-**Origin**: docs/planning/plans/2026-02-03_feat-003-enhanced-filter-animations.md
+**Origin**: docs/archive/plans/2026-02-03_feat-003-enhanced-filter-animations.md
 
 - [x] ~~Playwright animation tests~~ *(completed 2026-02-09, TEST-001)*
 
@@ -489,7 +489,7 @@ _Extracted from implementation plan:_
 ---
 
 ## From PERF-006: Inline Critical CSS (2026-02-16)
-**Origin**: docs/planning/plans/2026-02-16_perf-006-inline-critical-css.md
+**Origin**: docs/archive/plans/2026-02-16_perf-006-inline-critical-css.md
 
 - [ ] Reduce inline CSS size — index.html at 16.1 KB exceeds 14 KB TCP slow-start guideline. Investigate Critters config or manual exclusions to reduce critical CSS extraction scope.
 - [ ] Upstream CSS custom property extraction — Critters doesn't extract `[data-theme=light]{--var:val}` blocks. Consider contributing fix or using PostCSS API for more precise extraction.
@@ -735,7 +735,7 @@ _Extracted from implementation plan:_
 **Origin**: Code review of PR #51
 
 - [x] ~~Update `docs/archive/README.md` to index new `specs/` subdirectory~~ *(completed 2026-03-27, archive-cleanup)*
-- [ ] Update `filterProjects()` JSDoc to document eager `currentFilter` update contract — `activateFilter()` JSDoc was updated but `filterProjects()` JSDoc still omits the behavioral change that `currentFilter` reflects intent immediately upon call, not after animation completion
+- [x] ~~Update `filterProjects()` JSDoc to document eager `currentFilter` update contract~~ *(completed 2026-04-16, quality/code-quality)*
 
 ---
 
@@ -787,7 +787,7 @@ _Extracted from implementation plan:_
 ### From Code Quality & Lint Fixes Code Review (2026-04-04)
 **Origin**: Code review of PR #57
 
-- [ ] Automate BACKLOG Origin path validation — the same broken-origin-path bug (planning path instead of archive path) has recurred in PRs #51, #56, and #57. Consider a pre-commit or CI check that greps BACKLOG.md for `docs/planning/plans/` references (all archived plans should point to `docs/archive/plans/`)
+- [x] ~~Automate BACKLOG Origin path validation~~ *(completed 2026-04-16, quality/code-quality — pre-commit hook in scripts/validate-backlog-paths.js)*
 - [ ] Consolidate redundant plan archive files — task completion workflow sometimes produces two plan files for one task (e.g., `*_task-name.md` + `*_task-name-plan.md`). Consider standardizing on a single file per task or documenting when two are appropriate
 
 ## From Test Quality Improvements (2026-04-05)
@@ -805,7 +805,7 @@ _Extracted from implementation plan:_
 **Origin**: docs/archive/plans/2026-04-05_automated-link-checking.md
 
 - [ ] Add internal asset link checking — verify local resources (images, fonts) referenced in HTML exist on disk. Currently only external URLs are checked; broken local image paths would only surface as visual regressions
-- [ ] Replace `checkBatch` callback parameter with direct `checkUrl` call — `checkBatch(urls, checkFn)` accepts a callback but only ever receives `checkUrl`. Remove the indirection unless unit testing is planned
+- [x] ~~Replace `checkBatch` callback parameter with direct `checkUrl` call~~ *(completed 2026-04-16, quality/code-quality — inlined into main())*
 
 ### From Automated Link Checking Code Review (2026-04-07)
 **Origin**: Code review of PR #59
@@ -856,6 +856,21 @@ _Extracted from implementation plan:_
 ### From Test Robustness Code Review (2026-04-16)
 
 - [ ] Add inline comment explaining omitted `waitForScrollAnimations()` after `clickFilter()` in reduced-motion filter axe-scan test — Light/Dark theme equivalent tests both retain the wait after `clickFilter("iot")`; the reduced-motion test correctly omits it (animations are instant) but lacks an explanatory comment. The existing block comment only covers the `beforeEach` omission, not the post-`clickFilter` case (code review finding, confidence 75/100)
+
+---
+
+## From Code Quality batch (2026-04-16)
+**Origin**: docs/archive/plans/2026-04-16_code-quality.md
+
+- [ ] Investigate pre-existing Firefox flaky test `tests/filter/accessibility.spec.js:44` — "tabindex updates when filter changes" fails intermittently on Firefox with received tabindex="0" instead of "-1". Previous Firefox fix (2026-04-10) addressed rapid-click tests via DOM polling; this test uses a different pattern and still flakes. Root cause analysis needed
+- [ ] Extend `validate-backlog-paths.js` to catch `docs/superpowers/` Origin paths — currently only detects `docs/planning/plans/`. BACKLOG line 848 notes the same broken-origin-path bug has recurred with `docs/superpowers/` references. Expand regex to both (code review finding, confidence 75/100)
+- [ ] Read BACKLOG.md from git index, not working tree — `validate-backlog-paths.js` uses `fs.readFileSync(BACKLOG_PATH)` which reads the working-tree copy. If staged and unstaged changes coexist in BACKLOG.md, validator inspects unstaged content. Canonical approach: `git show :docs/planning/BACKLOG.md` (code review finding, confidence 50/100)
+- [ ] Add `npm run validate-backlog` script — makes validator discoverable and callable standalone outside the pre-commit hook. Mirrors `npm run check-links` pattern
+- [ ] Add success output to `validate-backlog-paths.js` — currently exits silently on clean. Other gate scripts (check-links) print a confirmation message. Add `console.log('BACKLOG Origin paths: OK')` for consistency
+
+### From Code Quality batch Code Review (2026-04-16)
+
+- [ ] Document shell gotcha: `&&` vs `if/fi` with grep exit code — pre-commit hook initially used `grep -q 'BACKLOG.md' && node script` pattern. When grep didn't match, its exit code (1) became the script's exit code, blocking all commits unrelated to BACKLOG.md. Fixed with `if/fi`. Document this pattern in CLAUDE.md or a shell scripting gotcha doc so it doesn't recur
 
 ---
 

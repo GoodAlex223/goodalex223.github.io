@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-04-11 (Test Robustness completed)
+**Last Updated**: 2026-04-16 (Code Quality batch completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **Code Quality**: BACKLOG Origin path validator + pre-commit hook, checkBatch inline refactor, filterProjects JSDoc eager-update contract → moved to [DONE.md](DONE.md)
 - **Test Robustness**: Locator-based assertions for modal a11y, reduced-motion axe-scan optimization → moved to [DONE.md](DONE.md)
 - **Firefox & Test Audit**: DOM polling filter waits, Firefox flaky test fix, hardcoded counts audit → moved to [DONE.md](DONE.md)
 - **CI Hardening**: npm cache consistency, ESLint root config ignores, check-links JSDoc → moved to [DONE.md](DONE.md)
