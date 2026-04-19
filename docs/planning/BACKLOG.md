@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-16 (Code Quality batch + code review findings)
+**Last Updated**: 2026-04-19 (PR #64 code review findings)
 
 Future ideas and improvements for the portfolio.
 
@@ -871,6 +871,11 @@ _Extracted from implementation plan:_
 ### From Code Quality batch Code Review (2026-04-16)
 
 - [ ] Document shell gotcha: `&&` vs `if/fi` with grep exit code — pre-commit hook initially used `grep -q 'BACKLOG.md' && node script` pattern. When grep didn't match, its exit code (1) became the script's exit code, blocking all commits unrelated to BACKLOG.md. Fixed with `if/fi`. Document this pattern in CLAUDE.md or a shell scripting gotcha doc so it doesn't recur
+
+### From PR #64 Code Review (2026-04-19)
+
+- [ ] Tighten pre-commit grep pattern for BACKLOG.md detection — `.husky/pre-commit` uses `grep -q 'BACKLOG.md'` with unescaped `.` (regex wildcard) and no anchor, so it would also match hypothetical paths like `OLD_BACKLOG.md` or `BACKLOGxmd_notes.txt`. Harmless today (no such files exist) but stricter pattern `grep -qE '(^|/)BACKLOG\.md$'` is more correct (code review finding, confidence 35/100)
+- [ ] Handle staged deletion of BACKLOG.md in `validate-backlog-paths.js` — if a commit stages `git rm docs/planning/BACKLOG.md`, the pre-commit hook still runs the validator (grep finds the path in the staged diff), then `fs.readFileSync(BACKLOG_PATH)` throws an uncaught ENOENT. Either check existence first or catch ENOENT and exit 0 with a friendly message. Overlaps with existing "Read BACKLOG.md from git index" item — switching to `git show :docs/planning/BACKLOG.md` would solve both (code review finding, confidence 75/100)
 
 ---
 
