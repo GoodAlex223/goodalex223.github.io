@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-19 (PR #64 code review findings)
+**Last Updated**: 2026-04-20 (Internal Asset Link Checking completed)
 
 Future ideas and improvements for the portfolio.
 
@@ -804,7 +804,7 @@ _Extracted from implementation plan:_
 ## From Automated Link Checking Challenge (2026-04-05)
 **Origin**: docs/archive/plans/2026-04-05_automated-link-checking.md
 
-- [ ] Add internal asset link checking — verify local resources (images, fonts) referenced in HTML exist on disk. Currently only external URLs are checked; broken local image paths would only surface as visual regressions
+- [x] ~~Add internal asset link checking~~ *(completed 2026-04-20, challenge/internal-asset-link-checking)*
 - [x] ~~Replace `checkBatch` callback parameter with direct `checkUrl` call~~ *(completed 2026-04-16, quality/code-quality — inlined into main())*
 
 ### From Automated Link Checking Code Review (2026-04-07)
@@ -876,6 +876,17 @@ _Extracted from implementation plan:_
 
 - [ ] Tighten pre-commit grep pattern for BACKLOG.md detection — `.husky/pre-commit` uses `grep -q 'BACKLOG.md'` with unescaped `.` (regex wildcard) and no anchor, so it would also match hypothetical paths like `OLD_BACKLOG.md` or `BACKLOGxmd_notes.txt`. Harmless today (no such files exist) but stricter pattern `grep -qE '(^|/)BACKLOG\.md$'` is more correct (code review finding, confidence 35/100)
 - [ ] Handle staged deletion of BACKLOG.md in `validate-backlog-paths.js` — if a commit stages `git rm docs/planning/BACKLOG.md`, the pre-commit hook still runs the validator (grep finds the path in the staged diff), then `fs.readFileSync(BACKLOG_PATH)` throws an uncaught ENOENT. Either check existence first or catch ENOENT and exit 0 with a friendly message. Overlaps with existing "Read BACKLOG.md from git index" item — switching to `git show :docs/planning/BACKLOG.md` would solve both (code review finding, confidence 75/100)
+
+---
+
+## From Internal Asset Link Checking (2026-04-20)
+**Origin**: docs/archive/plans/2026-04-20_internal-asset-link-checking.md
+
+- [ ] Extract shared HTML ref extractor to `scripts/lib/extract-refs.js` — `check-links.js` and `check-assets.js` both run `href=`/`src=` regex on HTML with slightly different exclusion filters. If their extraction logic diverges or duplicates more, factor into a shared module.
+- [ ] CSS `url(...)` scanning — current checker covers HTML + JSON only. No CSS `url()` refs exist today (fonts are HTML-preloaded), but adding CSS scanning would catch future background-image or `@font-face` regressions.
+- [ ] Orphan asset detection — a secondary, informational check for files on disk in `images/`, `fonts/`, etc. that are NOT referenced anywhere. Would require scanning the webmanifest, meta tags, and possibly README to avoid false positives; keep as non-blocking warning rather than exit-1 gate.
+- [ ] Memoize `readdirSync` per-directory in `assetExists()` — currently calls `readdirSync` once per referenced file (~29 calls for the current asset tree). Memoizing by directory would bring it to ~5 calls. Negligible today but a clean optimization for future growth.
+- [ ] Add file-level JSDoc and test coverage for `scripts/` — no scripts/ module has automated tests today. A `scripts/__tests__/` directory with small unit tests for `isExcludedRef()`, `resolveRef()`, and `assetExists()` would catch regressions in the exclusion filter without requiring the full repo state.
 
 ---
 

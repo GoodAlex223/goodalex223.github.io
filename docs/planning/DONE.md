@@ -1,8 +1,25 @@
 # DONE
 
-**Last Updated**: 2026-04-16 (Code Quality batch completed)
+**Last Updated**: 2026-04-20 (Internal Asset Link Checking completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-04-20
+
+### Internal Asset Link Checking 🏆 (Weekly Challenge)
+
+**Plan**: [docs/archive/plans/2026-04-20_internal-asset-link-checking.md](../archive/plans/2026-04-20_internal-asset-link-checking.md)
+**Spec**: [docs/archive/specs/2026-04-20_internal-asset-link-checking-design.md](../archive/specs/2026-04-20_internal-asset-link-checking-design.md)
+**Summary**: New CI-gated checker (`scripts/check-assets.js`) that verifies every internal asset reference in `index.html`, `404.html`, and `data/projects.json` exists on disk. Complements the existing external URL checker to close the gap where broken local image/font/CSS paths only surfaced as visual regressions.
+**Key Changes**:
+- Created `scripts/check-assets.js` — extracts `href`/`src` attrs from both HTML files and `screenshots[].src` values from `data/projects.json`, deduplicates into `Map<ref, Set<source>>`, resolves each against the repo root, verifies existence via `fs.existsSync` + a `readdirSync` basename case match (catches case-mismatch refs that pass on macOS/Windows but fail on Linux CI)
+- Exclusions: external URLs (`http(s)://`, `//`), `mailto:`/`tel:`, `data:` URIs, in-page anchors (`#foo`), and homepage navigation (`/`, `/#foo`)
+- Added `npm run check-assets` npm script
+- Updated `.github/workflows/deploy.yml` `check-links` job: `needs: build` (was `needs: lint`), added `npm ci` + `Download build output` steps, runs both `npm run check-links` and `npm run check-assets` sequentially
+- Renamed CLAUDE.md "Link Checker" section to "Link Checkers" with internal-asset documentation + combined CI job description
+**Resolved BACKLOG items**: 1 (internal asset link checking — weekly challenge follow-up from PR #59)
 
 ---
 
