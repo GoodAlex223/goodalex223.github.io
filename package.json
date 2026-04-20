@@ -19,6 +19,7 @@
     "lint": "npm run lint:css && npm run lint:js",
     "lighthouse": "lhci autorun",
     "check-links": "node scripts/check-links.js",
+    "check-assets": "node scripts/check-assets.js",
     "prepare": "husky"
   },
   "lint-staged": {
