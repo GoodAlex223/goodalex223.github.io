@@ -17,12 +17,9 @@ const INDEX_PATH = path.join(ROOT, 'index.html');
 const NOT_FOUND_PATH = path.join(ROOT, '404.html');
 const PROJECTS_PATH = path.join(ROOT, 'data', 'projects.json');
 
-// Color constants for reporting (used in extractAssets and checkAssets functions, added in later tasks)
-// eslint-disable-next-line no-unused-vars
+// Color constants for reporting
 const GREEN = '\x1b[32m';
-// eslint-disable-next-line no-unused-vars
 const RED = '\x1b[31m';
-// eslint-disable-next-line no-unused-vars
 const RESET = '\x1b[0m';
 
 /**
@@ -85,6 +82,34 @@ function extractJsonRefs() {
   return refs;
 }
 
+/**
+ * Resolves an internal asset ref to an absolute path from the repo root.
+ * Strips query strings and fragments. Leading "/" is treated as repo-root-absolute
+ * (matches GitHub Pages behavior for this site).
+ */
+function resolveRef(ref) {
+  const clean = ref.split('?')[0].split('#')[0];
+  const relative = clean.startsWith('/') ? clean.slice(1) : clean;
+  return path.join(ROOT, relative);
+}
+
+/**
+ * Returns true if the file exists AND its basename matches the on-disk case exactly.
+ * The case check catches refs that pass fs.existsSync on macOS/Windows (case-insensitive)
+ * but would fail on Linux CI (case-sensitive).
+ */
+function assetExists(absolutePath) {
+  if (!fs.existsSync(absolutePath)) return false;
+  const dir = path.dirname(absolutePath);
+  const base = path.basename(absolutePath);
+  try {
+    const entries = fs.readdirSync(dir);
+    return entries.includes(base);
+  } catch {
+    return false;
+  }
+}
+
 function main() {
   for (const src of [INDEX_PATH, NOT_FOUND_PATH, PROJECTS_PATH]) {
     if (!fs.existsSync(src)) {
@@ -99,16 +124,41 @@ function main() {
     ...extractJsonRefs(),
   ];
 
-  // Dedup: Map<ref, Set<sourceLabel>>
   const refSources = new Map();
   for (const { ref, source } of allRefs) {
     if (!refSources.has(ref)) refSources.set(ref, new Set());
     refSources.get(ref).add(source);
   }
 
-  console.log(`Dedup: ${allRefs.length} refs → ${refSources.size} unique:`);
+  console.log(`Checking ${refSources.size} internal asset references...\n`);
+
+  const results = [];
   for (const [ref, sources] of refSources) {
-    console.log(`  ${ref} (${[...sources].join(', ')})`);
+    const absolutePath = resolveRef(ref);
+    const ok = assetExists(absolutePath);
+    results.push({ ref, sources: [...sources], ok });
+  }
+
+  // Sort: OK first, broken at the bottom for visibility
+  results.sort((a, b) => Number(b.ok) - Number(a.ok));
+
+  let passed = 0;
+  let failed = 0;
+  for (const result of results) {
+    const sourceList = result.sources.join(', ');
+    if (result.ok) {
+      console.log(`  ${GREEN}\u2713${RESET} ${result.ref} (${sourceList})`);
+      passed++;
+    } else {
+      console.log(`  ${RED}\u2717${RESET} ${result.ref} (${sourceList})`);
+      failed++;
+    }
+  }
+
+  console.log(`\nResults: ${passed} passed, ${failed} failed`);
+
+  if (failed > 0) {
+    process.exit(1);
   }
 }
 
