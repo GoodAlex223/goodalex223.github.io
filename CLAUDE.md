@@ -29,12 +29,13 @@ npm run test:ui        # Tests with UI mode
 npm run test:headed    # Tests with visible browser
 npm run lighthouse     # Lighthouse CI audit (≥90/100 all categories)
 npm run check-links    # Check all external links in index.html + projects.json (HEAD→GET fallback, 3 retries)
+npm run check-assets   # Check all internal asset refs in HTML + projects.json exist on disk (requires `npm run build` first)
 npx serve              # Local server (or python -m http.server 8000)
 ```
 
 **Build pipeline**: `update-sitemap` → `build:css` (PostCSS + cssnano) → `unhash` → `inline:css` (Critters critical CSS) → `hash:assets` (SHA-256 content hashes + terser JS minification) → `report-sizes` (budget: CSS gzip 20 KB, JS gzip 10 KB; appends to `docs/size-history.json`). Outputs `dist/style.[hash].css` and `dist/main.[hash].js`.
 
-**CI/CD** (`.github/workflows/deploy.yml`): lint → (build + check-links in parallel) → (test + lighthouse in parallel) → deploy to GitHub Pages. All gates must pass.
+**CI/CD** (`.github/workflows/deploy.yml`): lint → build → (check-links + test + lighthouse in parallel) → deploy to GitHub Pages. The `check-links` job runs both the external URL checker and the internal asset checker after downloading the build artifact. All gates must pass.
 
 <!-- END AUTO-MANAGED -->
 
@@ -55,7 +56,7 @@ goodalex223/
 ├── js/main.js                    # All client JS (theme, filter, scroll animations, modal, form)
 ├── data/projects.json            # Project detail data (lazy-fetched by modal)
 ├── dist/                         # Built CSS/JS with content hashes (generated, gitignored)
-├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-links, validate-backlog-paths)
+├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-links, check-assets, validate-backlog-paths)
 ├── tests/
 │   ├── filter/                   # Filter system tests (9 spec files)
 │   ├── modal/                    # Modal tests (6 spec files)
@@ -178,13 +179,15 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - Open Graph + Twitter Card meta tags. Validation checklist: `docs/SEO_TESTING.md`
 - `sitemap.xml` `<lastmod>` auto-updated from git history on each build
 
-### Link Checker (`scripts/check-links.js`)
+### Link Checkers (`scripts/check-links.js` + `scripts/check-assets.js`)
 - Extracts external URLs from `index.html` (`href="https://..."`) and `data/projects.json` (`links{}` values), deduplicates, checks concurrently (5 at a time)
 - **HEAD→GET fallback**: tries HEAD first; falls back to GET on any non-OK HEAD response (many servers mishandle HEAD — e.g., Wokwi returns 404 for HEAD but 200 for GET)
 - **Retry logic**: 3 attempts with 2s delay between retries before marking a URL as broken
 - **LinkedIn skip-list**: LinkedIn returns HTTP 999 for all bots regardless of URL validity — these URLs are skipped with a warning, not treated as failures
 - **User-Agent header**: required for Wokwi (blocks bare `fetch()` requests)
-- Exits non-zero on any broken link; CI runs it parallel with `build` after `lint`
+- **Internal asset check** (`scripts/check-assets.js`, `npm run check-assets`): scans `index.html`, `404.html`, and `data/projects.json` for `href`/`src` attributes and `screenshots[].src` values, resolves each against the repo root, and verifies existence via `fs.existsSync` + a `readdirSync` basename case match (catches case-mismatch refs that would fail on Linux CI but pass on macOS/Windows). Excludes: external URLs (`http(s)://`, `//`), `mailto:`/`tel:`, `data:` URIs, in-page anchors (`#foo`), and homepage-nav (`/`, `/#foo`). Requires `npm run build` to have run first so hashed `dist/` refs exist on disk.
+- **CI job**: the `check-links` workflow job runs both checkers sequentially after `build` completes. Downloads the `build-output` artifact so internal-asset resolution sees the same hashed `dist/` files the deploy step will ship.
+- Exits non-zero on any broken link or missing asset; CI gates deploy behind both checks
 
 ### BACKLOG Origin Paths
 - `**Origin**` lines in `BACKLOG.md` must reference `docs/archive/plans/` (completed plan archive), never `docs/planning/plans/` (active plans). Pre-commit hook enforces this via `scripts/validate-backlog-paths.js`
