@@ -55,7 +55,7 @@ goodalex223/
 ├── js/main.js                    # All client JS (theme, filter, scroll animations, modal, form)
 ├── data/projects.json            # Project detail data (lazy-fetched by modal)
 ├── dist/                         # Built CSS/JS with content hashes (generated, gitignored)
-├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-links, validate-backlog-paths)
+├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-assets, check-links, validate-backlog-paths)
 ├── tests/
 │   ├── filter/                   # Filter system tests (9 spec files)
 │   ├── modal/                    # Modal tests (6 spec files)
@@ -185,6 +185,12 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - **LinkedIn skip-list**: LinkedIn returns HTTP 999 for all bots regardless of URL validity — these URLs are skipped with a warning, not treated as failures
 - **User-Agent header**: required for Wokwi (blocks bare `fetch()` requests)
 - Exits non-zero on any broken link; CI runs it parallel with `build` after `lint`
+
+### Asset Checker (`scripts/check-assets.js`)
+- Extracts internal asset refs from `index.html`, `404.html` (via `extractHtmlRefs()`) and `data/projects.json` screenshots (via `extractJsonRefs()`)
+- `extractHtmlRefs(filePath, sourceLabel)` regex-extracts `href=` and `src=` attributes; `extractJsonRefs()` walks `projects[*].screenshots[].src`, both filter excluded refs via `isExcludedRef()`
+- Deduplicates refs into `Map<ref, Set<sources>>` to show which files reference each asset (e.g., `/favicon.svg` from both `index.html` and `404.html`)
+- Skips empty `screenshots[]` arrays cleanly (not an error)
 
 ### BACKLOG Origin Paths
 - `**Origin**` lines in `BACKLOG.md` must reference `docs/archive/plans/` (completed plan archive), never `docs/planning/plans/` (active plans). Pre-commit hook enforces this via `scripts/validate-backlog-paths.js`

@@ -66,6 +66,25 @@ function extractHtmlRefs(filePath, sourceLabel) {
   return refs;
 }
 
+/**
+ * Extracts screenshot src paths from data/projects.json.
+ * Walks projects[*].screenshots[].src. Skips excluded refs.
+ */
+function extractJsonRefs() {
+  const projects = JSON.parse(fs.readFileSync(PROJECTS_PATH, 'utf8'));
+  const refs = [];
+  for (const project of Object.values(projects)) {
+    if (!Array.isArray(project.screenshots)) continue;
+    for (const screenshot of project.screenshots) {
+      const ref = screenshot && screenshot.src;
+      if (typeof ref === 'string' && !isExcludedRef(ref)) {
+        refs.push({ ref, source: 'data/projects.json' });
+      }
+    }
+  }
+  return refs;
+}
+
 function main() {
   for (const src of [INDEX_PATH, NOT_FOUND_PATH, PROJECTS_PATH]) {
     if (!fs.existsSync(src)) {
@@ -74,14 +93,22 @@ function main() {
     }
   }
 
-  const refs = [
+  const allRefs = [
     ...extractHtmlRefs(INDEX_PATH, 'index.html'),
     ...extractHtmlRefs(NOT_FOUND_PATH, '404.html'),
+    ...extractJsonRefs(),
   ];
 
-  console.log(`Extracted ${refs.length} HTML refs:`);
-  for (const { ref, source } of refs) {
-    console.log(`  ${ref} [${source}]`);
+  // Dedup: Map<ref, Set<sourceLabel>>
+  const refSources = new Map();
+  for (const { ref, source } of allRefs) {
+    if (!refSources.has(ref)) refSources.set(ref, new Set());
+    refSources.get(ref).add(source);
+  }
+
+  console.log(`Dedup: ${allRefs.length} refs → ${refSources.size} unique:`);
+  for (const [ref, sources] of refSources) {
+    console.log(`  ${ref} (${[...sources].join(', ')})`);
   }
 }
 
