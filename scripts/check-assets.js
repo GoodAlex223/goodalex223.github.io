@@ -25,6 +25,47 @@ const RED = '\x1b[31m';
 // eslint-disable-next-line no-unused-vars
 const RESET = '\x1b[0m';
 
+/**
+ * Returns true for refs that are not internal asset paths we can check on disk:
+ *   - External URLs (http://, https://, protocol-relative //)
+ *   - mailto: and tel: schemes
+ *   - data: URIs
+ *   - In-page anchors (#foo) and root/homepage-nav (/ and /#foo)
+ *   - Empty strings
+ */
+function isExcludedRef(ref) {
+  if (!ref) return true;
+  if (/^(https?:)?\/\//.test(ref)) return true;
+  if (ref.startsWith('mailto:')) return true;
+  if (ref.startsWith('tel:')) return true;
+  if (ref.startsWith('data:')) return true;
+  if (ref.startsWith('#')) return true;
+
+  // Strip ?query and #fragment to see if only "/" or "" remains (homepage nav)
+  const withoutQuery = ref.split('?')[0].split('#')[0];
+  if (withoutQuery === '' || withoutQuery === '/') return true;
+
+  return false;
+}
+
+/**
+ * Extracts href= and src= attribute values from an HTML file.
+ * Returns an array of { ref, source } objects. Excluded refs are filtered out.
+ */
+function extractHtmlRefs(filePath, sourceLabel) {
+  const html = fs.readFileSync(filePath, 'utf8');
+  const pattern = /(?:href|src)="([^"]+)"/g;
+  const refs = [];
+  let match;
+  while ((match = pattern.exec(html)) !== null) {
+    const ref = match[1];
+    if (!isExcludedRef(ref)) {
+      refs.push({ ref, source: sourceLabel });
+    }
+  }
+  return refs;
+}
+
 function main() {
   for (const src of [INDEX_PATH, NOT_FOUND_PATH, PROJECTS_PATH]) {
     if (!fs.existsSync(src)) {
@@ -32,8 +73,16 @@ function main() {
       process.exit(1);
     }
   }
-  console.log('Checking 0 internal asset references...\n');
-  console.log('Results: 0 passed, 0 failed');
+
+  const refs = [
+    ...extractHtmlRefs(INDEX_PATH, 'index.html'),
+    ...extractHtmlRefs(NOT_FOUND_PATH, '404.html'),
+  ];
+
+  console.log(`Extracted ${refs.length} HTML refs:`);
+  for (const { ref, source } of refs) {
+    console.log(`  ${ref} [${source}]`);
+  }
 }
 
 main();
