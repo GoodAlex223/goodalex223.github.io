@@ -888,6 +888,14 @@ _Extracted from implementation plan:_
 - [ ] Memoize `readdirSync` per-directory in `assetExists()` — currently calls `readdirSync` once per referenced file (~29 calls for the current asset tree). Memoizing by directory would bring it to ~5 calls. Negligible today but a clean optimization for future growth.
 - [ ] Add file-level JSDoc and test coverage for `scripts/` — no scripts/ module has automated tests today. A `scripts/__tests__/` directory with small unit tests for `isExcludedRef()`, `resolveRef()`, and `assetExists()` would catch regressions in the exclusion filter without requiring the full repo state.
 
+### From Internal Asset Link Checking Code Review (2026-04-20)
+
+- [ ] Implement the `dist/` preflight error message — spec promised a targeted "dist/ missing or incomplete — run `npm run build` first" message the first time a `dist/` ref fails, but the implementation just prints a generic red ✗ line. Local UX slightly worse than spec. (confidence 90)
+- [ ] Improve generic "not found" error on CI — `scripts/check-assets.js:116` error message `"Run from project root"` is misleading if the failure is actually a missing CI artifact download. Consider `"Did `npm run build` complete and artifacts download?"`. (confidence 85)
+- [ ] Document HTML-regex scope assumption — `scripts/check-assets.js:54` runs `href=`/`src=` regex over raw HTML text, so any attribute-shaped string inside HTML comments, `<script>` blocks, or JSON-LD `"url":"..."` would be extracted. Today the repo has none that bypass exclusions, but a future JSON-LD addition could hit it. Add a comment noting the assumption. (confidence 70)
+- [ ] Harden JSON walk against non-flat `projects` shape — `scripts/check-assets.js:73` uses `Object.values(projects)` and assumes `{projectId: {...}}`. Add `typeof project === 'object' && project !== null` guard before `project.screenshots` for robustness. (confidence 80)
+- [ ] Extend extractor to `<source src>`, `<video poster>`, `link imagesrcset`, `img srcset` — not needed today (no video, no responsive images), but document the limitation in the script header or queue for follow-up as assets evolve.
+
 ---
 
 ## Notes
