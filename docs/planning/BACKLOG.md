@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-20 (Internal Asset Link Checking completed)
+**Last Updated**: 2026-04-28 (PR #65 review follow-ups added)
 
 Future ideas and improvements for the portfolio.
 
@@ -895,6 +895,11 @@ _Extracted from implementation plan:_
 - [ ] Document HTML-regex scope assumption — `scripts/check-assets.js:54` runs `href=`/`src=` regex over raw HTML text, so any attribute-shaped string inside HTML comments, `<script>` blocks, or JSON-LD `"url":"..."` would be extracted. Today the repo has none that bypass exclusions, but a future JSON-LD addition could hit it. Add a comment noting the assumption. (confidence 70)
 - [ ] Harden JSON walk against non-flat `projects` shape — `scripts/check-assets.js:73` uses `Object.values(projects)` and assumes `{projectId: {...}}`. Add `typeof project === 'object' && project !== null` guard before `project.screenshots` for robustness. (confidence 80)
 - [ ] Extend extractor to `<source src>`, `<video poster>`, `link imagesrcset`, `img srcset` — not needed today (no video, no responsive images), but document the limitation in the script header or queue for follow-up as assets evolve.
+
+### From PR #65 Review (2026-04-28)
+
+- [ ] Tighten case-sensitivity check to cover directory segments — `assetExists()` in `scripts/check-assets.js` only validates basename case via `readdirSync`, so a ref like `Images/projects/foo.webp` (wrong directory case) still passes locally on macOS/Windows but would fail on Linux CI. The header JSDoc claim "catches case-mismatch refs that would fail on Linux CI but pass on macOS/Windows" overstates the scope. Walk each path segment from repo root to fully match Linux behavior, or update the JSDoc to scope the claim to basename. (confidence 65)
+- [ ] Align output format between `check-links.js` and `check-assets.js` — the link checker prints failure sources in brackets (`✗ url (status) [sources]`) while the asset checker uses parens (`✓ ref (source)` / `✗ ref (source)`). Pick one convention so the combined CI output reads consistently.
 
 ---
 
