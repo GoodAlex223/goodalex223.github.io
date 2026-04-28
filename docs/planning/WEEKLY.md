@@ -61,9 +61,9 @@
 
 ### Tuesday — Test Stability (5 SP)
 
-**Firefox & Test Audit** `[batch]` — 5 SP
-- [ ] Fix pre-existing flaky Firefox filter accessibility test *(3 SP, IMPORTANT)*
-- [ ] Audit test files for hardcoded project counts *(2 SP)*
+**Firefox & Test Audit** `[batch]` — 5 SP ✅
+- [x] Fix pre-existing flaky Firefox filter accessibility test *(3 SP, IMPORTANT)*
+- [x] Audit test files for hardcoded project counts *(2 SP)*
 
 ### Wednesday — Test Modernization (5 SP)
 
@@ -73,15 +73,15 @@
 
 ### Thursday — Code Quality (5 SP)
 
-**Code Quality** `[batch]` — 5 SP
-- [ ] Automate BACKLOG Origin path validation *(3 SP, IMPORTANT)*
-- [ ] Replace `checkBatch` callback with direct `checkUrl` call *(1 SP)*
-- [ ] Update `filterProjects()` JSDoc for eager currentFilter *(1 SP)*
+**Code Quality** `[batch]` — 5 SP ✅
+- [x] Automate BACKLOG Origin path validation *(3 SP, IMPORTANT)*
+- [x] Replace `checkBatch` callback with direct `checkUrl` call *(1 SP)*
+- [x] Update `filterProjects()` JSDoc for eager currentFilter *(1 SP)*
 
 ### Friday — Weekly Challenge (5 SP)
 
-**Internal Asset Link Checking** — 5 SP
-- [ ] 🏆 Extend `check-links.js` to verify local resources (images, fonts, CSS refs) exist on disk *(5 SP)*
+**Internal Asset Link Checking** — 5 SP ✅
+- [x] 🏆 Extend `check-links.js` to verify local resources (images, fonts, CSS refs) exist on disk *(5 SP)*
 
 ---
 
@@ -91,10 +91,10 @@
 |-------|--------|-------|----------|-----|--------|
 | Form & A11Y Polish `[batch]` | CSS/A11Y | 3 | 4 | Mon | ✅ Done |
 | CI Hardening `[batch]` | CI/Build | 3 | 4 | Mon | ✅ Done |
-| Firefox & Test Audit `[batch]` | Testing | 2 | 5 | Tue | Planned |
+| Firefox & Test Audit `[batch]` | Testing | 2 | 5 | Tue | ✅ Done |
 | Test Robustness `[batch]` | Testing | 2 | 5 | Wed | ✅ Done |
-| Code Quality `[batch]` | JS Logic | 3 | 5 | Thu | Planned |
-| 🏆 Internal Asset Link Checking | Build/CI | 1 | 5 | Fri | Planned |
+| Code Quality `[batch]` | JS Logic | 3 | 5 | Thu | ✅ Done |
+| 🏆 Internal Asset Link Checking | Build/CI | 1 | 5 | Fri | ✅ Done |
 | **Total** | | **14** | **28** | | |
 
 ---

@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-04-16 (Code Quality batch completed)
+**Last Updated**: 2026-04-20 (Internal Asset Link Checking completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **Internal Asset Link Checking** 🏆 (Weekly Challenge): new `scripts/check-assets.js` + CI integration — verifies internal asset refs exist on disk → moved to [DONE.md](DONE.md)
 - **Code Quality**: BACKLOG Origin path validator + pre-commit hook, checkBatch inline refactor, filterProjects JSDoc eager-update contract → moved to [DONE.md](DONE.md)
 - **Test Robustness**: Locator-based assertions for modal a11y, reduced-motion axe-scan optimization → moved to [DONE.md](DONE.md)
 - **Firefox & Test Audit**: DOM polling filter waits, Firefox flaky test fix, hardcoded counts audit → moved to [DONE.md](DONE.md)
