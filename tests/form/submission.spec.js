@@ -34,22 +34,19 @@ test.describe("Form Submission", () => {
   });
 
   test("shows loading state during submission", async () => {
-    // Use a delayed route to observe loading state
-    await fp.page.route("**/formspree.io/f/*", async (route) => {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      await route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({ ok: true }),
-      });
-    });
+    // Deferred-promise route control: response is held until the test
+    // releases it, so loading-state assertions have unbounded time to land.
+    // Replaces the previous fixed 500ms setTimeout that flaked on WebKit
+    // when click→assert overhead exceeded the response window.
+    const releaseRoute = await fp.mockFormspreeDeferred();
 
     await fp.fillAllFields();
     await fp.clickSubmit();
     await fp.expectLoadingState();
     await fp.expectSubmitDisabled();
 
-    // Wait for response
+    releaseRoute();
+
     await fp.expectSuccess();
     await fp.expectSubmitEnabled();
   });
