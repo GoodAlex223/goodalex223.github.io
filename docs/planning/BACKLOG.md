@@ -851,7 +851,7 @@ _Extracted from implementation plan:_
 **Origin**: docs/archive/plans/2026-04-11_test-robustness.md
 
 - [ ] Replace `waitForScrollAnimations()` with deterministic polling — the 700ms fixed timeout is fragile across browsers. A polling approach (similar to `waitForAnimationComplete()` for filter animations) that checks `is-visible` class or computed opacity would be more robust. Currently used in ~20 test locations across all suites
-- [ ] Investigate pre-existing WebKit form submission flaky test — `tests/form/submission.spec.js:36` ("shows loading state during submission") fails intermittently on WebKit with `toBeHidden()` timeout on submit button text. May need a more resilient assertion or WebKit-specific handling
+- [x] ~~Investigate pre-existing WebKit form submission flaky test~~ *(resolved 2026-04-28, replaced 500ms fixed-timeout route mock in `tests/form/submission.spec.js:36` with deferred-promise pattern via new `mockFormspreeDeferred()` helper on FormPage POM — eliminates the click→assert race window structurally; 20/20 webkit + 20/20 cross-engine `--repeat-each` runs green)*
 
 ### From Test Robustness Code Review (2026-04-16)
 
@@ -862,7 +862,7 @@ _Extracted from implementation plan:_
 ## From Code Quality batch (2026-04-16)
 **Origin**: docs/archive/plans/2026-04-16_code-quality.md
 
-- [ ] Investigate pre-existing Firefox flaky test `tests/filter/accessibility.spec.js:44` — "tabindex updates when filter changes" fails intermittently on Firefox with received tabindex="0" instead of "-1". Previous Firefox fix (2026-04-10) addressed rapid-click tests via DOM polling; this test uses a different pattern and still flakes. Root cause analysis needed
+- [ ] Investigate pre-existing Firefox flaky test `tests/filter/accessibility.spec.js:44` — *(investigated 2026-04-28: NOT REPRODUCING.)* Original symptom: "tabindex updates when filter changes" fails intermittently on Firefox with received tabindex="0" instead of "-1". Investigation: ran 150 local Firefox iterations (`--repeat-each=50` then `--repeat-each=100`) with diagnostic instrumentation (per-button tabindex attribute + IDL property + active class + aria-pressed at four checkpoints, attached to trace via `test.info().attach()`) — all 150 green; searched 80+ recent CI workflow runs back to 2026-03-19 — zero failures of this test on any engine. Conclusion: flake is currently stale, possibly resolved by `waitForAnimationComplete` DOM polling shipped in PR #62 (2026-04-10) covering an adjacent code path. Reversal trigger: re-open if the test fails on any future CI run. Instrumentation pattern is preserved on the `test/stability-investigations` branch (commit `1fbc0bf` adds, `d2201ff` removes) for fast re-instrumentation if needed.
 - [ ] Extend `validate-backlog-paths.js` to catch `docs/superpowers/` Origin paths — currently only detects `docs/planning/plans/`. BACKLOG line 848 notes the same broken-origin-path bug has recurred with `docs/superpowers/` references. Expand regex to both (code review finding, confidence 75/100)
 - [ ] Read BACKLOG.md from git index, not working tree — `validate-backlog-paths.js` uses `fs.readFileSync(BACKLOG_PATH)` which reads the working-tree copy. If staged and unstaged changes coexist in BACKLOG.md, validator inspects unstaged content. Canonical approach: `git show :docs/planning/BACKLOG.md` (code review finding, confidence 50/100)
 - [ ] Add `npm run validate-backlog` script — makes validator discoverable and callable standalone outside the pre-commit hook. Mirrors `npm run check-links` pattern
