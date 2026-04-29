@@ -42,37 +42,7 @@ test.describe("Accessibility", () => {
   });
 
   test("tabindex updates when filter changes", async () => {
-    // TEMPORARY INSTRUMENTATION — to be removed in a follow-up commit.
-    // Captures per-button tabindex (attribute + IDL), aria-pressed, active
-    // class, and document.activeElement at four checkpoints to diagnose
-    // intermittent Firefox failure (received tabindex="0" instead of "-1").
-    const captureState = (label) =>
-      fp.page.evaluate((checkpoint) => {
-        const buttons = Array.from(document.querySelectorAll(".filter-btn"));
-        return {
-          checkpoint,
-          activeFilter: document.activeElement?.dataset?.filter ?? null,
-          buttons: buttons.map((b) => ({
-            filter: b.dataset.filter,
-            attrTabindex: b.getAttribute("tabindex"),
-            idlTabIndex: b.tabIndex,
-            ariaPressed: b.getAttribute("aria-pressed"),
-            isActiveClass: b.classList.contains("filter-btn--active"),
-          })),
-        };
-      }, label);
-
-    const cp1 = await captureState("after-goto");
-    const cp2 = await captureState("before-click");
     await fp.clickFilter("backend");
-    const cp3 = await captureState("after-clickfilter-resolved");
-
-    // Capture the at-assertion state right before the failing assertion.
-    const cp4 = await captureState("at-assertion");
-    await test.info().attach("instrumentation-trace", {
-      body: JSON.stringify({ cp1, cp2, cp3, cp4 }, null, 2),
-      contentType: "application/json",
-    });
 
     await fp.expectTabindex("all", -1);
     await fp.expectTabindex("backend", 0);
