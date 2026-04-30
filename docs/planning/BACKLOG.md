@@ -908,9 +908,10 @@ _Extracted from implementation plan:_
 - [ ] Audit `setTimeout`-based route mocks across the test suite — `mockFormspreeDeferred()` was added during PR #66 to replace one fixed-timeout race in submission.spec.js. Other test files may have similar patterns (e.g., `setTimeout` in `page.route` callbacks) that would benefit from the same deferred-promise control. Quick audit: `grep -rn 'setTimeout.*resolve' tests/` to find candidates; migrate any that assert intermediate states.
 - [ ] Re-investigate Firefox tabindex flake if it recurs — BACKLOG entry above (originally 2026-04-16) was marked NOT_REPRODUCING after 150 local runs + 80+ CI runs. Reversal trigger: if the test fails on any future CI run, re-open with the failure trace. Instrumentation pattern preserved on `test/stability-investigations` branch (commit `1fbc0bf` adds, `d2201ff` removes) for fast re-instrumentation.
 
-### From PR #66 Review (TBD)
+### From PR #66 Review (2026-04-30)
 
-(populated after code review of the PR)
+- [ ] Update stale `docs/superpowers/` cross-references in archived plan — `docs/archive/plans/2026-04-28_test-stability-investigations.md` lines 11 and 581-582 reference `docs/superpowers/specs/...` and `docs/superpowers/plans/...` paths that no longer exist (artifacts went to `docs/archive/specs/` and `docs/archive/plans/`). Pre-commit `validate-backlog-paths.js` only checks BACKLOG `**Origin**:` lines, so these slipped through. Dead links in archived doc, no functional impact. (confidence 35)
+- [ ] Tighten `mockFormspreeDeferred()` JSDoc prose — `tests/pages/FormPage.js` description says the release function "resolves the response," but the `@returns` tag in the same block says "call to send the response." `route.fulfill()` is what actually sends the response; resolving the internal promise just unblocks the handler. Align the prose with the more precise `@returns` wording. (confidence 10, nitpick)
 
 ---
 
