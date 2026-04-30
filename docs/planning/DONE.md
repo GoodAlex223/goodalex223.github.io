@@ -1,8 +1,26 @@
 # DONE
 
-**Last Updated**: 2026-04-20 (Internal Asset Link Checking completed)
+**Last Updated**: 2026-04-29 (Test Stability Investigations completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-04-28
+
+### Test Stability Investigations
+
+**Plan**: [docs/archive/plans/2026-04-28_test-stability-investigations.md](../archive/plans/2026-04-28_test-stability-investigations.md)
+**Spec**: [docs/archive/specs/2026-04-28_test-stability-investigations-design.md](../archive/specs/2026-04-28_test-stability-investigations-design.md)
+**PR**: [#66](https://github.com/GoodAlex223/goodalex223.github.io/pull/66)
+**Summary**: Resolved the long-standing WebKit "shows loading state during submission" flake via a new `mockFormspreeDeferred()` FormPage POM helper that holds the route response open until the test releases it — eliminates the click→assert race window structurally. Investigated the Firefox "tabindex updates when filter changes" flake with diagnostic instrumentation (`page.evaluate()` checkpoints + `test.info().attach()` traces) and concluded NOT_REPRODUCING after 150 local Firefox iterations and 80+ recent CI runs all green; flake likely resolved by `waitForAnimationComplete` migration in PR #62.
+**Key Changes**:
+- Created `mockFormspreeDeferred({ status, body })` on `tests/pages/FormPage.js` — returns a `releaseRoute` callback the test calls to send the response after asserting intermediate states
+- Migrated `tests/form/submission.spec.js:36` "shows loading state during submission" to the new helper, replacing the inline `setTimeout(resolve, 500)` race window
+- Investigated Firefox flake: instrumented test with four-checkpoint per-button state capture (tabindex attribute + IDL property + aria-pressed + active class + activeElement), ran `--repeat-each=50` then `--repeat-each=100` on Firefox (150/150 green), searched 80+ recent CI workflow runs (zero failures of the test on any engine), removed instrumentation cleanly
+- Updated BACKLOG: WebKit entry closed; Firefox entry kept open with NOT_REPRODUCING findings + reversal trigger
+- Updated CLAUDE.md FormPage POM patterns to document `mockFormspreeDeferred` usage and the hang-on-forgotten-release gotcha
+**Resolved BACKLOG items**: 1 (WebKit submission flake). 1 deferred with findings (Firefox tabindex flake, NOT_REPRODUCING). 3 follow-up items extracted to BACKLOG (instrumentation Heisenbug gotcha, audit other setTimeout-based route mocks, reversal trigger for Firefox flake).
 
 ---
 

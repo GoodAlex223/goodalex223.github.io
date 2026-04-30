@@ -104,6 +104,32 @@ export class FormPage {
     });
   }
 
+  /**
+   * Mock Formspree with a deferred response. Returns a release function that
+   * resolves the response when the test calls it. Use to assert intermediate
+   * states (e.g., loading state) without a fixed-timeout race.
+   *
+   * Always call the returned release function before assertions that wait on
+   * the response, otherwise the test will hang until Playwright's per-test
+   * timeout fires.
+   *
+   * @param {{ status?: number, body?: object }} [options]
+   * @returns {() => void} releaseRoute — call to send the response
+   */
+  async mockFormspreeDeferred({ status = 200, body = { ok: true } } = {}) {
+    let releaseRoute;
+    const released = new Promise((resolve) => { releaseRoute = resolve; });
+    await this.page.route("**/formspree.io/f/*", async (route) => {
+      await released;
+      await route.fulfill({
+        status,
+        contentType: "application/json",
+        body: JSON.stringify(body),
+      });
+    });
+    return releaseRoute;
+  }
+
   // ── Assertions ───────────────────────────────────────────
 
   async expectFieldError(errorLocator, message) {

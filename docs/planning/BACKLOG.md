@@ -851,7 +851,7 @@ _Extracted from implementation plan:_
 **Origin**: docs/archive/plans/2026-04-11_test-robustness.md
 
 - [ ] Replace `waitForScrollAnimations()` with deterministic polling — the 700ms fixed timeout is fragile across browsers. A polling approach (similar to `waitForAnimationComplete()` for filter animations) that checks `is-visible` class or computed opacity would be more robust. Currently used in ~20 test locations across all suites
-- [ ] Investigate pre-existing WebKit form submission flaky test — `tests/form/submission.spec.js:36` ("shows loading state during submission") fails intermittently on WebKit with `toBeHidden()` timeout on submit button text. May need a more resilient assertion or WebKit-specific handling
+- [x] ~~Investigate pre-existing WebKit form submission flaky test~~ *(resolved 2026-04-28, replaced 500ms fixed-timeout route mock in `tests/form/submission.spec.js:36` with deferred-promise pattern via new `mockFormspreeDeferred()` helper on FormPage POM — eliminates the click→assert race window structurally; 20/20 webkit + 20/20 cross-engine `--repeat-each` runs green)*
 
 ### From Test Robustness Code Review (2026-04-16)
 
@@ -862,7 +862,7 @@ _Extracted from implementation plan:_
 ## From Code Quality batch (2026-04-16)
 **Origin**: docs/archive/plans/2026-04-16_code-quality.md
 
-- [ ] Investigate pre-existing Firefox flaky test `tests/filter/accessibility.spec.js:44` — "tabindex updates when filter changes" fails intermittently on Firefox with received tabindex="0" instead of "-1". Previous Firefox fix (2026-04-10) addressed rapid-click tests via DOM polling; this test uses a different pattern and still flakes. Root cause analysis needed
+- [ ] Investigate pre-existing Firefox flaky test `tests/filter/accessibility.spec.js:44` — *(investigated 2026-04-28: NOT REPRODUCING.)* Original symptom: "tabindex updates when filter changes" fails intermittently on Firefox with received tabindex="0" instead of "-1". Investigation: ran 150 local Firefox iterations (`--repeat-each=50` then `--repeat-each=100`) with diagnostic instrumentation (per-button tabindex attribute + IDL property + active class + aria-pressed at four checkpoints, attached to trace via `test.info().attach()`) — all 150 green; searched 80+ recent CI workflow runs back to 2026-03-19 — zero failures of this test on any engine. Conclusion: flake is currently stale, possibly resolved by `waitForAnimationComplete` DOM polling shipped in PR #62 (2026-04-10) covering an adjacent code path. Reversal trigger: re-open if the test fails on any future CI run. Instrumentation pattern is preserved on the `test/stability-investigations` branch (commit `1fbc0bf` adds, `d2201ff` removes) for fast re-instrumentation if needed.
 - [ ] Extend `validate-backlog-paths.js` to catch `docs/superpowers/` Origin paths — currently only detects `docs/planning/plans/`. BACKLOG line 848 notes the same broken-origin-path bug has recurred with `docs/superpowers/` references. Expand regex to both (code review finding, confidence 75/100)
 - [ ] Read BACKLOG.md from git index, not working tree — `validate-backlog-paths.js` uses `fs.readFileSync(BACKLOG_PATH)` which reads the working-tree copy. If staged and unstaged changes coexist in BACKLOG.md, validator inspects unstaged content. Canonical approach: `git show :docs/planning/BACKLOG.md` (code review finding, confidence 50/100)
 - [ ] Add `npm run validate-backlog` script — makes validator discoverable and callable standalone outside the pre-commit hook. Mirrors `npm run check-links` pattern
@@ -900,6 +900,17 @@ _Extracted from implementation plan:_
 
 - [ ] Tighten case-sensitivity check to cover directory segments — `assetExists()` in `scripts/check-assets.js` only validates basename case via `readdirSync`, so a ref like `Images/projects/foo.webp` (wrong directory case) still passes locally on macOS/Windows but would fail on Linux CI. The header JSDoc claim "catches case-mismatch refs that would fail on Linux CI but pass on macOS/Windows" overstates the scope. Walk each path segment from repo root to fully match Linux behavior, or update the JSDoc to scope the claim to basename. (confidence 65)
 - [ ] Align output format between `check-links.js` and `check-assets.js` — the link checker prints failure sources in brackets (`✗ url (status) [sources]`) while the asset checker uses parens (`✓ ref (source)` / `✗ ref (source)`). Pick one convention so the combined CI output reads consistently.
+
+## From Test Stability Investigations (2026-04-28)
+**Origin**: docs/archive/plans/2026-04-28_test-stability-investigations.md
+
+- [ ] Document `page.evaluate` instrumentation Heisenbug gotcha — pre-action `page.evaluate()` checkpoints add ~10–20ms latency per call, which can mask race-condition flakes (instrumented runs go green while bare runs flake). When investigating future timing-sensitive flakes, take only post-action checkpoints, or add equivalent `page.evaluate` no-ops to non-instrumented runs to measure the timing shift. Surfaced during PR #66 Firefox tabindex investigation where 150 instrumented runs were all green; cause-and-effect with the masking hypothesis was not isolated but the risk is real and worth documenting for next time. (code review finding, confidence 75/100)
+- [ ] Audit `setTimeout`-based route mocks across the test suite — `mockFormspreeDeferred()` was added during PR #66 to replace one fixed-timeout race in submission.spec.js. Other test files may have similar patterns (e.g., `setTimeout` in `page.route` callbacks) that would benefit from the same deferred-promise control. Quick audit: `grep -rn 'setTimeout.*resolve' tests/` to find candidates; migrate any that assert intermediate states.
+- [ ] Re-investigate Firefox tabindex flake if it recurs — BACKLOG entry above (originally 2026-04-16) was marked NOT_REPRODUCING after 150 local runs + 80+ CI runs. Reversal trigger: if the test fails on any future CI run, re-open with the failure trace. Instrumentation pattern preserved on `test/stability-investigations` branch (commit `1fbc0bf` adds, `d2201ff` removes) for fast re-instrumentation.
+
+### From PR #66 Review (TBD)
+
+(populated after code review of the PR)
 
 ---
 
