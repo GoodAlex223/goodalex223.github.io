@@ -74,6 +74,10 @@ test.describe("Reduced Motion Accessibility", () => {
     page,
   }) => {
     await fp.clickFilter("iot");
+    // WebKit-Linux race: after `--active` class swap, axe color-contrast
+    // briefly samples interpolated colors between the two affected buttons.
+    // setTheme() pins data-theme + waits 400ms, letting style computation settle.
+    await fp.setTheme("light");
     await checkAccessibility(page);
   });
 
