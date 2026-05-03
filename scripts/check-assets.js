@@ -158,10 +158,10 @@ function main() {
   for (const result of results) {
     const sourceList = result.sources.join(', ');
     if (result.ok) {
-      console.log(`  ${GREEN}\u2713${RESET} ${result.ref} (${sourceList})`);
+      console.log(`  ${GREEN}\u2713${RESET} ${result.ref} [${sourceList}]`);
       passed++;
     } else {
-      console.log(`  ${RED}\u2717${RESET} ${result.ref} (${sourceList})`);
+      console.log(`  ${RED}\u2717${RESET} ${result.ref} [${sourceList}]`);
       failed++;
     }
   }
