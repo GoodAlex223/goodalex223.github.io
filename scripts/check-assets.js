@@ -115,7 +115,8 @@ function resolveRef(ref) {
  * Assumption: realpathSync.native case-canonicalization on macOS/Windows is
  * empirically reliable but not docs-guaranteed by Node. If a future Node
  * release changes this behavior, fall back to a per-segment readdirSync walk
- * (see BACKLOG: Memoize readdirSync per-directory in assetExists).
+ * with per-directory memoization (see BACKLOG: Per-segment readdirSync walk
+ * fallback in assetExists).
  */
 function assetExists(absolutePath) {
   if (!fs.existsSync(absolutePath)) return false;
