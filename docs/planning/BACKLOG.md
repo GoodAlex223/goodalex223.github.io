@@ -920,6 +920,13 @@ _Extracted from implementation plan:_
 - [ ] Audit other axe scans that follow class-toggle actions for the same race — the WebKit race surfaced because the test scans IMMEDIATELY after `clickFilter()` swaps `--active` between two buttons. Other suites that scan after a state-changing user action (modal open/close, theme toggle, form submit) could exhibit the same pattern under reduced motion on WebKit. Quick audit: grep `tests/**/*.spec.js` for `checkAccessibility` calls preceded by a state-changing helper and verify each has either a settle wait or doesn't toggle `transition`-bearing classes. (confidence 55)
 - [ ] Consider extracting the post-click axe-scan settle into a shared helper — the `setTheme("light")` workaround is in two places now (`reduced-motion.spec.js:73` and `axe-scan.spec.js:120`), each with the same explanatory comment. If the audit above finds more cases, factor into `tests/utils/axe-helper.js` (e.g., `checkAccessibilityAfterToggle(page, options)` that ensures style settle before scanning). Premature today (only 2 callsites); revisit if pattern repeats. (confidence 40)
 
+### From Asset Checker Polish Code Review (2026-05-03)
+**Origin**: docs/archive/plans/2026-05-02-asset-checker-polish.md
+
+- [ ] Restyle the stale-hash hint label so the tone matches "helpful nudge" — `scripts/check-assets.js:194` prints the `Hint:` label in `RED`, which reads as an error declaration rather than the nudge the spec intended. Preflight `dist/ missing or incomplete` correctly uses red because it is an error, but the stale-hash hint is recoverable diagnostic context. Consider plain text for the `Hint:` label, or a dim/yellow ANSI escape if a new color constant is acceptable. Subjective styling; no behavior impact. (confidence 40)
+- [ ] Restructure the CLAUDE.md "Internal asset check" bullet — six iterative additions across PR #65 + PR #68 turned the bullet into a 260+ word single sentence covering scanning sources, case-check mechanism, exclusions, dist preflight, stale-hash hint, HTML-regex scope, and JSON guard. Splitting into sub-bullets under a single heading (or promoting to its own sub-section) would improve scannability without changing content. (confidence 50)
+- [ ] Tighten the stale-hint regex if ref shapes change — `/^\/?dist\//` accepts both leading-slash and no-slash forms. Current HTML always emits no-slash refs (`dist/style.HASH.css`), so the `\/?` half is currently unused. Harmless and forward-compatible, but if the build pipeline ever switches to absolute refs, drop the optional half (or document why both are kept). (confidence 20, observation)
+
 ---
 
 ## Notes
