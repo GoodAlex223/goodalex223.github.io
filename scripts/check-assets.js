@@ -120,7 +120,10 @@ function assetExists(absolutePath) {
 function main() {
   for (const src of [INDEX_PATH, NOT_FOUND_PATH, PROJECTS_PATH]) {
     if (!fs.existsSync(src)) {
-      console.error(`Error: ${path.relative(ROOT, src)} not found. Run from project root.`);
+      console.error(
+        `Error: ${path.relative(ROOT, src)} not found. ` +
+        `Run from project root, and ensure \`npm run build\` completed and any CI artifacts downloaded.`
+      );
       process.exit(1);
     }
   }
