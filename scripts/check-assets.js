@@ -78,6 +78,7 @@ function extractJsonRefs() {
   const projects = JSON.parse(fs.readFileSync(PROJECTS_PATH, 'utf8'));
   const refs = [];
   for (const project of Object.values(projects)) {
+    if (typeof project !== 'object' || project === null) continue;
     if (!Array.isArray(project.screenshots)) continue;
     for (const screenshot of project.screenshots) {
       const ref = screenshot && screenshot.src;
