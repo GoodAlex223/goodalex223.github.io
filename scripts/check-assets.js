@@ -190,7 +190,7 @@ function main() {
       passed++;
     } else {
       if (!distHintShown && /^\/?dist\//.test(result.ref)) {
-        console.log(
+        console.error(
           `\n  ${RED}Hint:${RESET} dist/ may be stale \u2014 run \`npm run build\` to refresh hashed assets.\n`
         );
         distHintShown = true;
