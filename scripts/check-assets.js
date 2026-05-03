@@ -102,17 +102,26 @@ function resolveRef(ref) {
 }
 
 /**
- * Returns true if the file exists AND its basename matches the on-disk case exactly.
- * The case check catches refs that pass fs.existsSync on macOS/Windows (case-insensitive)
- * but would fail on Linux CI (case-sensitive).
+ * Returns true if the file exists at the requested case.
+ *
+ * On case-insensitive filesystems (macOS default, Windows), the requested
+ * casing must match the on-disk casing exactly — otherwise the ref would fail
+ * on Linux CI. This is enforced by canonicalizing via realpathSync.native()
+ * (which returns the on-disk casing on macOS via realpath(3) and on Windows
+ * via GetFinalPathNameByHandle) and comparing to the originally requested
+ * absolute path. On Linux, wrong-cased refs already fail fs.existsSync, so
+ * realpath is defensive.
+ *
+ * Assumption: realpathSync.native case-canonicalization on macOS/Windows is
+ * empirically reliable but not docs-guaranteed by Node. If a future Node
+ * release changes this behavior, fall back to a per-segment readdirSync walk
+ * (see BACKLOG: Memoize readdirSync per-directory in assetExists).
  */
 function assetExists(absolutePath) {
   if (!fs.existsSync(absolutePath)) return false;
-  const dir = path.dirname(absolutePath);
-  const base = path.basename(absolutePath);
   try {
-    const entries = fs.readdirSync(dir);
-    return entries.includes(base);
+    const canonical = fs.realpathSync.native(absolutePath);
+    return canonical === absolutePath;
   } catch {
     return false;
   }
