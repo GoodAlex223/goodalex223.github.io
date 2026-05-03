@@ -47,6 +47,13 @@ function isExcludedRef(ref) {
 
 /**
  * Extracts href= and src= attribute values from an HTML file.
+ *
+ * Note: this regex extracts any `href=` / `src=` attribute-shaped string in
+ * the raw HTML, including matches inside <script> blocks, JSON-LD payloads
+ * (<script type="application/ld+json">), and HTML comments. Today the repo
+ * has no such bypasses (verified during PR #65 review), but a future JSON-LD
+ * addition could need a stricter parser.
+ *
  * Returns an array of { ref, source } objects. Excluded refs are filtered out.
  */
 function extractHtmlRefs(filePath, sourceLabel) {
