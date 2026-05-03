@@ -128,6 +128,21 @@ function assetExists(absolutePath) {
   }
 }
 
+/**
+ * Fast-fails when dist/ is missing or empty (the common "forgot npm run build"
+ * case). Avoids printing one generic ✗ per dist/ ref. Returns nothing; calls
+ * process.exit(1) on failure.
+ */
+function checkDistPreflight() {
+  const distDir = path.join(ROOT, 'dist');
+  if (!fs.existsSync(distDir) || fs.readdirSync(distDir).length === 0) {
+    console.error(
+      `Error: ${RED}dist/ missing or incomplete${RESET} — run \`npm run build\` first.`
+    );
+    process.exit(1);
+  }
+}
+
 function main() {
   for (const src of [INDEX_PATH, NOT_FOUND_PATH, PROJECTS_PATH]) {
     if (!fs.existsSync(src)) {
@@ -138,6 +153,8 @@ function main() {
       process.exit(1);
     }
   }
+
+  checkDistPreflight();
 
   const allRefs = [
     ...extractHtmlRefs(INDEX_PATH, 'index.html'),
@@ -165,12 +182,19 @@ function main() {
 
   let passed = 0;
   let failed = 0;
+  let distHintShown = false;
   for (const result of results) {
     const sourceList = result.sources.join(', ');
     if (result.ok) {
       console.log(`  ${GREEN}\u2713${RESET} ${result.ref} [${sourceList}]`);
       passed++;
     } else {
+      if (!distHintShown && /^\/?dist\//.test(result.ref)) {
+        console.log(
+          `\n  ${RED}Hint:${RESET} dist/ may be stale \u2014 run \`npm run build\` to refresh hashed assets.\n`
+        );
+        distHintShown = true;
+      }
       console.log(`  ${RED}\u2717${RESET} ${result.ref} [${sourceList}]`);
       failed++;
     }
