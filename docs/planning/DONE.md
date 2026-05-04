@@ -1,8 +1,29 @@
 # DONE
 
-**Last Updated**: 2026-04-29 (Test Stability Investigations completed)
+**Last Updated**: 2026-05-03 (Asset Checker Polish & PR #65 Follow-ups completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-05-02
+
+### Asset Checker Polish & PR #65 Follow-ups
+
+**Plan**: [docs/archive/plans/2026-05-02_asset-checker-polish.md](../archive/plans/2026-05-02_asset-checker-polish.md)
+**Spec**: [docs/archive/specs/2026-05-02_asset-checker-polish-design.md](../archive/specs/2026-05-02_asset-checker-polish-design.md)
+**PR**: pending (next available — likely #68)
+**Summary**: Six-item polish PR closing all PR #65 review follow-ups for the internal asset checker. Highest-impact change: rewrote `assetExists` to use `fs.realpathSync.native()` for full-path canonicalization, catching wrong-cased directory segments (not just basenames) on macOS/Windows before they would fail Linux CI. Other items: hybrid `dist/` UX (preflight + stale-hash hint), JSON walk hardening, CI error wording, output-format alignment with `check-links.js`, and a bundled HTML-regex JSDoc note.
+**Key Changes**:
+- Rewrote `assetExists()` from basename-readdir match to `fs.realpathSync.native()` canonical-path comparison; documented macOS (`realpath(3)`) / Windows (`GetFinalPathNameByHandle`) behavior + Linux fallback semantics + BACKLOG fallback ref. Smoke-tested on Windows: a mis-cased `Images/projects/cleanspark.webp` is now caught locally.
+- Added `checkDistPreflight()` — fast-fails when `dist/` is missing or empty before scanning; one-time stale-hash hint inside print loop when first `dist/` ref fails (routed to stderr to match other failure-adjacent output).
+- Added `typeof-object-or-null` guard at top of `extractJsonRefs()` inner loop against degenerate JSON shapes (`null`, scalar entries).
+- Improved startup-file "not found" error wording to cover both wrong-cwd and missing-CI-artifact scenarios in one message.
+- Switched success/failure print-line sources from `(parens)` to `[brackets]` to match `check-links.js` convention (`[]` always means source files; `()` always means HTTP status).
+- Added JSDoc note above `extractHtmlRefs()` documenting the regex's scope (matches inside `<script>` blocks, JSON-LD payloads, HTML comments — no false positives today, flagged for future JSON-LD additions).
+- Synced CLAUDE.md "Internal asset check" bullet across three iterations to describe the new behaviors.
+- Reframed the existing "Memoize `readdirSync` per-directory in `assetExists()`" BACKLOG entry as a "Per-segment `readdirSync` walk fallback" since the rewrite removed the original basename-readdir code.
+**Resolved BACKLOG items**: 5 (PR #65 review follow-ups: case-sensitivity tightening, dist/ preflight, JSON walk hardening, CI error wording, output format alignment) + 1 bundled item from the original Internal Asset Link Checking code review (HTML-regex scope JSDoc). 5 new follow-up items extracted from per-task and final code reviews (hint label tone, CLAUDE.md bullet density, dead regex prefix, stdout/stderr ordering, hint regex scope).
 
 ---
 

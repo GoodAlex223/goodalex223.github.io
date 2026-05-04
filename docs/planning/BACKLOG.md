@@ -921,7 +921,7 @@ _Extracted from implementation plan:_
 - [ ] Consider extracting the post-click axe-scan settle into a shared helper — the `setTheme("light")` workaround is in two places now (`reduced-motion.spec.js:73` and `axe-scan.spec.js:120`), each with the same explanatory comment. If the audit above finds more cases, factor into `tests/utils/axe-helper.js` (e.g., `checkAccessibilityAfterToggle(page, options)` that ensures style settle before scanning). Premature today (only 2 callsites); revisit if pattern repeats. (confidence 40)
 
 ### From Asset Checker Polish Code Review (2026-05-03)
-**Origin**: docs/archive/plans/2026-05-02-asset-checker-polish.md
+**Origin**: docs/archive/plans/2026-05-02_asset-checker-polish.md
 
 - [ ] Restyle the stale-hash hint label so the tone matches "helpful nudge" — `scripts/check-assets.js:194` prints the `Hint:` label in `RED`, which reads as an error declaration rather than the nudge the spec intended. Preflight `dist/ missing or incomplete` correctly uses red because it is an error, but the stale-hash hint is recoverable diagnostic context. Consider plain text for the `Hint:` label, or a dim/yellow ANSI escape if a new color constant is acceptable. Subjective styling; no behavior impact. (confidence 40)
 - [ ] Restructure the CLAUDE.md "Internal asset check" bullet — six iterative additions across PR #65 + PR #68 turned the bullet into a 260+ word single sentence covering scanning sources, case-check mechanism, exclusions, dist preflight, stale-hash hint, HTML-regex scope, and JSON guard. Splitting into sub-bullets under a single heading (or promoting to its own sub-section) would improve scannability without changing content. (confidence 50)
