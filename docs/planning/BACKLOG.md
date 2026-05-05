@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-04-28 (PR #65 review follow-ups added)
+**Last Updated**: 2026-05-05 (PR #68 post-merge review follow-ups added)
 
 Future ideas and improvements for the portfolio.
 
@@ -928,6 +928,13 @@ _Extracted from implementation plan:_
 - [ ] Tighten the stale-hint regex if ref shapes change — `/^\/?dist\//` accepts both leading-slash and no-slash forms. Current HTML always emits no-slash refs (`dist/style.HASH.css`), so the `\/?` half is currently unused. Harmless and forward-compatible, but if the build pipeline ever switches to absolute refs, drop the optional half (or document why both are kept). (confidence 20, observation)
 - [ ] Stale-hash hint (stderr) immediately precedes the ✗ ref line (stdout) — if a future CI captures streams separately, their relative ordering is not guaranteed by Node, and the hint could appear out of position relative to the broken ref it explains. Low risk on GitHub Actions (timestamps merge the two), but the in-context diagnostic value depends on ordering. Consider routing both lines to the same stream, or moving the hint to a post-loop summary block where ordering doesn't matter. (confidence 25, observation)
 - [ ] Narrow the stale-hash hint trigger to hash-bearing refs only — current `/^\/?dist\//` regex fires on ANY failing `dist/` ref, but the hint message specifically mentions "stale hashed assets." A future non-hashed `dist/` ref (e.g., `dist/robots.txt`, `dist/manifest.json`) that fails for some other reason would display a misleading "may be stale" hint. None today; tighten the regex to `/\.[a-f0-9]{6,}\.[a-z]+$/` (or similar hash-pattern check) only if such refs are added. (confidence 30, latent gap)
+
+### From PR #68 Post-Merge Review (2026-05-05)
+**Origin**: docs/archive/plans/2026-05-02_asset-checker-polish.md
+
+- [ ] Guard `checkDistPreflight()` against `dist` existing as a non-directory — `scripts/check-assets.js:138` calls `fs.readdirSync(distDir)` after a bare `fs.existsSync()` check. If a stray file named `dist` (no trailing slash) is present at repo root (e.g., from `touch dist` or a broken build tool), `readdirSync` throws `ENOTDIR` with a raw stack trace instead of the clean "run `npm run build` first" message the function was designed to emit. The pre-existing `assetExists()` (line 119) already wraps `realpathSync.native` in try/catch — apply the same defensive pattern here, or check `fs.statSync(distDir).isDirectory()` before reading. (confidence 50, low likelihood but breaks the contract of the function's docstring)
+- [ ] Reconcile `checkDistPreflight()` JSDoc vs error message vocabulary — `scripts/check-assets.js:131-134` JSDoc says "Fast-fails when dist/ is missing or empty," but the printed error at line 140 says "dist/ missing or incomplete." The word "incomplete" in the message overstates what the preflight actually checks (it does NOT detect partial/stale `dist/` — that case falls through to the stale-hash hint). Either change the message to "missing or empty" to match the JSDoc, or add a note in the JSDoc explaining the broader user-facing wording. (confidence 50, vocabulary drift, no functional impact)
+- [ ] Update `extractJsonRefs()` JSDoc to mention the non-object guard — `scripts/check-assets.js:73-76` JSDoc reads "Walks projects[*].screenshots[].src. Skips excluded refs." but the function body now also skips entries where `typeof project !== 'object' || project === null` (line 81, added in PR #68). Either expand the JSDoc to "...also skips non-object projects[*] entries" or accept the omission as a defensive-only detail. (confidence 50, doc/code drift)
 
 ---
 
