@@ -47,6 +47,13 @@ function isExcludedRef(ref) {
 
 /**
  * Extracts href= and src= attribute values from an HTML file.
+ *
+ * Note: this regex extracts any `href=` / `src=` attribute-shaped string in
+ * the raw HTML, including matches inside <script> blocks, JSON-LD payloads
+ * (<script type="application/ld+json">), and HTML comments. Today the repo
+ * has no such bypasses (verified during PR #65 review), but a future JSON-LD
+ * addition could need a stricter parser.
+ *
  * Returns an array of { ref, source } objects. Excluded refs are filtered out.
  */
 function extractHtmlRefs(filePath, sourceLabel) {
@@ -71,6 +78,7 @@ function extractJsonRefs() {
   const projects = JSON.parse(fs.readFileSync(PROJECTS_PATH, 'utf8'));
   const refs = [];
   for (const project of Object.values(projects)) {
+    if (typeof project !== 'object' || project === null) continue;
     if (!Array.isArray(project.screenshots)) continue;
     for (const screenshot of project.screenshots) {
       const ref = screenshot && screenshot.src;
@@ -94,29 +102,59 @@ function resolveRef(ref) {
 }
 
 /**
- * Returns true if the file exists AND its basename matches the on-disk case exactly.
- * The case check catches refs that pass fs.existsSync on macOS/Windows (case-insensitive)
- * but would fail on Linux CI (case-sensitive).
+ * Returns true if the file exists at the requested case.
+ *
+ * On case-insensitive filesystems (macOS default, Windows), the requested
+ * casing must match the on-disk casing exactly — otherwise the ref would fail
+ * on Linux CI. This is enforced by canonicalizing via realpathSync.native()
+ * (which returns the on-disk casing on macOS via realpath(3) and on Windows
+ * via GetFinalPathNameByHandle) and comparing to the originally requested
+ * absolute path. On Linux, wrong-cased refs already fail fs.existsSync, so
+ * realpath is defensive.
+ *
+ * Assumption: realpathSync.native case-canonicalization on macOS/Windows is
+ * empirically reliable but not docs-guaranteed by Node. If a future Node
+ * release changes this behavior, fall back to a per-segment readdirSync walk
+ * with per-directory memoization (see BACKLOG: Per-segment readdirSync walk
+ * fallback in assetExists).
  */
 function assetExists(absolutePath) {
   if (!fs.existsSync(absolutePath)) return false;
-  const dir = path.dirname(absolutePath);
-  const base = path.basename(absolutePath);
   try {
-    const entries = fs.readdirSync(dir);
-    return entries.includes(base);
+    const canonical = fs.realpathSync.native(absolutePath);
+    return canonical === absolutePath;
   } catch {
     return false;
+  }
+}
+
+/**
+ * Fast-fails when dist/ is missing or empty (the common "forgot npm run build"
+ * case). Avoids printing one generic ✗ per dist/ ref. Returns nothing; calls
+ * process.exit(1) on failure.
+ */
+function checkDistPreflight() {
+  const distDir = path.join(ROOT, 'dist');
+  if (!fs.existsSync(distDir) || fs.readdirSync(distDir).length === 0) {
+    console.error(
+      `Error: ${RED}dist/ missing or incomplete${RESET} — run \`npm run build\` first.`
+    );
+    process.exit(1);
   }
 }
 
 function main() {
   for (const src of [INDEX_PATH, NOT_FOUND_PATH, PROJECTS_PATH]) {
     if (!fs.existsSync(src)) {
-      console.error(`Error: ${path.relative(ROOT, src)} not found. Run from project root.`);
+      console.error(
+        `Error: ${path.relative(ROOT, src)} not found. ` +
+        `Run from project root, and ensure \`npm run build\` completed and any CI artifacts downloaded.`
+      );
       process.exit(1);
     }
   }
+
+  checkDistPreflight();
 
   const allRefs = [
     ...extractHtmlRefs(INDEX_PATH, 'index.html'),
@@ -144,13 +182,20 @@ function main() {
 
   let passed = 0;
   let failed = 0;
+  let distHintShown = false;
   for (const result of results) {
     const sourceList = result.sources.join(', ');
     if (result.ok) {
-      console.log(`  ${GREEN}\u2713${RESET} ${result.ref} (${sourceList})`);
+      console.log(`  ${GREEN}\u2713${RESET} ${result.ref} [${sourceList}]`);
       passed++;
     } else {
-      console.log(`  ${RED}\u2717${RESET} ${result.ref} (${sourceList})`);
+      if (!distHintShown && /^\/?dist\//.test(result.ref)) {
+        console.error(
+          `\n  ${RED}Hint:${RESET} dist/ may be stale \u2014 run \`npm run build\` to refresh hashed assets.\n`
+        );
+        distHintShown = true;
+      }
+      console.log(`  ${RED}\u2717${RESET} ${result.ref} [${sourceList}]`);
       failed++;
     }
   }
