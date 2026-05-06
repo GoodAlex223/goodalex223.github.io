@@ -11,7 +11,11 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 
 // Extend this list when a new forbidden Origin path pattern emerges.
-// Origin lines must point to docs/archive/plans/ after task completion.
+// Origin lines must point to docs/archive/plans/ (or docs/archive/specs/
+// for specs) after task completion. The docs/superpowers/ entry is
+// intentionally broad: it covers both docs/superpowers/plans/ and
+// docs/superpowers/specs/, both of which are pending consolidation into
+// docs/archive/.
 const FORBIDDEN_ORIGIN_PATHS = ['docs/planning/plans/', 'docs/superpowers/'];
 const BACKLOG_REL_PATH = 'docs/planning/BACKLOG.md';
 
@@ -50,7 +54,7 @@ if (content === null) {
 
 const violations = [];
 content.split('\n').forEach((line, index) => {
-  if (!line.trimStart().startsWith('**Origin**')) return;
+  if (!/^\s*(?:[-*+]\s+)?\*\*Origin\*\*/.test(line)) return;
   const matched = FORBIDDEN_ORIGIN_PATHS.find((p) => line.includes(p));
   if (matched) {
     violations.push({ line: index + 1, content: line.trim(), matched });
