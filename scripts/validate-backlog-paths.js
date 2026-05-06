@@ -20,6 +20,9 @@ const FORBIDDEN_ORIGIN_PATHS = ['docs/planning/plans/', 'docs/superpowers/'];
 const BACKLOG_REL_PATH = 'docs/planning/BACKLOG.md';
 
 function readBacklog() {
+  // In CI: works because actions/checkout@v4 populates the git index from HEAD.
+  // A future sparse-checkout or blob-filter mode in the lint job would cause
+  // this to fail and silently fall back to working-tree read.
   try {
     return execFileSync('git', ['show', `:${BACKLOG_REL_PATH}`], {
       encoding: 'utf8',

@@ -941,7 +941,6 @@ _Extracted from implementation plan:_
 **Origin**: docs/archive/plans/2026-05-06_backlog-validator-hardening.md
 
 - [ ] Improve validator fix-guidance for spec-targeted violations — error message at `scripts/validate-backlog-paths.js:70` says "Replace the forbidden path with the equivalent docs/archive/plans/... path" but spec violations should target `docs/archive/specs/`. Detect whether the violation line points to a `plans/` or `specs/` subtree and emit appropriate guidance. (PR #69 review finding, confidence 30, nitpick)
-- [ ] CLAUDE.md note: validator's CI gate depends on `actions/checkout@v4` populating the index from HEAD — a future sparse-checkout or blob-filter mode in the lint job would silently degrade enforcement to working-tree fallback. Add a one-line code comment in `.github/workflows/deploy.yml` near the `Validate BACKLOG Origin paths` step OR in `scripts/validate-backlog-paths.js` near `git show :path` documenting this dependency. (PR #69 review finding, confidence 80, forward-looking)
 - [ ] Track npm overhead per pre-commit invocation — `npm run validate-backlog` adds ~300-500ms over `node scripts/validate-backlog-paths.js` direct call. Acceptable trade-off for single-source-of-truth, but if pre-commit slowness becomes user-perceivable, switch the hook to direct node invocation while keeping `npm run` for manual + CI use. (PR #69 review observation, confidence 85, ergonomics)
 
 ---
