@@ -105,7 +105,7 @@ if (content === null) {
 
 const violations = [];
 content.split('\n').forEach((line, index) => {
-  if (!line.trimStart().startsWith('**Origin**')) return;
+  if (!/^\s*(?:[-*+]\s+)?\*\*Origin\*\*/.test(line)) return;
   const matched = FORBIDDEN_ORIGIN_PATHS.find((p) => line.includes(p));
   if (matched) {
     violations.push({ line: index + 1, content: line.trim(), matched });
@@ -113,7 +113,7 @@ content.split('\n').forEach((line, index) => {
 });
 ```
 
-**Why anchored detection**: A loose `line.includes('**Origin**')` false-positives on `BACKLOG.md` line 913 (a checklist item that mentions `` `**Origin**:` `` in backticks alongside `docs/superpowers/`). Real Origin field lines always start at column 0 with `**Origin**`; the `trimStart().startsWith()` check correctly matches them and ignores mid-line backtick mentions.
+**Why anchored detection**: A loose `line.includes('**Origin**')` false-positives on `BACKLOG.md` line 913 (a checklist item that mentions `` `**Origin**:` `` in backticks alongside `docs/superpowers/`). Real Origin field lines start at column 0, optionally with a bullet marker (`-`, `*`, or `+`). The regex `/^\s*(?:[-*+]\s+)?\*\*Origin\*\*/` correctly matches both column-0 and bullet-prefixed Origins while rejecting mid-line backtick mentions.
 
 **Output** (mirroring `check-links` / `check-assets` style):
 - Success: `console.log('BACKLOG Origin paths: OK')`, exit 0
@@ -166,7 +166,7 @@ After fresh `actions/checkout@v4`, the index reflects HEAD content, so `git show
 | `npm run validate-backlog` outside a git repo | `git show` fails → `rev-parse` also fails → fall back to working tree |
 | `git` binary not available | Both `execFileSync` calls throw → fall back to working tree (same as no-git path) |
 | `git rm --cached BACKLOG.md` (staged deletion, file still on disk) | `git show` fails → `rev-parse` succeeds (in git repo) → return null → "skipped" message |
-| BACKLOG.md line 913-style false positive (checklist item with mid-line `` `**Origin**:` `` in backticks) | Anchored detection (`trimStart().startsWith('**Origin**')`) ignores mid-line mentions |
+| BACKLOG.md line 913-style false positive (checklist item with mid-line `` `**Origin**:` `` in backticks) | Anchored detection regex `/^\s*(?:[-*+]\s+)?\*\*Origin\*\*/` ignores mid-line mentions; matches both column-0 and bullet-prefixed Origin fields |
 | `--no-verify` bypass at commit time | CI `lint` job catches the violation and blocks deploy |
 | New forbidden Origin path emerges in future | One-line edit: append to `FORBIDDEN_ORIGIN_PATHS` array |
 
