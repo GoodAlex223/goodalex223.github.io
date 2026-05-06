@@ -1,8 +1,29 @@
 # DONE
 
-**Last Updated**: 2026-05-03 (Asset Checker Polish & PR #65 Follow-ups completed)
+**Last Updated**: 2026-05-07 (BACKLOG Validator Hardening completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-05-07
+
+### BACKLOG Validator Hardening
+
+**Plan**: [docs/archive/plans/2026-05-06_backlog-validator-hardening.md](../archive/plans/2026-05-06_backlog-validator-hardening.md)
+**Spec**: [docs/archive/specs/2026-05-06_backlog-validator-hardening-design.md](../archive/specs/2026-05-06_backlog-validator-hardening-design.md)
+**PR**: pending (next available — likely #69)
+**Summary**: Five-item hardening of the BACKLOG Origin path validator (originally a 32-line script introduced in PR #57). Extended denylist to catch `docs/superpowers/` references (recurring bug class), switched read source from working tree to git index via `git show :path` with a two-level fallback (`rev-parse --is-inside-work-tree` probe distinguishes "in repo, file absent" → skip from "git unavailable" → working-tree read), tightened pre-commit grep regex to anchored basename match, added `npm run validate-backlog` discoverability script, and wired a CI gate into the `lint` job — closing the `--no-verify` bypass.
+**Key Changes**:
+- Rewrote `scripts/validate-backlog-paths.js` (32 → 79 lines): extensible `FORBIDDEN_ORIGIN_PATHS` denylist (`['docs/planning/plans/', 'docs/superpowers/']`); auto-detect read source via `git show :path` → on failure, probe `rev-parse --is-inside-work-tree` to distinguish in-repo-absent (skip with "skipped" message) from no-git (working-tree fallback); anchored detection regex `/^\s*(?:[-*+]\s+)?\*\*Origin\*\*/` matches column-0 and bullet-prefixed Origin lines while rejecting mid-line backtick mentions; success message `BACKLOG Origin paths: OK`; failure message annotates each violation with `[matched: <path>]`.
+- Added `npm run validate-backlog` to `package.json` (alphabetically grouped with `check-links`, `check-assets`).
+- Tightened `.husky/pre-commit` regex from `grep -q 'BACKLOG.md'` to `grep -qE '(^|/)BACKLOG\.md$'` (anchored basename, escaped literal dot — rejects `OLD_BACKLOG.md`, `BACKLOG.md.bak`); switched invocation to `npm run validate-backlog` for single source of truth.
+- Added `Validate BACKLOG Origin paths` step to the `lint` job in `.github/workflows/deploy.yml` — closes the `--no-verify` bypass and fails fast before `build`/`test`/`lighthouse` run.
+- Spec was amended twice during implementation (1a6d206, 0c10ada) to incorporate two implementer-discovered bug fixes: anchored detection (a loose `includes('**Origin**')` false-positives on BACKLOG.md line 913) and the two-level git fallback (a single-level `fs.existsSync` fallback misbehaved on `git rm --cached` because the file remains on disk).
+- Code review caught a latent miss on bullet-prefixed `**Origin**` lines (no current BACKLOG entry uses one, but the convention isn't formally locked down) — fixed in 835a496 by upgrading to the regex form.
+- Added inline comment in validator near `git show :path` documenting CI dependency on `actions/checkout@v4` index population (commit 3fcfb3a) — guards against silent degradation if a future sparse-checkout or blob-filter is added to the lint job.
+- Synced CLAUDE.md across multiple iterations (Build Commands, Commits, BACKLOG Origin Paths sections, CI/CD pipeline summary) to reflect the regex detection, two-level fallback, denylist, three invocation modes, and tightened grep.
+**Resolved BACKLOG items**: 5 (the original Wednesday group: docs/superpowers/ denylist extension, git-index read with staged-deletion handling, pre-commit grep tightening, npm run validate-backlog script, success output message) + 1 closed during the same PR (CI checkout dependency code comment from final code review). 2 new follow-up items extracted from per-task code reviews (validator fix-guidance for spec-targeted violations, npm-overhead per pre-commit invocation).
 
 ---
 
