@@ -71,19 +71,31 @@ function readBacklog() {
   try {
     return execFileSync('git', ['show', `:${BACKLOG_REL_PATH}`], {
       encoding: 'utf8',
-      stdio: ['pipe', 'pipe', 'pipe']  // suppress git stderr noise on miss
+      stdio: ['pipe', 'pipe', 'pipe'],  // suppress git stderr noise on miss
     });
-  } catch (_) {
-    // Not in index: staged-deletion, no-git environment, or manual run
-    // with unstaged BACKLOG.md. Fall back to working tree.
-    const fullPath = path.join(__dirname, '..', BACKLOG_REL_PATH);
-    if (!fs.existsSync(fullPath)) return null;
-    return fs.readFileSync(fullPath, 'utf8');
+  } catch {
+    // git show failed — determine whether we're in a git repo.
+    // If we are, the file is absent from the index (staged for deletion
+    // via `git rm --cached`, or never tracked). Treat as absent (skip).
+    // If git is unavailable entirely, fall back to the working-tree file.
+    try {
+      execFileSync('git', ['rev-parse', '--is-inside-work-tree'], {
+        encoding: 'utf8',
+        stdio: ['pipe', 'pipe', 'pipe'],
+      });
+      return null;  // inside a git repo but file not in index — skip
+    } catch {
+      const fullPath = path.join(__dirname, '..', BACKLOG_REL_PATH);
+      if (!fs.existsSync(fullPath)) return null;
+      return fs.readFileSync(fullPath, 'utf8');
+    }
   }
 }
 ```
 
-**Validation loop** (denylist):
+**Why two-level fallback**: A simpler `fs.existsSync(workingTree)` fallback misbehaves on `git rm --cached BACKLOG.md` — the file is removed from the index but remains on disk, so the validator would read the working tree and report "OK" instead of skipping. The `rev-parse --is-inside-work-tree` probe distinguishes "in a git repo, file absent from index" (skip) from "git unavailable entirely" (fall back to disk).
+
+**Validation loop** (denylist, anchored detection):
 ```js
 const content = readBacklog();
 if (content === null) {
@@ -93,13 +105,15 @@ if (content === null) {
 
 const violations = [];
 content.split('\n').forEach((line, index) => {
-  if (!line.includes('**Origin**')) return;
+  if (!line.trimStart().startsWith('**Origin**')) return;
   const matched = FORBIDDEN_ORIGIN_PATHS.find((p) => line.includes(p));
   if (matched) {
     violations.push({ line: index + 1, content: line.trim(), matched });
   }
 });
 ```
+
+**Why anchored detection**: A loose `line.includes('**Origin**')` false-positives on `BACKLOG.md` line 913 (a checklist item that mentions `` `**Origin**:` `` in backticks alongside `docs/superpowers/`). Real Origin field lines always start at column 0 with `**Origin**`; the `trimStart().startsWith()` check correctly matches them and ignores mid-line backtick mentions.
 
 **Output** (mirroring `check-links` / `check-assets` style):
 - Success: `console.log('BACKLOG Origin paths: OK')`, exit 0
@@ -149,8 +163,10 @@ After fresh `actions/checkout@v4`, the index reflects HEAD content, so `git show
 | BACKLOG.md staged (modify or add) | Validate index content via `git show :path` |
 | BACKLOG.md staged for deletion | `git show` fails → fall back → working tree gone → exit 0 with "skipped" message |
 | `npm run validate-backlog` with unstaged BACKLOG.md edits | Validates *index* content (= HEAD content if nothing staged), NOT working-tree WIP. User must `git add docs/planning/BACKLOG.md` first to validate new edits. Acceptable trade-off: mirrors how lint-staged works; primary use is CI / debugging where staged or HEAD content is what matters |
-| `npm run validate-backlog` outside a git repo | `git show` fails → fall back → working tree present → validate working tree |
-| `git` binary not available | `execFileSync` throws → fall back to working tree (same as no-git path) |
+| `npm run validate-backlog` outside a git repo | `git show` fails → `rev-parse` also fails → fall back to working tree |
+| `git` binary not available | Both `execFileSync` calls throw → fall back to working tree (same as no-git path) |
+| `git rm --cached BACKLOG.md` (staged deletion, file still on disk) | `git show` fails → `rev-parse` succeeds (in git repo) → return null → "skipped" message |
+| BACKLOG.md line 913-style false positive (checklist item with mid-line `` `**Origin**:` `` in backticks) | Anchored detection (`trimStart().startsWith('**Origin**')`) ignores mid-line mentions |
 | `--no-verify` bypass at commit time | CI `lint` job catches the violation and blocks deploy |
 | New forbidden Origin path emerges in future | One-line edit: append to `FORBIDDEN_ORIGIN_PATHS` array |
 
