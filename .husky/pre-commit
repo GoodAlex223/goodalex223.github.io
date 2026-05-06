@@ -1,4 +1,4 @@
 npx lint-staged || exit 1
-if git diff --cached --name-only | grep -q 'BACKLOG.md'; then
-  node scripts/validate-backlog-paths.js
+if git diff --cached --name-only | grep -qE '(^|/)BACKLOG\.md$'; then
+  npm run validate-backlog
 fi
