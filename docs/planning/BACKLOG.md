@@ -936,6 +936,14 @@ _Extracted from implementation plan:_
 - [ ] Reconcile `checkDistPreflight()` JSDoc vs error message vocabulary — `scripts/check-assets.js:131-134` JSDoc says "Fast-fails when dist/ is missing or empty," but the printed error at line 140 says "dist/ missing or incomplete." The word "incomplete" in the message overstates what the preflight actually checks (it does NOT detect partial/stale `dist/` — that case falls through to the stale-hash hint). Either change the message to "missing or empty" to match the JSDoc, or add a note in the JSDoc explaining the broader user-facing wording. (confidence 50, vocabulary drift, no functional impact)
 - [ ] Update `extractJsonRefs()` JSDoc to mention the non-object guard — `scripts/check-assets.js:73-76` JSDoc reads "Walks projects[*].screenshots[].src. Skips excluded refs." but the function body now also skips entries where `typeof project !== 'object' || project === null` (line 81, added in PR #68). Either expand the JSDoc to "...also skips non-object projects[*] entries" or accept the omission as a defensive-only detail. (confidence 50, doc/code drift)
 
+### From BACKLOG Validator Hardening (2026-05-07)
+
+**Origin**: docs/archive/plans/2026-05-06_backlog-validator-hardening.md
+
+- [ ] Improve validator fix-guidance for spec-targeted violations — error message at `scripts/validate-backlog-paths.js:70` says "Replace the forbidden path with the equivalent docs/archive/plans/... path" but spec violations should target `docs/archive/specs/`. Detect whether the violation line points to a `plans/` or `specs/` subtree and emit appropriate guidance. (PR #69 review finding, confidence 30, nitpick)
+- [ ] CLAUDE.md note: validator's CI gate depends on `actions/checkout@v4` populating the index from HEAD — a future sparse-checkout or blob-filter mode in the lint job would silently degrade enforcement to working-tree fallback. Add a one-line code comment in `.github/workflows/deploy.yml` near the `Validate BACKLOG Origin paths` step OR in `scripts/validate-backlog-paths.js` near `git show :path` documenting this dependency. (PR #69 review finding, confidence 80, forward-looking)
+- [ ] Track npm overhead per pre-commit invocation — `npm run validate-backlog` adds ~300-500ms over `node scripts/validate-backlog-paths.js` direct call. Acceptable trade-off for single-source-of-truth, but if pre-commit slowness becomes user-perceivable, switch the hook to direct node invocation while keeping `npm run` for manual + CI use. (PR #69 review observation, confidence 85, ergonomics)
+
 ---
 
 ## Notes

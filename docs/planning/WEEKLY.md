@@ -52,26 +52,26 @@
 ### Monday — Test Flake Investigations (5 SP)
 
 **Test Stability Investigations** — 5 SP *(solo, IMPORTANT)*
-- [ ] Investigate Firefox `accessibility.spec.js:44` flake *(3 SP, IMPORTANT)*
-- [ ] Investigate WebKit `submission.spec.js:36` flake *(2 SP)*
+- [x] Investigate Firefox `accessibility.spec.js:44` flake *(3 SP, IMPORTANT)*
+- [x] Investigate WebKit `submission.spec.js:36` flake *(2 SP)*
 
 ### Tuesday — Asset Checker Polish (7 SP)
 
 **Asset Checker Polish & PR #65 Follow-ups** `[batch]` — 7 SP
-- [ ] Tighten case-sensitivity check to cover directory segments *(3 SP, IMPORTANT)*
-- [ ] Implement `dist/` preflight error message *(1 SP, IMPORTANT)*
-- [ ] Harden JSON walk against non-flat `projects` shape *(1 SP)*
-- [ ] Improve generic "not found" error message on CI *(1 SP)*
-- [ ] Align output format between `check-links.js` and `check-assets.js` *(1 SP)*
+- [x] Tighten case-sensitivity check to cover directory segments *(3 SP, IMPORTANT)*
+- [x] Implement `dist/` preflight error message *(1 SP, IMPORTANT)*
+- [x] Harden JSON walk against non-flat `projects` shape *(1 SP)*
+- [x] Improve generic "not found" error message on CI *(1 SP)*
+- [x] Align output format between `check-links.js` and `check-assets.js` *(1 SP)*
 
 ### Wednesday — BACKLOG Validator Hardening (7 SP)
 
 **BACKLOG Validator Hardening** `[batch]` — 7 SP
-- [ ] Extend regex to catch `docs/superpowers/` Origin paths *(2 SP, IMPORTANT)*
-- [ ] Read BACKLOG.md from git index + handle staged-deletion ENOENT *(3 SP)*
-- [ ] Tighten pre-commit grep pattern *(1 SP)*
-- [ ] Add `npm run validate-backlog` script *(<1 SP)*
-- [ ] Add success output to validator *(<1 SP)*
+- [x] Extend regex to catch `docs/superpowers/` Origin paths *(2 SP, IMPORTANT)*
+- [x] Read BACKLOG.md from git index + handle staged-deletion ENOENT *(3 SP)*
+- [x] Tighten pre-commit grep pattern *(1 SP)*
+- [x] Add `npm run validate-backlog` script *(<1 SP)*
+- [x] Add success output to validator *(<1 SP)*
 
 ### Thursday — CI Deadline & Docs (7 SP)
 
@@ -96,7 +96,7 @@
 |-------|--------|-------|----------|-----|--------|
 | Test Stability Investigations | Testing | 2 | 5 | Mon | ⏳ Planned |
 | Asset Checker Polish & PR #65 Follow-ups `[batch]` | Build/CI | 5 | 7 | Tue | ⏳ Planned |
-| BACKLOG Validator Hardening `[batch]` | JS Logic | 5 | 7 | Wed | ⏳ Planned |
+| BACKLOG Validator Hardening `[batch]` | JS Logic | 5 | 7 | Wed | ✅ Done |
 | Node.js 24 GitHub Actions Upgrade | CI/Build | 1 | 3 | Thu | ⏳ Planned |
 | Documentation Refresh `[batch]` | Docs | 3 | 4 | Thu | ⏳ Planned |
 | 🏆 Replace `waitForScrollAnimations()` | Testing | 1 | 5 | Fri | ⏳ Planned |

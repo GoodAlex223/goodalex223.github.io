@@ -8,7 +8,7 @@
 
 **Tech Stack:** CommonJS Node script, husky pre-commit hook (bash), npm script, GitHub Actions YAML.
 
-**Spec:** [`docs/superpowers/specs/2026-05-06_backlog-validator-hardening-design.md`](../specs/2026-05-06_backlog-validator-hardening-design.md)
+**Spec:** [`docs/archive/specs/2026-05-06_backlog-validator-hardening-design.md`](../specs/2026-05-06_backlog-validator-hardening-design.md)
 
 **Branch:** `chore/backlog-validator-hardening` (already created, spec already committed at 7b5f4ea)
 
