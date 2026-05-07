@@ -38,6 +38,9 @@ jobs:
       - name: Lint JS
         run: npm run lint:js
 
+      - name: Validate BACKLOG Origin paths
+        run: npm run validate-backlog
+
   build:
     runs-on: ubuntu-latest
     needs: lint

@@ -28,14 +28,15 @@ npm test               # E2E tests (headless Playwright)
 npm run test:ui        # Tests with UI mode
 npm run test:headed    # Tests with visible browser
 npm run lighthouse     # Lighthouse CI audit (≥90/100 all categories)
-npm run check-links    # Check all external links in index.html + projects.json (HEAD→GET fallback, 3 retries)
-npm run check-assets   # Check all internal asset refs in HTML + projects.json exist on disk (requires `npm run build` first)
+npm run check-links       # Check all external links in index.html + projects.json (HEAD→GET fallback, 3 retries)
+npm run check-assets      # Check all internal asset refs in HTML + projects.json exist on disk (requires `npm run build` first)
+npm run validate-backlog  # Validate BACKLOG.md Origin paths (reads git index; prints OK/skipped/violations)
 npx serve              # Local server (or python -m http.server 8000)
 ```
 
 **Build pipeline**: `update-sitemap` → `build:css` (PostCSS + cssnano) → `unhash` → `inline:css` (Critters critical CSS) → `hash:assets` (SHA-256 content hashes + terser JS minification) → `report-sizes` (budget: CSS gzip 20 KB, JS gzip 10 KB; appends to `docs/size-history.json`). Outputs `dist/style.[hash].css` and `dist/main.[hash].js`.
 
-**CI/CD** (`.github/workflows/deploy.yml`): lint → build → (check-links + test + lighthouse in parallel) → deploy to GitHub Pages. The `check-links` job runs both the external URL checker and the internal asset checker after downloading the build artifact. All gates must pass.
+**CI/CD** (`.github/workflows/deploy.yml`): lint (CSS + JS + validate-backlog) → build → (check-links + test + lighthouse in parallel) → deploy to GitHub Pages. The `check-links` job runs both the external URL checker and the internal asset checker after downloading the build artifact. All gates must pass.
 
 <!-- END AUTO-MANAGED -->
 
@@ -108,8 +109,8 @@ Config in `.mcp.json` (gitignored). Template: `.mcp.json.example`.
 - Conventional Commits via commitlint + husky `commit-msg` hook
 - Types: `feat`, `fix`, `docs`, `chore`, `style`, `test`, `build`, `ci`, `perf`, `refactor`, `revert`
 - Header: 72 chars max. Uppercase subjects allowed (`subject-case` disabled)
-- **Pre-commit hook** (`.husky/pre-commit`): runs `npx lint-staged || exit 1`, then conditionally runs `scripts/validate-backlog-paths.js` only when `BACKLOG.md` is staged. Uses `if/fi` (not `&&`) to prevent `grep`'s non-zero exit from aborting commits when `BACKLOG.md` is not staged
-- **Pre-commit BACKLOG validation**: `scripts/validate-backlog-paths.js` runs when `BACKLOG.md` is staged — blocks commits if any `**Origin**:` line references `docs/planning/plans/` (must be `docs/archive/plans/` after task completion). Only `**Origin**:` lines are checked; other mentions of the planning path are allowed
+- **Pre-commit hook** (`.husky/pre-commit`): runs `npx lint-staged || exit 1`, then conditionally runs `npm run validate-backlog` only when `BACKLOG.md` is staged. Uses `if/fi` (not `&&`) to prevent grep's non-zero exit from aborting commits when `BACKLOG.md` is not staged. Grep pattern is `-qE '(^|/)BACKLOG\.md$'` (anchored basename, escaped dot — avoids false matches on `OLD_BACKLOG.md` etc.)
+- **Pre-commit BACKLOG validation**: `scripts/validate-backlog-paths.js` runs when `BACKLOG.md` is staged — reads git index via `git show :path`. If `git show` fails and we are inside a git repo, treats file as absent (skip — handles staged deletion and `git rm --cached`); only falls back to working-tree read when git is entirely unavailable. Blocks commits if any `**Origin**` line (column 0 or with optional `-`/`*`/`+` bullet) contains a path in `FORBIDDEN_ORIGIN_PATHS` denylist: `['docs/planning/plans/', 'docs/superpowers/']`. Detection regex `/^\s*(?:[-*+]\s+)?\*\*Origin\*\*/` is anchored to line start — inline backtick mentions of `**Origin**:` mid-line do not false-positive. Other mentions of forbidden paths on non-`**Origin**` lines are allowed. Also runs as `npm run validate-backlog` and in CI `lint` job (closes `--no-verify` bypass)
 
 ### Theme System
 - `data-theme="light"|"dark"` on `<html>`, variables in `variables.css`
@@ -191,7 +192,10 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - Exits non-zero on any broken link or missing asset; CI gates deploy behind both checks
 
 ### BACKLOG Origin Paths
-- `**Origin**` lines in `BACKLOG.md` must reference `docs/archive/plans/` (completed plan archive), never `docs/planning/plans/` (active plans). Pre-commit hook enforces this via `scripts/validate-backlog-paths.js`
+- `**Origin**` lines in `BACKLOG.md` must reference `docs/archive/plans/` (completed plan archive). Two forbidden path prefixes enforced by denylist in `scripts/validate-backlog-paths.js`: `docs/planning/plans/` (active plans) and `docs/superpowers/` (specs/plans location pending cleanup)
+- Validator reads git index (`git show :path`) to inspect staged content, not working-tree WIP. If `git show` fails and the repo is a git repo, the file is absent from index (staged for deletion or `git rm --cached`) — treated as absent (skip). Falls back to working-tree read only when git is entirely unavailable. Detection regex: `/^\s*(?:[-*+]\s+)?\*\*Origin\*\*/` — matches lines that start with `**Origin**` (after optional whitespace and optional bullet prefix `-`, `*`, or `+`); inline mentions of `**Origin**` mid-line are ignored
+- Runs three ways: pre-commit hook (when `BACKLOG.md` is staged), `npm run validate-backlog` (standalone/debug), and CI `lint` job step (closes `--no-verify` bypass). Prints `BACKLOG Origin paths: OK` on success, `skipped` message if absent, red violation block with `[matched: <path>]` annotation on failure
+- To add a new forbidden path: append to `FORBIDDEN_ORIGIN_PATHS` array in `scripts/validate-backlog-paths.js`
 - When extracting improvements to BACKLOG after task completion, always reference the archived path (plan moves to `docs/archive/plans/` during the Archive step of task completion workflow)
 
 ### Adding New Projects

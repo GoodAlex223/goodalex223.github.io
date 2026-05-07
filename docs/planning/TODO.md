@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-05-03 (Asset Checker Polish & PR #65 Follow-ups completed)
+**Last Updated**: 2026-05-07 (BACKLOG Validator Hardening completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **BACKLOG Validator Hardening**: 5-item hardening of `scripts/validate-backlog-paths.js` — denylist extension to `docs/superpowers/`, git-index read with two-level fallback, anchored detection regex (incl. bullet-prefixed Origin support), `npm run validate-backlog` script, CI lint-job gate closing `--no-verify` bypass → moved to [DONE.md](DONE.md)
 - **Asset Checker Polish & PR #65 Follow-ups**: 6-item polish PR — `realpathSync.native` case canonicalization, hybrid `dist/` preflight + stale-hash hint, JSON walk hardening, CI error wording, brackets output format, HTML-regex JSDoc → moved to [DONE.md](DONE.md)
 - **Test Stability Investigations**: WebKit loading-state flake resolved via new `mockFormspreeDeferred()` FormPage helper; Firefox tabindex flake investigated and marked NOT_REPRODUCING (150 local + 80+ CI runs all green) → moved to [DONE.md](DONE.md)
 - **Internal Asset Link Checking** 🏆 (Weekly Challenge): new `scripts/check-assets.js` + CI integration — verifies internal asset refs exist on disk → moved to [DONE.md](DONE.md)

@@ -20,6 +20,7 @@
     "lighthouse": "lhci autorun",
     "check-links": "node scripts/check-links.js",
     "check-assets": "node scripts/check-assets.js",
+    "validate-backlog": "node scripts/validate-backlog-paths.js",
     "prepare": "husky"
   },
   "lint-staged": {
