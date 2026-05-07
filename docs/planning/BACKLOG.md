@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-05-05 (PR #68 post-merge review follow-ups added)
+**Last Updated**: 2026-05-07 (PR #69 post-merge review follow-up added)
 
 Future ideas and improvements for the portfolio.
 
@@ -942,6 +942,10 @@ _Extracted from implementation plan:_
 
 - [ ] Improve validator fix-guidance for spec-targeted violations — error message at `scripts/validate-backlog-paths.js:70` says "Replace the forbidden path with the equivalent docs/archive/plans/... path" but spec violations should target `docs/archive/specs/`. Detect whether the violation line points to a `plans/` or `specs/` subtree and emit appropriate guidance. (PR #69 review finding, confidence 30, nitpick)
 - [ ] Track npm overhead per pre-commit invocation — `npm run validate-backlog` adds ~300-500ms over `node scripts/validate-backlog-paths.js` direct call. Acceptable trade-off for single-source-of-truth, but if pre-commit slowness becomes user-perceivable, switch the hook to direct node invocation while keeping `npm run` for manual + CI use. (PR #69 review observation, confidence 85, ergonomics)
+
+### From PR #69 Post-Merge Review (2026-05-07)
+
+- [ ] Surface a `console.warn` when `readBacklog()` falls back to working-tree read — `scripts/validate-backlog-paths.js:35-46` documents in a code comment that a future sparse-checkout or blob-filter mode in CI would cause `git show` to fail and silently fall back to the working-tree read. Today this never triggers (lint job uses default `actions/checkout@v4`), but the silent-degradation hazard exists purely as documentation. Emitting `console.warn('readBacklog: git show failed; using working tree')` on the inner-catch path would make the degradation observable in CI logs and align with the repo's pattern of explicit feedback (link checker LinkedIn skips, asset checker preflight). (PR #69 review observation, confidence 50, observability)
 
 ---
 
