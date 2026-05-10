@@ -138,7 +138,7 @@ Completed tasks for the portfolio project.
 ### CI Hardening
 
 **Plan**: [docs/archive/plans/2026-04-09_ci-hardening.md](../archive/plans/2026-04-09_ci-hardening.md)
-**Spec**: [docs/superpowers/specs/2026-04-09_ci-hardening-design.md](../../docs/superpowers/specs/2026-04-09_ci-hardening-design.md)
+**Spec**: [docs/archive/specs/2026-04-09_ci-hardening-design.md](../archive/specs/2026-04-09_ci-hardening-design.md)
 **Summary**: Three independent CI/build improvements from PR #57 and #59 code reviews.
 **Key Changes**:
 - Added `cache: 'npm'` to `check-links` CI job's `setup-node` step for consistency with the other 4 jobs
@@ -169,7 +169,7 @@ Completed tasks for the portfolio project.
 ### Automated Link Checking in CI (Weekly Challenge)
 
 **Plan**: [docs/archive/plans/2026-04-05_automated-link-checking.md](../archive/plans/2026-04-05_automated-link-checking.md)
-**Spec**: [docs/superpowers/specs/2026-04-05_automated-link-checking-design.md](../../docs/superpowers/specs/2026-04-05_automated-link-checking-design.md)
+**Spec**: [docs/archive/specs/2026-04-05_automated-link-checking-design.md](../archive/specs/2026-04-05_automated-link-checking-design.md)
 **Summary**: Added zero-dependency Node.js script (`scripts/check-links.js`) that extracts all external URLs from `index.html` and `data/projects.json`, checks each with HEAD→GET fallback and retry logic, and integrated as a parallel CI job.
 **Key Changes**:
 - Created `scripts/check-links.js` — URL extraction, HEAD-then-GET fallback, 3 retries with 2s delay, 5-URL concurrent batching
