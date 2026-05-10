@@ -23,7 +23,7 @@ Initial portfolio rebuild from scratch.
 - Accessible (WCAG 2.1 AA)
 - Zero runtime dependencies
 
-### v1.1 — Polish (✅ Completed 2026-02-13)
+### v1.1 — Polish (✅ Completed 2026-02-10)
 
 Performance, SEO, and link-quality groundwork.
 - Favicon + Open Graph image
