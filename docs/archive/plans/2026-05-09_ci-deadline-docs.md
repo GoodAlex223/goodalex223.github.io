@@ -8,7 +8,7 @@
 
 **Tech Stack:** GitHub Actions YAML, Markdown, npm scripts (`validate-backlog`, `lint`, `build`).
 
-**Spec:** [docs/superpowers/specs/2026-05-09-ci-deadline-docs-design.md](../specs/2026-05-09-ci-deadline-docs-design.md)
+**Spec:** [docs/archive/specs/2026-05-09_ci-deadline-docs-design.md](../specs/2026-05-09_ci-deadline-docs-design.md)
 
 ---
 

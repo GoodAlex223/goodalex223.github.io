@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-05-07 (PR #69 post-merge review follow-up added)
+**Last Updated**: 2026-05-10 (CI Deadline & Docs PR #70 follow-ups added)
 
 Future ideas and improvements for the portfolio.
 
@@ -594,7 +594,7 @@ _Extracted from implementation plan:_
 ## CI: Upgrade GitHub Actions to Node.js 24 (2026-03-12)
 **Origin**: CI deprecation warning observed in run #22980966380
 
-- [ ] Upgrade all GitHub Actions to Node.js 24-compatible versions before June 2, 2026 deadline — affected actions: `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-artifact@v4`, `actions/download-artifact@v4`, `actions/configure-pages@v4`, `actions/deploy-pages@v4`; check latest major versions for Node.js 24 support or set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` env var to opt in early
+- [x] ~~Upgrade all GitHub Actions to Node.js 24-compatible versions before June 2, 2026 deadline~~ *(completed 2026-05-10, PR #70 — bumped checkout v4→v6, setup-node v4→v6, upload-artifact v4→v7, download-artifact v4→v8, configure-pages v4→v6, upload-pages-artifact v4→v5, deploy-pages v4→v5; `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24` not needed)*
 
 ---
 
@@ -945,7 +945,20 @@ _Extracted from implementation plan:_
 
 ### From PR #69 Post-Merge Review (2026-05-07)
 
-- [ ] Surface a `console.warn` when `readBacklog()` falls back to working-tree read — `scripts/validate-backlog-paths.js:35-46` documents in a code comment that a future sparse-checkout or blob-filter mode in CI would cause `git show` to fail and silently fall back to the working-tree read. Today this never triggers (lint job uses default `actions/checkout@v4`), but the silent-degradation hazard exists purely as documentation. Emitting `console.warn('readBacklog: git show failed; using working tree')` on the inner-catch path would make the degradation observable in CI logs and align with the repo's pattern of explicit feedback (link checker LinkedIn skips, asset checker preflight). (PR #69 review observation, confidence 50, observability)
+- [ ] Surface a `console.warn` when `readBacklog()` falls back to working-tree read — `scripts/validate-backlog-paths.js:35-46` documents in a code comment that a future sparse-checkout or blob-filter mode in CI would cause `git show` to fail and silently fall back to the working-tree read. Today this never triggers (lint job uses `actions/checkout@v6`), but the silent-degradation hazard exists purely as documentation. Emitting `console.warn('readBacklog: git show failed; using working tree')` on the inner-catch path would make the degradation observable in CI logs and align with the repo's pattern of explicit feedback (link checker LinkedIn skips, asset checker preflight). (PR #69 review observation, confidence 50, observability)
+
+### From CI Deadline & Docs (2026-05-10)
+
+**Origin**: docs/archive/plans/2026-05-09_ci-deadline-docs.md
+
+- [ ] CLAUDE.md "Shell Gotchas" — tighten `Triggered by` reference to inline the file path `.husky/pre-commit` rather than leaving it parenthetical-only in the cross-linked Pre-commit bullet. A reader who lands on the gotcha via a "shell"/"grep" search vector without reading the Commits subsection won't have a concrete example. (PR #70 Task 2 review, confidence 40, minor wording polish)
+- [ ] CLAUDE.md "Shell Gotchas" — replace "On a fresh repo or unstaged-file commit" with "On any commit that doesn't stage BACKLOG.md". The current wording leads with the edge case rather than the common case (any everyday commit where BACKLOG.md isn't part of the staged set would have triggered the bad-pattern bug). (PR #70 Task 2 review, confidence 50, accuracy)
+- [ ] ROADMAP.md — annotate v1.5's "Completed 2026-03-21" with a "developed in parallel with v1.1" parenthetical, or restructure the phase-ladder to acknowledge that v1.5 commits (theme toggle, filter, scroll animations, 404 — all 2026-01-28) predate later v1.1 items (Bing Webmaster Tools, 2026-02-10). The current sequential framing is inherited from the original ROADMAP and the phase rewrite preserved rather than fixed it. (PR #70 Task 3 review, confidence 60, important structural drift)
+- [ ] ROADMAP.md — remove duplicate "Last Updated" field. Header bold `**Last Updated**: 2026-05-10` (line 3) and trailing italic `*Last updated: 2026-05-10*` (line 84) both maintained; sibling docs (DONE.md, WEEKLY.md) use only the header form. Doubles the chance of stale-date bug on next update. (PR #70 Task 3 review, confidence 70, low risk)
+- [ ] ROADMAP.md — align Quality & Hardening cross-link display-text with DONE.md convention. Current `[docs/planning/WEEKLY.md](WEEKLY.md)` uses full-path display + abbreviated relative href, inconsistent with DONE.md's `[docs/archive/specs/<file>](../archive/specs/<file>)` (full path in both positions). Cosmetic; either `[WEEKLY.md](WEEKLY.md)` or `[docs/planning/WEEKLY.md](../planning/WEEKLY.md)` would be consistent. (PR #70 Task 3 review, confidence 50, polish)
+- [ ] ROADMAP.md — document transition convention for the in-progress phase header. "🔧 In Progress, since 2026-04" will read oddly if not updated to "✅ Completed YYYY-MM-DD" when Quality & Hardening closes. Either inline a comment or note the next-maintainer step in a tracking file. (PR #70 Task 3 review, confidence 40, forward-looking)
+- [ ] BACKLOG.md observability item — update parenthetical at line 948 from `actions/checkout@v4` → `actions/checkout@v6` to match the post-PR-#70 state. Behavioral observation (lint job uses default full clone) is unchanged. (PR #70 Task 4 final review, confidence 60, doc accuracy — already partially addressed in this same PR's CI Deadline & Docs follow-up)
+- [ ] `.github/workflows/deploy.yml` — add a `pull_request:` trigger so the `lint → build → check-links + test + lighthouse` pipeline runs on PR open/update, not just on push-to-main. Discovered during PR #70 Task 5: feature-branch pushes do not trigger CI today; merge-time is the only gate. Past PRs (#65, #66, #68, #69, #70) all had `statusCheckRollup: 0`. Adding the trigger would mean PR-time validation of action-bump risk and a tighter feedback loop on workflow YAML changes. Note: the `deploy` job should remain guarded so it does not deploy from feature branches (current `environment: github-pages` may suffice; verify). (PR #70 Task 5 process gap, confidence 70, important CI gap)
 
 ---
 

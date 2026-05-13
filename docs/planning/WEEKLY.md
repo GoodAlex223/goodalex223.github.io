@@ -76,12 +76,12 @@
 ### Thursday — CI Deadline & Docs (7 SP)
 
 **Node.js 24 GitHub Actions Upgrade** — 3 SP *(solo, IMPORTANT)*
-- [ ] Upgrade all GitHub Actions to Node.js 24-compatible versions *(3 SP, IMPORTANT)*
+- [x] Upgrade all GitHub Actions to Node.js 24-compatible versions *(3 SP, IMPORTANT)*
 
 **Documentation Refresh** `[batch]` — 4 SP
-- [ ] Update ROADMAP.md to reflect "Quality & Hardening" phase *(2 SP)*
-- [ ] Document `&&` vs `if/fi` shell gotcha in CLAUDE.md *(1 SP)*
-- [ ] Remove duplicate plans/specs from `docs/superpowers/` *(1 SP)*
+- [x] Update ROADMAP.md to reflect "Quality & Hardening" phase *(2 SP)*
+- [x] Document `&&` vs `if/fi` shell gotcha in CLAUDE.md *(1 SP)*
+- [x] Remove duplicate plans/specs from `docs/superpowers/` *(1 SP)*
 
 ### Friday — Weekly Challenge (5 SP)
 
@@ -97,8 +97,8 @@
 | Test Stability Investigations | Testing | 2 | 5 | Mon | ⏳ Planned |
 | Asset Checker Polish & PR #65 Follow-ups `[batch]` | Build/CI | 5 | 7 | Tue | ⏳ Planned |
 | BACKLOG Validator Hardening `[batch]` | JS Logic | 5 | 7 | Wed | ✅ Done |
-| Node.js 24 GitHub Actions Upgrade | CI/Build | 1 | 3 | Thu | ⏳ Planned |
-| Documentation Refresh `[batch]` | Docs | 3 | 4 | Thu | ⏳ Planned |
+| Node.js 24 GitHub Actions Upgrade | CI/Build | 1 | 3 | Thu | ✅ Done |
+| Documentation Refresh `[batch]` | Docs | 3 | 4 | Thu | ✅ Done |
 | 🏆 Replace `waitForScrollAnimations()` | Testing | 1 | 5 | Fri | ⏳ Planned |
 | **Total** | | **17** | **31** | | |
 
