@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-05-10 (CI Deadline & Docs PR #70 follow-ups added)
+**Last Updated**: 2026-05-14 (PR #70 post-merge review follow-ups added)
 
 Future ideas and improvements for the portfolio.
 
@@ -959,6 +959,13 @@ _Extracted from implementation plan:_
 - [ ] ROADMAP.md — document transition convention for the in-progress phase header. "🔧 In Progress, since 2026-04" will read oddly if not updated to "✅ Completed YYYY-MM-DD" when Quality & Hardening closes. Either inline a comment or note the next-maintainer step in a tracking file. (PR #70 Task 3 review, confidence 40, forward-looking)
 - [ ] BACKLOG.md observability item — update parenthetical at line 948 from `actions/checkout@v4` → `actions/checkout@v6` to match the post-PR-#70 state. Behavioral observation (lint job uses default full clone) is unchanged. (PR #70 Task 4 final review, confidence 60, doc accuracy — already partially addressed in this same PR's CI Deadline & Docs follow-up)
 - [ ] `.github/workflows/deploy.yml` — add a `pull_request:` trigger so the `lint → build → check-links + test + lighthouse` pipeline runs on PR open/update, not just on push-to-main. Discovered during PR #70 Task 5: feature-branch pushes do not trigger CI today; merge-time is the only gate. Past PRs (#65, #66, #68, #69, #70) all had `statusCheckRollup: 0`. Adding the trigger would mean PR-time validation of action-bump risk and a tighter feedback loop on workflow YAML changes. Note: the `deploy` job should remain guarded so it does not deploy from feature branches (current `environment: github-pages` may suffice; verify). (PR #70 Task 5 process gap, confidence 70, important CI gap)
+
+### From PR #70 Post-Merge Review (2026-05-14)
+
+**Origin**: docs/archive/plans/2026-05-09_ci-deadline-docs.md
+
+- [ ] Plan-template "Spec / Plan" links should ship in archive-form, not `docs/superpowers/...` — PR #70's body shipped with broken markdown links pointing to `docs/superpowers/specs/2026-05-09-ci-deadline-docs-design.md` and `docs/superpowers/plans/2026-05-09-ci-deadline-docs.md` (both wrong path prefix and wrong date format — actuals use underscored dates at `docs/archive/`). The archived plan's Task 6.1 PR-body template carries the same dead links forward as a frozen historical record. Manual fix applied via `gh api PATCH .../pulls/70` post-merge. Improvement: writing-plans skill template generation should emit `Spec / Plan` links using the final archived path form (underscored dates, `docs/archive/<specs|plans>/` prefix) so the live PR body and the archived plan both ship clean. (PR #70 post-merge review, confidence 75, process/template)
+- [ ] Commit messages should not assert past-tense fixes that were not actually applied — `c51c549`'s message stated "the live PR body was already corrected via `gh pr edit`" but the body was still broken at post-merge review time (corrected ~10 minutes later via `gh api PATCH`). Two recovery patterns: (a) write external-state corrections as TODO/follow-up in the commit body rather than past-tense statements of fact; (b) verify the external state matches the claim before pushing the commit. Low-grade truth drift in the commit log compounds and weakens it as a debugging source over time. (PR #70 post-merge review, confidence 60, process discipline)
 
 ---
 
