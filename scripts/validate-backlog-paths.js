@@ -14,8 +14,9 @@ const { execFileSync } = require('child_process');
 // Origin lines must point to docs/archive/plans/ (or docs/archive/specs/
 // for specs) after task completion. The docs/superpowers/ entry is
 // intentionally broad: it covers both docs/superpowers/plans/ and
-// docs/superpowers/specs/, both of which are pending consolidation into
-// docs/archive/.
+// docs/superpowers/specs/, which are Superpowers-skill staging
+// directories that should never be used as canonical Origin targets —
+// completed work always lives in docs/archive/.
 const FORBIDDEN_ORIGIN_PATHS = ['docs/planning/plans/', 'docs/superpowers/'];
 const BACKLOG_REL_PATH = 'docs/planning/BACKLOG.md';
 

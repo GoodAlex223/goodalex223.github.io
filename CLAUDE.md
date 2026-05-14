@@ -192,7 +192,7 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - Exits non-zero on any broken link or missing asset; CI gates deploy behind both checks
 
 ### BACKLOG Origin Paths
-- `**Origin**` lines in `BACKLOG.md` must reference `docs/archive/plans/` (completed plan archive). Two forbidden path prefixes enforced by denylist in `scripts/validate-backlog-paths.js`: `docs/planning/plans/` (active plans) and `docs/superpowers/` (specs/plans location pending cleanup)
+- `**Origin**` lines in `BACKLOG.md` must reference `docs/archive/plans/` (completed plan archive). Two forbidden path prefixes enforced by denylist in `scripts/validate-backlog-paths.js`: `docs/planning/plans/` (active plans) and `docs/superpowers/` (Superpowers-skill staging directory — never a canonical Origin target)
 - Validator reads git index (`git show :path`) to inspect staged content, not working-tree WIP. If `git show` fails and the repo is a git repo, the file is absent from index (staged for deletion or `git rm --cached`) — treated as absent (skip). Falls back to working-tree read only when git is entirely unavailable. Detection regex: `/^\s*(?:[-*+]\s+)?\*\*Origin\*\*/` — matches lines that start with `**Origin**` (after optional whitespace and optional bullet prefix `-`, `*`, or `+`); inline mentions of `**Origin**` mid-line are ignored
 - Runs three ways: pre-commit hook (when `BACKLOG.md` is staged), `npm run validate-backlog` (standalone/debug), and CI `lint` job step (closes `--no-verify` bypass). Prints `BACKLOG Origin paths: OK` on success, `skipped` message if absent, red violation block with `[matched: <path>]` annotation on failure
 - To add a new forbidden path: append to `FORBIDDEN_ORIGIN_PATHS` array in `scripts/validate-backlog-paths.js`
