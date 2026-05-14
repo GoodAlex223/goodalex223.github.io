@@ -109,7 +109,7 @@ Config in `.mcp.json` (gitignored). Template: `.mcp.json.example`.
 - Conventional Commits via commitlint + husky `commit-msg` hook
 - Types: `feat`, `fix`, `docs`, `chore`, `style`, `test`, `build`, `ci`, `perf`, `refactor`, `revert`
 - Header: 72 chars max. Uppercase subjects allowed (`subject-case` disabled)
-- **Pre-commit hook** (`.husky/pre-commit`): runs `npx lint-staged || exit 1`, then conditionally runs `npm run validate-backlog` only when `BACKLOG.md` is staged. Uses `if/fi` (not `&&`) to prevent grep's non-zero exit from aborting commits when `BACKLOG.md` is not staged. Grep pattern is `-qE '(^|/)BACKLOG\.md$'` (anchored basename, escaped dot — avoids false matches on `OLD_BACKLOG.md` etc.)
+- **Pre-commit hook** (`.husky/pre-commit`): runs `npx lint-staged || exit 1`, then conditionally runs `npm run validate-backlog` only when `BACKLOG.md` is staged. Uses `if/fi` (not `&&`) to prevent grep's non-zero exit from aborting commits when `BACKLOG.md` is not staged (see "Shell Gotchas" for the general pattern). Grep pattern is `-qE '(^|/)BACKLOG\.md$'` (anchored basename, escaped dot — avoids false matches on `OLD_BACKLOG.md` etc.)
 - **Pre-commit BACKLOG validation**: `scripts/validate-backlog-paths.js` runs when `BACKLOG.md` is staged — reads git index via `git show :path`. If `git show` fails and we are inside a git repo, treats file as absent (skip — handles staged deletion and `git rm --cached`); only falls back to working-tree read when git is entirely unavailable. Blocks commits if any `**Origin**` line (column 0 or with optional `-`/`*`/`+` bullet) contains a path in `FORBIDDEN_ORIGIN_PATHS` denylist: `['docs/planning/plans/', 'docs/superpowers/']`. Detection regex `/^\s*(?:[-*+]\s+)?\*\*Origin\*\*/` is anchored to line start — inline backtick mentions of `**Origin**:` mid-line do not false-positive. Other mentions of forbidden paths on non-`**Origin**` lines are allowed. Also runs as `npm run validate-backlog` and in CI `lint` job (closes `--no-verify` bypass)
 
 ### Theme System
@@ -192,11 +192,15 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - Exits non-zero on any broken link or missing asset; CI gates deploy behind both checks
 
 ### BACKLOG Origin Paths
-- `**Origin**` lines in `BACKLOG.md` must reference `docs/archive/plans/` (completed plan archive). Two forbidden path prefixes enforced by denylist in `scripts/validate-backlog-paths.js`: `docs/planning/plans/` (active plans) and `docs/superpowers/` (specs/plans location pending cleanup)
+- `**Origin**` lines in `BACKLOG.md` must reference `docs/archive/plans/` (completed plan archive). Two forbidden path prefixes enforced by denylist in `scripts/validate-backlog-paths.js`: `docs/planning/plans/` (active plans) and `docs/superpowers/` (Superpowers-skill staging directory — never a canonical Origin target)
 - Validator reads git index (`git show :path`) to inspect staged content, not working-tree WIP. If `git show` fails and the repo is a git repo, the file is absent from index (staged for deletion or `git rm --cached`) — treated as absent (skip). Falls back to working-tree read only when git is entirely unavailable. Detection regex: `/^\s*(?:[-*+]\s+)?\*\*Origin\*\*/` — matches lines that start with `**Origin**` (after optional whitespace and optional bullet prefix `-`, `*`, or `+`); inline mentions of `**Origin**` mid-line are ignored
 - Runs three ways: pre-commit hook (when `BACKLOG.md` is staged), `npm run validate-backlog` (standalone/debug), and CI `lint` job step (closes `--no-verify` bypass). Prints `BACKLOG Origin paths: OK` on success, `skipped` message if absent, red violation block with `[matched: <path>]` annotation on failure
 - To add a new forbidden path: append to `FORBIDDEN_ORIGIN_PATHS` array in `scripts/validate-backlog-paths.js`
 - When extracting improvements to BACKLOG after task completion, always reference the archived path (plan moves to `docs/archive/plans/` during the Archive step of task completion workflow)
+
+### Shell Gotchas
+
+- **Conditional grep + `&&` aborts the chain on no-match**: When a pre-commit hook or CI step uses `grep ... && some-action`, the `&&` short-circuits on grep's exit code 1 (no matches found). On a fresh repo or unstaged-file commit, this *blocks every commit*, not just ones that should trigger the action. Fix: use `if grep ...; then ...; fi` so a no-match exit is treated as "skip", not "fail". Triggered by `.husky/pre-commit` validate-backlog conditional. See the Pre-commit hook bullet under "Commits" for the concrete pattern.
 
 ### Adding New Projects
 1. Add `<article class="project-card" data-category="..." data-project="id" data-updated="YYYY-MM" data-animate data-animate-delay="NNN">` to `index.html` — copy structure from existing card. Increment `data-animate-delay` by 50ms per card (100, 150, 200, …)

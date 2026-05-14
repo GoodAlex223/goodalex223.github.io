@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-05-07 (BACKLOG Validator Hardening completed)
+**Last Updated**: 2026-05-10 (CI Deadline & Docs completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **CI Deadline & Docs**: 4-deliverable PR #70 closing the 2026-06-02 Node 24 GitHub Actions deprecation deadline (7 action references bumped: checkout v4→v6, setup-node v4→v6, upload-artifact v4→v7, download-artifact v4→v8, configure-pages v4→v6, upload-pages-artifact v4→v5, deploy-pages v4→v5; `include-hidden-files: true` for lighthouse upload) plus ROADMAP phase restructure, CLAUDE.md Shell Gotchas elevation, and `docs/superpowers/` cleanup → moved to [DONE.md](DONE.md)
 - **BACKLOG Validator Hardening**: 5-item hardening of `scripts/validate-backlog-paths.js` — denylist extension to `docs/superpowers/`, git-index read with two-level fallback, anchored detection regex (incl. bullet-prefixed Origin support), `npm run validate-backlog` script, CI lint-job gate closing `--no-verify` bypass → moved to [DONE.md](DONE.md)
 - **Asset Checker Polish & PR #65 Follow-ups**: 6-item polish PR — `realpathSync.native` case canonicalization, hybrid `dist/` preflight + stale-hash hint, JSON walk hardening, CI error wording, brackets output format, HTML-regex JSDoc → moved to [DONE.md](DONE.md)
 - **Test Stability Investigations**: WebKit loading-state flake resolved via new `mockFormspreeDeferred()` FormPage helper; Firefox tabindex flake investigated and marked NOT_REPRODUCING (150 local + 80+ CI runs all green) → moved to [DONE.md](DONE.md)

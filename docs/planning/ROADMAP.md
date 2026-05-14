@@ -1,55 +1,63 @@
 # ROADMAP
 
-**Last Updated**: 2026-01-26
+**Last Updated**: 2026-05-10
 
-Long-term vision for the portfolio project.
+Long-term vision and phase timeline for the portfolio project.
 
 ---
 
-## Current State (v1.0)
+## Vision
 
-A clean, professional portfolio showcasing:
+A clean, fast, accessible personal portfolio that showcases working software with the same care as the projects it links to. No frameworks, minimal dependencies, deliberate engineering throughout.
+
+---
+
+## Phase Timeline
+
+### v1.0 — Launch (✅ Completed 2026-01-20)
+
+Initial portfolio rebuild from scratch.
 - 7 projects across 4 categories
-- Responsive design (mobile to desktop)
+- Responsive layout (mobile to desktop)
 - Dark theme
-- Accessible
-- Zero dependencies
+- Accessible (WCAG 2.1 AA)
+- Zero runtime dependencies
 
----
+### v1.1 — Polish (✅ Completed 2026-02-10)
 
-## Short Term (v1.1)
+Performance, SEO, and link-quality groundwork.
+- Favicon + Open Graph image
+- Lighthouse 100/100 across Performance/Accessibility/Best Practices/SEO
+- External link verification
+- robots.txt + sitemap.xml + Google Search Console + Bing Webmaster
+- Self-hosted fonts (no third-party CDN)
 
-**Focus**: Polish and optimization
+### v1.5 — Enhanced Features (✅ Completed 2026-03-21)
 
-- [x] Add favicon *(completed 2026-01-26)*
-- [ ] Add Open Graph image
-- [ ] Run Lighthouse audit and fix issues
-- [ ] Test all external links
-- [ ] Consider adding project thumbnails
+User-facing feature work.
+- Theme toggle (dark/light, persists, no FOUC)
+- Project category filtering with animation choreography
+- Subtle scroll-reveal animations
+- Custom 404 page
+- Project Detail Modal (Weekly Challenge — lazy-fetched data, focus management, axe-clean)
+- Contact Form (Weekly Challenge — Formspree, honeypot, full validation, accessible state machine)
 
----
+### Quality & Hardening (🔧 In Progress, since 2026-04)
 
-## Medium Term (v1.5)
+Test reliability, CI/CD robustness, code quality, automated link/asset checking, validator hardening, runtime modernization. See [docs/planning/WEEKLY.md](WEEKLY.md) for the current sprint and [docs/planning/DONE.md](DONE.md) for the historical record.
 
-**Focus**: Enhanced features
+Active themes:
+- Test infrastructure: deterministic DOM-state polling, browser-specific flake elimination
+- CI: per-job Node version pinning, BACKLOG-validator gate, Node 24 action upgrade
+- Documentation: PR-driven CLAUDE.md sync, archive discipline, per-task plan + spec pairs
+- Reviewer rigor: confidence-rated findings, follow-ups extracted to BACKLOG
 
-- [ ] Theme toggle (dark/light)
-- [ ] Project category filtering
-- [ ] Subtle scroll animations
-- [ ] Improved mobile navigation (hamburger menu if needed)
-- [ ] 404 custom page
+### v2.0 — Content Expansion (📋 Planned)
 
----
-
-## Long Term (v2.0)
-
-**Focus**: Content expansion
-
-- [ ] Individual project detail pages
-- [ ] Blog/articles section
-- [ ] Contact form
-- [ ] Resume PDF download
-- [ ] Multi-language support (EN/RU/UA)
+Larger content surfaces, scheduled after Quality & Hardening winds down.
+- Individual project detail pages (deeper than the modal allows)
+- Blog/articles section
+- Multi-language support (EN/RU/UA)
 
 ---
 
@@ -57,9 +65,9 @@ A clean, professional portfolio showcasing:
 
 - Keep projects section updated with new work
 - Update skills as they evolve
-- Maintain documentation
-- Regular accessibility audits
-- Performance monitoring
+- Maintain documentation as code changes
+- Regular accessibility audits (axe + manual)
+- Performance monitoring (Lighthouse CI gate)
 
 ---
 
@@ -73,4 +81,4 @@ A clean, professional portfolio showcasing:
 
 ---
 
-*Last updated: 2026-01-26*
+*Last updated: 2026-05-10*

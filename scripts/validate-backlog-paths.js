@@ -14,13 +14,14 @@ const { execFileSync } = require('child_process');
 // Origin lines must point to docs/archive/plans/ (or docs/archive/specs/
 // for specs) after task completion. The docs/superpowers/ entry is
 // intentionally broad: it covers both docs/superpowers/plans/ and
-// docs/superpowers/specs/, both of which are pending consolidation into
-// docs/archive/.
+// docs/superpowers/specs/, which are Superpowers-skill staging
+// directories that should never be used as canonical Origin targets —
+// completed work always lives in docs/archive/.
 const FORBIDDEN_ORIGIN_PATHS = ['docs/planning/plans/', 'docs/superpowers/'];
 const BACKLOG_REL_PATH = 'docs/planning/BACKLOG.md';
 
 function readBacklog() {
-  // In CI: works because actions/checkout@v4 populates the git index from HEAD.
+  // In CI: works because actions/checkout@v6 populates the git index from HEAD.
   // A future sparse-checkout or blob-filter mode in the lint job would cause
   // this to fail and silently fall back to working-tree read.
   try {

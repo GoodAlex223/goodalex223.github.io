@@ -1,8 +1,27 @@
 # DONE
 
-**Last Updated**: 2026-05-07 (BACKLOG Validator Hardening completed)
+**Last Updated**: 2026-05-10 (CI Deadline & Docs completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-05-10
+
+### CI Deadline & Docs
+
+**Plan**: [docs/archive/plans/2026-05-09_ci-deadline-docs.md](../archive/plans/2026-05-09_ci-deadline-docs.md)
+**Spec**: [docs/archive/specs/2026-05-09_ci-deadline-docs-design.md](../archive/specs/2026-05-09_ci-deadline-docs-design.md)
+**PR**: [#70](https://github.com/GoodAlex223/goodalex223.github.io/pull/70)
+**Summary**: Four-deliverable bundled PR closing the 2026-06-02 Node 24 GitHub Actions deprecation deadline alongside three documentation-drift items. Bumped 7 distinct action references in `deploy.yml` to their latest Node-24-compatible majors (skipping multiple intermediate versions where they had shipped — `upload-artifact` v4→v7, `download-artifact` v4→v8), restructured the stale version-ladder ROADMAP into a phase-based timeline elevating "Quality & Hardening" as current, elevated the `&&` vs `if/fi` shell gotcha from a buried Pre-commit-hook bullet into a discoverable top-level CLAUDE.md subsection, and cleaned up `docs/superpowers/` (moved 2 unarchived specs to `docs/archive/specs/`, removed 3 byte-identical duplicates) — closing a recurring PR #61/#62/#63 review item.
+**Key Changes**:
+- `.github/workflows/deploy.yml`: bumped `actions/checkout` v4→v6 (6 jobs), `actions/setup-node` v4→v6 (5 jobs), `actions/upload-artifact` v4→v7 (3 steps), `actions/download-artifact` v4→v8 (4 steps), `actions/configure-pages` v4→v6, `actions/upload-pages-artifact` v4→v5, `actions/deploy-pages` v4→v5; added `include-hidden-files: true` to the lighthouse-report upload step because `.lighthouseci/` is hidden-by-convention and upload-artifact v7 excludes hidden files by default. `node-version: '20'` deliberately unchanged (separate concern, queued as future modernization).
+- `docs/planning/ROADMAP.md`: replaced version-ladder structure with phase-based timeline (v1.0 / v1.1 / v1.5 / Quality & Hardening / v2.0). Phase markers ✅ Completed / 🔧 In Progress / 📋 Planned. Cross-links to WEEKLY.md and DONE.md instead of enumerating PRs. Drop "Resume PDF download" from v2.0. v1.1 completion date refined to 2026-02-10 (SEO-005 Bing Webmaster — last listed-bullet item) per code-review finding.
+- `CLAUDE.md`: new top-level "Shell Gotchas" subsection under "Key Patterns & Gotchas", containing the elevated `&&` vs `if/fi` entry with the gotcha pattern (grep exits 1 on no-match; `&&` short-circuits) plus the `if/fi` fix and a cross-reference back to the Pre-commit hook bullet. Bidirectional link added to the existing Pre-commit bullet.
+- `docs/superpowers/` cleanup: `git mv` 2 stragglers (`2026-04-05_automated-link-checking-design.md`, `2026-04-09_ci-hardening-design.md`) into `docs/archive/specs/`; `git rm` 3 byte-identical duplicates (`2026-04-09_ci-hardening.md` plan, `2026-04-10_firefox-test-audit.md` plan, `2026-04-10_firefox-test-audit-design.md` spec). Preserved `.gitkeep` files so the directory remains as Superpowers staging.
+- Three per-task code-review fixups in the same branch: (1) `docs/planning/DONE.md` lines 141/172 had stale `docs/superpowers/specs/` hyperlinks pointing to specs that D4 just moved — updated to canonical `../archive/specs/` form; (2) ROADMAP.md v1.1 date 2026-02-13 (SEO-006 — not a listed bullet) → 2026-02-10 (SEO-005 Bing Webmaster — last listed bullet); (3) `scripts/validate-backlog-paths.js` inline comment `actions/checkout@v4` → `actions/checkout@v6` to match the bumped action version.
+- Discovered process gap during Task 5: the workflow's `on: push: branches: [main]` only trigger means CI does NOT run on feature branches or PRs. Past PRs #65/#66/#68/#69 all had `statusCheckRollup: 0` for the same reason. Captured as a high-confidence BACKLOG follow-up ("add `pull_request:` trigger to deploy.yml") — Task 5 reduced to local smoke checks (lint + validate-backlog + build + YAML parse, all green) instead.
+**Resolved BACKLOG items**: 1 (the standing `CI: Upgrade GitHub Actions to Node.js 24` item from 2026-03-12 — affected 7 actions). 8 new follow-up items extracted from per-task and final code reviews + the Task 5 process gap (Shell Gotchas wording tightening x2, ROADMAP parallel-development annotation, ROADMAP dual Last Updated, ROADMAP cross-link convention, ROADMAP transition convention, BACKLOG @v4 parenthetical refresh, deploy.yml `pull_request:` trigger gap).
 
 ---
 
@@ -138,7 +157,7 @@ Completed tasks for the portfolio project.
 ### CI Hardening
 
 **Plan**: [docs/archive/plans/2026-04-09_ci-hardening.md](../archive/plans/2026-04-09_ci-hardening.md)
-**Spec**: [docs/superpowers/specs/2026-04-09_ci-hardening-design.md](../../docs/superpowers/specs/2026-04-09_ci-hardening-design.md)
+**Spec**: [docs/archive/specs/2026-04-09_ci-hardening-design.md](../archive/specs/2026-04-09_ci-hardening-design.md)
 **Summary**: Three independent CI/build improvements from PR #57 and #59 code reviews.
 **Key Changes**:
 - Added `cache: 'npm'` to `check-links` CI job's `setup-node` step for consistency with the other 4 jobs
@@ -169,7 +188,7 @@ Completed tasks for the portfolio project.
 ### Automated Link Checking in CI (Weekly Challenge)
 
 **Plan**: [docs/archive/plans/2026-04-05_automated-link-checking.md](../archive/plans/2026-04-05_automated-link-checking.md)
-**Spec**: [docs/superpowers/specs/2026-04-05_automated-link-checking-design.md](../../docs/superpowers/specs/2026-04-05_automated-link-checking-design.md)
+**Spec**: [docs/archive/specs/2026-04-05_automated-link-checking-design.md](../archive/specs/2026-04-05_automated-link-checking-design.md)
 **Summary**: Added zero-dependency Node.js script (`scripts/check-links.js`) that extracts all external URLs from `index.html` and `data/projects.json`, checks each with HEAD→GET fallback and retry logic, and integrated as a parallel CI job.
 **Key Changes**:
 - Created `scripts/check-links.js` — URL extraction, HEAD-then-GET fallback, 3 retries with 2s delay, 5-URL concurrent batching
