@@ -84,9 +84,12 @@ export async function waitForAnimationComplete(page, { timeout = 5000 } = {}) {
  * would resolve on the first tick anyway. The early return makes the
  * intent explicit and saves a round-trip.
  *
- * The r.width > 0 guard skips display:none filter-hidden cards
- * (getBoundingClientRect returns 0x0 at 0,0 for display:none), matching
- * the observer-side skip in js/main.js for .project-card--hidden.
+ * The .project-card--hidden guard skips filter-hidden cards. These cards
+ * use position:absolute + visibility:hidden (not display:none), so their
+ * getBoundingClientRect() may still return a non-zero rect — the r.width > 0
+ * guard alone is insufficient. The class check mirrors the observer-side skip
+ * in js/main.js (line 595) that prevents the IntersectionObserver from
+ * animating filter-hidden cards.
  *
  * @param {import('@playwright/test').Page} page
  * @param {{ timeout?: number }} [options]
@@ -103,6 +106,9 @@ export async function waitForScrollAnimations(page, { timeout = 5000 } = {}) {
         page.evaluate(() => {
           const elements = document.querySelectorAll("[data-animate]");
           for (const el of elements) {
+            // Skip cards hidden by the filter system (position:absolute,
+            // visibility:hidden — getBoundingClientRect may be non-zero)
+            if (el.classList.contains("project-card--hidden")) continue;
             const r = el.getBoundingClientRect();
             if (r.top < window.innerHeight && r.bottom > 0 && r.width > 0) {
               const opacity = parseFloat(getComputedStyle(el).opacity);
