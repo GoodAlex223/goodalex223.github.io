@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
 import { FilterPage } from "../pages/FilterPage.js";
 import { checkAccessibility } from "../utils/axe-helper.js";
-import { waitForAnimationComplete } from "../utils/timing.js";
+import { waitForAnimationComplete, waitForScrollAnimations } from "../utils/timing.js";
 
 test.describe("Accessibility Scanning (Axe-Core)", () => {
   let fp;
@@ -9,7 +9,7 @@ test.describe("Accessibility Scanning (Axe-Core)", () => {
   test.beforeEach(async ({ page }) => {
     fp = new FilterPage(page);
     await fp.goto();
-    await fp.waitForScrollAnimations();
+    await waitForScrollAnimations(page);
   });
 
   test("initial page load passes WCAG 2.1 AA", async ({ page }) => {

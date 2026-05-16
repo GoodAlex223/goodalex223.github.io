@@ -64,3 +64,48 @@ export async function waitForAnimationComplete(page, { timeout = 5000 } = {}) {
     timeout,
   });
 }
+
+/**
+ * Wait for scroll-in animations to settle by polling DOM state.
+ * Replaces the fixed-timeout waitForScrollAnimations() POM methods.
+ *
+ * Resolves when every [data-animate] element currently in the viewport has
+ * acquired the .is-visible class. Below-fold elements are skipped — they
+ * legitimately have not been observed by IntersectionObserver yet.
+ *
+ * Short-circuits under prefers-reduced-motion: reduce — js/main.js never
+ * sets up the observer in that case, so .is-visible is never added and any
+ * poll would deadlock until the safety-net timeout fired.
+ *
+ * The r.width > 0 guard skips display:none filter-hidden cards
+ * (getBoundingClientRect returns 0x0 at 0,0 for display:none), matching
+ * the observer-side skip in js/main.js for .project-card--hidden.
+ *
+ * @param {import('@playwright/test').Page} page
+ * @param {{ timeout?: number }} [options]
+ */
+export async function waitForScrollAnimations(page, { timeout = 5000 } = {}) {
+  const reducedMotion = await page.evaluate(
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
+  if (reducedMotion) return;
+
+  await expect
+    .poll(
+      async () =>
+        page.evaluate(() => {
+          const pending = document.querySelectorAll(
+            "[data-animate]:not(.is-visible)",
+          );
+          for (const el of pending) {
+            const r = el.getBoundingClientRect();
+            if (r.top < window.innerHeight && r.bottom > 0 && r.width > 0) {
+              return false;
+            }
+          }
+          return true;
+        }),
+      { timeout },
+    )
+    .toBe(true);
+}
