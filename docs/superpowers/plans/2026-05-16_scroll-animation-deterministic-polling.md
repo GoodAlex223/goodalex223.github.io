@@ -67,9 +67,12 @@ Append this function to the end of the file (after `waitForAnimationComplete`):
  * would resolve on the first tick anyway. The early return makes the
  * intent explicit and saves a round-trip.
  *
- * The r.width > 0 guard skips display:none filter-hidden cards
- * (getBoundingClientRect returns 0x0 at 0,0 for display:none), matching
- * the observer-side skip in js/main.js for .project-card--hidden.
+ * Filter-hidden cards (.project-card--hidden) are skipped via an explicit
+ * class check matching the observer-side skip in js/main.js:595. The
+ * class uses visibility: hidden + position: absolute (not display: none),
+ * so getBoundingClientRect returns a non-zero rect — the class check is
+ * the canonical signal. The r.width > 0 rect guard remains as
+ * defense-in-depth for any future zero-width [data-animate] element.
  *
  * @param {import('@playwright/test').Page} page
  * @param {{ timeout?: number }} [options]
@@ -86,6 +89,7 @@ export async function waitForScrollAnimations(page, { timeout = 5000 } = {}) {
         page.evaluate(() => {
           const elements = document.querySelectorAll("[data-animate]");
           for (const el of elements) {
+            if (el.classList.contains("project-card--hidden")) continue;
             const r = el.getBoundingClientRect();
             if (r.top < window.innerHeight && r.bottom > 0 && r.width > 0) {
               const opacity = parseFloat(getComputedStyle(el).opacity);

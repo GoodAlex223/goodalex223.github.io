@@ -70,9 +70,12 @@ Single exported function in `tests/utils/timing.js`, joining the existing utilit
  * would resolve on the first tick anyway. The early return makes the intent
  * explicit and saves a round-trip.
  *
- * The r.width > 0 guard skips display:none filter-hidden cards
- * (getBoundingClientRect returns 0x0 at 0,0 for display:none), matching
- * the observer-side skip in js/main.js for .project-card--hidden.
+ * Filter-hidden cards (.project-card--hidden) are skipped via an explicit
+ * class check matching the observer-side skip in js/main.js:595. The class
+ * uses visibility: hidden + position: absolute (not display: none), so
+ * getBoundingClientRect returns a non-zero rect — the class check is the
+ * canonical signal. The r.width > 0 rect guard remains as defense-in-depth
+ * for any future zero-width [data-animate] element.
  *
  * @param {import('@playwright/test').Page} page
  * @param {{ timeout?: number }} [options]
@@ -89,6 +92,7 @@ export async function waitForScrollAnimations(page, { timeout = 5000 } = {}) {
         page.evaluate(() => {
           const elements = document.querySelectorAll("[data-animate]");
           for (const el of elements) {
+            if (el.classList.contains("project-card--hidden")) continue;
             const r = el.getBoundingClientRect();
             if (r.top < window.innerHeight && r.bottom > 0 && r.width > 0) {
               const opacity = parseFloat(getComputedStyle(el).opacity);
@@ -151,7 +155,7 @@ Behavior under each material case:
 | Above-fold element delayed by `data-animate-delay` (e.g., hero last child at 150ms) | Observer fires, schedules `setTimeout(150ms)`. Before the setTimeout: element has `opacity: 0` (initial state) → poll returns `false`. After class added: opacity transitions over 400ms → during this window opacity is < 1 → poll returns `false`. Once transition ends: `opacity === 1` → poll returns `true`. |
 | Below-fold elements (bottom project cards on small viewport) | `rect.top >= window.innerHeight` → skipped → don't block the poll. Correct because IntersectionObserver legitimately hasn't fired for them yet. |
 | Test scrolls before calling helper (e.g., form axe-scan scrolls to form) | `getBoundingClientRect()` reflects post-scroll position → newly in-viewport elements correctly hold the poll. |
-| Filtered-out cards (`display: none` via `.project-card--hidden`) | `getBoundingClientRect()` returns 0×0 at (0,0). The `r.width > 0` guard skips them. Matches `js/main.js:595` observer-side skip. |
+| Filtered-out cards (`.project-card--hidden` → `visibility: hidden; position: absolute`) | Explicit `el.classList.contains("project-card--hidden")` check skips them at the top of the loop. The class is the canonical signal — `getBoundingClientRect` returns a non-zero rect for `visibility: hidden`, so the rect guard alone would not catch this case. Matches the same class-based skip in `js/main.js:595`. |
 | Reduced motion enabled | Short-circuits before polling. Even without the short-circuit, CSS sets `opacity: 1` unconditionally under reduced motion → poll would resolve on tick 1 anyway. |
 | Helper called immediately after `goto()`, observer hasn't fired yet | Poll iterates until observer fires, setTimeouts run, classes added, and transitions complete. Bounded by 5000ms safety net. |
 | Modal open with backdrop | Background `[data-animate]` elements still have valid rects. Poll waits for them to settle — correct for axe-scan validity since the backdrop is semi-transparent. |
