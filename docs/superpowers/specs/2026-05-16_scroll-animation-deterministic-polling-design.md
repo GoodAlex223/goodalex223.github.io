@@ -48,18 +48,31 @@ A polling pattern equivalent to `waitForAnimationComplete()` (in `tests/utils/ti
 
 Single exported function in `tests/utils/timing.js`, joining the existing utilities.
 
+**Amendment (2026-05-16, post-Task-1 discovery):** Initial vertical-slice validation revealed that polling on `[data-animate]:not(.is-visible)` is insufficient — the `.is-visible` class triggers a 400ms opacity transition (see `css/components.css:449-455`), and axe-core color-contrast sampling mid-transition produces flaky failures on WebKit. The corrected helper polls computed opacity directly, which captures both class addition AND transition completion. Under reduced motion, CSS sets `opacity: 1` unconditionally for `[data-animate]` (line 476-479), so the polling check would also resolve immediately — but the explicit `matchMedia` short-circuit is kept for efficiency and self-documentation.
+
 ```js
 /**
  * Wait for scroll-in animations to settle by polling DOM state.
  * Replaces fixed-timeout waitForScrollAnimations() POM methods.
  *
  * Resolves when every [data-animate] element currently in the viewport has
- * acquired the .is-visible class. Below-fold elements are skipped (they
- * legitimately have not been observed by IntersectionObserver yet).
+ * computed opacity 1 (fully painted). Polling on the .is-visible class alone
+ * is insufficient: the class triggers a 400ms opacity transition (see
+ * css/components.css:449-455), and axe-core sampling mid-transition produces
+ * false color-contrast failures on WebKit. Polling on computed opacity
+ * catches both the class addition AND the transition completion. Below-fold
+ * elements are skipped — they legitimately have not been observed by
+ * IntersectionObserver yet.
  *
- * Short-circuits under prefers-reduced-motion: reduce — main.js never sets
- * up the observer in that case, so .is-visible is never added and any poll
- * would deadlock until the safety-net timeout fired.
+ * Short-circuits under prefers-reduced-motion: reduce — js/main.js never
+ * sets up the observer in that case, and CSS in the reduced-motion media
+ * query applies opacity: 1 unconditionally to [data-animate], so polling
+ * would resolve on the first tick anyway. The early return makes the intent
+ * explicit and saves a round-trip.
+ *
+ * The r.width > 0 guard skips display:none filter-hidden cards
+ * (getBoundingClientRect returns 0x0 at 0,0 for display:none), matching
+ * the observer-side skip in js/main.js for .project-card--hidden.
  *
  * @param {import('@playwright/test').Page} page
  * @param {{ timeout?: number }} [options]
@@ -74,15 +87,12 @@ export async function waitForScrollAnimations(page, { timeout = 5000 } = {}) {
     .poll(
       async () =>
         page.evaluate(() => {
-          const pending = document.querySelectorAll(
-            "[data-animate]:not(.is-visible)",
-          );
-          for (const el of pending) {
+          const elements = document.querySelectorAll("[data-animate]");
+          for (const el of elements) {
             const r = el.getBoundingClientRect();
-            // r.width > 0 guard skips display:none filter-hidden cards
-            // (getBoundingClientRect returns 0x0 at 0,0 for display:none).
             if (r.top < window.innerHeight && r.bottom > 0 && r.width > 0) {
-              return false;
+              const opacity = parseFloat(getComputedStyle(el).opacity);
+              if (opacity < 1) return false;
             }
           }
           return true;
@@ -137,14 +147,15 @@ Behavior under each material case:
 
 | Case | Resolution |
 |------|------------|
-| All `[data-animate]` already have `.is-visible` (page already settled) | `querySelectorAll(":not(.is-visible)")` returns empty → loop skipped → returns `true` on first poll tick. |
-| Above-fold element delayed by `data-animate-delay` (e.g., hero last child at 150ms) | Observer fires, schedules `setTimeout(150ms)`. During those 150ms, element is `[data-animate]:not(.is-visible)` AND in viewport → poll returns `false`. After setTimeout: `.is-visible` added → poll returns `true`. |
+| All `[data-animate]` already at opacity 1 (page already settled) | Every in-viewport element passes the `opacity < 1` check → returns `true` on first poll tick. |
+| Above-fold element delayed by `data-animate-delay` (e.g., hero last child at 150ms) | Observer fires, schedules `setTimeout(150ms)`. Before the setTimeout: element has `opacity: 0` (initial state) → poll returns `false`. After class added: opacity transitions over 400ms → during this window opacity is < 1 → poll returns `false`. Once transition ends: `opacity === 1` → poll returns `true`. |
 | Below-fold elements (bottom project cards on small viewport) | `rect.top >= window.innerHeight` → skipped → don't block the poll. Correct because IntersectionObserver legitimately hasn't fired for them yet. |
 | Test scrolls before calling helper (e.g., form axe-scan scrolls to form) | `getBoundingClientRect()` reflects post-scroll position → newly in-viewport elements correctly hold the poll. |
 | Filtered-out cards (`display: none` via `.project-card--hidden`) | `getBoundingClientRect()` returns 0×0 at (0,0). The `r.width > 0` guard skips them. Matches `js/main.js:595` observer-side skip. |
-| Reduced motion enabled | Short-circuits before polling. Saves ~700ms per test. |
-| Helper called immediately after `goto()`, observer hasn't fired yet | Poll iterates until observer + setTimeouts complete. Bounded by 5000ms safety net. |
+| Reduced motion enabled | Short-circuits before polling. Even without the short-circuit, CSS sets `opacity: 1` unconditionally under reduced motion → poll would resolve on tick 1 anyway. |
+| Helper called immediately after `goto()`, observer hasn't fired yet | Poll iterates until observer fires, setTimeouts run, classes added, and transitions complete. Bounded by 5000ms safety net. |
 | Modal open with backdrop | Background `[data-animate]` elements still have valid rects. Poll waits for them to settle — correct for axe-scan validity since the backdrop is semi-transparent. |
+| **WebKit axe color-contrast sampling during transition** | Poll holds open until full opacity is reached, so axe never samples interpolated mid-transition colors. This is the case that motivated the opacity-based check (discovered during Task 1 vertical-slice validation). |
 
 ## Verification plan
 

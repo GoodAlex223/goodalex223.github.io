@@ -43,6 +43,8 @@ Expected: file currently exports `getAnimationDuration`, `getStaggerDelay`, `wai
 
 - [ ] **Step 2: Add `waitForScrollAnimations()` to `tests/utils/timing.js`**
 
+> **Amendment (2026-05-16, post-initial-validation):** The original spec proposed polling on `[data-animate]:not(.is-visible)`. WebKit cross-browser smoke testing revealed that the class is added at the *start* of a 400ms opacity transition, and axe-core color-contrast sampling mid-transition produces flaky failures. The helper below polls computed opacity instead, which captures the full settle.
+
 Append this function to the end of the file (after `waitForAnimationComplete`):
 
 ```js
@@ -51,12 +53,19 @@ Append this function to the end of the file (after `waitForAnimationComplete`):
  * Replaces the fixed-timeout waitForScrollAnimations() POM methods.
  *
  * Resolves when every [data-animate] element currently in the viewport has
- * acquired the .is-visible class. Below-fold elements are skipped — they
- * legitimately have not been observed by IntersectionObserver yet.
+ * computed opacity 1 (fully painted). Polling on the .is-visible class
+ * alone is insufficient: the class triggers a 400ms opacity transition
+ * (see css/components.css:449-455), and axe-core sampling mid-transition
+ * produces false color-contrast failures on WebKit. Polling on computed
+ * opacity catches both class addition AND transition completion.
+ * Below-fold elements are skipped — they legitimately have not been
+ * observed by IntersectionObserver yet.
  *
  * Short-circuits under prefers-reduced-motion: reduce — js/main.js never
- * sets up the observer in that case, so .is-visible is never added and any
- * poll would deadlock until the safety-net timeout fired.
+ * sets up the observer in that case, and CSS in the reduced-motion media
+ * query applies opacity: 1 unconditionally to [data-animate], so polling
+ * would resolve on the first tick anyway. The early return makes the
+ * intent explicit and saves a round-trip.
  *
  * The r.width > 0 guard skips display:none filter-hidden cards
  * (getBoundingClientRect returns 0x0 at 0,0 for display:none), matching
@@ -75,13 +84,12 @@ export async function waitForScrollAnimations(page, { timeout = 5000 } = {}) {
     .poll(
       async () =>
         page.evaluate(() => {
-          const pending = document.querySelectorAll(
-            "[data-animate]:not(.is-visible)",
-          );
-          for (const el of pending) {
+          const elements = document.querySelectorAll("[data-animate]");
+          for (const el of elements) {
             const r = el.getBoundingClientRect();
             if (r.top < window.innerHeight && r.bottom > 0 && r.width > 0) {
-              return false;
+              const opacity = parseFloat(getComputedStyle(el).opacity);
+              if (opacity < 1) return false;
             }
           }
           return true;
