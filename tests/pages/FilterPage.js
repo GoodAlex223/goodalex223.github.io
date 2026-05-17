@@ -50,12 +50,6 @@ export class FilterPage {
     await expect(this.filterButtons.first()).toContainText("(");
   }
 
-  /** Wait for initial scroll-in animations to settle (hero + visible sections) */
-  async waitForScrollAnimations() {
-    // Hero elements stagger up to 150ms + 400ms transition = 550ms; add buffer
-    await this.page.waitForTimeout(700);
-  }
-
   async gotoWithHash(category) {
     await this.page.goto(`/#filter=${category}`);
     await waitForAnimationComplete(this.page);
