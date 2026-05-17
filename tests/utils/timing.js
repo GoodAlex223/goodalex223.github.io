@@ -86,10 +86,18 @@ export async function waitForAnimationComplete(page, { timeout = 5000 } = {}) {
  *
  * The .project-card--hidden guard skips filter-hidden cards. These cards
  * use position:absolute + visibility:hidden (not display:none), so their
- * getBoundingClientRect() may still return a non-zero rect — the r.width > 0
- * guard alone is insufficient. The class check mirrors the observer-side skip
- * in js/main.js (line 595) that prevents the IntersectionObserver from
+ * getBoundingClientRect() returns a non-zero rect — the r.width > 0
+ * guard alone is insufficient. The class check mirrors the observer-side
+ * skip in js/main.js:595 that prevents the IntersectionObserver from
  * animating filter-hidden cards.
+ *
+ * Filter-animation transient states (.project-card--filtering-in /
+ * --filtering-out) are NOT handled here. Callers that may invoke this
+ * helper mid-filter-animation must first await waitForAnimationComplete()
+ * — otherwise filtering-in cards in the viewport with opacity 0 (start
+ * state) will hold the poll until the 5000ms safety-net timeout. The
+ * filter POM's clickFilter() already bundles waitForAnimationComplete,
+ * so the sequencing is safe for axe-scan callers today.
  *
  * @param {import('@playwright/test').Page} page
  * @param {{ timeout?: number }} [options]
@@ -107,7 +115,7 @@ export async function waitForScrollAnimations(page, { timeout = 5000 } = {}) {
           const elements = document.querySelectorAll("[data-animate]");
           for (const el of elements) {
             // Skip cards hidden by the filter system (position:absolute,
-            // visibility:hidden — getBoundingClientRect may be non-zero)
+            // visibility:hidden — getBoundingClientRect returns a non-zero rect)
             if (el.classList.contains("project-card--hidden")) continue;
             const r = el.getBoundingClientRect();
             if (r.top < window.innerHeight && r.bottom > 0 && r.width > 0) {
