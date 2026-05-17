@@ -87,11 +87,19 @@ export async function waitForScrollAnimations(page, { timeout = 5000 } = {}) {
     .poll(
       async () =>
         page.evaluate(() => {
+          const ROOT_MARGIN_BOTTOM = 50;
+          const THRESHOLD = 0.1;
+          const effectiveBottom = window.innerHeight - ROOT_MARGIN_BOTTOM;
           const elements = document.querySelectorAll("[data-animate]");
           for (const el of elements) {
             if (el.classList.contains("project-card--hidden")) continue;
             const r = el.getBoundingClientRect();
-            if (r.top < window.innerHeight && r.bottom > 0 && r.width > 0) {
+            if (r.height === 0 || r.width === 0) continue;
+            const visibleHeight = Math.max(
+              0,
+              Math.min(r.bottom, effectiveBottom) - Math.max(r.top, 0),
+            );
+            if (visibleHeight / r.height >= THRESHOLD) {
               const opacity = parseFloat(getComputedStyle(el).opacity);
               if (opacity < 1) return false;
             }

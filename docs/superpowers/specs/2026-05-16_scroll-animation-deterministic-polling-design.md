@@ -90,11 +90,22 @@ export async function waitForScrollAnimations(page, { timeout = 5000 } = {}) {
     .poll(
       async () =>
         page.evaluate(() => {
+          // Mirror the production IntersectionObserver config in
+          // js/main.js:583-587 so the helper only waits on elements the
+          // observer would actually fire for.
+          const ROOT_MARGIN_BOTTOM = 50;
+          const THRESHOLD = 0.1;
+          const effectiveBottom = window.innerHeight - ROOT_MARGIN_BOTTOM;
           const elements = document.querySelectorAll("[data-animate]");
           for (const el of elements) {
             if (el.classList.contains("project-card--hidden")) continue;
             const r = el.getBoundingClientRect();
-            if (r.top < window.innerHeight && r.bottom > 0 && r.width > 0) {
+            if (r.height === 0 || r.width === 0) continue;
+            const visibleHeight = Math.max(
+              0,
+              Math.min(r.bottom, effectiveBottom) - Math.max(r.top, 0),
+            );
+            if (visibleHeight / r.height >= THRESHOLD) {
               const opacity = parseFloat(getComputedStyle(el).opacity);
               if (opacity < 1) return false;
             }
@@ -153,7 +164,8 @@ Behavior under each material case:
 |------|------------|
 | All `[data-animate]` already at opacity 1 (page already settled) | Every in-viewport element passes the `opacity < 1` check → returns `true` on first poll tick. |
 | Above-fold element delayed by `data-animate-delay` (e.g., hero last child at 150ms) | Observer fires, schedules `setTimeout(150ms)`. Before the setTimeout: element has `opacity: 0` (initial state) → poll returns `false`. After class added: opacity transitions over 400ms → during this window opacity is < 1 → poll returns `false`. Once transition ends: `opacity === 1` → poll returns `true`. |
-| Below-fold elements (bottom project cards on small viewport) | `rect.top >= window.innerHeight` → skipped → don't block the poll. Correct because IntersectionObserver legitimately hasn't fired for them yet. |
+| Below-fold elements (bottom project cards on small viewport) | Visible fraction is 0 → fails `>= THRESHOLD` check → skipped → don't block the poll. Correct because IntersectionObserver legitimately hasn't fired for them yet. |
+| **Partially visible elements below the observer's threshold** (e.g., `contact__intro` 8% visible after WebKit's focus-driven scroll) | Visible fraction < 0.1 → fails threshold check → skipped. Without this, the helper would hang indefinitely because the observer never fires for sub-threshold elements (Task 4 root cause). |
 | Test scrolls before calling helper (e.g., form axe-scan scrolls to form) | `getBoundingClientRect()` reflects post-scroll position → newly in-viewport elements correctly hold the poll. |
 | Filtered-out cards (`.project-card--hidden` → `visibility: hidden; position: absolute`) | Explicit `el.classList.contains("project-card--hidden")` check skips them at the top of the loop. The class is the canonical signal — `getBoundingClientRect` returns a non-zero rect for `visibility: hidden`, so the rect guard alone would not catch this case. Matches the same class-based skip in `js/main.js:595`. |
 | Reduced motion enabled | Short-circuits before polling. Even without the short-circuit, CSS sets `opacity: 1` unconditionally under reduced motion → poll would resolve on tick 1 anyway. |
