@@ -1,6 +1,7 @@
 import { test } from "@playwright/test";
 import { ModalPage, PROJECTS_WITH_DETAILS } from "../pages/ModalPage.js";
 import { checkAccessibility } from "../utils/axe-helper.js";
+import { waitForScrollAnimations } from "../utils/timing.js";
 
 // Scope axe scans to the modal element. When the modal is open with
 // aria-modal="true", background content is inert. Axe-core cannot account
@@ -14,7 +15,7 @@ test.describe("Modal Accessibility Scanning (Axe-Core)", () => {
   test.beforeEach(async ({ page }) => {
     mp = new ModalPage(page);
     await mp.goto();
-    await mp.waitForScrollAnimations();
+    await waitForScrollAnimations(page);
   });
 
   // ── Modal-open WCAG scans (default theme) ──────────────────────────────
