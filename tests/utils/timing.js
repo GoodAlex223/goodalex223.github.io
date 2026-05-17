@@ -121,8 +121,11 @@ export async function waitForScrollAnimations(page, { timeout = 5000 } = {}) {
           // geometrically in the viewport but below the threshold (e.g.,
           // 8% visible after a focus-driven scroll on WebKit) holds the
           // poll open until the safety-net timeout.
-          const ROOT_MARGIN_BOTTOM = 50;
-          const THRESHOLD = 0.1;
+          //
+          // DRIFT RISK: these constants must match js/main.js:585-586.
+          // If either side changes, update both — no automated guard.
+          const ROOT_MARGIN_BOTTOM = 50; // mirrors rootMargin "0px 0px -50px 0px"
+          const THRESHOLD = 0.1; // mirrors threshold: 0.1
           const effectiveBottom = window.innerHeight - ROOT_MARGIN_BOTTOM;
           const elements = document.querySelectorAll("[data-animate]");
           for (const el of elements) {
