@@ -69,14 +69,17 @@ export async function waitForAnimationComplete(page, { timeout = 5000 } = {}) {
  * Wait for scroll-in animations to settle by polling DOM state.
  * Replaces the fixed-timeout waitForScrollAnimations() POM methods.
  *
- * Resolves when every [data-animate] element currently in the viewport has
- * computed opacity 1 (fully painted). Polling on the .is-visible class
- * alone is insufficient: the class triggers a 400ms opacity transition
- * (see css/components.css:449-455), and axe-core sampling mid-transition
- * produces false color-contrast failures on WebKit. Polling on computed
- * opacity catches both class addition AND transition completion.
- * Below-fold elements are skipped — they legitimately have not been
- * observed by IntersectionObserver yet.
+ * Resolves when every [data-animate] element whose visible fraction
+ * meets the IntersectionObserver threshold (10%, with the same -50px
+ * bottom rootMargin used in js/main.js) has computed opacity 1 (fully
+ * painted). Polling on the .is-visible class alone is insufficient: the
+ * class triggers a 400ms opacity transition (see css/components.css:449-455),
+ * and axe-core sampling mid-transition produces false color-contrast
+ * failures on WebKit. Polling on computed opacity catches both class
+ * addition AND transition completion. The threshold check mirrors the
+ * observer's own trigger condition — elements below 10% visibility are
+ * skipped because the observer would never fire for them either, so
+ * waiting on their opacity would hang.
  *
  * Short-circuits under prefers-reduced-motion: reduce — js/main.js never
  * sets up the observer in that case, and CSS in the reduced-motion media
@@ -112,13 +115,27 @@ export async function waitForScrollAnimations(page, { timeout = 5000 } = {}) {
     .poll(
       async () =>
         page.evaluate(() => {
+          // Mirror the production IntersectionObserver config in
+          // js/main.js:583-587 so the helper only waits on elements the
+          // observer would actually fire for. Otherwise an element that's
+          // geometrically in the viewport but below the threshold (e.g.,
+          // 8% visible after a focus-driven scroll on WebKit) holds the
+          // poll open until the safety-net timeout.
+          const ROOT_MARGIN_BOTTOM = 50;
+          const THRESHOLD = 0.1;
+          const effectiveBottom = window.innerHeight - ROOT_MARGIN_BOTTOM;
           const elements = document.querySelectorAll("[data-animate]");
           for (const el of elements) {
             // Skip cards hidden by the filter system (position:absolute,
             // visibility:hidden — getBoundingClientRect returns a non-zero rect)
             if (el.classList.contains("project-card--hidden")) continue;
             const r = el.getBoundingClientRect();
-            if (r.top < window.innerHeight && r.bottom > 0 && r.width > 0) {
+            if (r.height === 0 || r.width === 0) continue;
+            const visibleHeight = Math.max(
+              0,
+              Math.min(r.bottom, effectiveBottom) - Math.max(r.top, 0),
+            );
+            if (visibleHeight / r.height >= THRESHOLD) {
               const opacity = parseFloat(getComputedStyle(el).opacity);
               if (opacity < 1) return false;
             }
