@@ -239,11 +239,11 @@ Revert is purely test-side: restore the 3 POM methods, swap call-site imports ba
 
 ## Acceptance criteria
 
-- [ ] `tests/utils/timing.js` exports `waitForScrollAnimations(page, { timeout })` matching the API in this spec.
-- [ ] All three POM `waitForScrollAnimations()` methods deleted.
-- [ ] All 17 call sites migrated to `waitForScrollAnimations(page)` with imports added.
-- [ ] `tests/filter/axe-scan.spec.js:108` reduced-motion call restored and stale comment removed.
-- [ ] All Playwright suites pass cross-browser (Chromium, Firefox, WebKit).
-- [ ] `--repeat-each=5` stress run is 100% green for the three modified spec files.
-- [ ] `npm run lint` clean.
-- [ ] Zero changes to `js/main.js`, `css/`, or `index.html`.
+- [x] `tests/utils/timing.js` exports `waitForScrollAnimations(page, { timeout })` matching the API in this spec.
+- [x] All three POM `waitForScrollAnimations()` methods deleted.
+- [x] All 16 call sites migrated to `waitForScrollAnimations(page)` with imports added (15 POM-attached calls migrated + 1 net-new call added in the filter reduced-motion `beforeEach`; the pre-implementation estimate of 17 included the comment-only line-108 omission as a call site).
+- [x] `tests/filter/axe-scan.spec.js:108` reduced-motion call restored and stale comment removed.
+- [x] All Playwright suites pass cross-browser (Chromium, Firefox, WebKit).
+- [x] `--repeat-each=5` stress run is 100% green for the three modified spec files (Chromium 234, Firefox 247, WebKit 235; all exit 0).
+- [x] `npm run lint` clean.
+- [x] Zero changes to `js/main.js`, `css/`, or `index.html`.
