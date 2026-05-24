@@ -1,6 +1,6 @@
 # BACKLOG
 
-**Last Updated**: 2026-05-14 (PR #70 post-merge review follow-ups added)
+**Last Updated**: 2026-05-24 (PR #71 post-merge review follow-ups added)
 
 Future ideas and improvements for the portfolio.
 
@@ -975,6 +975,13 @@ _Extracted from implementation plan:_
 - [ ] Polling helper for modal-open state — `tests/pages/ModalPage.js:118` (`expectOpen`) still uses `waitForTimeout(300)` to wait for modal opacity transition, the same class of fixed-timeout smell this PR addressed for scroll animations. A `waitForModalOpen(page)` polling helper (or generic `waitForOpacity(page, selector)` utility) would close the last fixed-timeout in the test infrastructure. (final review, confidence 65, test-flake reduction theme)
 - [ ] Add `waitForScrollAnimations(page)` to form and modal reduced-motion `beforeEach` blocks for consistency — spec scope only required restoring the filter line-108 call. The form (`tests/form/axe-scan.spec.js:55-59`) and modal (`tests/modal/axe-scan.spec.js:64-76`) reduced-motion variants still omit the helper. With the reduced-motion short-circuit, adding the call is free and aligns all three suites. (Task 4 / final review, confidence 50, consistency polish)
 - [ ] Targeted regression test for `waitForScrollAnimations(page)` after filter applied — no test currently asserts the helper resolves correctly when filter-hidden cards exist in the DOM (the bug fixed in Task 2). A one-liner negative test that applies a filter and asserts the helper does not timeout would close the observability gap on the class-skip behavior. (Task 2 code review, confidence 50, test coverage)
+
+### From PR #71 Post-Merge Review (2026-05-24)
+
+**Origin**: docs/archive/plans/2026-05-16_scroll-animation-deterministic-polling.md
+
+- [ ] CLAUDE.md "Reduced-motion axe pattern" bullet contradicts the filter axe-scan code shipped in this PR — bullet still says "inner reduced-motion `beforeEach` calls `enableReducedMotion()` then `goto()` to reload with the media query active — no re-creation of POM or second `waitForScrollAnimations()` needed", but `tests/filter/axe-scan.spec.js` now adds an explicit `await waitForScrollAnimations(page)` in that same inner `beforeEach`. Harmless at runtime (helper short-circuits under reduced motion), but the wording misleads anyone reading CLAUDE.md as canonical pattern. Fix: rewrite the bullet to describe the call as intentional structural-consistency, free under the reduced-motion short-circuit. (PR #71 post-merge review, confidence 75, doc drift)
+- [ ] Preserve the deleted FilterPage stagger-budget rationale in the new helper's JSDoc — pre-PR `tests/pages/FilterPage.js` had `// Hero elements stagger up to 150ms + 400ms transition = 550ms; add buffer` explaining the 700ms magic number. Opacity polling subsumes the magic number, but the underlying constraint (max-stagger + transition budget) is no longer captured anywhere in `tests/utils/timing.js`. Add a one-line note in the helper's JSDoc explaining why polling subsumes the stagger budget. (PR #71 post-merge review, confidence 25, doc lineage)
 
 ---
 
