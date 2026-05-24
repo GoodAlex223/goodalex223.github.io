@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
 import { FilterPage } from "../pages/FilterPage.js";
 import { checkAccessibility } from "../utils/axe-helper.js";
-import { waitForAnimationComplete } from "../utils/timing.js";
+import { waitForAnimationComplete, waitForScrollAnimations } from "../utils/timing.js";
 
 test.describe("Accessibility Scanning (Axe-Core)", () => {
   let fp;
@@ -9,7 +9,7 @@ test.describe("Accessibility Scanning (Axe-Core)", () => {
   test.beforeEach(async ({ page }) => {
     fp = new FilterPage(page);
     await fp.goto();
-    await fp.waitForScrollAnimations();
+    await waitForScrollAnimations(page);
   });
 
   test("initial page load passes WCAG 2.1 AA", async ({ page }) => {
@@ -18,32 +18,32 @@ test.describe("Accessibility Scanning (Axe-Core)", () => {
 
   test("page remains accessible after backend filter", async ({ page }) => {
     await fp.clickFilter("backend");
-    await fp.waitForScrollAnimations();
+    await waitForScrollAnimations(page);
     await checkAccessibility(page);
   });
 
   test("page remains accessible after IoT filter", async ({ page }) => {
     await fp.clickFilter("iot");
-    await fp.waitForScrollAnimations();
+    await waitForScrollAnimations(page);
     await checkAccessibility(page);
   });
 
   test("page remains accessible after web filter", async ({ page }) => {
     await fp.clickFilter("web");
-    await fp.waitForScrollAnimations();
+    await waitForScrollAnimations(page);
     await checkAccessibility(page);
   });
 
   test("page remains accessible after tools filter", async ({ page }) => {
     await fp.clickFilter("tools");
-    await fp.waitForScrollAnimations();
+    await waitForScrollAnimations(page);
     await checkAccessibility(page);
   });
 
   test("page remains accessible after toggle-to-reset", async ({ page }) => {
     await fp.clickFilter("iot");
     await fp.clickFilter("iot");
-    await fp.waitForScrollAnimations();
+    await waitForScrollAnimations(page);
     await checkAccessibility(page);
   });
 
@@ -54,7 +54,7 @@ test.describe("Accessibility Scanning (Axe-Core)", () => {
     await fp.pressKey("ArrowRight");
     await fp.pressKey("Enter");
     await waitForAnimationComplete(page);
-    await fp.waitForScrollAnimations();
+    await waitForScrollAnimations(page);
     await checkAccessibility(page);
   });
 
@@ -62,7 +62,7 @@ test.describe("Accessibility Scanning (Axe-Core)", () => {
     page,
   }) => {
     await fp.gotoWithHash("tools");
-    await fp.waitForScrollAnimations();
+    await waitForScrollAnimations(page);
     await checkAccessibility(page);
   });
 
@@ -82,7 +82,7 @@ test.describe("Accessibility Scanning (Axe-Core)", () => {
 
     test("active filter passes WCAG 2.1 AA", async ({ page }) => {
       await fp.clickFilter("iot");
-      await fp.waitForScrollAnimations();
+      await waitForScrollAnimations(page);
       await checkAccessibility(page);
     });
   });
@@ -98,19 +98,20 @@ test.describe("Accessibility Scanning (Axe-Core)", () => {
 
     test("active filter passes WCAG 2.1 AA", async ({ page }) => {
       await fp.clickFilter("iot");
-      await fp.waitForScrollAnimations();
+      await waitForScrollAnimations(page);
       await checkAccessibility(page);
     });
   });
 
   // ── Reduced motion WCAG AA scans ──────────────────────────────────────
   // Verify page remains accessible with prefers-reduced-motion enabled.
-  // No waitForScrollAnimations() — animations are disabled under reduced motion.
+  // waitForScrollAnimations() short-circuits under reduced motion (free).
 
   test.describe("Reduced motion", () => {
-    test.beforeEach(async () => {
+    test.beforeEach(async ({ page }) => {
       await fp.enableReducedMotion();
       await fp.goto();
+      await waitForScrollAnimations(page);
     });
 
     test("initial page load passes WCAG 2.1 AA", async ({ page }) => {

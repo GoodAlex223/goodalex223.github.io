@@ -1,8 +1,37 @@
 # DONE
 
-**Last Updated**: 2026-05-10 (CI Deadline & Docs completed)
+**Last Updated**: 2026-05-17 (Scroll Animation Deterministic Polling completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-05-17
+
+### Scroll Animation Deterministic Polling 🏆 (Weekly Challenge)
+
+**Plan**: [docs/archive/plans/2026-05-16_scroll-animation-deterministic-polling.md](../archive/plans/2026-05-16_scroll-animation-deterministic-polling.md)
+**Spec**: [docs/archive/specs/2026-05-16_scroll-animation-deterministic-polling-design.md](../archive/specs/2026-05-16_scroll-animation-deterministic-polling-design.md)
+**PR**: pending (next available — likely #71)
+**Summary**: Replaced the 700ms fixed-timeout `waitForScrollAnimations()` POM helpers (duplicated 3x across `FilterPage`, `ModalPage`, `FormPage`) with a single deterministic polling helper in `tests/utils/timing.js`. The helper went through three correctness iterations during execution — each surfaced by cross-browser testing — converging on: opacity-based polling (not class-based, to cover the 400ms transition) + viewport check aligned to the production IntersectionObserver's threshold + rootMargin (`js/main.js:583-587`) + explicit `.project-card--hidden` class skip + reduced-motion short-circuit. Migrated all 15 POM call sites in the three axe-scan suites, restored a comment-only-omitted call at `tests/filter/axe-scan.spec.js:108`, deleted the 3 POM duplicates. Cross-browser `--repeat-each=5` stress run: Chromium 234, Firefox 247, WebKit 235 — zero flakes.
+**Key Changes**:
+- New `waitForScrollAnimations(page, { timeout = 5000 } = {})` export in `tests/utils/timing.js` — joins the existing `waitForAnimationComplete()` pattern from PR #62. Polls computed opacity for every `[data-animate]` element whose visible fraction meets the observer's 10% threshold (with the same -50px bottom rootMargin); short-circuits under `prefers-reduced-motion: reduce`; skips `.project-card--hidden` cards via class check; documents filter-animation sequencing contract; DRIFT RISK comment marks `ROOT_MARGIN_BOTTOM`/`THRESHOLD` constants as manual mirrors of `js/main.js:585-586`.
+- Three helper-correctness fixes during implementation, each caught by cross-browser testing rather than pre-impl analysis: (1) v1→v2 — class-based polling resolved at the START of the 400ms opacity transition, so WebKit axe sampled mid-transition and produced flaky color-contrast failures (~2/3 runs); switched to computed-opacity polling. (2) v2→v3 — `.project-card--hidden` uses `visibility: hidden + position: absolute` (not `display: none`), so the `r.width > 0` guard didn't skip filter-hidden cards; added explicit class check mirroring `js/main.js:595`. (3) v3 final — WebKit's `clickSubmit()` → focus → programmatic scroll left `contact__intro` 8% visible, below the observer's 10% threshold; the helper's accept-any-overlap viewport check made it hang indefinitely on an element the observer would never fire for. Aligned the viewport check with the observer's threshold + rootMargin.
+- Migrated 15 call sites across three axe-scan suites:
+  - `tests/filter/axe-scan.spec.js`: 10 sites (line 12 in vertical-slice Task 1; lines 21, 27, 33, 39, 46, 57, 65, 85, 101 in Task 2) + 1 net-new call at line 114 to restore the previously comment-only-omitted reduced-motion `beforeEach` wait (the stale comment "No waitForScrollAnimations() — animations are disabled under reduced motion" was replaced with a comment documenting the helper's free short-circuit under reduced motion).
+  - `tests/modal/axe-scan.spec.js`: 1 site at line 18.
+  - `tests/form/axe-scan.spec.js`: 4 sites at lines 14, 23, 32, 41 (form reduced-motion test on line 55-59 intentionally NOT modified per spec scope — same omission documented in CLAUDE.md as an intentional pattern).
+- Deleted the duplicated POM methods (16 lines removed total): `FilterPage.js:53-57`, `ModalPage.js:228-231`, `FormPage.js:204-207`. Verified zero remaining `.waitForScrollAnimations` callers anywhere in `tests/` via grep before deletion; full axe-scan cross-browser suites 53/53 green confirms no hidden POM-call regression.
+- Synced CLAUDE.md Testing section across three docs-alignment commits — each one followed an implementer-discovered correctness iteration of the helper. Updated "Scroll animation wait" bullet to document opacity polling + observer-threshold matching + class-skip + reduced-motion short-circuit + zero-dimension guard. Updated "Reduced-motion axe pattern" bullet to reflect new helper signature. Updated "Form axe-scan suite" bullet to reflect new helper signature in both bare references. Spec and plan amended in parallel.
+- Five-task vertical-slice execution: Task 1 added the helper + migrated one call site (caught the v1→v2 issue); Task 2 migrated 9 filter sites + restored line-108 (caught the v2→v3 filter-hidden issue); Task 3 migrated 1 modal site; Task 4 migrated 4 form sites (caught the v3 observer-threshold issue); Task 5 deleted the 3 POM duplicates; Task 6 ran `--repeat-each=5` cross-browser stress verification.
+- Subagent-driven development with two-stage review (spec compliance + code quality) after each implementation task; surfaced and fixed minor issues inline (trailing newline in timing.js, filter-animation sequencing JSDoc, drift-risk comment, two-line CLAUDE.md staleness, spec acceptance count off-by-one) before final-review handoff.
+- Zero production code changes confirmed by `git diff main..HEAD -- js/ css/ index.html 404.html data/` returning empty. The helper observes existing production behavior without introducing any marker classes, custom events, or production-side coupling.
+**Resolved BACKLOG items**: 1 (the standing 2026-04-11 Test Robustness item). 4 new follow-ups extracted to BACKLOG (DRIFT RISK automated guard, modal expectOpen polling helper, form/modal reduced-motion variant consistency, targeted regression test for class-skip behavior).
+**Lessons Learned**:
+- Vertical-slice validation is high-ROI for test-infrastructure changes — Task 1's single-call-site migration surfaced the WebKit mid-transition flake before 14 other sites were touched. Pure bulk migration would have made the same fix three commits later and harder to bisect.
+- Cross-browser testing AT EACH TASK (not just at the end) caught two correctness gaps the spec missed (`.project-card--hidden` vs `display: none`; observer-threshold mismatch). Both gaps were invisible to single-browser local testing because Chromium/Firefox masked them with different scroll behaviors.
+- Pre-implementation specs can under-specify viewport semantics. The original spec said "elements in the viewport" without defining "in the viewport" relative to the IntersectionObserver's `rootMargin` and `threshold`. The mid-task corrections + docs-alignment commits kept spec/code synchronized through implementation.
+- For test-helper config that mirrors production config: an explicit DRIFT RISK comment is the minimum bar; an automated guard test (read `js/main.js`, assert constants match) is the right follow-up. Added to BACKLOG.
 
 ---
 

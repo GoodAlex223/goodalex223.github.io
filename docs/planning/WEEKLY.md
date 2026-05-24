@@ -86,7 +86,7 @@
 ### Friday — Weekly Challenge (5 SP)
 
 **Replace `waitForScrollAnimations()` with Deterministic Polling** — 5 SP
-- [ ] 🏆 Replace 700ms fixed-timeout helper with DOM-state polling across ~20 test locations *(5 SP, IMPORTANT)*
+- [x] 🏆 Replace 700ms fixed-timeout helper with DOM-state polling across ~20 test locations *(5 SP, IMPORTANT — completed 2026-05-17)*
 
 ---
 
@@ -99,7 +99,7 @@
 | BACKLOG Validator Hardening `[batch]` | JS Logic | 5 | 7 | Wed | ✅ Done |
 | Node.js 24 GitHub Actions Upgrade | CI/Build | 1 | 3 | Thu | ✅ Done |
 | Documentation Refresh `[batch]` | Docs | 3 | 4 | Thu | ✅ Done |
-| 🏆 Replace `waitForScrollAnimations()` | Testing | 1 | 5 | Fri | ⏳ Planned |
+| 🏆 Replace `waitForScrollAnimations()` | Testing | 1 | 5 | Fri | ✅ Done |
 | **Total** | | **17** | **31** | | |
 
 ---

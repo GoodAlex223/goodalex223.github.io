@@ -224,9 +224,4 @@ export class ModalPage {
     );
     await this.page.waitForTimeout(400);
   }
-
-  /** Wait for initial scroll-in animations to settle */
-  async waitForScrollAnimations() {
-    await this.page.waitForTimeout(700);
-  }
 }

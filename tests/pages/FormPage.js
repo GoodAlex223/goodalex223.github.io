@@ -200,9 +200,4 @@ export class FormPage {
     // Wait for CSS transitions to settle
     await this.page.waitForTimeout(400);
   }
-
-  async waitForScrollAnimations() {
-    // Wait for scroll-in animations to settle (prevents false axe failures)
-    await this.page.waitForTimeout(700);
-  }
 }

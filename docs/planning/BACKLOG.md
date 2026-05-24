@@ -850,7 +850,7 @@ _Extracted from implementation plan:_
 ## From Test Robustness (2026-04-11)
 **Origin**: docs/archive/plans/2026-04-11_test-robustness.md
 
-- [ ] Replace `waitForScrollAnimations()` with deterministic polling — the 700ms fixed timeout is fragile across browsers. A polling approach (similar to `waitForAnimationComplete()` for filter animations) that checks `is-visible` class or computed opacity would be more robust. Currently used in ~20 test locations across all suites
+- [x] ~~Replace `waitForScrollAnimations()` with deterministic polling~~ *(completed 2026-05-17, challenge/scroll-animation-deterministic-polling — added `waitForScrollAnimations(page)` to `tests/utils/timing.js` with opacity polling + observer-threshold matching + filter-hidden card skip + reduced-motion short-circuit; migrated all 15 POM call sites + restored filter line-108; deleted 3 POM duplicates; --repeat-each=5 cross-browser green 234/247/235 Chromium/Firefox/WebKit)*
 - [x] ~~Investigate pre-existing WebKit form submission flaky test~~ *(resolved 2026-04-28, replaced 500ms fixed-timeout route mock in `tests/form/submission.spec.js:36` with deferred-promise pattern via new `mockFormspreeDeferred()` helper on FormPage POM — eliminates the click→assert race window structurally; 20/20 webkit + 20/20 cross-engine `--repeat-each` runs green)*
 
 ### From Test Robustness Code Review (2026-04-16)
@@ -966,6 +966,15 @@ _Extracted from implementation plan:_
 
 - [ ] Plan-template "Spec / Plan" links should ship in archive-form, not `docs/superpowers/...` — PR #70's body shipped with broken markdown links pointing to `docs/superpowers/specs/2026-05-09-ci-deadline-docs-design.md` and `docs/superpowers/plans/2026-05-09-ci-deadline-docs.md` (both wrong path prefix and wrong date format — actuals use underscored dates at `docs/archive/`). The archived plan's Task 6.1 PR-body template carries the same dead links forward as a frozen historical record. Manual fix applied via `gh api PATCH .../pulls/70` post-merge. Improvement: writing-plans skill template generation should emit `Spec / Plan` links using the final archived path form (underscored dates, `docs/archive/<specs|plans>/` prefix) so the live PR body and the archived plan both ship clean. (PR #70 post-merge review, confidence 75, process/template)
 - [ ] Commit messages should not assert past-tense fixes that were not actually applied — `c51c549`'s message stated "the live PR body was already corrected via `gh pr edit`" but the body was still broken at post-merge review time (corrected ~10 minutes later via `gh api PATCH`). Two recovery patterns: (a) write external-state corrections as TODO/follow-up in the commit body rather than past-tense statements of fact; (b) verify the external state matches the claim before pushing the commit. Low-grade truth drift in the commit log compounds and weakens it as a debugging source over time. (PR #70 post-merge review, confidence 60, process discipline)
+
+## From Scroll Animation Deterministic Polling (2026-05-17)
+
+**Origin**: docs/archive/plans/2026-05-16_scroll-animation-deterministic-polling.md
+
+- [ ] Automated guard for the helper's observer-mirrored constants — `tests/utils/timing.js` hard-codes `ROOT_MARGIN_BOTTOM = 50` and `THRESHOLD = 0.1` to mirror `js/main.js:585-586`. The current DRIFT RISK comment documents this as a manual contract; a one-line test that reads the production observer config via `page.evaluate()` and asserts the helper's constants match would close the silent-drift hazard. (final review, confidence 60, observability)
+- [ ] Polling helper for modal-open state — `tests/pages/ModalPage.js:118` (`expectOpen`) still uses `waitForTimeout(300)` to wait for modal opacity transition, the same class of fixed-timeout smell this PR addressed for scroll animations. A `waitForModalOpen(page)` polling helper (or generic `waitForOpacity(page, selector)` utility) would close the last fixed-timeout in the test infrastructure. (final review, confidence 65, test-flake reduction theme)
+- [ ] Add `waitForScrollAnimations(page)` to form and modal reduced-motion `beforeEach` blocks for consistency — spec scope only required restoring the filter line-108 call. The form (`tests/form/axe-scan.spec.js:55-59`) and modal (`tests/modal/axe-scan.spec.js:64-76`) reduced-motion variants still omit the helper. With the reduced-motion short-circuit, adding the call is free and aligns all three suites. (Task 4 / final review, confidence 50, consistency polish)
+- [ ] Targeted regression test for `waitForScrollAnimations(page)` after filter applied — no test currently asserts the helper resolves correctly when filter-hidden cards exist in the DOM (the bug fixed in Task 2). A one-liner negative test that applies a filter and asserts the helper does not timeout would close the observability gap on the class-skip behavior. (Task 2 code review, confidence 50, test coverage)
 
 ---
 
