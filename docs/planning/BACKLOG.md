@@ -980,7 +980,7 @@ _Extracted from implementation plan:_
 
 **Origin**: docs/archive/plans/2026-05-16_scroll-animation-deterministic-polling.md
 
-- [ ] CLAUDE.md "Reduced-motion axe pattern" bullet contradicts the filter axe-scan code shipped in this PR — bullet still says "inner reduced-motion `beforeEach` calls `enableReducedMotion()` then `goto()` to reload with the media query active — no re-creation of POM or second `waitForScrollAnimations()` needed", but `tests/filter/axe-scan.spec.js` now adds an explicit `await waitForScrollAnimations(page)` in that same inner `beforeEach`. Harmless at runtime (helper short-circuits under reduced motion), but the wording misleads anyone reading CLAUDE.md as canonical pattern. Fix: rewrite the bullet to describe the call as intentional structural-consistency, free under the reduced-motion short-circuit. (PR #71 post-merge review, confidence 75, doc drift)
+- [x] ~~CLAUDE.md "Reduced-motion axe pattern" bullet contradicts the filter axe-scan code shipped in this PR~~ *(resolved 2026-05-24, auto-memory rewrote the bullet to describe the helper call in the inner `beforeEach` as intentional structural-consistency, free under the reduced-motion short-circuit)*
 - [ ] Preserve the deleted FilterPage stagger-budget rationale in the new helper's JSDoc — pre-PR `tests/pages/FilterPage.js` had `// Hero elements stagger up to 150ms + 400ms transition = 550ms; add buffer` explaining the 700ms magic number. Opacity polling subsumes the magic number, but the underlying constraint (max-stagger + transition budget) is no longer captured anywhere in `tests/utils/timing.js`. Add a one-line note in the helper's JSDoc explaining why polling subsumes the stagger budget. (PR #71 post-merge review, confidence 25, doc lineage)
 
 ---
