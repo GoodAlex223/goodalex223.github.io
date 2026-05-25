@@ -1,92 +1,85 @@
 # Weekly Plan
 
-**Week of**: May 4 - 8, 2026
-**Created**: 2026-04-28
-**Sources**: ROADMAP.md, BACKLOG.md, TODO.md, DONE.md, git log (Apr 11 - Apr 28)
+**Week of**: May 25 - 29, 2026
+**Created**: 2026-05-24
+**Sources**: ROADMAP.md, BACKLOG.md, TODO.md, DONE.md, git log (May 8 - May 24)
 
-**Context**: All v1.1/v1.5 roadmap items remain complete. The April 13-17 sprint cleared 28 SP across 6 batch groups, and PR #65 (Internal Asset Link Checking) merged today brought 6 fresh review follow-ups. Backlog now leans toward asset-checker polish, BACKLOG-validator hardening, test stability investigations, and the looming Node.js 24 GitHub Actions deadline (June 2, 2026). Continuing the "Quality & Hardening" phase.
+**Context**: Pivot from the four-sprint Quality & Hardening test-infra streak back toward content/feature work. The May 4-8 plan completed cleanly (31 SP), then PR #69 (validator hardening), PR #70 (Node 24 CI + docs), and PR #71 (scroll-animation deterministic polling — last week's challenge, merged today) shipped between sprints. CONTENT-005 (4 project detail screenshots) is the natural next clean candidate, paired with the long-pending `social-stats` showcase repo. The weekly challenge closes the 14-day-old `pull_request:` CI-trigger gap surfaced in PR #70's Task-5 review.
 
 ---
 
 ## Parallel Work
 
-- Monitor Formspree spam dashboard — CHALLENGE-003 backlog item (started ~Mar 21). 5+ weeks of data now available; user-side decision pending on whether reCAPTCHA v3 is needed.
+- Monitor Formspree spam dashboard — CHALLENGE-003 carry-forward (started ~Mar 21). 9+ weeks of data now; user-side reCAPTCHA v3 decision still pending.
 
 ---
 
 ## Task Groups
 
-### 1. Test Stability Investigations — Domain: Testing — 5 SP *(solo, IMPORTANT)*
-- Investigate pre-existing Firefox flaky test `tests/filter/accessibility.spec.js:44` "tabindex updates when filter changes" *(3 SP, IMPORTANT)* — Apr 16 review finding; recurs after the Apr 10 rapid-clicks fix used a different pattern
-- Investigate pre-existing WebKit form submission flaky test `tests/form/submission.spec.js:36` "shows loading state during submission" *(2 SP)* — Apr 11 backlog item; intermittent `toBeHidden()` timeout
+### 1. CONTENT-005 — Detail Screenshots for 4 Projects `[batch]` — Domain: Content/Visual — 13 SP *(IMPORTANT)*
 
-### 2. Asset Checker Polish & PR #65 Follow-ups `[batch]` — Domain: Build/CI — 7 SP
-- Tighten case-sensitivity check to cover directory segments in `assetExists()` *(3 SP, IMPORTANT)* — PR #65 review finding (confidence 65); current basename-only check overstates Linux parity claim in JSDoc header
-- Implement `dist/` preflight error message in `scripts/check-assets.js` *(1 SP, IMPORTANT)* — PR #65 review finding (confidence 90); spec promised this targeted message but generic ✗ ships today
-- Harden JSON walk against non-flat `projects` shape *(1 SP)* — PR #65 review finding (confidence 80); add typeof guard before `project.screenshots`
-- Improve generic "not found" error message on CI failure *(1 SP)* — PR #65 review finding (confidence 85); current "Run from project root" is misleading on CI
-- Align output format between `check-links.js` (brackets) and `check-assets.js` (parens) *(1 SP)* — PR #65 review finding; consistent CI output
+Single portfolio PR. For each project: capture 2 detail screenshots, resize, convert PNG → webp, place under `images/<project>/`, update `data/projects.json[*].screenshots[]`, update any modal tests that hardcode screenshot counts. PORTFOLIO_REQUIREMENTS.md identifies these 4 gaps; existing projects' screenshot pairs are the visual reference.
 
-### 3. BACKLOG Validator Hardening `[batch]` — Domain: JS Logic — 7 SP
-- Extend `validate-backlog-paths.js` to catch `docs/superpowers/` Origin paths *(2 SP, IMPORTANT)* — PR #62/PR #64 review finding (confidence 75); same broken-origin-path bug now recurs with `docs/superpowers/` references
-- Read BACKLOG.md from git index (`git show :path`) and handle staged-deletion ENOENT *(3 SP)* — combines PR #64 reviews (confidence 50 + 75); single fix via `git show :docs/planning/BACKLOG.md` solves both
-- Tighten pre-commit grep pattern to `grep -qE '(^|/)BACKLOG\.md$'` *(1 SP)* — PR #64 review finding (confidence 35); avoid hypothetical `OLD_BACKLOG.md` matches
-- Add `npm run validate-backlog` script *(<1 SP)* — Apr 16 backlog; mirrors `npm run check-links` discoverability
-- Add success output `console.log('BACKLOG Origin paths: OK')` *(<1 SP)* — Apr 16 backlog; consistency with other gate scripts
+- Capture detail screenshots for **lubrication** *(3 SP, IMPORTANT)* — Wokwi-based hardware project; reuse existing simulation setup
+- Capture detail screenshots for **hx711-scale** *(3 SP, IMPORTANT)* — Wokwi-based hardware project; reuse existing simulation setup
+- Capture detail screenshots for **dropshipping** *(3.5 SP, IMPORTANT)* — Next.js web project; needs fresh local run
+- Capture detail screenshots for **svg-processor** *(3.5 SP, IMPORTANT)* — Python project; needs fresh local run
 
-### 4. Node.js 24 GitHub Actions Upgrade — Domain: CI/Build — 3 SP *(solo, IMPORTANT)*
-- Upgrade all GitHub Actions to Node.js 24-compatible versions before June 2, 2026 deadline — `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-artifact@v4`, `actions/download-artifact@v4`, `actions/configure-pages@v4`, `actions/deploy-pages@v4`. Verify each major version's Node 24 support; otherwise set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` opt-in env var
+### 2. New Portfolio Project — `social-stats` Showcase `[batch]` — Domain: Content/JS — 6 SP *(IMPORTANT)*
 
-### 5. Documentation Refresh `[batch]` — Domain: Docs — 4 SP
-- Update ROADMAP.md to reflect current "Quality & Hardening" phase *(2 SP)* — last updated 2026-01-26; all v1.0/v1.1/v1.5 items complete; flagged in previous WEEKLY transition notes
-- Document shell gotcha (`&&` vs `if/fi` with `grep` exit code) in CLAUDE.md *(1 SP)* — Apr 16 review finding; prevent recurrence of pre-commit hook trap
-- Cleanup: remove duplicate plans/specs from `docs/superpowers/` *(1 SP)* — recurring item from PR #61, #62, #63 reviews; one-pass cleanup of all stragglers
+Two-step: (a) create the showcase repo with curated content from the main `social-stats` repo, then (b) add a 9th project card to the portfolio. The portfolio PR depends on the showcase repo existing (card links to it).
 
-### 6. Replace `waitForScrollAnimations()` with Deterministic Polling — Domain: Testing — 5 SP *(Weekly Challenge 🏆)*
-- Replace 700ms fixed-timeout `waitForScrollAnimations()` with DOM-state polling (mirrors `waitForAnimationComplete()` pattern from PR #62) — used in ~20 test locations across all suites; eliminates browser-timing variance and a recurring source of axe-scan flakes
+- Create `social-stats` showcase repo with curated subset of main repo *(3 SP)* — external repo creation
+- Add `social-stats` project card to `index.html` + `data/projects.json` with "In Development" status *(3 SP)* — bump `data-animate-delay` chain for the new card; update count-dependent tests (filter category counts, hardcoded `expectScreenshotsCount`)
+
+### 3. External Repo Maintenance — Domain: Content/Docs — 5 SP
+
+Two solo items in the same domain; both touch external repos so each ships as its own PR.
+
+- Refresh `rating_bot_showcase` from main `rating_bot` repo *(2 SP)* — showcase is currently a single Jan 2026 commit; sync curated subset of recent work
+- Fix `svg-processor` README *(3 SP)* — translate Russian → English (or add English section), correct CairoSVG → svglib library reference (matches actual code)
+
+### 4. Weekly Challenge — `deploy.yml` `pull_request:` Trigger — Domain: CI/Build — 5 SP *(IMPORTANT)* 🏆
+
+PR #70 Task-5 finding (confidence 70). Currently the `lint → build → check-links + test + lighthouse` pipeline runs only on push-to-main, so feature-branch pushes have no CI validation — PRs #65/66/68/69/70 all merged with `statusCheckRollup: 0`. Adding the `pull_request:` trigger closes this gap.
+
+- Add `pull_request:` trigger to `.github/workflows/deploy.yml` covering open/synchronize events
+- Verify the `deploy` job is properly guarded (`environment: github-pages` may suffice; otherwise add explicit branch filter so feature-branch CI runs do not deploy)
+- Test by opening a no-op PR and confirming the full pipeline runs without deploy step firing
 
 ---
 
 ## Daily Schedule
 
-### Monday — Test Flake Investigations (5 SP)
+### Monday — Hardware Screenshots (6 SP)
 
-**Test Stability Investigations** — 5 SP *(solo, IMPORTANT)*
-- [x] Investigate Firefox `accessibility.spec.js:44` flake *(3 SP, IMPORTANT)*
-- [x] Investigate WebKit `submission.spec.js:36` flake *(2 SP)*
+**CONTENT-005 batch — hardware projects** *(part 1 of 2-day batch)*
+- [ ] Capture detail screenshots for lubrication *(3 SP, IMPORTANT)*
+- [ ] Capture detail screenshots for hx711-scale *(3 SP, IMPORTANT)*
 
-### Tuesday — Asset Checker Polish (7 SP)
+### Tuesday — Web/Python Screenshots + PR (7 SP)
 
-**Asset Checker Polish & PR #65 Follow-ups** `[batch]` — 7 SP
-- [x] Tighten case-sensitivity check to cover directory segments *(3 SP, IMPORTANT)*
-- [x] Implement `dist/` preflight error message *(1 SP, IMPORTANT)*
-- [x] Harden JSON walk against non-flat `projects` shape *(1 SP)*
-- [x] Improve generic "not found" error message on CI *(1 SP)*
-- [x] Align output format between `check-links.js` and `check-assets.js` *(1 SP)*
+**CONTENT-005 batch — web/Python projects + PR finalization** *(part 2 of 2-day batch — closes single CONTENT-005 PR)*
+- [ ] Capture detail screenshots for dropshipping *(3.5 SP, IMPORTANT)*
+- [ ] Capture detail screenshots for svg-processor *(3.5 SP, IMPORTANT)*
+- [ ] Update modal/test count assertions if needed, open + merge CONTENT-005 PR
 
-### Wednesday — BACKLOG Validator Hardening (7 SP)
+### Wednesday — `social-stats` Showcase (6 SP)
 
-**BACKLOG Validator Hardening** `[batch]` — 7 SP
-- [x] Extend regex to catch `docs/superpowers/` Origin paths *(2 SP, IMPORTANT)*
-- [x] Read BACKLOG.md from git index + handle staged-deletion ENOENT *(3 SP)*
-- [x] Tighten pre-commit grep pattern *(1 SP)*
-- [x] Add `npm run validate-backlog` script *(<1 SP)*
-- [x] Add success output to validator *(<1 SP)*
+**New Portfolio Project — `social-stats` Showcase** `[batch]` — 6 SP
+- [ ] Create `social-stats` showcase repo with curated content *(3 SP)*
+- [ ] Add `social-stats` project card to portfolio (`index.html` + `data/projects.json` + tests) *(3 SP)*
 
-### Thursday — CI Deadline & Docs (7 SP)
+### Thursday — External Repo Refresh (5 SP)
 
-**Node.js 24 GitHub Actions Upgrade** — 3 SP *(solo, IMPORTANT)*
-- [x] Upgrade all GitHub Actions to Node.js 24-compatible versions *(3 SP, IMPORTANT)*
+**External Repo Maintenance** — 5 SP *(two separate external-repo PRs)*
+- [ ] Refresh `rating_bot_showcase` from main `rating_bot` repo *(2 SP)*
+- [ ] Fix svg-processor README (English translation + svglib library reference) *(3 SP)*
 
-**Documentation Refresh** `[batch]` — 4 SP
-- [x] Update ROADMAP.md to reflect "Quality & Hardening" phase *(2 SP)*
-- [x] Document `&&` vs `if/fi` shell gotcha in CLAUDE.md *(1 SP)*
-- [x] Remove duplicate plans/specs from `docs/superpowers/` *(1 SP)*
+### Friday — Weekly Challenge 🏆 (5 SP)
 
-### Friday — Weekly Challenge (5 SP)
-
-**Replace `waitForScrollAnimations()` with Deterministic Polling** — 5 SP
-- [x] 🏆 Replace 700ms fixed-timeout helper with DOM-state polling across ~20 test locations *(5 SP, IMPORTANT — completed 2026-05-17)*
+**Add `pull_request:` Trigger to `deploy.yml`** — 5 SP *(solo, IMPORTANT)*
+- [ ] 🏆 Add `pull_request:` trigger + verify deploy-job guard against feature-branch deploys *(5 SP, IMPORTANT)*
 
 ---
 
@@ -94,67 +87,61 @@
 
 | Group | Domain | Tasks | Total SP | Day | Status |
 |-------|--------|-------|----------|-----|--------|
-| Test Stability Investigations | Testing | 2 | 5 | Mon | ⏳ Planned |
-| Asset Checker Polish & PR #65 Follow-ups `[batch]` | Build/CI | 5 | 7 | Tue | ⏳ Planned |
-| BACKLOG Validator Hardening `[batch]` | JS Logic | 5 | 7 | Wed | ✅ Done |
-| Node.js 24 GitHub Actions Upgrade | CI/Build | 1 | 3 | Thu | ✅ Done |
-| Documentation Refresh `[batch]` | Docs | 3 | 4 | Thu | ✅ Done |
-| 🏆 Replace `waitForScrollAnimations()` | Testing | 1 | 5 | Fri | ✅ Done |
-| **Total** | | **17** | **31** | | |
+| CONTENT-005 Detail Screenshots `[batch]` | Content/Visual | 4 | 13 | Mon-Tue | ⏳ Planned |
+| New Portfolio Project — `social-stats` `[batch]` | Content/JS | 2 | 6 | Wed | ⏳ Planned |
+| External Repo Maintenance | Content/Docs | 2 | 5 | Thu | ⏳ Planned |
+| 🏆 `deploy.yml` `pull_request:` Trigger | CI/Build | 1 | 5 | Fri | ⏳ Planned |
+| **Total** | | **9** | **29** | | |
 
 ---
 
 ## Notes
 
 ### Context
-- **Velocity**: April 13-17 sprint completed 28 SP across 5 days (5.6 SP/day). This week targets 31 SP (6.2 SP/day) — slightly above prior-week velocity but matches the longer-term 6 SP/day baseline.
-- **No carry-forward**: All April 13-17 tasks complete (PRs #60-#65 all merged). Clean slate.
-- **Fresh backlog inflow**: PR #65 merged today added 6 review follow-ups; 5 of them batched into Tuesday's Asset Checker Polish group.
+- **Velocity**: May 4-8 sprint completed 31 SP across 5 days (6.2 SP/day). This week targets 29 SP (5.8 SP/day) — slightly under prior-week velocity to leave headroom for external-repo content work, which has higher discovery overhead than infra changes.
+- **No formal carry-forward**: PRs #69, #70, #71 all merged between sprints; their post-merge review follow-ups (small ROADMAP/CLAUDE.md drift, validator observability, modal-open polling helper) are intentionally deferred to a future Quality & Hardening sprint — this week's theme is content pivot.
 
-### Weekly Challenge: Replace `waitForScrollAnimations()` with Deterministic Polling
-**Type**: Technical deep-dive extending recent test infrastructure work.
-**Why chosen**: The 700ms fixed-timeout helper is the last remaining piece of timing-based test waits — `waitForFilterAnimation()` was already replaced with `waitForAnimationComplete()` in PR #62, eliminating Firefox flakes. Extending the same DOM-polling pattern to scroll animations would close out the test-flake reduction theme that has run through the past four sprints, with ~20 call sites benefiting. Listed in the Apr 11 backlog with a note about ~20 test locations and was implicitly suggested by April's series of reduced-motion optimizations.
+### Weekly Challenge: `deploy.yml` `pull_request:` Trigger
+**Type**: Important CI infrastructure gap closure.
+**Why chosen**: PR #70 Task-5 review surfaced that the existing `lint → build → check-links + test + lighthouse` pipeline runs only on push-to-main. Feature branches have no PR-time CI validation today — past PRs #65, #66, #68, #69, #70 all merged with `statusCheckRollup: 0` because there were no checks to fail. Closing this gap means action-version bumps, workflow YAML changes, and any future CI-relevant edits get caught at PR-open time rather than at merge-and-pray. Listed in BACKLOG at confidence 70 (important CI gap). Naturally closes the Quality & Hardening phase as the content sprint takes over.
 
 ### Dependencies & Sequencing
-- **Monday's flake investigations are timeboxed to 5 SP**: if either test's root cause exceeds budget, document findings and defer the fix. Do not rabbit-hole — the goal is diagnosis with a fix proposal, not a guaranteed fix this week.
-- **Tuesday's case-sensitivity work is the riskiest implementation item** (3 SP, cross-platform path-segment walking); attempt early in the day. The four 1 SP polish items can ship as a partial PR if directory-walking expands scope.
-- **Wednesday's `git show :path` switch resolves two backlog items together**: switching from `fs.readFileSync` to `git show :docs/planning/BACKLOG.md` simultaneously fixes the working-tree-vs-staged-content drift and the staged-deletion ENOENT trap. Choose this over individual fixes.
-- **Thursday combines the deadline-driven Node.js 24 upgrade with low-risk doc work**: total 7 SP, but the docs batch is splittable if Node.js 24 verification reveals incompatibilities.
-- **Friday's challenge depends on Wednesday's BACKLOG-validator work being merged**: not technically blocking, but cleaner to land sequential validator changes before opening a 20-file test refactor.
+- **Mon-Tue CONTENT-005 batch is contiguous**: 13 SP single PR splits across two days. If any project's screenshots can't be captured (project won't run / no working state), ship the PR with the 2-3 completed batches and queue the remainder as a follow-up. Do NOT commit `screenshots: []` for failed batches — leave the existing empty array unchanged.
+- **Wed `social-stats` is sequenced within-day**: showcase repo creation MUST land before the portfolio card PR opens (the card links to the showcase repo). Plan for the showcase repo to be live by mid-day.
+- **Thu external-repo work is decoupled**: `rating_bot_showcase` and `svg-processor` README are in separate external repos with separate PR cycles. Either can ship first; neither blocks the other.
+- **Fri `pull_request:` trigger validation requires a test PR**: best validated by opening a small no-op PR (e.g., a docs typo fix) after the trigger lands and confirming all check jobs run while deploy does not.
 
 ### Risks
-- **Firefox `accessibility.spec.js:44` flake** (Mon): root cause may be deeper than the rapid-clicks fix from Apr 10 — tabindex update fires inside an animation step that Firefox may schedule differently. If investigation exceeds 3 SP, document and defer.
-- **WebKit `submission.spec.js:36` flake** (Mon): historically WebKit has had bespoke timing differences for visibility transitions — solution may be a WebKit-specific guard rather than a generic fix.
-- **Cross-platform path-segment walking** (Tue): Linux is case-sensitive, macOS is case-insensitive (HFS+/APFS default), Windows is case-insensitive. Walking each segment via `fs.readdirSync` per directory level should give Linux-equivalent behavior on any host but adds complexity over the current basename check.
-- **Node.js 24 action versions** (Thu): if any required action does not yet have a Node 24-compatible major release, fall back to the `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` env var as a stopgap and queue an upgrade follow-up for when the major release ships.
-- **`waitForScrollAnimations()` replacement scope** (Fri): ~20 call sites is the count from the backlog note; actual usage may be wider once `tests/utils/timing.js` is grep'd. If scope blows past 5 SP, ship the helper + 5-10 highest-impact suites and queue the remainder.
+- **CONTENT-005 dropshipping local run** (Mon-Tue): Next.js + Stripe + BullMQ + Postgres — requires either Docker compose up or a deployed instance. If neither is available, capture screenshots from a hosted demo if one exists, otherwise defer this batch to a future sprint.
+- **CONTENT-005 svg-processor local run** (Mon-Tue): Python with svglib; verify a working venv can be set up against the actual code (not the stale README's CairoSVG reference). Conversion-output screenshots may need sample SVG inputs.
+- **`social-stats` card addition** (Wed): bumping from 8 → 9 project cards may break tests that hardcode counts. Pre-flight check: `grep -r "8" tests/ | grep -i "project\|card\|count"` before starting; expected places are `tests/filter/*.spec.js` (category counts) and any `expectScreenshotsCount`-style assertions.
+- **`pull_request:` trigger deploy guard** (Fri): the current `environment: github-pages` constraint may or may not prevent feature-branch deploys depending on GitHub Pages environment protection rules. If it does NOT, add an explicit `if: github.ref == 'refs/heads/main'` guard to the deploy job. Verify with a test PR before merging.
 
 ### Transition Notes
-- The April series of PRs (#60-#65) has thoroughly cleared accumulated review debt; the May 4-8 plan is the first sprint where roughly half the work originates from outside that review-debt stream (Node.js deadline + ROADMAP refresh + scroll-animation challenge).
-- After this week, the natural pivot is back toward content/feature work: `CONTENT-005` (capture detail screenshots for 4 projects) and showcase-repo work for `social-stats` are the next clean candidates.
-- ROADMAP.md will get its first content update since January after Thursday's docs batch — sets context for the post-hardening phase.
+- After this week, the natural next direction depends on Friday's challenge outcome. If `pull_request:` CI gating reveals existing latent issues in feature-branch state (failing tests that were never caught), the following sprint pivots to whatever surfaces. If clean, the next sprint can resume Quality & Hardening follow-ups (modal-open polling helper, validator observability `console.warn`, helper-constants drift guard) OR continue content with project-detail-page exploration (v2.0 ROADMAP item).
+- 9-project portfolio (post `social-stats`) is the upper end of current grid density; if more projects land next, consider revisiting the v2.0 "individual project detail pages" exploration to relieve the modal-content overload.
 
 ---
 
 ## Previous Week Summary
 
-### Week of April 13 - 17, 2026
+### Week of May 4 - 8, 2026
 
-**Focus**: Form polish, CI hardening, test stability (Firefox/WebKit), code quality, internal-asset link checking
+**Focus**: Test stability investigations, asset checker polish, BACKLOG validator hardening, Node.js 24 GitHub Actions deadline, documentation refresh, deterministic scroll-animation polling.
 
 | Task | Outcome |
 |------|---------|
-| Form & A11Y Polish (PR #60) | Done — SVG `aria-hidden`, input `color` transition, test migration |
-| CI Hardening (PR #61) | Done — `cache: 'npm'`, ESLint root-config ignores, JSDoc header |
-| Firefox & Test Audit (PR #62) | Done — DOM polling waits, Firefox rapid-clicks fix, hardcoded counts audit |
-| Test Robustness (PR #63) | Done — locator-based modal a11y assertions, reduced-motion axe-scan optimization |
-| Code Quality batch (PR #64) | Done — BACKLOG Origin path validator, `checkBatch` inline, `filterProjects` JSDoc |
-| 🏆 Internal Asset Link Checking (PR #65) | Done — `scripts/check-assets.js` + CI integration; merged 2026-04-28 |
+| Test Stability Investigations (PR #66) | Done — WebKit form-submission flake fixed via `mockFormspreeDeferred()`; Firefox tabindex flake marked NOT_REPRODUCING after 150 local + 80+ CI runs |
+| Asset Checker Polish & PR #65 Follow-ups (PR #68) | Done — `realpathSync.native` case canonicalization, `dist/` preflight + stale-hash hint, JSON walk hardening, CI error wording, output-format alignment |
+| BACKLOG Validator Hardening (PR #69) | Done — denylist extension (`docs/superpowers/`), git-index read with fallback, anchored regex, `npm run validate-backlog`, CI lint-job gate |
+| CI Deadline & Docs (PR #70) | Done — 7 GitHub Actions bumped to Node 24-compatible majors before 2026-06-02 deadline, ROADMAP phase restructure, CLAUDE.md Shell Gotchas, `docs/superpowers/` cleanup |
+| 🏆 Scroll Animation Deterministic Polling (PR #71) | Done — `waitForScrollAnimations(page)` helper with opacity polling + observer-threshold matching + filter-hidden skip + reduced-motion short-circuit; 15 POM sites migrated, 3 duplicates removed; `--repeat-each=5` cross-browser green |
 
-**Velocity**: 28 SP across 5 working days (5.6 SP/day). All 14 tasks completed including weekly challenge.
+**Velocity**: 31 SP across 5 working days (6.2 SP/day); 17 tasks completed including weekly challenge. Note: PR #69 actually merged 2026-05-08, PR #70 merged 2026-05-14, PR #71 merged 2026-05-24 — the May 4-8 *plan* completed but actual PR cadence stretched across 17 calendar days due to review cycles and challenge complexity.
 
 **Key Learnings**:
-- The `waitForAnimationComplete()` DOM-polling pattern eliminated Firefox rapid-clicks flakes — same approach now extends to scroll animations as this week's challenge.
-- Pre-commit hooks need `if/fi`, not `&&`, when conditional grep is involved — failing grep exit code (1) blocks all commits otherwise. Documented in CLAUDE.md as a gotcha; this week's docs batch elevates it.
-- BACKLOG-Origin-path bug recurs across PRs even with the new validator (it only catches `docs/planning/plans/`, not `docs/superpowers/`); regex extension batched into Wednesday's group.
-- PR #65 review surfaced 6 follow-ups despite the new code-review skills — the Linux-CI claim in `assetExists()` JSDoc was overstated, motivating Tuesday's case-sensitivity work.
+- The `mockFormspreeDeferred()` deferred-promise pattern (release function holding response open until tested) is the canonical solution for fixed-timeout route mocks in submission tests — should be the template for any future `setTimeout`-in-`page.route` patterns.
+- Firefox tabindex flake stayed green for 150+ instrumented local runs and 80+ CI runs — surfaced a separate observation: `page.evaluate()` checkpoint instrumentation adds ~10-20ms latency that can mask race-condition flakes (instrumented = green, bare = flaky). Heisenbug discipline: take only post-action checkpoints when investigating timing-sensitive failures.
+- The scroll-animation polling helper went through 3 correctness iterations mid-execution (class-only → opacity polling → observer-threshold matching → filter-hidden skip), each caught by cross-browser testing. The lesson: helper completeness requires testing all consumer patterns, not just the originally-affected suite.
+- Node 24 GitHub Actions bumps required no `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24` opt-in env var — all required actions had Node-24-compatible majors available.
+- The `.github/workflows/deploy.yml` lack-of-`pull_request:`-trigger gap was discovered during PR #70 Task 5 final review; surfaced as BACKLOG follow-up (confidence 70). Closing it is this week's challenge.
