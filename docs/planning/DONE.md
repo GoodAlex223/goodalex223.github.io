@@ -1,8 +1,28 @@
 # DONE
 
-**Last Updated**: 2026-05-17 (Scroll Animation Deterministic Polling completed)
+**Last Updated**: 2026-06-08 (Backlog Restructure completed)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-06-08
+
+### Backlog Restructure — Source-Split + Weekly Quotas + Lossless-for-Open Migration
+
+**Plan**: [docs/archive/plans/2026-06-07_backlog-restructure.md](../archive/plans/2026-06-07_backlog-restructure.md)
+**Spec**: [docs/archive/specs/2026-06-07_backlog-restructure-design.md](../archive/specs/2026-06-07_backlog-restructure-design.md)
+**Classification (Pass 1, user-audited)**: [docs/archive/specs/2026-06-07_backlog-restructure-classification.md](../archive/specs/2026-06-07_backlog-restructure-classification.md)
+**PR**: pending (branch `chore/backlog-restructure`)
+**Summary**: Restructured the 990-line `docs/planning/BACKLOG.md` from a topical+origin hybrid into a source-split file — a pinned `## 📌 Process Rules` block plus three source buckets (🔵 User-Flagged / 🟡 Operational / 🟤 Auto-Generated) — encoding hard weekly SP quotas (≥50% 🔵, ≤25% 🟡, ≤1 group + ≤25% 🟤, Cleanup Week every ~3 weeks). Adapted from the `rating_bot` planning restructure but tailored to this project: per-item classification (not per-section), completed items pruned (lossless only for OPEN items), and `**Origin**` lines preserved so `validate-backlog-paths.js` stays green. Migration was a reviewed two-pass: a user-audited classification artifact (one row per open item) gated the mechanical rewrite, which passed four no-loss checks. Added a `## Backlog Intake Rules` section to `CLAUDE.md` and a new `scripts/check-backlog-structure.js` guard wired into husky + npm + CI.
+**Key Changes**:
+- `docs/planning/BACKLOG.md` rewritten (990 → 678 lines): pinned 📌 Process Rules + 🔵/🟡/🟤 buckets, `### From … (date)` sub-headers grouped newest-first, `**Origin**` lines retained. No-loss verification vs baseline: open-item set parity exact (234 baseline ∪ 3 promotions = 237; zero dropped, zero extra), 117 completed/struck items pruned, all retained-section Origins present, exactly 4 required `##` headers.
+- 3 plain-`-` prose bullets promoted to tracked `- [ ]` items (Project Detail Pages, Blog Section, Resume PDF download — all 🔵).
+- `CLAUDE.md`: new `## Backlog Intake Rules` section (between Code Conventions and Key Patterns & Gotchas) cross-referencing the authoritative 📌 Process Rules — routing defaults, no-merge-on-intake + `[possible-dup-of]` rule, `**Origin**` archive-path convention, 🟤 PR-review rate limit.
+- `scripts/check-backlog-structure.js`: new ~70-line guard mirroring `validate-backlog-paths.js` (git-index read + working-tree fallback, optional path arg, ANSI errors). Asserts the 4 required headers survive. Wired into `package.json` (`check-backlog-structure`), `.husky/pre-commit` (same `if/fi` BACKLOG-staged guard as validate-backlog), and the CI `lint` job (closes `--no-verify` bypass). Positive + negative tests verified.
+- Subagent-driven execution with two-stage review (spec compliance + code quality) per task; a user audit gate sat between the classification (Pass 1) and the rewrite (Pass 2). Reviews caught: ~12 wrong `[possible-dup-of]` cross-refs in the classification (off-by-N), and a `$'`-in-replacement string-corruption bug during the rewrite (caught by the open-item parity check — exactly its purpose).
+**Resolved BACKLOG items**: 0 directly; 3 new 🟤 follow-ups extracted (verify-and-prune the ~25 shipped-looking "prune-on-audit candidates", calibrate the Cleanup-Week threshold + declare the first Cleanup Week, fix stale `docs/superpowers/` cross-refs in the archived restructure docs). 2 out-of-repo follow-ups added to TODO (weekly-prompt verification, first weekly-plan Quota Check).
+**Lessons Learned**: The mechanical open-item set-parity check earned its keep — it caught a silent string-corruption bug a human skim would have missed. Per-item classification of 234 items was feasible for a single capable subagent when anchored to a verifiable baseline count and clear tie-breaker rules. The restructure exposed that ~63% of the backlog is 🟤 tech debt, so the quota system will trigger a Cleanup Week immediately — the structure is now in place to drain it deliberately rather than let it crowd out feature work.
 
 ---
 

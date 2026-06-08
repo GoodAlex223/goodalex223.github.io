@@ -119,6 +119,34 @@ Config in `.mcp.json` (gitignored). Template: `.mcp.json.example`.
 
 <!-- END AUTO-MANAGED -->
 
+## Backlog Intake Rules
+
+BACKLOG.md is split into three source sections. Authoritative rules live in
+`docs/planning/BACKLOG.md` 📌 Process Rules section — read it first. Summary:
+
+### Where new entries go
+- User mentioned it (conversation, idea sharing, content request) → 🔵 User-Flagged
+- Claude/automation surfaced it (code-review finding, PR post-merge review, CLAUDE.md
+  staleness, doc hygiene, test backfill) → 🟤 Auto-Generated Tech Debt
+- Time-sensitive ops/watch (post-deploy, CI check, Lighthouse/size monitoring,
+  Bing-index verification, Formspree spam watch) → 🟡 Operational & Observation
+- Unsure → ask before adding; default-to-🔵 if user-raised, default-to-🟤 if Claude-surfaced
+
+### Intake format
+- Group by `### From <event> (YYYY-MM-DD)`
+- Keep the `**Origin**: docs/archive/plans/<file>` line when migrating from a completed
+  plan (validate-backlog-paths.js enforces archive paths)
+- One entry per concrete actionable item; never silently merge similar entries on
+  intake — tag `[possible-dup-of: <other-entry-title>]` instead
+- Required entry shape: `- [ ] **Short title** — body with context, cross-refs, affected files`
+
+### Rate limit on 🟤 Auto-Generated
+- PR post-merge review findings accumulate in a single `### From PR #N … review` section
+  per PR — they do NOT spread into the weekly plan unless this week is a Cleanup Week
+  (declared in WEEKLY.md header)
+- When 🟤 grows beyond ~20 SP of pending items, surface this in the next planning
+  conversation as a Cleanup Week trigger
+
 <!-- AUTO-MANAGED: patterns -->
 ## Key Patterns & Gotchas
 
