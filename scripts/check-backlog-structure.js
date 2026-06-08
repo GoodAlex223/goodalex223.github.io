@@ -8,7 +8,7 @@
  * back to the working tree. An optional path argument overrides both (used for
  * standalone checks and tests). Invoked by pre-commit hook, npm script, and CI.
  *
- * Spec: docs/superpowers/specs/2026-06-07_backlog-restructure-design.md
+ * Spec: docs/archive/specs/2026-06-07_backlog-restructure-design.md
  */
 
 const fs = require('fs');

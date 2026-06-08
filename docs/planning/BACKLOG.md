@@ -6,7 +6,7 @@ Future ideas and improvements for the portfolio.
 
 **Active tasks**: See [TODO.md](TODO.md)
 **Completed work**: See [DONE.md](DONE.md)
-**Design spec**: See [docs/superpowers/specs/2026-06-07_backlog-restructure-design.md](../superpowers/specs/2026-06-07_backlog-restructure-design.md)
+**Design spec**: See [docs/archive/specs/2026-06-07_backlog-restructure-design.md](../archive/specs/2026-06-07_backlog-restructure-design.md)
 
 ---
 
@@ -290,6 +290,13 @@ concept; the weekly-planning prompt selected on priority + domain only).
 ---
 
 ## 🟤 Auto-Generated Tech Debt
+
+### From Backlog Restructure (2026-06-08)
+**Origin**: docs/archive/plans/2026-06-07_backlog-restructure.md
+
+- [ ] **Verify-and-prune the "prune-on-audit candidates"** — ~25 open items in this file are written as `- [ ]` but look already-shipped (e.g. PERF-006 inline critical CSS, "Add automated link checking" in Technical Debt, QUALITY-010 commitlint, several validator/asset-checker items from PRs #68/#69, the scroll-animation flake closed by PR #71). They were intentionally NOT pruned in the restructure (only completion-tagged items were). Do one pass cross-checking each against DONE.md + git history; mark genuinely-done items complete and prune. Candidate row numbers are listed in the classification artifact sign-off section. (restructure follow-up, confidence 80)
+- [ ] **Calibrate the Cleanup-Week threshold and schedule the first Cleanup Week** — the 🟤 bucket currently holds ~149 items, far over the spec's ~20-SP Cleanup-Week trigger, so the first weekly plan under the new rules should declare a Cleanup Week to start draining it (the ≥50% 🔵 quota can't be met sustainably until 🟤 shrinks). Revisit whether ~20 SP is the right threshold after 2-3 normal weeks of data (spec Open Question). (restructure follow-up, confidence 70)
+- [ ] **Update stale `docs/superpowers/` cross-references inside the archived restructure docs** — the archived plan (`docs/archive/plans/2026-06-07_backlog-restructure.md`) and design spec (`docs/archive/specs/2026-06-07_backlog-restructure-design.md`) still contain internal links, bash commands, and PR/commit-message templates pointing at the pre-archive `docs/superpowers/specs|plans/` paths. Dead links in historical docs, no functional impact (validator only checks BACKLOG `**Origin**` lines). Same recurring pattern noted in the PR #66 post-merge review for the test-stability plan. (restructure follow-up, confidence 35, doc lineage)
 
 ### From PR #71 Post-Merge Review (2026-05-24)
 **Origin**: docs/archive/plans/2026-05-16_scroll-animation-deterministic-polling.md

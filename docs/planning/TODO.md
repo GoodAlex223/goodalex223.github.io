@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-05-10 (CI Deadline & Docs completed)
+**Last Updated**: 2026-06-08 (Backlog Restructure completed)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **Backlog Restructure**: source-split `BACKLOG.md` (📌 Process Rules + 🔵 User-Flagged / 🟡 Operational / 🟤 Auto-Generated) with weekly SP quotas; lossless-for-open migration (234→237 open items, 117 completed pruned); `CLAUDE.md` Backlog Intake Rules section; new `scripts/check-backlog-structure.js` guard wired into husky + CI → moved to [DONE.md](DONE.md)
 - **CI Deadline & Docs**: 4-deliverable PR #70 closing the 2026-06-02 Node 24 GitHub Actions deprecation deadline (7 action references bumped: checkout v4→v6, setup-node v4→v6, upload-artifact v4→v7, download-artifact v4→v8, configure-pages v4→v6, upload-pages-artifact v4→v5, deploy-pages v4→v5; `include-hidden-files: true` for lighthouse upload) plus ROADMAP phase restructure, CLAUDE.md Shell Gotchas elevation, and `docs/superpowers/` cleanup → moved to [DONE.md](DONE.md)
 - **BACKLOG Validator Hardening**: 5-item hardening of `scripts/validate-backlog-paths.js` — denylist extension to `docs/superpowers/`, git-index read with two-level fallback, anchored detection regex (incl. bullet-prefixed Origin support), `npm run validate-backlog` script, CI lint-job gate closing `--no-verify` bypass → moved to [DONE.md](DONE.md)
 - **Asset Checker Polish & PR #65 Follow-ups**: 6-item polish PR — `realpathSync.native` case canonicalization, hybrid `dist/` preflight + stale-hash hint, JSON walk hardening, CI error wording, brackets output format, HTML-regex JSDoc → moved to [DONE.md](DONE.md)
@@ -54,7 +55,10 @@ _None currently_
 
 ## High Priority
 
-_None currently_
+**Backlog Restructure — post-merge follow-ups** (out-of-repo; see [docs/archive/specs/2026-06-07_backlog-restructure-design.md](../archive/specs/2026-06-07_backlog-restructure-design.md) §5–6):
+
+- [ ] Verify the local weekly-planning prompt against the 8-item checklist (spec §5) — add the 📌-Process-Rules-first instruction, 4 source/quota rules, carry-forward origin-quota rule, 🏆-defaults-to-🔵, `Source` summary column, mandatory `### Quota Check` subsection, and Cleanup-Week header awareness. Paste the prompt and I'll diff it.
+- [ ] Run the first weekly plan under the new rules and confirm `### Quota Check` shows ✅ (🔵 ≥ 50%). Given the 🟤 bucket holds ~149 items, this will likely need to be declared a Cleanup Week — see the 🟤 "Calibrate the Cleanup-Week threshold" BACKLOG item.
 
 ---
 
