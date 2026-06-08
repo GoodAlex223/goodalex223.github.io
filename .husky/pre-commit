@@ -1,5 +1,5 @@
 npx lint-staged || exit 1
 if git diff --cached --name-only | grep -qE '(^|/)BACKLOG\.md$'; then
-  npm run validate-backlog
-  npm run check-backlog-structure
+  npm run validate-backlog || exit 1
+  npm run check-backlog-structure || exit 1
 fi
