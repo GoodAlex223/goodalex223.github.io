@@ -39,7 +39,7 @@ back on misclassifications, request splits, flag dups, object to prunes.
 | 4 | Project Detail Modal (29) | Mobile-friendly modal UX | 🔵 | From Project Detail Modal (2026-01-22) | n/a | UX; modal shipped. ? candidate prune |
 | 5 | Project Detail Modal (29) | Clear visual hint that cards are clickable (hover state, "View details") | 🔵 | From Project Detail Modal (2026-01-22) | n/a | UX; "View Details" buttons shipped. ? candidate prune |
 | 6 | Project Content Population (40) | Extended description (challenges, decisions, lessons learned) | 🔵 | From Project Content Population (2026-01-27) | n/a | Content work |
-| 7 | Project Content Population (40) | Screenshots demonstrating key features | 🔵 | From Project Content Population (2026-01-27) | n/a | Content; overlaps CONTENT-001/004 screenshot items [possible-dup-of: rows 159, 167] |
+| 7 | Project Content Population (40) | Screenshots demonstrating key features | 🔵 | From Project Content Population (2026-01-27) | n/a | Content; overlaps CONTENT-001/004 screenshot items [possible-dup-of: rows 138, 155] |
 | 8 | Project Content Population (40) | Demo videos/GIFs where applicable | 🔵 | From Project Content Population (2026-01-27) | n/a | Content |
 | 9 | Project Content Population (40) | Technical highlights and architecture notes | 🔵 | From Project Content Population (2026-01-27) | n/a | Content |
 | 10 | Filter Enhancements (96) | URL hash-based filtering — shareable links like `#filter=backend` | 🔵 | From LP-001: Project Filtering (2026-01-28) | n/a | Feature; ? may already be shipped (filter hash integration exists) — verify |
@@ -57,7 +57,7 @@ back on misclassifications, request splits, flag dups, object to prunes.
 | 22 | From PERF-002: Font Preload (162) | Inline critical CSS | 🟤 | From PERF-002: Font Preload Hint (2026-02-02) | yes | ? likely shipped (PERF-006 Inline Critical CSS done) — candidate prune; internal perf hygiene |
 | 23 | From SEO-001: robots/sitemap (174) | Expand sitemap for future pages | 🔵 | From SEO-001: robots.txt & sitemap.xml (2026-01-29) | yes | Tied to blog/detail pages feature |
 | 24 | From DOCS-001: Update PROJECT.md (194) | PROJECT.md freshness validation (pre-commit/CI warns on stale date) | 🟤 | From DOCS-001: Update PROJECT.md (2026-02-05) | yes | Doc-hygiene tooling |
-| 25 | From DOCS-001: Update PROJECT.md (194) | Automated external link inventory script | 🟤 | From DOCS-001: Update PROJECT.md (2026-02-05) | yes | Doc-hygiene tooling [possible-dup-of: row 198 check-links] |
+| 25 | From DOCS-001: Update PROJECT.md (194) | Automated external link inventory script | 🟤 | From DOCS-001: Update PROJECT.md (2026-02-05) | yes | Doc-hygiene tooling [possible-dup-of: row 87 automated link checking] |
 | 26 | From A11Y-002: Focus Indicators (202) | Focus-within for project cards | 🔵 | From A11Y-002: Improve Focus Indicators (2026-02-05) | yes | A11y UX feature |
 | 27 | Multi-Language Support (212) | Browser language detection (`navigator.language`) | 🔵 | From Internationalization: Multi-Language Support (2026-01-23) | n/a | i18n feature |
 | 28 | Multi-Language Support (212) | Geolocation-based detection (IP API or browser geo) | 🔵 | From Internationalization: Multi-Language Support (2026-01-23) | n/a | i18n feature |
@@ -93,7 +93,7 @@ back on misclassifications, request splits, flag dups, object to prunes.
 | 58 | From FEAT-006: Filter Count Badges (298) | Zero-count button dimming | 🔵 | From FEAT-006: Filter Count Badges (2026-02-04) | yes | UX feature |
 | 59 | From A11Y-001: Screen Reader (306) | Automated screen reader testing in CI | 🟤 | From A11Y-001: Screen Reader Testing (2026-02-04) | yes | Test backfill |
 | 60 | From A11Y-001: Screen Reader (306) | Screen reader announcement logging (dev mode) | 🟤 | From A11Y-001: Screen Reader Testing (2026-02-04) | yes | Dev-tooling/test aid |
-| 61 | From A11Y-001: Screen Reader (306) | Debounce live region announcements on rapid filter clicks (confidence 75/100) | 🟤 | From A11Y-001: Screen Reader Testing (2026-02-04) | yes | Code review finding [possible-dup-of: row 145] |
+| 61 | From A11Y-001: Screen Reader (306) | Debounce live region announcements on rapid filter clicks (confidence 75/100) | 🟤 | From A11Y-001: Screen Reader Testing (2026-02-04) | yes | Code review finding [possible-dup-of: row 150] |
 | 62 | From PERF-004: cssnano (315) | Source maps for production builds (`--map` flag) | 🟤 | From PERF-004: CSS Minification with cssnano (2026-02-09) | yes | Build tooling/dev aid |
 | 63 | From SEO-004: Meta Descriptions (323) | Track description character counts in CLAUDE.md | 🟤 | From SEO-004: Improve Meta Descriptions (2026-02-04) | yes | Doc-hygiene |
 | 64 | From SEO-005: Bing Webmaster (331) | Monitor Bing indexing (dashboard check after 48h) | 🟡 | From SEO-005: Bing Webmaster Tools Verification (2026-02-10) | yes | Monitoring/observation |
@@ -101,7 +101,7 @@ back on misclassifications, request splits, flag dups, object to prunes.
 | 66 | From QUALITY-003: CSS Specificity (339) | Stylelint rule for section ordering | 🟤 | From QUALITY-003: CSS Specificity Documentation (2026-02-11) | yes | Lint-tooling hygiene |
 | 67 | From QUALITY-003: CSS Specificity (339) | CSS layers for explicit priority (`@layer scroll, filter`) | 🟤 | From QUALITY-003: CSS Specificity Documentation (2026-02-11) | yes | Internal CSS hygiene |
 | 68 | From QUALITY-003: CSS Specificity (339) | Reformat compound selector in specificity table (confidence 50/100) | 🟤 | From QUALITY-003: CSS Specificity Documentation (2026-02-11) | yes | Code review finding |
-| 69 | From QUALITY-002: activateFilter() (348) | Unify resetFilter into activateFilter | 🟤 | From QUALITY-002: Centralize activateFilter() (2026-02-10) | yes | Refactor [possible-dup-of: row 147] |
+| 69 | From QUALITY-002: activateFilter() (348) | Unify resetFilter into activateFilter | 🟤 | From QUALITY-002: Centralize activateFilter() (2026-02-10) | yes | Refactor [possible-dup-of: row 151] |
 | 70 | From QUALITY-002: activateFilter() (348) | Simplify `applyHashFilter()` JSDoc (confidence 62/100) | 🟤 | From QUALITY-002: Centralize activateFilter() (2026-02-10) | yes | Code review finding |
 | 71 | From QUALITY-001: resetFilter() (357) | Conditional focus in `resetFilter()` (`shouldFocus` param) (confidence 25/100) | 🟤 | From QUALITY-001: Centralize resetFilter() (2026-02-10) | yes | Code review finding |
 | 72 | From TEST-001: Playwright E2E (364) | Visual regression snapshots for filter animation states | 🟤 | From TEST-001: Playwright E2E Tests (2026-02-09) | yes | Test backfill |
@@ -132,7 +132,7 @@ back on misclassifications, request splits, flag dups, object to prunes.
 | 97 | From TEST-003: Stylelint (482) | VS Code Stylelint extension docs | 🟤 | From TEST-003: CSS Linting with Stylelint (2026-02-16) | yes | Doc-hygiene/dev aid |
 | 98 | From PERF-006: Inline Critical CSS (491) | Reduce inline CSS size (index.html >14 KB) | 🟤 | From PERF-006: Inline Critical CSS (2026-02-16) | yes | Internal perf hygiene. ? size budget could argue 🟡 |
 | 99 | From PERF-006: Inline Critical CSS (491) | Upstream CSS custom property extraction | 🟤 | From PERF-006: Inline Critical CSS (2026-02-16) | yes | Internal tooling hygiene |
-| 100 | From PERF-006: Inline Critical CSS (491) | Automated inline CSS size regression check | 🟤 | From PERF-006: Inline Critical CSS (2026-02-16) | yes | Test/build backfill [possible-dup-of: row 161] |
+| 100 | From PERF-006: Inline Critical CSS (491) | Automated inline CSS size regression check | 🟤 | From PERF-006: Inline Critical CSS (2026-02-16) | yes | Test/build backfill |
 | 101 | From PERF-006: Inline Critical CSS (491) | Add `.catch()` to top-level async call (confidence 25/100) | 🟤 | From PERF-006: Inline Critical CSS (2026-02-16) | yes | Code review finding |
 | 102 | From PERF-006: Inline Critical CSS (491) | Robust CSS block matching regex (confidence 25/100) | 🟤 | From PERF-006: Inline Critical CSS (2026-02-16) | yes | Code review finding |
 | 103 | From PERF-006: Inline Critical CSS (491) | Handle multiple `<style>` tags (confidence 25/100) | 🟤 | From PERF-006: Inline Critical CSS (2026-02-16) | yes | Code review finding |
@@ -156,7 +156,7 @@ back on misclassifications, request splits, flag dups, object to prunes.
 | 121 | From CHALLENGE-001: Lighthouse CI (557) | Explicit Chrome install in lighthouse CI job (confidence 50/100) | 🟤 | From CHALLENGE-001: Lighthouse CI in GitHub Actions (2026-03-11) | yes | Code review finding (CI) |
 | 122 | From CHALLENGE-001: Lighthouse CI (557) | Fix `.gitignore` missing trailing newline (confidence 0/100) | 🟤 | From CHALLENGE-001: Lighthouse CI in GitHub Actions (2026-03-11) | yes | Code review finding (confidence 0 — ? candidate prune) |
 | 123 | From CI-002: Pages Deploy Artifact (567) | Skip checkout in deploy job (add static assets to artifact) | 🟤 | From CI-002: Narrow Pages Deploy Artifact Path (2026-03-11) | yes | CI optimization/hygiene |
-| 124 | From CI-002: Pages Deploy Artifact (567) | Validate staged `_site/` contents | 🟤 | From CI-002: Narrow Pages Deploy Artifact Path (2026-03-11) | yes | CI hardening [possible-dup-of: row 226] |
+| 124 | From CI-002: Pages Deploy Artifact (567) | Validate staged `_site/` contents | 🟤 | From CI-002: Narrow Pages Deploy Artifact Path (2026-03-11) | yes | CI hardening |
 | 125 | From CI-002: Pages Deploy Artifact (567) | Update CLAUDE.md deploy step to include `404.webp` | 🟤 | From CI-002: Narrow Pages Deploy Artifact Path (2026-03-11) | yes | Doc-hygiene |
 | 126 | From QUALITY-007: ESLint (576) | Add `eslint-plugin-playwright` | 🟤 | From QUALITY-007: ESLint Integration (2026-03-12) | yes | Lint-tooling. ? Likely DONE (QUALITY-009 added it) — candidate prune |
 | 127 | From QUALITY-007: ESLint (576) | Add `no-console` rule for browser code | 🟤 | From QUALITY-007: ESLint Integration (2026-03-12) | yes | Lint-tooling. ? Likely DONE (`no-console: error` in eslint config) — candidate prune |
@@ -170,12 +170,12 @@ back on misclassifications, request splits, flag dups, object to prunes.
 | 135 | From CHALLENGE-002: Detail Modal (610) | Screenshot lazy-load placeholder (skeleton) | 🔵 | From CHALLENGE-002: Project Detail Modal (2026-03-19) | yes | UX feature [related: CONTENT-005 placeholder-WebP] |
 | 136 | From CHALLENGE-002: Detail Modal (610) | Filter + modal hash coexistence | 🔵 | From CHALLENGE-002: Project Detail Modal (2026-03-19) | yes | Feature/UX |
 | 137 | From TEST-007: Axe Modal (621) | Normalize axe-helper API (`include`/`exclude` types) | 🟤 | From TEST-007: Axe-core WCAG Scan for Modal (2026-03-19) | yes | Test hygiene |
-| 138 | From CONTENT-001: Project Cards (630) | Capture detail screenshots for 4 new projects | 🔵 | From CONTENT-001: Populate Remaining Project Cards (2026-03-20) | yes | Content [possible-dup-of: row 167] |
+| 138 | From CONTENT-001: Project Cards (630) | Capture detail screenshots for 4 new projects | 🔵 | From CONTENT-001: Populate Remaining Project Cards (2026-03-20) | yes | Content [possible-dup-of: rows 7, 155] |
 | 139 | From CONTENT-001: Project Cards (630) | Verify dropshipping project description accuracy | 🔵 | From CONTENT-001: Populate Remaining Project Cards (2026-03-20) | yes | Content accuracy |
 | 140 | From CONTENT-001: Project Cards (630) | Reconcile dropshipping card tech vs modal tech (confidence 50/100) | 🔵 | From CONTENT-001: Populate Remaining Project Cards (2026-03-20) | yes | Code review finding but content-visible → 🔵 per 🔵-vs-🟤 tie-breaker |
 | 141 | From QUALITY-009: ESLint Enhancements (640) | `eslint-plugin-playwright` glob/member-expression limitation | 🟤 | From QUALITY-009: ESLint Enhancements (2026-03-20) | yes | Tooling note/doc |
 | 142 | From QUALITY-009: ESLint Enhancements (640) | Pre-scan codebase for violations before estimating scope | 🟤 | From QUALITY-009: ESLint Enhancements (2026-03-20) | yes | Process/tooling note |
-| 143 | From QUALITY-010: commitlint (656) | ESLint ignores for root CJS configs could use a glob | 🟤 | From QUALITY-010: commitlint for Conventional Commits (2026-03-21) | yes | Lint-tooling hygiene [possible-dup-of: rows 154, 209] |
+| 143 | From QUALITY-010: commitlint (656) | ESLint ignores for root CJS configs could use a glob | 🟤 | From QUALITY-010: commitlint for Conventional Commits (2026-03-21) | yes | Lint-tooling hygiene [possible-dup-of: rows 164, 172] |
 | 144 | From QUALITY-010: commitlint (656) | Investigate memory-updater hook friction on rapid commits | 🟤 | From QUALITY-010: commitlint for Conventional Commits (2026-03-21) | yes | Tooling/process |
 | 145 | From CHALLENGE-003: Contact Form (672) | Add reCAPTCHA v3 fallback if honeypot insufficient (monitor Formspree spam) | 🟡 | From CHALLENGE-003: Contact Form (2026-03-21) | yes | Spam watch/ops decision |
 | 146 | From CHALLENGE-003: Contact Form (672) | Add character count indicator on message textarea | 🔵 | From CHALLENGE-003: Contact Form (2026-03-21) | yes | UX feature |
@@ -183,28 +183,28 @@ back on misclassifications, request splits, flag dups, object to prunes.
 | 148 | From CHALLENGE-003: Contact Form (672) | Pre-existing axe-scan flakiness in scroll animation timing | 🟤 | From CHALLENGE-003: Contact Form (2026-03-21) | yes | Test flake. ? Likely DONE (PR #71 deterministic polling) — candidate prune |
 | 149 | From Contact Form A11Y Hardening (693) | Extend focus-visible pattern to other custom components | 🟤 | From Contact Form A11Y Hardening (2026-03-28) | yes | A11y/CSS hygiene audit |
 | 150 | From BUG-004: Filter Race (710) | Debounce live region announcements on rapid filter clicks | 🟤 | From BUG-004: Filter Race Condition Fix (2026-03-22) | yes | A11y/code [possible-dup-of: row 61] |
-| 151 | From BUG-004: Filter Race (710) | Unify `resetFilter()` into `activateFilter("all")` | 🟤 | From BUG-004: Filter Race Condition Fix (2026-03-22) | yes | Refactor [possible-dup-of: rows 69, 147] |
-| 152 | From CONTENT-002: Portfolio Requirements (718) | Portfolio requirements linter (validate data-updated vs git) | 🔵 | From CONTENT-002: Portfolio Requirements (2026-03-22) | yes | Tooling user wants (spec Open Question default → 🔵) [possible-dup-of: row 164] |
+| 151 | From BUG-004: Filter Race (710) | Unify `resetFilter()` into `activateFilter("all")` | 🟤 | From BUG-004: Filter Race Condition Fix (2026-03-22) | yes | Refactor [possible-dup-of: row 69] |
+| 152 | From CONTENT-002: Portfolio Requirements (718) | Portfolio requirements linter (validate data-updated vs git) | 🔵 | From CONTENT-002: Portfolio Requirements (2026-03-22) | yes | Tooling user wants (spec Open Question default → 🔵) |
 | 153 | From CONTENT-003 Code Review (748) | Archive completed design spec content-003-cleaning-site to archive/specs | 🟤 | From CONTENT-003 Code Review (2026-03-24) | yes | Archive/doc hygiene |
 | 154 | From CONTENT-003: CleanSpark (742) | Add `scripts/convert-screenshot.js` PNG→webp utility | 🔵 | From CONTENT-003: Add CleanSpark to Portfolio (2026-03-23) | yes | Tooling user wants for CONTENT tasks |
-| 155 | From CONTENT-004: Update Project Info (754) | Capture project screenshots for modal data (4 projects) | 🔵 | From CONTENT-004: Update Project Information (2026-03-25) | yes | Content [possible-dup-of: rows 138, 167] |
+| 155 | From CONTENT-004: Update Project Info (754) | Capture project screenshots for modal data (4 projects) | 🔵 | From CONTENT-004: Update Project Information (2026-03-25) | yes | Content [possible-dup-of: rows 7, 138] |
 | 156 | From CONTENT-004: Update Project Info (754) | Update rating_bot_showcase repo from main rating_bot repo | 🔵 | From CONTENT-004: Update Project Information (2026-03-25) | yes | Content/showcase repo |
 | 157 | From CONTENT-004: Update Project Info (754) | Create showcase repo for social-stats + add portfolio card | 🔵 | From CONTENT-004: Update Project Information (2026-03-25) | yes | Content/new project |
 | 158 | From CONTENT-004: Update Project Info (754) | Fix svg-processor README (CairoSVG vs svglib; Russian only) | 🔵 | From CONTENT-004: Update Project Information (2026-03-25) | yes | Content/README fix |
 | 159 | From CONTENT-004: Update Project Info (754) | Translate svg-processor README to English | 🔵 | From CONTENT-004: Update Project Information (2026-03-25) | yes | Content/README translation |
 | 160 | From Archive Cleanup (769) | Automate superpowers→archive consolidation on task completion | 🟤 | From Archive Cleanup (2026-03-27) | yes | Doc/archive hygiene tooling |
-| 161 | From Archive Cleanup (769) | Enforce underscore naming convention for archive files (CI/hook) | 🟤 | From Archive Cleanup (2026-03-27) | yes | Doc-hygiene tooling [possible-dup-of: row 173] |
+| 161 | From Archive Cleanup (769) | Enforce underscore naming convention for archive files (CI/hook) | 🟤 | From Archive Cleanup (2026-03-27) | yes | Doc-hygiene tooling [possible-dup-of: row 170] |
 | 162 | From Archive Cleanup Code Review (775) | Add "Last Updated" header update to planning doc edit checklist | 🟤 | From Archive Cleanup Code Review (2026-03-27) | yes | Process/doc hygiene |
 | 163 | From Archive Cleanup Code Review (775) | Validate spec references after file moves (grep superpowers/) | 🟤 | From Archive Cleanup Code Review (2026-03-27) | yes | Doc-hygiene tooling |
-| 164 | From Code Quality & Lint Fixes (781) | Add remaining root config files to ESLint `ignores` array | 🟤 | From Code Quality & Lint Fixes (2026-04-03) | yes | Lint-tooling hygiene [possible-dup-of: rows 143, 209] |
+| 164 | From Code Quality & Lint Fixes (781) | Add remaining root config files to ESLint `ignores` array | 🟤 | From Code Quality & Lint Fixes (2026-04-03) | yes | Lint-tooling hygiene [possible-dup-of: rows 143, 172] |
 | 165 | From Code Quality & Lint Fixes Code Review (787) | Consolidate redundant plan archive files | 🟤 | From Code Quality & Lint Fixes Code Review (2026-04-04) | yes | Doc/archive hygiene |
-| 166 | From Automated Link Checking Code Review (810) | Add `cache: 'npm'` to `check-links` CI job setup-node | 🟤 | From Automated Link Checking Code Review (2026-04-07) | yes | CI hygiene [possible-dup-of: rows 169, 172] |
+| 166 | From Automated Link Checking Code Review (810) | Add `cache: 'npm'` to `check-links` CI job setup-node | 🟤 | From Automated Link Checking Code Review (2026-04-07) | yes | CI hygiene [possible-dup-of: rows 171, 174] |
 | 167 | From Automated Link Checking Code Review (810) | Add file-level JSDoc to `scripts/check-links.js` | 🟤 | From Automated Link Checking Code Review (2026-04-07) | yes | Doc-hygiene |
 | 168 | From Form & A11Y Polish (816) | Audit dynamically-injected HTML for missing `aria-hidden` | 🟤 | From Form & A11Y Polish (2026-04-08) | yes | A11y/code audit |
 | 169 | From Form & A11Y Polish (816) | Audit component-level transitions for missing `color` property | 🟤 | From Form & A11Y Polish (2026-04-08) | yes | CSS hygiene audit |
-| 170 | From Form & A11Y Polish Code Review (822) | Add plan file naming validation to CI or pre-commit hook | 🟤 | From Form & A11Y Polish Code Review (2026-04-09) | yes | Doc-hygiene tooling [possible-dup-of: row 173] |
-| 171 | From CI Hardening (829) | CI: Add `npm ci` to check-links job if external deps added | 🟤 | From CI Hardening (2026-04-09) | n/a | CI tooling note [possible-dup-of: rows 166, 172] |
-| 172 | From CI Hardening (829) | ESLint: Consider glob pattern for root config ignores | 🟤 | From CI Hardening (2026-04-09) | n/a | Lint-tooling hygiene [possible-dup-of: rows 143, 164, 209] |
+| 170 | From Form & A11Y Polish Code Review (822) | Add plan file naming validation to CI or pre-commit hook | 🟤 | From Form & A11Y Polish Code Review (2026-04-09) | yes | Doc-hygiene tooling [possible-dup-of: row 161] |
+| 171 | From CI Hardening (829) | CI: Add `npm ci` to check-links job if external deps added | 🟤 | From CI Hardening (2026-04-09) | n/a | CI tooling note [possible-dup-of: row 166] |
+| 172 | From CI Hardening (829) | ESLint: Consider glob pattern for root config ignores | 🟤 | From CI Hardening (2026-04-09) | n/a | Lint-tooling hygiene [possible-dup-of: rows 143, 164] |
 | 173 | From CI Hardening Code Review (834) | Cleanup: Remove duplicate plan from `docs/superpowers/plans/` | 🟤 | From CI Hardening Code Review (2026-04-10) | n/a | Doc/archive hygiene [possible-dup-of: row 177] |
 | 174 | From CI Hardening Code Review (834) | CI: Remove `cache: 'npm'` from check-links until `npm ci` needed | 🟤 | From CI Hardening Code Review (2026-04-10) | n/a | CI tooling [possible-dup-of: row 166 — contradictory recommendation] |
 | 175 | From Firefox & Test Audit (839) | Remove unused `getAnimationDuration()`/`getStaggerDelay()` | 🟤 | From Firefox & Test Audit (2026-04-10) | yes | Test/code hygiene |
