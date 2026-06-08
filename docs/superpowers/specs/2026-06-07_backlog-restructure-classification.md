@@ -371,8 +371,8 @@ Counts over the 234 table rows (the existing `- [ ]` checkboxes), per the "Propo
 
 ## Audit sign-off
 
-- [ ] User reviewed and approved the classification (date: ___)
-- [ ] Misclassifications / prune objections corrected
-- [ ] "?" prune-on-audit candidates resolved (rows 1–5, 10, 11, 22, 87, 105, 115, 122, 126–127, 129, 148, 178, 181–187, 193–199)
-- [ ] 3 promotions' source buckets confirmed (Project Detail Pages, Blog Section, resume PDF — all proposed 🔵)
-- [ ] Source-totals (🔵 69 / 🟡 16 / 🟤 149) equal open-items baseline (234); promotions (3) tracked separately
+- [x] User reviewed and approved the classification (date: 2026-06-08, approved as-is)
+- [x] Misclassifications / prune objections corrected — none requested
+- [x] "?" prune-on-audit candidates resolved — accepted as-is; candidates remain OPEN (NOT pruned this pass; rows 1–5, 10, 11, 22, 87, 105, 115, 122, 126–127, 129, 148, 178, 181–187, 193–199)
+- [x] 3 promotions' source buckets confirmed (Project Detail Pages, Blog Section, resume PDF — all 🔵)
+- [x] Source-totals (🔵 69 / 🟡 16 / 🟤 149) equal open-items baseline (234); promotions (3) tracked separately
