@@ -291,6 +291,12 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 ## 🟤 Auto-Generated Tech Debt
 
+### From PR #72 Code Review (2026-06-09)
+**Origin**: docs/archive/plans/2026-06-07_backlog-restructure.md
+
+- [ ] CLAUDE.md drift after the `check-backlog-structure` guard shipped — the Pre-commit hook bullet (line 112) still says the hook "conditionally runs `npm run validate-backlog` only" when it now runs both `validate-backlog` and `check-backlog-structure` (each with `|| exit 1`); the Build & Development Commands block (line 33) and the `scripts/` architecture line (line 60) omit `check-backlog-structure`/`check-backlog-structure.js`. All three sites sit inside `<!-- AUTO-MANAGED -->` regions, so route the fix through the auto-memory sync (`/auto-memory:sync`) rather than a hand-edit the next sync would clobber. (PR #72 code review, confidence 50, doc drift)
+- [ ] DONE.md no-loss claim undercounts — the Backlog Restructure entry (line 19) states "234 baseline ∪ 3 promotions = 237; zero dropped, zero extra", but the restructure also added 3 net-new 🟤 follow-up items (the "From Backlog Restructure (2026-06-08)" section), so the final open-item count is ~240 and "zero extra" is inaccurate. The migration was lossless for pre-existing items; only the summary's "zero extra" wording is off. Historical-log accuracy nit, no functional impact. (PR #72 code review, confidence 50, doc accuracy)
+
 ### From Backlog Restructure (2026-06-08)
 **Origin**: docs/archive/plans/2026-06-07_backlog-restructure.md
 
