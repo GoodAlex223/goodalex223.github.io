@@ -31,12 +31,13 @@ npm run lighthouse     # Lighthouse CI audit (≥90/100 all categories)
 npm run check-links       # Check all external links in index.html + projects.json (HEAD→GET fallback, 3 retries)
 npm run check-assets      # Check all internal asset refs in HTML + projects.json exist on disk (requires `npm run build` first)
 npm run validate-backlog  # Validate BACKLOG.md Origin paths (reads git index; prints OK/skipped/violations)
+npm run check-backlog-structure  # Validate BACKLOG.md structure (required bucket headers present)
 npx serve              # Local server (or python -m http.server 8000)
 ```
 
 **Build pipeline**: `update-sitemap` → `build:css` (PostCSS + cssnano) → `unhash` → `inline:css` (Critters critical CSS) → `hash:assets` (SHA-256 content hashes + terser JS minification) → `report-sizes` (budget: CSS gzip 20 KB, JS gzip 10 KB; appends to `docs/size-history.json`). Outputs `dist/style.[hash].css` and `dist/main.[hash].js`.
 
-**CI/CD** (`.github/workflows/deploy.yml`): lint (CSS + JS + validate-backlog) → build → (check-links + test + lighthouse in parallel) → deploy to GitHub Pages. The `check-links` job runs both the external URL checker and the internal asset checker after downloading the build artifact. All gates must pass.
+**CI/CD** (`.github/workflows/deploy.yml`): lint (CSS + JS + validate-backlog + check-backlog-structure) → build → (check-links + test + lighthouse in parallel) → deploy to GitHub Pages. The `check-links` job runs both the external URL checker and the internal asset checker after downloading the build artifact. All gates must pass.
 
 <!-- END AUTO-MANAGED -->
 
@@ -57,7 +58,7 @@ goodalex223/
 ├── js/main.js                    # All client JS (theme, filter, scroll animations, modal, form)
 ├── data/projects.json            # Project detail data (lazy-fetched by modal)
 ├── dist/                         # Built CSS/JS with content hashes (generated, gitignored)
-├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-links, check-assets, validate-backlog-paths)
+├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-links, check-assets, validate-backlog-paths, check-backlog-structure)
 ├── tests/
 │   ├── filter/                   # Filter system tests (9 spec files)
 │   ├── modal/                    # Modal tests (6 spec files)
@@ -109,7 +110,7 @@ Config in `.mcp.json` (gitignored). Template: `.mcp.json.example`.
 - Conventional Commits via commitlint + husky `commit-msg` hook
 - Types: `feat`, `fix`, `docs`, `chore`, `style`, `test`, `build`, `ci`, `perf`, `refactor`, `revert`
 - Header: 72 chars max. Uppercase subjects allowed (`subject-case` disabled)
-- **Pre-commit hook** (`.husky/pre-commit`): runs `npx lint-staged || exit 1`, then conditionally runs `npm run validate-backlog` only when `BACKLOG.md` is staged. Uses `if/fi` (not `&&`) to prevent grep's non-zero exit from aborting commits when `BACKLOG.md` is not staged (see "Shell Gotchas" for the general pattern). Grep pattern is `-qE '(^|/)BACKLOG\.md$'` (anchored basename, escaped dot — avoids false matches on `OLD_BACKLOG.md` etc.)
+- **Pre-commit hook** (`.husky/pre-commit`): runs `npx lint-staged || exit 1`, then conditionally runs `npm run validate-backlog` and `npm run check-backlog-structure` (each `|| exit 1`) when `BACKLOG.md` is staged. Uses `if/fi` (not `&&`) to prevent grep's non-zero exit from aborting commits when `BACKLOG.md` is not staged (see "Shell Gotchas" for the general pattern). Grep pattern is `-qE '(^|/)BACKLOG\.md$'` (anchored basename, escaped dot — avoids false matches on `OLD_BACKLOG.md` etc.)
 - **Pre-commit BACKLOG validation**: `scripts/validate-backlog-paths.js` runs when `BACKLOG.md` is staged — reads git index via `git show :path`. If `git show` fails and we are inside a git repo, treats file as absent (skip — handles staged deletion and `git rm --cached`); only falls back to working-tree read when git is entirely unavailable. Blocks commits if any `**Origin**` line (column 0 or with optional `-`/`*`/`+` bullet) contains a path in `FORBIDDEN_ORIGIN_PATHS` denylist: `['docs/planning/plans/', 'docs/superpowers/']`. Detection regex `/^\s*(?:[-*+]\s+)?\*\*Origin\*\*/` is anchored to line start — inline backtick mentions of `**Origin**:` mid-line do not false-positive. Other mentions of forbidden paths on non-`**Origin**` lines are allowed. Also runs as `npm run validate-backlog` and in CI `lint` job (closes `--no-verify` bypass)
 
 ### Theme System
