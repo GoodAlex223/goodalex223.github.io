@@ -38,6 +38,8 @@
 | `docs/planning/DONE.md` (modify) | New `## 2026-06-10` Backlog Drain completion entry | 8 |
 | `docs/planning/WEEKLY.md` (modify) | Group A status ⏳ → ✅ (Summary Table + Monday) | 8 |
 
+> **Execution note (2026-06-10, discovered at run start):** On-branch BACKLOG counts are **🔵 72 · 🟡 16 · 🟤 154 · total 242** — not the classification artifact's 🟤 149 / 237, which predated PR #72's merge (the merge added 5 🟤: 2 PR #72-review items + 3 restructure follow-ups). **Use 154 / 242 for all post-drain math (Tasks 7–8).** Also: two of those 🟤 follow-ups — **"Verify-and-prune the prune-on-audit candidates"** and **"Calibrate the Cleanup-Week threshold…"** (the `### From Backlog Restructure (2026-06-08)` section) — *describe this very task*, so prune them too once the audit is done, in **Task 6** (keep the 3rd item, the `docs/superpowers/` cross-refs — that's Group E). Net expected: ~30 candidate prunes + 2 self-referential = ~32 removed; 🟤 154 → ~129.
+
 ---
 
 ### Task 1: Pre-drain baseline
