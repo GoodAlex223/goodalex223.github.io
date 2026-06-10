@@ -147,6 +147,8 @@ BACKLOG.md is split into three source sections. Authoritative rules live in
   (declared in WEEKLY.md header)
 - When 🟤 grows beyond ~20 SP of pending items, surface this in the next planning
   conversation as a Cleanup Week trigger
+- Cleanup Week history (pre/post-drain bucket counts, trigger details, threshold calibration
+  decisions) is recorded in `docs/planning/cleanup-week-log.md`
 
 <!-- AUTO-MANAGED: patterns -->
 ## Key Patterns & Gotchas
