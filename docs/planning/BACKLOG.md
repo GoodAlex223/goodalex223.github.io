@@ -2,7 +2,7 @@
 
 Future ideas and improvements for the portfolio.
 
-**Last Updated**: 2026-06-08 (restructure — source-split + pinned process rules)
+**Last Updated**: 2026-06-10 (Cleanup Week #1 — verify-and-prune drain)
 
 **Active tasks**: See [TODO.md](TODO.md)
 **Completed work**: See [DONE.md](DONE.md)
@@ -192,11 +192,6 @@ concept; the weekly-planning prompt selected on priority + domain only).
   - [ ] IoT projects: circuit diagrams, Wokwi screenshots, demo videos
   - [ ] Web projects: responsive screenshots, interaction demos
 
-### From Project Detail Modal (2026-01-22)
-
-  - [ ] Mobile-friendly modal UX
-  - [ ] Clear visual hint that cards are clickable (hover state, "View details")
-
 ### From Features: Project Detail Pages (2026-01-22)
 
 - [ ] Project Detail Pages — Individual pages for major projects: more detailed descriptions, screenshots and demos, technical deep-dives (distinct from the shipped modal)
@@ -282,10 +277,6 @@ concept; the weekly-planning prompt selected on priority + domain only).
 ### From Media & Visual Content: Project Media Strategy (2026-01-23)
 
   - [ ] Lazy loading to maintain <200KB initial page load
-
-### From Project Detail Modal (2026-01-22)
-
-  - [ ] Lazy-load media to maintain <200KB initial page load
 
 ---
 
@@ -685,7 +676,3 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 - [ ] Inline critical CSS — Inline above-the-fold styles in `<head>` and load full CSS asynchronously for faster first paint
 
-### From Project Detail Modal (2026-01-22)
-
-  - [ ] Data structure decision (JSON file vs data attributes vs JS object)
-  - [ ] Accessibility: focus trap, ESC to close, aria-modal, restore focus
