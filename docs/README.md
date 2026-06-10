@@ -15,6 +15,7 @@ Central hub for all project documentation.
 | [planning/DONE.md](planning/DONE.md) | Completed tasks | 2026-01-26 |
 | [planning/BACKLOG.md](planning/BACKLOG.md) | Future ideas | 2026-01-23 |
 | [planning/ROADMAP.md](planning/ROADMAP.md) | Long-term vision | 2026-01-26 |
+| [planning/cleanup-week-log.md](planning/cleanup-week-log.md) | Cleanup Week ledger (drain start/end state, threshold calibration) | 2026-06-10 |
 
 ---
 
