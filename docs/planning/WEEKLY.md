@@ -70,8 +70,8 @@ One PR. Recurring `docs/superpowers/` dead links in archived/frozen docs + the u
 ### Monday — Backlog Drain 🏆 (5 SP)
 
 **Group A — Backlog Drain & Cleanup-Week Bootstrapping** — 🟤 — 5 SP *(run first; de-risks the week)*
-- [ ] 🏆 Verify-and-prune the ~25 prune-on-audit candidates against DONE.md + git *(3 SP)*
-- [ ] Calibrate Cleanup-Week threshold + formally record this as the first Cleanup Week *(2 SP)*
+- [x] 🏆 Verify-and-prune the ~25 prune-on-audit candidates against DONE.md + git *(3 SP)* — pruned 31 (🟤 24 · 🔵 5 · 🟡 2), kept 2 genuinely-open
+- [x] Calibrate Cleanup-Week threshold + formally record this as the first Cleanup Week *(2 SP)* — see [cleanup-week-log.md](cleanup-week-log.md); threshold deferred to ~2026-06-30
 
 ### Tuesday — Test Infrastructure (6 SP)
 
@@ -111,7 +111,7 @@ One PR. Recurring `docs/superpowers/` dead links in archived/frozen docs + the u
 
 | Group | Domain | Source | Tasks | Total SP | Day | Status |
 |-------|--------|--------|-------|----------|-----|--------|
-| A. Backlog Drain & Cleanup Bootstrapping 🏆 | Planning/Docs | 🟤 Auto | 2 | 5 | Mon | ⏳ Planned |
+| A. Backlog Drain & Cleanup Bootstrapping 🏆 | Planning/Docs | 🟤 Auto | 2 | 5 | Mon | ✅ Done |
 | D. Test Infrastructure Cleanup `[batch]` | Testing | 🟤 Auto | 4 | 6 | Tue | ⏳ Planned |
 | C. Script Robustness & Observability `[batch]` | CI/Build | 🟤 Auto | 4 | 5 | Wed | ⏳ Planned |
 | B. Documentation Accuracy Sweep `[batch]` | Docs | 🟤 Auto | 5 | 7 | Thu | ⏳ Planned |
