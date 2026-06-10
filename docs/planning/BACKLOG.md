@@ -145,10 +145,6 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 - [ ] Expand sitemap for future pages — Add entries when blog or project detail pages are created
 
-### From LP-001: Project Filtering (2026-01-28)
-
-- [ ] URL hash-based filtering — Allow shareable links like `#filter=backend`
-
 ### From Project Content Population (2026-01-27)
 
   - [ ] Extended description (challenges, decisions, lessons learned)
@@ -206,7 +202,6 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 ### From Enhancements: Visual
 
-- [ ] Add Open Graph image for social sharing
 - [ ] Consider adding a profile photo
 - [ ] Add subtle gradient backgrounds
 
@@ -221,7 +216,6 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 ### From Technical Debt
 
-- [ ] Add automated link checking
 - [ ] Create development build script
 
 ---
@@ -260,7 +254,6 @@ concept; the weekly-planning prompt selected on priority + domain only).
 ### From PERF-008: Build Size Reporting (2026-02-25)
 **Origin**: PERF-008 implementation
 
-- [ ] Size trend history — Append build sizes to `docs/size-history.json` after each build for historical trend visibility (original task description goal: "visibility into asset growth over time")
 - [ ] HTML size reporting — Add `index.html` and `404.html` to the size report (both contain ~16 KB and ~8 KB inlined critical CSS respectively); complements existing inline CSS warnings
 - [ ] CI budget enforcement — Make the build fail (exit code 1) if gzip budgets are exceeded in CI, rather than just warning; keep soft warnings for local development
 
@@ -291,8 +284,6 @@ concept; the weekly-planning prompt selected on priority + domain only).
 ### From Backlog Restructure (2026-06-08)
 **Origin**: docs/archive/plans/2026-06-07_backlog-restructure.md
 
-- [ ] **Verify-and-prune the "prune-on-audit candidates"** — ~25 open items in this file are written as `- [ ]` but look already-shipped (e.g. PERF-006 inline critical CSS, "Add automated link checking" in Technical Debt, QUALITY-010 commitlint, several validator/asset-checker items from PRs #68/#69, the scroll-animation flake closed by PR #71). They were intentionally NOT pruned in the restructure (only completion-tagged items were). Do one pass cross-checking each against DONE.md + git history; mark genuinely-done items complete and prune. Candidate row numbers are listed in the classification artifact sign-off section. (restructure follow-up, confidence 80)
-- [ ] **Calibrate the Cleanup-Week threshold and schedule the first Cleanup Week** — the 🟤 bucket currently holds ~149 items, far over the spec's ~20-SP Cleanup-Week trigger, so the first weekly plan under the new rules should declare a Cleanup Week to start draining it (the ≥50% 🔵 quota can't be met sustainably until 🟤 shrinks). Revisit whether ~20 SP is the right threshold after 2-3 normal weeks of data (spec Open Question). (restructure follow-up, confidence 70)
 - [ ] **Update stale `docs/superpowers/` cross-references inside the archived restructure docs** — the archived plan (`docs/archive/plans/2026-06-07_backlog-restructure.md`) and design spec (`docs/archive/specs/2026-06-07_backlog-restructure-design.md`) still contain internal links, bash commands, and PR/commit-message templates pointing at the pre-archive `docs/superpowers/specs|plans/` paths. Dead links in historical docs, no functional impact (validator only checks BACKLOG `**Origin**` lines). Same recurring pattern noted in the PR #66 post-merge review for the test-stability plan. (restructure follow-up, confidence 35, doc lineage)
 
 ### From PR #71 Post-Merge Review (2026-05-24)
@@ -362,11 +353,6 @@ concept; the weekly-planning prompt selected on priority + domain only).
 - [ ] Update stale `docs/superpowers/` cross-references in archived plan — `docs/archive/plans/2026-04-28_test-stability-investigations.md` lines 11 and 581-582 reference `docs/superpowers/specs/...` and `docs/superpowers/plans/...` paths that no longer exist (artifacts went to `docs/archive/specs/` and `docs/archive/plans/`). Pre-commit `validate-backlog-paths.js` only checks BACKLOG `**Origin**:` lines, so these slipped through. Dead links in archived doc, no functional impact. (confidence 35)
 - [ ] Tighten `mockFormspreeDeferred()` JSDoc prose — `tests/pages/FormPage.js` description says the release function "resolves the response," but the `@returns` tag in the same block says "call to send the response." `route.fulfill()` is what actually sends the response; resolving the internal promise just unblocks the handler. Align the prose with the more precise `@returns` wording. (confidence 10, nitpick)
 
-### From PR #65 Review (2026-04-28)
-
-- [ ] Tighten case-sensitivity check to cover directory segments — `assetExists()` in `scripts/check-assets.js` only validates basename case via `readdirSync`, so a ref like `Images/projects/foo.webp` (wrong directory case) still passes locally on macOS/Windows but would fail on Linux CI. The header JSDoc claim "catches case-mismatch refs that would fail on Linux CI but pass on macOS/Windows" overstates the scope. Walk each path segment from repo root to fully match Linux behavior, or update the JSDoc to scope the claim to basename. (confidence 65)
-- [ ] Align output format between `check-links.js` and `check-assets.js` — the link checker prints failure sources in brackets (`✗ url (status) [sources]`) while the asset checker uses parens (`✓ ref (source)` / `✗ ref (source)`). Pick one convention so the combined CI output reads consistently.
-
 ### From Test Stability Investigations (2026-04-28)
 **Origin**: docs/archive/plans/2026-04-28_test-stability-investigations.md
 
@@ -385,16 +371,7 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 ### From Internal Asset Link Checking Code Review (2026-04-20)
 
-- [ ] Implement the `dist/` preflight error message — spec promised a targeted "dist/ missing or incomplete — run `npm run build` first" message the first time a `dist/` ref fails, but the implementation just prints a generic red ✗ line. Local UX slightly worse than spec. (confidence 90)
-- [ ] Improve generic "not found" error on CI — `scripts/check-assets.js:116` error message `"Run from project root"` is misleading if the failure is actually a missing CI artifact download. Consider `"Did `npm run build` complete and artifacts download?"`. (confidence 85)
-- [ ] Document HTML-regex scope assumption — `scripts/check-assets.js:54` runs `href=`/`src=` regex over raw HTML text, so any attribute-shaped string inside HTML comments, `<script>` blocks, or JSON-LD `"url":"..."` would be extracted. Today the repo has none that bypass exclusions, but a future JSON-LD addition could hit it. Add a comment noting the assumption. (confidence 70)
-- [ ] Harden JSON walk against non-flat `projects` shape — `scripts/check-assets.js:73` uses `Object.values(projects)` and assumes `{projectId: {...}}`. Add `typeof project === 'object' && project !== null` guard before `project.screenshots` for robustness. (confidence 80)
-- [ ] Extend extractor to `<source src>`, `<video poster>`, `link imagesrcset`, `img srcset` — not needed today (no video, no responsive images), but document the limitation in the script header or queue for follow-up as assets evolve.
-
-### From PR #64 Code Review (2026-04-19)
-
-- [ ] Tighten pre-commit grep pattern for BACKLOG.md detection — `.husky/pre-commit` uses `grep -q 'BACKLOG.md'` with unescaped `.` (regex wildcard) and no anchor, so it would also match hypothetical paths like `OLD_BACKLOG.md` or `BACKLOGxmd_notes.txt`. Harmless today (no such files exist) but stricter pattern `grep -qE '(^|/)BACKLOG\.md$'` is more correct (code review finding, confidence 35/100)
-- [ ] Handle staged deletion of BACKLOG.md in `validate-backlog-paths.js` — if a commit stages `git rm docs/planning/BACKLOG.md`, the pre-commit hook still runs the validator (grep finds the path in the staged diff), then `fs.readFileSync(BACKLOG_PATH)` throws an uncaught ENOENT. Either check existence first or catch ENOENT and exit 0 with a friendly message. Overlaps with existing "Read BACKLOG.md from git index" item — switching to `git show :docs/planning/BACKLOG.md` would solve both (code review finding, confidence 75/100)
+- [ ] Extend extractor to `<source src>`, `<video poster>`, `link imagesrcset`, `img srcset` — not needed today (no video, no responsive images), but document the limitation in the script header or queue for follow-up as assets evolve. *(audited 2026-06-10: still open — extractor not extended; no `<source>`/`poster`/`srcset` refs exist yet)*
 
 ### From Test Robustness Code Review (2026-04-16)
 
@@ -404,19 +381,10 @@ concept; the weekly-planning prompt selected on priority + domain only).
 **Origin**: docs/archive/plans/2026-04-16_code-quality.md
 
 - [ ] Investigate pre-existing Firefox flaky test `tests/filter/accessibility.spec.js:44` — *(investigated 2026-04-28: NOT REPRODUCING.)* Original symptom: "tabindex updates when filter changes" fails intermittently on Firefox with received tabindex="0" instead of "-1". Investigation: ran 150 local Firefox iterations (`--repeat-each=50` then `--repeat-each=100`) with diagnostic instrumentation (per-button tabindex attribute + IDL property + active class + aria-pressed at four checkpoints, attached to trace via `test.info().attach()`) — all 150 green; searched 80+ recent CI workflow runs back to 2026-03-19 — zero failures of this test on any engine. Conclusion: flake is currently stale, possibly resolved by `waitForAnimationComplete` DOM polling shipped in PR #62 (2026-04-10) covering an adjacent code path. Reversal trigger: re-open if the test fails on any future CI run. Instrumentation pattern is preserved on the `test/stability-investigations` branch (commit `1fbc0bf` adds, `d2201ff` removes) for fast re-instrumentation if needed.
-- [ ] Extend `validate-backlog-paths.js` to catch `docs/superpowers/` Origin paths — currently only detects `docs/planning/plans/`. BACKLOG line 848 notes the same broken-origin-path bug has recurred with `docs/superpowers/` references. Expand regex to both (code review finding, confidence 75/100)
-- [ ] Read BACKLOG.md from git index, not working tree — `validate-backlog-paths.js` uses `fs.readFileSync(BACKLOG_PATH)` which reads the working-tree copy. If staged and unstaged changes coexist in BACKLOG.md, validator inspects unstaged content. Canonical approach: `git show :docs/planning/BACKLOG.md` (code review finding, confidence 50/100)
-- [ ] Add `npm run validate-backlog` script — makes validator discoverable and callable standalone outside the pre-commit hook. Mirrors `npm run check-links` pattern
-- [ ] Add success output to `validate-backlog-paths.js` — currently exits silently on clean. Other gate scripts (check-links) print a confirmation message. Add `console.log('BACKLOG Origin paths: OK')` for consistency
-
-### From Code Quality batch Code Review (2026-04-16)
-
-- [ ] Document shell gotcha: `&&` vs `if/fi` with grep exit code — pre-commit hook initially used `grep -q 'BACKLOG.md' && node script` pattern. When grep didn't match, its exit code (1) became the script's exit code, blocking all commits unrelated to BACKLOG.md. Fixed with `if/fi`. Document this pattern in CLAUDE.md or a shell scripting gotcha doc so it doesn't recur
 
 ### From Firefox & Test Audit Code Review (2026-04-11)
 
 - [ ] **Cleanup: Remove duplicate plans/specs from `docs/superpowers/`** — `docs/superpowers/plans/2026-04-10_firefox-test-audit.md` and `docs/superpowers/specs/2026-04-10_firefox-test-audit-design.md` duplicate archived copies in `docs/archive/plans/`. Extends existing CI Hardening backlog item — batch-remove all `docs/superpowers/` duplicates in one pass
-- [ ] **Automate BACKLOG Origin path validation** — The BACKLOG Origin path pointing to `docs/superpowers/` instead of `docs/archive/` has recurred in PRs #51, #56, #57, #59, and now #62. Consider a CI check or pre-commit hook that validates Origin paths in BACKLOG.md point to `docs/archive/plans/`
 
 ### From CI Hardening Code Review (2026-04-10)
 
@@ -495,11 +463,6 @@ concept; the weekly-planning prompt selected on priority + domain only).
 - [ ] ESLint ignores for root CJS configs could use a glob pattern — Currently manually listing each root config (`eslint.config.js`, `commitlint.config.js`). If more root CJS configs are added, a glob like `*.config.js` would be cleaner.
 - [ ] Investigate memory-updater hook friction on rapid commits — Hook triggers on every commit attempt even when CLAUDE.md is already up to date, causing significant friction during multi-step implementations.
 
-### From CHALLENGE-003: Contact Form (2026-03-21)
-**Origin**: docs/archive/plans/2026-03-21_challenge-003-contact-form.md
-
-- [ ] Pre-existing axe-scan flakiness in scroll animation timing — `waitForScrollAnimations(700ms)` is sometimes insufficient across browsers; consider a deterministic wait (e.g., polling `is-visible` class) instead of a fixed timeout
-
 ### From QUALITY-009: ESLint Enhancements (2026-03-20)
 **Origin**: QUALITY-009 implementation
 
@@ -527,24 +490,17 @@ concept; the weekly-planning prompt selected on priority + domain only).
 - [ ] Redundant `.contact__link` transition — `components.css` line 279 transitions only `background-color`, but `main.css` theme group already covers `.contact__link` with `background-color + border-color + color + outline-color`; the component-level declaration may be redundant (code review finding)
 - [ ] Case-insensitive transition regex — Current `/\ball\b/` is case-sensitive; `transition: All` would bypass. Mitigated by `value-keyword-case: "lower"` from `stylelint-config-standard`, but adding `/i` flag (`/\ball\b/i`) would provide defense-in-depth
 
-### From QUALITY-007: ESLint Integration (2026-03-12)
-**Origin**: docs/archive/plans/2026-03-12_quality-007-eslint.md
-
-- [ ] Add `eslint-plugin-playwright` — Playwright-specific rules for test files (e.g., `no-conditional-in-test`, `prefer-web-first-assertions`)
-- [ ] Add `no-console` rule for browser code — `warn` level for `js/**/*.js` to catch accidental console.log in production code
-
 ### From QUALITY-007 Code Review (2026-03-12)
 **Origin**: PR #41 code review findings (confidence 75/100)
 
 - [ ] Remove stale plan copy `docs/planning/plans/2026-03-12_quality-007-eslint.md` — archived version exists in `docs/archive/plans/`, the in-progress copy should have been deleted per task completion workflow (`mv`, not `cp`)
-- [ ] Fix `9b.` numbering in CLAUDE.md Build System Pattern list — should use sequential integers (renumber items 10-12 to 11-13, insert new JS linting item as 10)
 - [ ] Update deploy job description in CLAUDE.md — current text includes CI-002 staging details that were bundled into QUALITY-007 PR rather than committed separately
 
 ### From CHALLENGE-001: Lighthouse CI in GitHub Actions (2026-03-11)
 **Origin**: CHALLENGE-001 implementation
 
 - [ ] Explicit Chrome install in lighthouse CI job — Lighthouse job relies on pre-installed Chrome on `ubuntu-latest` runner; adding explicit `npx playwright install --with-deps chromium` or similar would make it resilient to runner image changes (code review finding, confidence 50/100)
-- [ ] Fix `.gitignore` missing trailing newline — File lacks trailing newline after `.lighthouseci/` entry; pre-existing issue carried forward (code review finding, confidence 0/100)
+- [ ] Fix `.gitignore` missing trailing newline — File lacks trailing newline after `.lighthouseci/` entry; pre-existing issue carried forward (code review finding, confidence 0/100) *(audited 2026-06-10: still open — xxd confirms file ends at 0x2f with no trailing newline byte)*
 
 ### From CI-002: Narrow Pages Deploy Artifact Path (2026-03-11)
 **Origin**: CI-002 implementation
@@ -602,8 +558,6 @@ concept; the weekly-planning prompt selected on priority + domain only).
 **Origin**: docs/archive/plans/2026-02-17_quality-004-pre-commit-hook-husky.md
 
 - [ ] Extend lint-staged with Prettier — Add `"*.html": "prettier --write"` when HTML formatting is adopted
-- [ ] commitlint for conventional commits — Add `@commitlint/cli` with `commit-msg` husky hook to enforce conventional commit message format (feat:, fix:, docs:, etc.)
-
 ### From TEST-003: CSS Linting with Stylelint (2026-02-16)
 **Origin**: docs/archive/plans/2026-02-16_test-003-css-linting-stylelint.md
 
@@ -671,8 +625,4 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 - [ ] Track description character counts in CLAUDE.md — Add reference table of all description lengths to catch regressions when modified
 
-### From PERF-002: Font Preload Hint (2026-02-02)
-**Origin**: docs/archive/plans/2026-02-02_perf-002-font-preload-hint.md
-
-- [ ] Inline critical CSS — Inline above-the-fold styles in `<head>` and load full CSS asynchronously for faster first paint
 
