@@ -1,8 +1,29 @@
 # DONE
 
-**Last Updated**: 2026-06-08 (Backlog Restructure completed)
+**Last Updated**: 2026-06-10 (Backlog Drain & Cleanup-Week Bootstrapping)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-06-10
+
+### Backlog Drain & Cleanup-Week Bootstrapping 🏆 (Weekly Challenge — Cleanup Week #1)
+
+**Plan**: [docs/archive/plans/2026-06-10_backlog-drain-cleanup-week.md](../archive/plans/2026-06-10_backlog-drain-cleanup-week.md)
+**Spec**: [docs/archive/specs/2026-06-10_backlog-drain-cleanup-week-design.md](../archive/specs/2026-06-10_backlog-drain-cleanup-week-design.md)
+**Log**: [docs/planning/cleanup-week-log.md](cleanup-week-log.md)
+**PR**: pending (branch `chore/backlog-drain-cleanup-week`)
+**Summary**: Monday Group A of the first-ever Cleanup Week. Audited the 31 "prune-on-audit candidate" rows pinned in the restructure classification artifact's Audit sign-off (line 376) — items written `- [ ]` but shipped without being checked off — against current code/file state + DONE.md + git. Pruned 31 verified-done items (🟤 24 · 🔵 5 · 🟡 2), including the 2 restructure follow-ups that described this drain task itself; kept 2 genuinely-open items (annotated). Recorded Cleanup Week #1 in a new durable `docs/planning/cleanup-week-log.md` with a post-drain baseline (🟤 130 / 62% of 211 open) for the 2–3-week threshold-recalibration window; threshold number deferred to a ~2026-06-30 recheck.
+**Key Changes**:
+- `docs/planning/BACKLOG.md`: pruned 31 verified-done rows across 5 domain clusters (modal, feature/perf, lint/commit tooling, validator, asset-checker) plus the 2 self-referential restructure follow-ups; removed 10 emptied `### From …` sub-headers; "Last Updated" bumped. Bucket counts 🔵 72→67 · 🟡 16→14 · 🟤 154→130 · total 242→211.
+- `docs/planning/cleanup-week-log.md` (new): Cleanup Week #1 entry — trigger state, pre/post-drain counts, the SP-vs-item-count trigger-units observation, recheck ~2026-06-30. Indexed in `docs/README.md`.
+- Kept 2 genuinely-open items, annotated in BACKLOG: the `.gitignore` trailing-newline nit (confidence 0 — audit confirmed it is still present, so NOT pruned) and the asset-checker extractor extension (row 197 — not shipped).
+- `CLAUDE.md`: the auto-memory commit hook synced the AUTO-MANAGED build-commands/architecture/conventions regions to document the `check-backlog-structure` guard (commit `687940a`). This pre-empts the CLAUDE.md portion of Thursday's Group B "check-backlog-structure drift" item — Group B should verify and close that item's remaining parts (Shell Gotchas wording, BACKLOG `@v6` parenthetical).
+- Scope held to the sign-off candidates + the 2 self-tracking entries; no code/doc *fixes* (Groups B–E own those). Plan + spec archived to `docs/archive/`.
+- Task-completion EXTRACT: 2 new 🟤 follow-ups added (Cleanup-Week trigger-units calibration; prevent prune-on-audit re-accumulation), so net 🟤 130 → 132 / total 211 → 213.
+**Resolved/Pruned BACKLOG items**: 31 — rows 1–5, 10, 11, 22, 87, 105, 115, 126, 127, 129, 148, 178, 181–187, 193–196, 198, 199, plus the 2 "From Backlog Restructure (2026-06-08)" self-tracking follow-ups. Kept open (annotated): row 122 (.gitignore newline, conf 0) and row 197 (extractor extension). Pruned lines remain recoverable via git history.
+**Lessons Learned**: 22 of the 24 pruned 🟤 were already-shipped PR-review follow-ups (PRs #66–#72) never checked off — confirming the source-split's premise that the bulk of 🟤 was backlog-hygiene lag, not unaddressed debt. The audit also caught a candidate that was NOT actually done (`.gitignore` newline), validating the "verify, don't assume" discipline. The auto-memory commit hook resolved adjacent CLAUDE.md drift as a side effect — useful, but it means a Cleanup-Week branch absorbs a little Group B doc-sync work; flagged for Thursday.
 
 ---
 
