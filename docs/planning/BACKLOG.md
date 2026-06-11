@@ -558,6 +558,7 @@ concept; the weekly-planning prompt selected on priority + domain only).
 **Origin**: docs/archive/plans/2026-02-17_quality-004-pre-commit-hook-husky.md
 
 - [ ] Extend lint-staged with Prettier — Add `"*.html": "prettier --write"` when HTML formatting is adopted
+
 ### From TEST-003: CSS Linting with Stylelint (2026-02-16)
 **Origin**: docs/archive/plans/2026-02-16_test-003-css-linting-stylelint.md
 
