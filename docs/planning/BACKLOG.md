@@ -275,6 +275,13 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 ## 🟤 Auto-Generated Tech Debt
 
+### From PR #73 Code Review (2026-06-11)
+**Origin**: docs/archive/plans/2026-06-10_backlog-drain-cleanup-week.md
+
+- [ ] Stale `docs/superpowers/specs/` display text in the new archived plan — the Spec link in `docs/archive/plans/2026-06-10_backlog-drain-cleanup-week.md` shows label text `docs/superpowers/specs/2026-06-10_backlog-drain-cleanup-week-design.md` while its relative href `../specs/...` correctly resolves to `docs/archive/specs/`. Link works; only the visible label is stale. Same recurring pattern as the restructure-docs entry below; fold into the Group E "Archived-Doc Dead-Link Cleanup" pass. [possible-dup-of: Update stale `docs/superpowers/` cross-references inside the archived restructure docs] (PR #73 code review, confidence 50, doc lineage)
+- [ ] WEEKLY.md summary-table title truncation — the Group A row in the Summary Table reads "Backlog Drain & Cleanup Bootstrapping" while every other reference (Task Groups header, daily schedule, DONE.md, BACKLOG.md, cleanup-week-log.md) uses "Cleanup-Week Bootstrapping". Intra-document naming nit, no functional impact. (PR #73 code review, confidence 25, doc consistency)
+- [ ] `cleanup-week-log.md` denominator imprecision — the Trigger line cites "~63% of the 234-item open backlog" where the restructure total was 237 (234 was the pre-promotion baseline); the percentage is accurate either way. Same 234/237/240 ambiguity already tracked in the PR #72 DONE.md undercount item below — resolve together. [possible-dup-of: DONE.md no-loss claim undercounts] (PR #73 code review, confidence 25, doc accuracy)
+
 ### From Backlog Drain & Cleanup-Week Bootstrapping (2026-06-10)
 **Origin**: docs/archive/plans/2026-06-10_backlog-drain-cleanup-week.md
 
