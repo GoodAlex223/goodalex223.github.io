@@ -275,6 +275,12 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 ## 🟤 Auto-Generated Tech Debt
 
+### From Backlog Drain & Cleanup-Week Bootstrapping (2026-06-10)
+**Origin**: docs/archive/plans/2026-06-10_backlog-drain-cleanup-week.md
+
+- [ ] Resolve the Cleanup-Week trigger units (SP-based vs item-count) at the ~2026-06-30 recalibration — BACKLOG 📌 Process Rules says "~20 SP pending" but the 🟤 bucket is tracked by item count. Cleanup Week #1 logged this as an open calibration question; decide and update the rule after 2–3 normal weeks of data. See [cleanup-week-log.md](cleanup-week-log.md). (Cleanup Week #1 follow-up, confidence 70)
+- [ ] Prevent prune-on-audit backlog re-accumulation — 22 of the 24 🟤 pruned in Cleanup Week #1 were already-shipped PR-review follow-ups never checked off (the lag that grew the bucket to ~149). Add a task-completion / finishing-a-development-branch step that checks off or prunes the BACKLOG item(s) a PR resolves as it ships, so the audit backlog doesn't refill between Cleanup Weeks. (Cleanup Week #1 follow-up, confidence 65)
+
 ### From PR #72 Code Review (2026-06-09)
 **Origin**: docs/archive/plans/2026-06-07_backlog-restructure.md
 

@@ -23,8 +23,9 @@ pending.
   (🟤 24 · 🔵 5 · 🟡 2), including the 2 restructure follow-ups that described this drain
   task itself. Kept **2** genuinely-open items (annotated in BACKLOG): the `.gitignore`
   trailing-newline nit (confidence 0) and the asset-checker extractor extension.
-- **Post-drain baseline:** 🟤 = **130** items / **62%** of 211 total open.
-  ← future weeks compare against this.
+- **Post-drain baseline:** 🟤 = **130** items / **62%** of 211 total open (immediately
+  post-prune). Task-completion then extracted 2 🟤 follow-ups → **🟤 132 / total 213** net
+  at task close. ← future weeks compare against this net baseline.
 - **Observations for recalibration:**
   - Trigger units are ambiguous: the rule says "~20 SP pending," but the bucket is tracked
     by item count (130 now). Decide whether the trigger is SP-based or item-count-based
