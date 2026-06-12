@@ -120,6 +120,7 @@ test.describe("Accessibility Scanning (Axe-Core)", () => {
 
     test("active filter passes WCAG 2.1 AA", async ({ page }) => {
       await fp.clickFilter("iot");
+      await waitForScrollAnimations(page);
       // WebKit-Linux race: after `--active` class swap, axe color-contrast
       // briefly samples interpolated colors between the two affected buttons.
       // setTheme() pins data-theme + waits 400ms, letting style computation settle.
