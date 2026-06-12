@@ -62,7 +62,8 @@ test.describe("timing.js contract guards", () => {
   }) => {
     const fp = new FilterPage(page);
     await fp.goto();
-    // Hides 5 of 8 cards; clickFilter bundles waitForAnimationComplete.
+    // Hides all non-iot cards (counts: see CATEGORY_COUNTS in FilterPage.js);
+    // clickFilter bundles waitForAnimationComplete.
     await fp.clickFilter("iot");
     await page.locator(".projects__grid").scrollIntoViewIfNeeded();
 
@@ -73,35 +74,43 @@ test.describe("timing.js contract guards", () => {
     // without the class-skip in waitForScrollAnimations the poll would wait
     // on their opacity forever. If layout changes ever void this setup, the
     // test fails HERE (loudly) instead of silently passing.
-    const hangCandidates = await page.evaluate(
-      ({ threshold, rootMarginBottom }) => {
-        const effectiveBottom = window.innerHeight - rootMarginBottom;
-        const hidden = document.querySelectorAll(
-          ".project-card--hidden[data-animate]",
-        );
-        let count = 0;
-        for (const el of hidden) {
-          const r = el.getBoundingClientRect();
-          if (r.height === 0 || r.width === 0) continue;
-          const visibleHeight = Math.max(
-            0,
-            Math.min(r.bottom, effectiveBottom) - Math.max(r.top, 0),
-          );
-          if (
-            visibleHeight / r.height >= threshold &&
-            parseFloat(getComputedStyle(el).opacity) < 1
-          ) {
-            count += 1;
-          }
-        }
-        return count;
-      },
-      {
-        threshold: SCROLL_OBSERVER_THRESHOLD,
-        rootMarginBottom: SCROLL_OBSERVER_ROOT_MARGIN_BOTTOM,
-      },
-    );
-    expect(hangCandidates).toBeGreaterThan(0);
+    // expect.poll retries the measurement until the scrollIntoViewIfNeeded
+    // scroll has settled — a one-shot evaluate could sample mid-scroll
+    // rects and report a false 0.
+    await expect
+      .poll(
+        () =>
+          page.evaluate(
+            ({ threshold, rootMarginBottom }) => {
+              const effectiveBottom = window.innerHeight - rootMarginBottom;
+              const hidden = document.querySelectorAll(
+                ".project-card--hidden[data-animate]",
+              );
+              let count = 0;
+              for (const el of hidden) {
+                const r = el.getBoundingClientRect();
+                if (r.height === 0 || r.width === 0) continue;
+                const visibleHeight = Math.max(
+                  0,
+                  Math.min(r.bottom, effectiveBottom) - Math.max(r.top, 0),
+                );
+                if (
+                  visibleHeight / r.height >= threshold &&
+                  parseFloat(getComputedStyle(el).opacity) < 1
+                ) {
+                  count += 1;
+                }
+              }
+              return count;
+            },
+            {
+              threshold: SCROLL_OBSERVER_THRESHOLD,
+              rootMarginBottom: SCROLL_OBSERVER_ROOT_MARGIN_BOTTOM,
+            },
+          ),
+        { timeout: 5000 },
+      )
+      .toBeGreaterThan(0);
 
     // Resolving without hitting the poll timeout IS the assertion.
     await waitForScrollAnimations(page);
