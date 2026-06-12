@@ -1,40 +1,7 @@
 /**
  * Animation timing utilities for Playwright tests.
- * Reads durations from CSS custom properties (single source of truth).
  */
 import { expect } from "@playwright/test";
-
-/**
- * Get filter animation duration from CSS custom property
- * @param {import('@playwright/test').Page} page
- * @returns {Promise<number>} Duration in milliseconds
- */
-export async function getAnimationDuration(page) {
-  return page.evaluate(() =>
-    parseInt(
-      getComputedStyle(document.documentElement).getPropertyValue(
-        "--filter-animation-duration",
-      ),
-      10,
-    ),
-  );
-}
-
-/**
- * Get stagger delay from CSS custom property
- * @param {import('@playwright/test').Page} page
- * @returns {Promise<number>} Delay in milliseconds per card
- */
-export async function getStaggerDelay(page) {
-  return page.evaluate(() =>
-    parseInt(
-      getComputedStyle(document.documentElement).getPropertyValue(
-        "--filter-stagger-delay",
-      ),
-      10,
-    ),
-  );
-}
 
 
 /**
