@@ -130,3 +130,28 @@ export async function waitForScrollAnimations(page, { timeout = 5000 } = {}) {
     )
     .toBe(true);
 }
+
+/**
+ * Wait for an element to be fully painted (computed opacity 1) by polling.
+ *
+ * Replaces fixed-timeout waits after opacity transitions. The failure mode
+ * a fixed wait papered over: axe-core sampling mid-transition computes text
+ * colors from the element's partial opacity, producing false color-contrast
+ * failures (the documented reason ModalPage.expectOpen previously waited a
+ * fixed 300ms for the modal's 250ms transition).
+ *
+ * No reduced-motion branch is needed: under prefers-reduced-motion the
+ * relevant transitions are disabled (e.g. css/modal.css sets
+ * transition: none on .project-modal), so opacity computes to 1 the moment
+ * the state class is applied and the first poll tick passes.
+ *
+ * @param {import('@playwright/test').Locator} locator
+ * @param {{ timeout?: number }} [options]
+ */
+export async function waitForOpacity(locator, { timeout = 5000 } = {}) {
+  await expect
+    .poll(() => locator.evaluate((el) => getComputedStyle(el).opacity), {
+      timeout,
+    })
+    .toBe("1");
+}
