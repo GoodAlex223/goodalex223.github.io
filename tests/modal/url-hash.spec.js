@@ -43,11 +43,14 @@ test.describe("Modal URL Hash", () => {
     // data[projectId]). Waiting for that response to finish replaces the
     // old fixed 500ms with the actual causal chain: once the fetch is done
     // and init has completed, a modal that was going to open would be open.
-    const responsePromise = page.waitForResponse((resp) =>
-      resp.url().includes("data/projects.json"),
-    );
-    await page.goto("/#project=nonexistent");
-    const response = await responsePromise;
+    // Promise.all registers the response listener before navigation fires,
+    // so the guarantee is structural, not dependent on statement ordering.
+    const [response] = await Promise.all([
+      page.waitForResponse((resp) =>
+        resp.url().includes("data/projects.json"),
+      ),
+      page.goto("/#project=nonexistent"),
+    ]);
     await response.finished();
     const mp2 = new ModalPage(page);
     // JS-init signal: filter button labels include counts once init completes.
