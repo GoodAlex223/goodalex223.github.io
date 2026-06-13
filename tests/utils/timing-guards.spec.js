@@ -51,6 +51,10 @@ test.describe("timing.js contract guards", () => {
     // added another IntersectionObserver — decide which config the
     // timing.js helper mirrors and update this guard deliberately.
     expect(configs).toHaveLength(1);
+    // threshold is a scalar number here (js/main.js passes `threshold: 0.1`,
+    // not the array form IntersectionObserver also accepts) — so toBe against
+    // the scalar constant is correct. If production switches to `[0.1]`, this
+    // fails loudly and the guard must be updated alongside it.
     expect(configs[0].threshold).toBe(SCROLL_OBSERVER_THRESHOLD);
     expect(configs[0].rootMargin).toBe(
       `0px 0px -${SCROLL_OBSERVER_ROOT_MARGIN_BOTTOM}px 0px`,
@@ -112,7 +116,10 @@ test.describe("timing.js contract guards", () => {
       )
       .toBeGreaterThan(0);
 
-    // Resolving without hitting the poll timeout IS the assertion.
-    await waitForScrollAnimations(page);
+    // Resolving without hitting the poll timeout IS the assertion. Use an
+    // explicit, generous timeout so a slow-CI precondition poll above can't
+    // eat into this call's budget and make a slow setup look like a helper
+    // regression.
+    await waitForScrollAnimations(page, { timeout: 10000 });
   });
 });
