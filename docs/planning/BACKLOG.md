@@ -275,7 +275,11 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 ## 🟤 Auto-Generated Tech Debt
 
-### From PR #73 Code Review (2026-06-11)
+### From Group D Test Infrastructure Cleanup (2026-06-12)
+**Origin**: docs/archive/plans/2026-06-12_test-infra-cleanup.md
+
+- [ ] `tests/filter/reduced-motion.spec.js` page-load vs active-filter asymmetry — the "page load passes WCAG 2.1 AA with reduced motion" test (line ~67) calls `checkAccessibility(page)` with no `waitForScrollAnimations(page)`, while its sibling "active filter…" test now calls it (Group D Task 6). The call is a free no-op under reduced motion; adding it (or moving it into the file's outer `beforeEach`, mirroring `tests/filter/axe-scan.spec.js`'s reduced-motion describe) would make the file internally uniform. Flagged minor + out-of-scope in the Group D Task-6 quality review. (Group D Task 6 review, confidence 40, consistency polish)
+- [ ] Local `npm test` WebKit OOM under 4-worker parallelism — the memory-heavy `*/axe-scan.spec.js` suites non-deterministically crash WebKit worker processes locally (`AxeBuilder.analyze()` throws because the context is torn down) when `playwright.config.js` runs 4 workers; single-worker (`--workers=1`) is fully deterministic (verified 288/288 modal-axe repeat run). CI is unaffected (it already pins `workers: 1`). Consider capping local workers (e.g. `workers: process.env.CI ? 1 : 2`) or documenting the `--workers=1` workaround for the axe suites so local full-suite runs aren't misread as real failures. Surfaced repeatedly during Group D validation. (Group D validation observation, confidence 50, test-infra/local-DX)
 **Origin**: docs/archive/plans/2026-06-10_backlog-drain-cleanup-week.md
 
 - [ ] Stale `docs/superpowers/specs/` display text in the new archived plan — the Spec link in `docs/archive/plans/2026-06-10_backlog-drain-cleanup-week.md` shows label text `docs/superpowers/specs/2026-06-10_backlog-drain-cleanup-week-design.md` while its relative href `../specs/...` correctly resolves to `docs/archive/specs/`. Link works; only the visible label is stale. Same recurring pattern as the restructure-docs entry below; fold into the Group E "Archived-Doc Dead-Link Cleanup" pass. [possible-dup-of: Update stale `docs/superpowers/` cross-references inside the archived restructure docs] (PR #73 code review, confidence 50, doc lineage)

@@ -8,7 +8,7 @@
 
 **Tech Stack:** Playwright (`@playwright/test`), three browser projects (chromium/firefox/webkit), test server `scripts/serve.js` on port 4173 (auto-started by Playwright `webServer`; locally it runs `npm run build` first — first run is slow, then the server is reused).
 
-**Spec:** `docs/superpowers/specs/2026-06-12_test-infra-cleanup-design.md` (commit fa3df6e). Branch: `test/infra-cleanup`.
+**Spec:** `docs/archive/specs/2026-06-12_test-infra-cleanup-design.md` (commit fa3df6e). Branch: `test/infra-cleanup`.
 
 **Worker context you need:**
 - Tests run against the BUILT site (minified `dist/main.[hash].js`), not raw `js/main.js`.
