@@ -75,11 +75,12 @@ One PR. Recurring `docs/superpowers/` dead links in archived/frozen docs + the u
 
 ### Tuesday — Test Infrastructure (6 SP)
 
-**Group D — Test Infrastructure Cleanup** `[batch]` — 🟤 — 6 SP *(meatiest code; front-loaded)*
-- [ ] `waitForModalOpen`/`waitForOpacity` polling helper → replace `ModalPage` `waitForTimeout(300)` *(3 SP)*
-- [ ] Automated guard test for observer-mirrored constants *(1 SP)*
-- [ ] Add `waitForScrollAnimations` to form + modal reduced-motion `beforeEach` *(1 SP)*
-- [ ] Lineage/cleanup nits (inline comment, stagger-budget JSDoc, remove unused timing fns) *(1 SP)*
+**Group D — Test Infrastructure Cleanup** `[batch]` — 🟤 — 6 SP *(meatiest code; front-loaded)* — ✅ Done (PR pending)
+- [x] `waitForModalOpen`/`waitForOpacity` polling helper → replace `ModalPage` `waitForTimeout(300)` *(3 SP)* — generic `waitForOpacity(locator)`; also absorbed `clickCard()`'s inline opacity poll
+- [x] Automated guard test for observer-mirrored constants *(1 SP)* — runtime `IntersectionObserver` intercept via `addInitScript`; constants exported from `timing.js` (single source); mutation-checked
+- [x] Add `waitForScrollAnimations` to form + modal reduced-motion `beforeEach` *(1 SP)* — plus the 2 reduced-motion `clickFilter()` sites (add-the-call decision, superseding the planned comment-the-omission nit)
+- [x] Lineage/cleanup nits (inline comment, stagger-budget JSDoc, remove unused timing fns) *(1 SP)* — stagger-budget JSDoc + `getAnimationDuration`/`getStaggerDelay` removal done
+- **Scope extensions (approved in brainstorming 2026-06-12):** url-hash negative tests dropped 2× `waitForTimeout(500)` for deterministic waits; filter-hidden regression test (BACKLOG-313). **Investigated, not filed:** the hypothesized reduced-motion modal close-button focus gap (design spec §5) did **not** reproduce — a throwaway probe confirmed `transitionend` still fires under reduced motion (universal `transition-duration: 0.01ms !important` at `css/main.css:244` keeps it firing despite `.project-modal { transition: none }`), so focus reaches the close button correctly. No BACKLOG entry filed.
 
 ### Wednesday — Script Robustness (5 SP)
 
@@ -112,7 +113,7 @@ One PR. Recurring `docs/superpowers/` dead links in archived/frozen docs + the u
 | Group | Domain | Source | Tasks | Total SP | Day | Status |
 |-------|--------|--------|-------|----------|-----|--------|
 | A. Backlog Drain & Cleanup Bootstrapping 🏆 | Planning/Docs | 🟤 Auto | 2 | 5 | Mon | ✅ Done |
-| D. Test Infrastructure Cleanup `[batch]` | Testing | 🟤 Auto | 4 | 6 | Tue | ⏳ Planned |
+| D. Test Infrastructure Cleanup `[batch]` | Testing | 🟤 Auto | 4 | 6 | Tue | ✅ Done |
 | C. Script Robustness & Observability `[batch]` | CI/Build | 🟤 Auto | 4 | 5 | Wed | ⏳ Planned |
 | B. Documentation Accuracy Sweep `[batch]` | Docs | 🟤 Auto | 5 | 7 | Thu | ⏳ Planned |
 | E. Archived-Doc Dead-Link Cleanup `[batch]` | Docs | 🟤 Auto | 3 | 3 | Fri | ⏳ Planned |
