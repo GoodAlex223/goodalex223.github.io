@@ -20,6 +20,7 @@ const PROJECTS_PATH = path.join(ROOT, 'data', 'projects.json');
 // Color constants for reporting
 const GREEN = '\x1b[32m';
 const RED = '\x1b[31m';
+const YELLOW = '\x1b[33m';
 const RESET = '\x1b[0m';
 
 /**
@@ -72,7 +73,8 @@ function extractHtmlRefs(filePath, sourceLabel) {
 
 /**
  * Extracts screenshot src paths from data/projects.json.
- * Walks projects[*].screenshots[].src. Skips excluded refs.
+ * Walks projects[*].screenshots[].src. Skips non-object projects[*] entries
+ * (defensive against malformed JSON) and excluded refs.
  */
 function extractJsonRefs() {
   const projects = JSON.parse(fs.readFileSync(PROJECTS_PATH, 'utf8'));
@@ -198,7 +200,7 @@ function main() {
     } else {
       if (!distHintShown && /^\/?dist\//.test(result.ref)) {
         console.error(
-          `\n  ${RED}Hint:${RESET} dist/ may be stale \u2014 run \`npm run build\` to refresh hashed assets.\n`
+          `\n  ${YELLOW}Hint:${RESET} dist/ may be stale \u2014 run \`npm run build\` to refresh hashed assets.\n`
         );
         distHintShown = true;
       }
