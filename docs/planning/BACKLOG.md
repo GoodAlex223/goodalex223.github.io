@@ -275,6 +275,12 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 ## 🟤 Auto-Generated Tech Debt
 
+### From PR #74 Code Review (2026-06-14)
+**Origin**: docs/archive/plans/2026-06-12_test-infra-cleanup.md
+
+- [ ] `waitForScrollAnimations` JSDoc prose hardcodes literal threshold values — the JSDoc in `tests/utils/timing.js` still describes the IntersectionObserver config as "10%" and "-50px" in prose even though the implementation now reads the exported `SCROLL_OBSERVER_THRESHOLD` / `SCROLL_OBSERVER_ROOT_MARGIN_BOTTOM` constants. The values currently match (0.1 = 10%, 50 = 50px) so there's no defect, but the prose should reference the constants by name so a future change to either constant doesn't silently desync the docstring. The new `timing-guards.spec.js` contract test would catch a value change, not a stale-prose change. (PR #74 code review, confidence 50, doc clarity)
+- [ ] `timing-guards.spec.js` comment says observer is constructed "after init" — the explanatory comment states the production IntersectionObserver "is constructed inside a double requestAnimationFrame after init", but it is actually constructed inside `initScrollAnimations()` (`js/main.js:568-570`), which runs *during* the DOMContentLoaded init phase, not after it. The test polling is correct regardless; only the comment wording slightly mischaracterizes the timing. (PR #74 code review, confidence 50, comment accuracy)
+
 ### From Group D Test Infrastructure Cleanup (2026-06-12)
 **Origin**: docs/archive/plans/2026-06-12_test-infra-cleanup.md
 
