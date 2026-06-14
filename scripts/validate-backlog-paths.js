@@ -42,7 +42,10 @@ function readBacklog() {
       // Inside a git repo but file not in index — skip.
       return null;
     } catch {
-      // git not available — read from working tree.
+      // git unavailable entirely — last-resort validation against the working-tree file.
+      console.warn(
+        'validate-backlog-paths: git unavailable; falling back to working-tree read.'
+      );
       const fullPath = path.join(__dirname, '..', BACKLOG_REL_PATH);
       if (!fs.existsSync(fullPath)) return null;
       return fs.readFileSync(fullPath, 'utf8');
