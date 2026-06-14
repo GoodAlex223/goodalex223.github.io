@@ -38,8 +38,10 @@ test.describe("timing.js contract guards", () => {
     await page.goto("/");
     // JS-init signal — same condition the POMs' goto() waits on.
     await expect(page.locator(".filter-btn").first()).toContainText("(");
-    // The observer is constructed inside a double requestAnimationFrame
-    // after init, so capture is asynchronous — poll for it.
+    // initScrollAnimations() schedules the observer via a double
+    // requestAnimationFrame, so the actual `new IntersectionObserver` runs
+    // after the synchronous DOMContentLoaded init phase returns — capture
+    // is asynchronous, so poll for it.
     await expect
       .poll(() => page.evaluate(() => window.__ioConfigs.length), {
         timeout: 5000,

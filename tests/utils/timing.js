@@ -50,16 +50,17 @@ export async function waitForAnimationComplete(page, { timeout = 5000 } = {}) {
  * directly instead of estimating it.
  *
  * Resolves when every [data-animate] element whose visible fraction
- * meets the IntersectionObserver threshold (10%, with the same -50px
- * bottom rootMargin used in js/main.js) has computed opacity 1 (fully
+ * meets the IntersectionObserver threshold (SCROLL_OBSERVER_THRESHOLD,
+ * with the same SCROLL_OBSERVER_ROOT_MARGIN_BOTTOM bottom rootMargin
+ * mirrored from js/main.js) has computed opacity 1 (fully
  * painted). Polling on the .is-visible class alone is insufficient: the
  * class triggers a 400ms opacity transition (see css/components.css:449-455),
  * and axe-core sampling mid-transition produces false color-contrast
  * failures on WebKit. Polling on computed opacity catches both class
  * addition AND transition completion. The threshold check mirrors the
- * observer's own trigger condition — elements below 10% visibility are
- * skipped because the observer would never fire for them either, so
- * waiting on their opacity would hang.
+ * observer's own trigger condition — elements below SCROLL_OBSERVER_THRESHOLD
+ * visibility are skipped because the observer would never fire for them
+ * either, so waiting on their opacity would hang.
  *
  * Short-circuits under prefers-reduced-motion: reduce — js/main.js never
  * sets up the observer in that case, and CSS in the reduced-motion media
