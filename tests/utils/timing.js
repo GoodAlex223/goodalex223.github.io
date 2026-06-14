@@ -1,41 +1,18 @@
 /**
  * Animation timing utilities for Playwright tests.
- * Reads durations from CSS custom properties (single source of truth).
  */
 import { expect } from "@playwright/test";
 
 /**
- * Get filter animation duration from CSS custom property
- * @param {import('@playwright/test').Page} page
- * @returns {Promise<number>} Duration in milliseconds
+ * Mirror of the production IntersectionObserver config (js/main.js:585-586).
+ * Single source for the scroll-animation drift contract:
+ * waitForScrollAnimations() passes these into its page.evaluate, and
+ * tests/utils/timing-guards.spec.js asserts they match the options object
+ * the production page actually constructs at runtime. If either side
+ * changes, the guard fails and both sides get updated together.
  */
-export async function getAnimationDuration(page) {
-  return page.evaluate(() =>
-    parseInt(
-      getComputedStyle(document.documentElement).getPropertyValue(
-        "--filter-animation-duration",
-      ),
-      10,
-    ),
-  );
-}
-
-/**
- * Get stagger delay from CSS custom property
- * @param {import('@playwright/test').Page} page
- * @returns {Promise<number>} Delay in milliseconds per card
- */
-export async function getStaggerDelay(page) {
-  return page.evaluate(() =>
-    parseInt(
-      getComputedStyle(document.documentElement).getPropertyValue(
-        "--filter-stagger-delay",
-      ),
-      10,
-    ),
-  );
-}
-
+export const SCROLL_OBSERVER_THRESHOLD = 0.1; // mirrors threshold: 0.1
+export const SCROLL_OBSERVER_ROOT_MARGIN_BOTTOM = 50; // mirrors rootMargin "0px 0px -50px 0px"
 
 /**
  * Wait for the filter animation cycle to complete by polling DOM state.
@@ -67,7 +44,10 @@ export async function waitForAnimationComplete(page, { timeout = 5000 } = {}) {
 
 /**
  * Wait for scroll-in animations to settle by polling DOM state.
- * Replaces the fixed-timeout waitForScrollAnimations() POM methods.
+ * Replaces the fixed-timeout waitForScrollAnimations() POM methods
+ * (700ms = max hero stagger 150ms + 400ms opacity transition = 550ms
+ * + buffer); polling subsumes that budget by observing completion
+ * directly instead of estimating it.
  *
  * Resolves when every [data-animate] element whose visible fraction
  * meets the IntersectionObserver threshold (10%, with the same -50px
@@ -114,38 +94,64 @@ export async function waitForScrollAnimations(page, { timeout = 5000 } = {}) {
   await expect
     .poll(
       async () =>
-        page.evaluate(() => {
-          // Mirror the production IntersectionObserver config in
-          // js/main.js:583-587 so the helper only waits on elements the
-          // observer would actually fire for. Otherwise an element that's
-          // geometrically in the viewport but below the threshold (e.g.,
-          // 8% visible after a focus-driven scroll on WebKit) holds the
-          // poll open until the safety-net timeout.
-          //
-          // DRIFT RISK: these constants must match js/main.js:585-586.
-          // If either side changes, update both — no automated guard.
-          const ROOT_MARGIN_BOTTOM = 50; // mirrors rootMargin "0px 0px -50px 0px"
-          const THRESHOLD = 0.1; // mirrors threshold: 0.1
-          const effectiveBottom = window.innerHeight - ROOT_MARGIN_BOTTOM;
-          const elements = document.querySelectorAll("[data-animate]");
-          for (const el of elements) {
-            // Skip cards hidden by the filter system (position:absolute,
-            // visibility:hidden — getBoundingClientRect returns a non-zero rect)
-            if (el.classList.contains("project-card--hidden")) continue;
-            const r = el.getBoundingClientRect();
-            if (r.height === 0 || r.width === 0) continue;
-            const visibleHeight = Math.max(
-              0,
-              Math.min(r.bottom, effectiveBottom) - Math.max(r.top, 0),
-            );
-            if (visibleHeight / r.height >= THRESHOLD) {
-              const opacity = parseFloat(getComputedStyle(el).opacity);
-              if (opacity < 1) return false;
+        page.evaluate(
+          ({ threshold, rootMarginBottom }) => {
+            // Mirror the production observer's trigger condition (see the
+            // exported constants above) so the helper only waits on elements
+            // the observer would actually fire for. Otherwise an element
+            // that's geometrically in the viewport but below the threshold
+            // (e.g., 8% visible after a focus-driven scroll on WebKit)
+            // holds the poll open until the safety-net timeout.
+            const effectiveBottom = window.innerHeight - rootMarginBottom;
+            const elements = document.querySelectorAll("[data-animate]");
+            for (const el of elements) {
+              // Skip cards hidden by the filter system (position:absolute,
+              // visibility:hidden — getBoundingClientRect returns a non-zero rect)
+              if (el.classList.contains("project-card--hidden")) continue;
+              const r = el.getBoundingClientRect();
+              if (r.height === 0 || r.width === 0) continue;
+              const visibleHeight = Math.max(
+                0,
+                Math.min(r.bottom, effectiveBottom) - Math.max(r.top, 0),
+              );
+              if (visibleHeight / r.height >= threshold) {
+                const opacity = parseFloat(getComputedStyle(el).opacity);
+                if (opacity < 1) return false;
+              }
             }
-          }
-          return true;
-        }),
+            return true;
+          },
+          {
+            threshold: SCROLL_OBSERVER_THRESHOLD,
+            rootMarginBottom: SCROLL_OBSERVER_ROOT_MARGIN_BOTTOM,
+          },
+        ),
       { timeout },
     )
     .toBe(true);
+}
+
+/**
+ * Wait for an element to be fully painted (computed opacity 1) by polling.
+ *
+ * Replaces fixed-timeout waits after opacity transitions. The failure mode
+ * a fixed wait papered over: axe-core sampling mid-transition computes text
+ * colors from the element's partial opacity, producing false color-contrast
+ * failures (the documented reason ModalPage.expectOpen previously waited a
+ * fixed 300ms for the modal's 250ms transition).
+ *
+ * No reduced-motion branch is needed: under prefers-reduced-motion the
+ * relevant transitions are disabled (e.g. css/modal.css sets
+ * transition: none on .project-modal), so opacity computes to 1 the moment
+ * the state class is applied and the first poll tick passes.
+ *
+ * @param {import('@playwright/test').Locator} locator
+ * @param {{ timeout?: number }} [options]
+ */
+export async function waitForOpacity(locator, { timeout = 5000 } = {}) {
+  await expect
+    .poll(() => locator.evaluate((el) => getComputedStyle(el).opacity), {
+      timeout,
+    })
+    .toBe("1");
 }

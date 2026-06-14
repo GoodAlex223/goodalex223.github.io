@@ -3,6 +3,7 @@
  * Encapsulates all modal-related locators and actions.
  */
 import { expect } from "@playwright/test";
+import { waitForOpacity } from "../utils/timing.js";
 
 /** Project IDs that have detail data */
 export const PROJECTS_WITH_DETAILS = [
@@ -64,15 +65,11 @@ export class ModalPage {
     // Scroll into view to trigger IntersectionObserver, then wait for card
     // to reach full opacity before clicking. Without this, Firefox clicks
     // at opacity:0 (before scroll animation completes) and the click handler
-    // doesn't reliably fire. Checking computed opacity (not .is-visible class)
+    // doesn't reliably fire. Polling computed opacity (not .is-visible class)
     // works for both normal mode (opacity via transition) and reduced-motion
     // mode (opacity via CSS override, no .is-visible needed).
     await title.scrollIntoViewIfNeeded();
-    await expect
-      .poll(() => card.evaluate((el) => getComputedStyle(el).opacity), {
-        timeout: 5000,
-      })
-      .toBe("1");
+    await waitForOpacity(card);
     await title.click();
     await this.expectOpen();
   }
@@ -112,10 +109,12 @@ export class ModalPage {
   async expectOpen() {
     await expect(this.modal).toHaveClass(/project-modal--open/);
     await expect(this.modal).not.toHaveAttribute("hidden", "");
-    // Wait for modal opacity transition (250ms) to complete. Without this,
-    // axe-core scans mid-transition and computes reduced text colors from
-    // the parent's partial opacity, causing false contrast failures.
-    await this.page.waitForTimeout(300);
+    // Wait for the modal opacity transition (250ms) to complete by polling
+    // computed opacity. Without this, axe-core scans mid-transition and
+    // computes reduced text colors from the parent's partial opacity,
+    // causing false contrast failures. Polling (vs. the old fixed 300ms)
+    // is immune to browser timing variance.
+    await waitForOpacity(this.modal);
   }
 
   async expectClosed() {

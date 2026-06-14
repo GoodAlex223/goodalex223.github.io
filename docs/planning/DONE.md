@@ -1,8 +1,26 @@
 # DONE
 
-**Last Updated**: 2026-06-10 (Backlog Drain & Cleanup-Week Bootstrapping)
+**Last Updated**: 2026-06-12 (Test Infrastructure Cleanup — Cleanup Week #1 Group D)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-06-12
+
+### Test Infrastructure Cleanup `[batch]` (Cleanup Week #1 — Group D)
+
+**Plan**: [docs/archive/plans/2026-06-12_test-infra-cleanup.md](../archive/plans/2026-06-12_test-infra-cleanup.md)
+**Spec**: [docs/archive/specs/2026-06-12_test-infra-cleanup-design.md](../archive/specs/2026-06-12_test-infra-cleanup-design.md)
+**PR**: pending (branch `test/infra-cleanup`)
+**Summary**: Tuesday Group D of Cleanup Week #1 — drained the remaining fixed-timeout smells from the Playwright suite, added an automated guard for the test↔production IntersectionObserver constant contract, and tied off PR #71 lineage/consistency debt. All 6 spec items delivered (4 planned + 2 approved scope extensions). After this branch the only `waitForTimeout` calls left in `tests/` are the documented-intentional ones (`setTheme` 400ms ×3 POMs, the 50ms pre-delay in `waitForAnimationComplete`). The design-spec §5 hypothesis of a reduced-motion modal close-button focus gap was investigated with a throwaway probe and found **not real** — `transitionend` still fires under reduced motion because `css/main.css:244` forces `transition-duration: 0.01ms !important`, so the focus handler runs and the close button receives focus; no entry filed.
+**Key Changes**:
+- `tests/utils/timing.js`: removed unused `getAnimationDuration()`/`getStaggerDelay()`; exported `SCROLL_OBSERVER_THRESHOLD`/`SCROLL_OBSERVER_ROOT_MARGIN_BOTTOM` (single-sourced into `waitForScrollAnimations`'s `page.evaluate` arg); added generic `waitForOpacity(locator)`; restored the stagger-budget JSDoc lineage.
+- `tests/utils/timing-guards.spec.js` (new): 2 guards — runtime `IntersectionObserver`-intercept asserting the production config matches the mirror constants (exactly one observer); filter-hidden regression that `waitForScrollAnimations` resolves while hidden cards are in-viewport (precondition asserts the hang condition is genuinely present). Both mutation-checked.
+- `tests/pages/ModalPage.js`: `expectOpen()` and `clickCard()` now use `waitForOpacity` (dropped the fixed 300ms wait + the hand-rolled inline poll).
+- `tests/{modal,form,filter}/axe-scan.spec.js` + `tests/filter/reduced-motion.spec.js`: added `waitForScrollAnimations(page)` to reduced-motion paths for structural consistency (add-the-call decision, superseding the planned comment-the-omission nit).
+- `tests/modal/url-hash.spec.js`: replaced 2× `waitForTimeout(500)` in the negative tests with deterministic waits (`Promise.all([waitForResponse(projects.json), goto])` + JS-init signal; init signal + `waitForAnimationComplete`).
+- Validation: full lint clean; `npm test` 603 passed / 4 skipped (only environmental WebKit-OOM-under-4-worker failures — green single-worker, and CI pins `workers: 1`); flake-confidence repeat runs 270 + 288 passed, zero flakes. Subagent-driven execution with two-stage (spec + quality) review per task; final whole-branch review returned Ready-to-merge.
 
 ---
 

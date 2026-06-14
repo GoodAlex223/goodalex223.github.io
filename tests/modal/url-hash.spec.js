@@ -1,5 +1,6 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { ModalPage } from "../pages/ModalPage.js";
+import { waitForAnimationComplete } from "../utils/timing.js";
 
 test.describe("Modal URL Hash", () => {
   let mp;
@@ -37,17 +38,35 @@ test.describe("Modal URL Hash", () => {
   });
 
   test("does not open modal for invalid project hash", async ({ page }) => {
-    await page.goto("/#project=nonexistent");
-    // Wait for JS to initialize
+    // The hash-open path fetches projects.json even for invalid IDs — the
+    // ID is validated only AFTER the fetch (js/main.js fetches, then checks
+    // data[projectId]). Waiting for that response to finish replaces the
+    // old fixed 500ms with the actual causal chain: once the fetch is done
+    // and init has completed, a modal that was going to open would be open.
+    // Promise.all registers the response listener before navigation fires,
+    // so the guarantee is structural, not dependent on statement ordering.
+    const [response] = await Promise.all([
+      page.waitForResponse((resp) =>
+        resp.url().includes("data/projects.json"),
+      ),
+      page.goto("/#project=nonexistent"),
+    ]);
+    await response.finished();
     const mp2 = new ModalPage(page);
-    await page.waitForTimeout(500);
+    // JS-init signal: filter button labels include counts once init completes.
+    await expect(page.locator(".filter-btn").first()).toContainText("(");
     await mp2.expectClosed();
   });
 
   test("does not interfere with filter hash", async ({ page }) => {
+    // No modal code runs for #filter= hashes (no projects.json fetch to
+    // await). Wait for JS init, then for the hash-applied filter's
+    // animation cycle (passes immediately if the initial application
+    // doesn't animate), then assert the modal stayed closed.
     await page.goto("/#filter=backend");
     const mp2 = new ModalPage(page);
-    await page.waitForTimeout(500);
+    await expect(page.locator(".filter-btn").first()).toContainText("(");
+    await waitForAnimationComplete(page);
     await mp2.expectClosed();
   });
 

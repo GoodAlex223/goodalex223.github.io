@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-06-08 (Backlog Restructure completed)
+**Last Updated**: 2026-06-12 (Test Infrastructure Cleanup — Cleanup Week #1 Group D)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **Test Infrastructure Cleanup** (Cleanup Week #1, Group D): drained the last fixed-timeout smells from the Playwright suite — generic `waitForOpacity(locator)` replacing `ModalPage`'s 300ms wait + inline poll, deterministic url-hash negative tests (Promise.all `waitForResponse` + JS-init signal), exported `SCROLL_OBSERVER_*` constants with a runtime-intercept guard test + a filter-hidden regression test, reduced-motion consistency calls, and removal of unused timing fns. Investigated and disproved the hypothesized reduced-motion modal focus gap. → moved to [DONE.md](DONE.md)
 - **Backlog Restructure**: source-split `BACKLOG.md` (📌 Process Rules + 🔵 User-Flagged / 🟡 Operational / 🟤 Auto-Generated) with weekly SP quotas; lossless-for-open migration (234→237 open items, 117 completed pruned); `CLAUDE.md` Backlog Intake Rules section; new `scripts/check-backlog-structure.js` guard wired into husky + CI → moved to [DONE.md](DONE.md)
 - **CI Deadline & Docs**: 4-deliverable PR #70 closing the 2026-06-02 Node 24 GitHub Actions deprecation deadline (7 action references bumped: checkout v4→v6, setup-node v4→v6, upload-artifact v4→v7, download-artifact v4→v8, configure-pages v4→v6, upload-pages-artifact v4→v5, deploy-pages v4→v5; `include-hidden-files: true` for lighthouse upload) plus ROADMAP phase restructure, CLAUDE.md Shell Gotchas elevation, and `docs/superpowers/` cleanup → moved to [DONE.md](DONE.md)
 - **BACKLOG Validator Hardening**: 5-item hardening of `scripts/validate-backlog-paths.js` — denylist extension to `docs/superpowers/`, git-index read with two-level fallback, anchored detection regex (incl. bullet-prefixed Origin support), `npm run validate-backlog` script, CI lint-job gate closing `--no-verify` bypass → moved to [DONE.md](DONE.md)
