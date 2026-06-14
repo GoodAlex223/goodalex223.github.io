@@ -130,14 +130,21 @@ function assetExists(absolutePath) {
 
 /**
  * Fast-fails when dist/ is missing or empty (the common "forgot npm run build"
- * case). Avoids printing one generic ✗ per dist/ ref. Returns nothing; calls
- * process.exit(1) on failure.
+ * case). A `dist` that exists but is not a directory (e.g., a stray file) is
+ * treated as missing. Avoids printing one generic ✗ per dist/ ref. Returns
+ * nothing; calls process.exit(1) on failure.
  */
 function checkDistPreflight() {
   const distDir = path.join(ROOT, 'dist');
-  if (!fs.existsSync(distDir) || fs.readdirSync(distDir).length === 0) {
+  let hasEntries = false;
+  try {
+    hasEntries = fs.readdirSync(distDir).length > 0;
+  } catch {
+    // ENOENT (missing) or ENOTDIR (dist is a file) — no usable dist/.
+  }
+  if (!hasEntries) {
     console.error(
-      `Error: ${RED}dist/ missing or incomplete${RESET} — run \`npm run build\` first.`
+      `Error: ${RED}dist/ missing or empty${RESET} — run \`npm run build\` first.`
     );
     process.exit(1);
   }
