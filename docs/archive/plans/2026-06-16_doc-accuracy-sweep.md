@@ -10,7 +10,7 @@
 
 **Testing note (read first):** This is a pure-documentation change — no automated tests apply, and TDD's test-first cycle does not map. Each edit task is: apply the exact edit → verify with `git diff` + Markdown-render reasoning → commit. Do **not** invent tests.
 
-**Spec:** [docs/superpowers/specs/2026-06-16-doc-accuracy-sweep-design.md](specs/2026-06-16-doc-accuracy-sweep-design.md) (archived at task-completion to `docs/archive/specs/2026-06-16_doc-accuracy-sweep-design.md`).
+**Spec:** [docs/archive/specs/2026-06-16_doc-accuracy-sweep-design.md](../specs/2026-06-16_doc-accuracy-sweep-design.md).
 
 ---
 
