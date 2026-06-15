@@ -8,7 +8,7 @@
 
 **Tech Stack:** Node.js (CommonJS), `fs`, `child_process.execFileSync`, Git Bash for repro commands, ESLint (Node CJS environment).
 
-**Spec:** [docs/superpowers/specs/2026-06-14-script-robustness-design.md](../specs/2026-06-14-script-robustness-design.md)
+**Spec:** [docs/archive/specs/2026-06-14_script-robustness-design.md](../specs/2026-06-14_script-robustness-design.md)
 
 ---
 

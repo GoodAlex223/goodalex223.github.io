@@ -85,10 +85,11 @@ One PR. Recurring `docs/superpowers/` dead links in archived/frozen docs + the u
 ### Wednesday — Script Robustness (5 SP)
 
 **Group C — Script Robustness & Observability** `[batch]` — 🟤 — 5 SP
-- [ ] `check-assets.js` — non-directory `dist` guard *(1 SP)*
-- [ ] `check-assets.js` — JSDoc vs error wording reconcile *(1 SP)*
-- [ ] `check-assets.js` — `extractJsonRefs` JSDoc + stale-hash hint color *(1 SP)*
-- [ ] `validate-backlog-paths.js` — working-tree fallback `console.warn` + spec-targeted fix-guidance *(2 SP)*
+- [x] `check-assets.js` — non-directory `dist` guard *(1 SP)* — Edit B (`readdirSync` try/catch; ENOENT+ENOTDIR)
+- [x] `check-assets.js` — JSDoc vs error wording reconcile *(1 SP)* — Edit C ("missing or empty")
+- [x] `check-assets.js` — `extractJsonRefs` JSDoc + stale-hash hint color *(1 SP)* — Edits D + E (new YELLOW constant)
+- [x] `validate-backlog-paths.js` — working-tree fallback `console.warn` + spec-targeted fix-guidance *(2 SP)* — Edits F + G
+- **Outcome:** 4 commits on `chore/script-robustness` (9e4dfee · c272129 · 0342697 · d2168a4); all 5 CI gates green (lint, build, check-assets 29/0, validate-backlog, check-backlog-structure). Subagent-driven, two-stage review per task + Ready-to-merge final whole-branch review. Spec/plan archived to `docs/archive/`. Low-confidence item 4b (conf 30) kept in-scope per brainstorming. 3 new 🟤 follow-ups extracted (EACCES `catch {}` swallow; `→` escape-style cross-file nit; `FORBIDDEN_ORIGIN_PATHS` comment).
 
 ### Thursday — Documentation Accuracy (7 SP)
 
@@ -114,7 +115,7 @@ One PR. Recurring `docs/superpowers/` dead links in archived/frozen docs + the u
 |-------|--------|--------|-------|----------|-----|--------|
 | A. Backlog Drain & Cleanup Bootstrapping 🏆 | Planning/Docs | 🟤 Auto | 2 | 5 | Mon | ✅ Done |
 | D. Test Infrastructure Cleanup `[batch]` | Testing | 🟤 Auto | 4 | 6 | Tue | ✅ Done |
-| C. Script Robustness & Observability `[batch]` | CI/Build | 🟤 Auto | 4 | 5 | Wed | ⏳ Planned |
+| C. Script Robustness & Observability `[batch]` | CI/Build | 🟤 Auto | 4 | 5 | Wed | ✅ Done |
 | B. Documentation Accuracy Sweep `[batch]` | Docs | 🟤 Auto | 5 | 7 | Thu | ⏳ Planned |
 | E. Archived-Doc Dead-Link Cleanup `[batch]` | Docs | 🟤 Auto | 3 | 3 | Fri | ⏳ Planned |
 | **Total** | | | **18** | **26** | | |
