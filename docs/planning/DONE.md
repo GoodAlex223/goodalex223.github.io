@@ -1,8 +1,23 @@
 # DONE
 
-**Last Updated**: 2026-06-14 (Script Robustness & Observability — Cleanup Week #1 Group C)
+**Last Updated**: 2026-06-16 (Documentation Accuracy Sweep — Cleanup Week #1 Group B)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-06-16
+
+### Documentation Accuracy Sweep `[batch]` (Cleanup Week #1 — Group B)
+
+**Plan**: [docs/archive/plans/2026-06-16_doc-accuracy-sweep.md](../archive/plans/2026-06-16_doc-accuracy-sweep.md)
+**Spec**: [docs/archive/specs/2026-06-16_doc-accuracy-sweep-design.md](../archive/specs/2026-06-16_doc-accuracy-sweep-design.md)
+**PR**: pending (branch `docs/accuracy-sweep`)
+**Summary**: Thursday Group B of Cleanup Week #1 — a verify-first documentation-accuracy pass over the five planned items. Ground-truth verification (2026-06-16) showed the list was a mix: 3 genuinely-real `ROADMAP.md` edits, plus 4 items closed without edit (1 already-done, 2 sync-owned/accurate, 1 obsolete). Only `ROADMAP.md` received content edits; CLAUDE.md AUTO-MANAGED regions were left to `/auto-memory:sync` by design (no real drift remained — the `check-backlog-structure` sync already landed in `687940a`).
+**Key Changes**:
+- `docs/planning/ROADMAP.md`: removed the duplicate trailing `*Last updated*` footer (the `**Last Updated**` header field is retained as the single date); added a v1.5/v1.1 parallel-development footnote (v1.5 feature commits date to 2026-01-28, predating v1.1's 2026-02-10 Bing item, despite the later "Completed 2026-03-21" label); switched the Quality & Hardening cross-links to bare-name form (`[WEEKLY.md](WEEKLY.md)`) and added an HTML comment documenting the in-progress→completed phase-header transition convention.
+**Resolved BACKLOG items**: 9 closed across the 🟤 bucket — 5 DONE (`check-backlog-structure` sync via `687940a`; v1.5 footnote; duplicate footer; cross-links; transition comment), 3 WON'T-DO (DONE "zero extra" verified correct in scope — it describes migration parity, with the 3 EXTRACT follow-ups documented separately in the same entry; 2× Shell Gotchas reword sync-owned + accurate), 1 OBSOLETE (checkout@v4→v6 target observability item pruned in Group A).
+**Task-completion EXTRACT**: 2 new 🟤 follow-ups — tracking-doc item bodies citing absolute line numbers drift (conf 50); pruning an item can leave a dangling self-referential tracker (conf 40, `[possible-dup-of: Prevent prune-on-audit backlog re-accumulation]`). Net 🟤: 9 resolved − 2 new = −7.
 
 ---
 
