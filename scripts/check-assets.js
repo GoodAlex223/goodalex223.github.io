@@ -20,6 +20,7 @@ const PROJECTS_PATH = path.join(ROOT, 'data', 'projects.json');
 // Color constants for reporting
 const GREEN = '\x1b[32m';
 const RED = '\x1b[31m';
+const YELLOW = '\x1b[33m';
 const RESET = '\x1b[0m';
 
 /**
@@ -72,7 +73,8 @@ function extractHtmlRefs(filePath, sourceLabel) {
 
 /**
  * Extracts screenshot src paths from data/projects.json.
- * Walks projects[*].screenshots[].src. Skips excluded refs.
+ * Walks projects[*].screenshots[].src. Skips non-object projects[*] entries
+ * (defensive against malformed JSON) and excluded refs.
  */
 function extractJsonRefs() {
   const projects = JSON.parse(fs.readFileSync(PROJECTS_PATH, 'utf8'));
@@ -130,14 +132,21 @@ function assetExists(absolutePath) {
 
 /**
  * Fast-fails when dist/ is missing or empty (the common "forgot npm run build"
- * case). Avoids printing one generic ✗ per dist/ ref. Returns nothing; calls
- * process.exit(1) on failure.
+ * case). A `dist` that exists but is not a directory (e.g., a stray file) is
+ * treated as missing. Avoids printing one generic ✗ per dist/ ref. Returns
+ * nothing; calls process.exit(1) on failure.
  */
 function checkDistPreflight() {
   const distDir = path.join(ROOT, 'dist');
-  if (!fs.existsSync(distDir) || fs.readdirSync(distDir).length === 0) {
+  let hasEntries = false;
+  try {
+    hasEntries = fs.readdirSync(distDir).length > 0;
+  } catch {
+    // ENOENT (missing) or ENOTDIR (dist is a file) — no usable dist/.
+  }
+  if (!hasEntries) {
     console.error(
-      `Error: ${RED}dist/ missing or incomplete${RESET} — run \`npm run build\` first.`
+      `Error: ${RED}dist/ missing or empty${RESET} — run \`npm run build\` first.`
     );
     process.exit(1);
   }
@@ -191,7 +200,7 @@ function main() {
     } else {
       if (!distHintShown && /^\/?dist\//.test(result.ref)) {
         console.error(
-          `\n  ${RED}Hint:${RESET} dist/ may be stale \u2014 run \`npm run build\` to refresh hashed assets.\n`
+          `\n  ${YELLOW}Hint:${RESET} dist/ may be stale \u2014 run \`npm run build\` to refresh hashed assets.\n`
         );
         distHintShown = true;
       }

@@ -1,8 +1,25 @@
 # DONE
 
-**Last Updated**: 2026-06-12 (Test Infrastructure Cleanup — Cleanup Week #1 Group D)
+**Last Updated**: 2026-06-14 (Script Robustness & Observability — Cleanup Week #1 Group C)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-06-14
+
+### Script Robustness & Observability `[batch]` (Cleanup Week #1 — Group C)
+
+**Plan**: [docs/archive/plans/2026-06-14_script-robustness.md](../archive/plans/2026-06-14_script-robustness.md)
+**Spec**: [docs/archive/specs/2026-06-14_script-robustness-design.md](../archive/specs/2026-06-14_script-robustness-design.md)
+**PR**: pending (branch `chore/script-robustness`)
+**Summary**: Wednesday Group C of Cleanup Week #1 — six small defensive/observability edits across two standalone CI scripts, **no happy-path behavior change**. Verification was manual reproduction (stray-file `dist`, non-git temp dir, isolated git fixture repo) since the repo has no `scripts/` test harness; all 5 CI gates green (lint, build, check-assets 29/0, validate-backlog OK, check-backlog-structure OK). Low-confidence item 4b (spec-targeted fix-guidance, conf 30) was kept in-scope per brainstorming rather than deferred as a Cleanup-Week won't-do. Subagent-driven execution with two-stage (spec + quality) review per task; final whole-branch review returned Ready-to-merge.
+**Key Changes**:
+- `scripts/check-assets.js`: `checkDistPreflight()` now wraps `readdirSync` in try/catch so a missing, non-directory (stray file), or empty `dist/` all yield the clean "dist/ missing or empty" message instead of a raw `ENOTDIR` stack trace (Edit B); the redundant `existsSync` pre-check was dropped and the JSDoc/message reconciled to "missing or empty" (was "incomplete", Edit C); added a `YELLOW` color constant and recolored the recoverable stale-hash `Hint:` label RED→YELLOW (Edits A + E); `extractJsonRefs()` JSDoc now documents the non-object guard (Edit D).
+- `scripts/validate-backlog-paths.js`: `console.warn` on the inner-catch (git-entirely-unavailable) working-tree fallback so the silent degradation is observable in CI logs (Edit F); per-violation subtree detection that suggests `docs/archive/specs/` vs `docs/archive/plans/` from the offending path, with the documented `[matched: <path>]` substring preserved verbatim so CLAUDE.md stays accurate and no docs files were touched (Edit G).
+- Spec + plan archived to `docs/archive/{specs,plans}/` (underscored-date convention); the plan's spec cross-link updated to the archived path to avoid a fresh `docs/superpowers/` dead link.
+**Resolved BACKLOG items**: 6 checked off in 🟤 Auto-Generated — fix-guidance for spec-targeted violations (Edit G), `console.warn` on `readBacklog()` fallback (Edit F), `checkDistPreflight()` non-directory guard (Edit B), `checkDistPreflight()` JSDoc-vs-message wording (Edit C), `extractJsonRefs()` JSDoc non-object guard (Edit D), restyle stale-hash hint label (Edit E).
+**Task-completion EXTRACT**: 3 new 🟤 follow-ups — EACCES bare-`catch` swallow (conf 30); cross-file `→`/numeric-escape style nit (conf 20); `FORBIDDEN_ORIGIN_PATHS` comment subtree note (conf 25). Net 🟤: −6 resolved / +3 new.
 
 ---
 

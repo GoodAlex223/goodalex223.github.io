@@ -42,7 +42,10 @@ function readBacklog() {
       // Inside a git repo but file not in index — skip.
       return null;
     } catch {
-      // git not available — read from working tree.
+      // git unavailable entirely — last-resort validation against the working-tree file.
+      console.warn(
+        'validate-backlog-paths: git unavailable; falling back to working-tree read.'
+      );
       const fullPath = path.join(__dirname, '..', BACKLOG_REL_PATH);
       if (!fs.existsSync(fullPath)) return null;
       return fs.readFileSync(fullPath, 'utf8');
@@ -61,20 +64,26 @@ content.split('\n').forEach((line, index) => {
   if (!/^\s*(?:[-*+]\s+)?\*\*Origin\*\*/.test(line)) return;
   const matched = FORBIDDEN_ORIGIN_PATHS.find((p) => line.includes(p));
   if (matched) {
-    violations.push({ line: index + 1, content: line.trim(), matched });
+    // Spec-staged Origins (…/specs/…) should retarget docs/archive/specs/;
+    // everything else docs/archive/plans/. Detect from the forbidden subtree.
+    const afterPrefix = line.slice(line.indexOf(matched) + matched.length);
+    const suggested = afterPrefix.startsWith('specs/')
+      ? 'docs/archive/specs/'
+      : 'docs/archive/plans/';
+    violations.push({ line: index + 1, content: line.trim(), matched, suggested });
   }
 });
 
 if (violations.length > 0) {
   console.error('\x1b[31mBACKLOG Origin path validation failed:\x1b[0m\n');
   violations.forEach((v) => {
-    console.error(`  Line ${v.line} [matched: ${v.matched}]: ${v.content}`);
+    console.error(`  Line ${v.line} [matched: ${v.matched}] → use ${v.suggested}: ${v.content}`);
   });
   console.error(
-    `\n\x1b[33mOrigin paths must point to docs/archive/plans/, not any of: ${FORBIDDEN_ORIGIN_PATHS.join(', ')}\x1b[0m`
+    `\n\x1b[33mOrigin paths must point to docs/archive/plans/ (or docs/archive/specs/ for specs), not any of: ${FORBIDDEN_ORIGIN_PATHS.join(', ')}\x1b[0m`
   );
   console.error(
-    'Fix: Replace the forbidden path with the equivalent docs/archive/plans/... path in the Origin lines above.\n'
+    'Fix: Replace each forbidden path with the suggested docs/archive/... path shown above.\n'
   );
   process.exit(1);
 }
