@@ -78,7 +78,3 @@ Larger content surfaces, scheduled after Quality & Hardening winds down.
 3. **Accessibility**: Usable by everyone
 4. **Maintainability**: Easy to update and extend
 5. **Professionalism**: Clean, polished presentation
-
----
-
-*Last updated: 2026-05-10*
