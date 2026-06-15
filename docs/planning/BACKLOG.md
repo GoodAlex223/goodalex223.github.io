@@ -275,6 +275,12 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 ## 🟤 Auto-Generated Tech Debt
 
+### From PR #75 Code Review (2026-06-15)
+**Origin**: docs/archive/plans/2026-06-14_script-robustness.md
+
+- [ ] CLAUDE.md line 224 quotes the now-stale dist-preflight message — PR #75's Edit C changed `checkDistPreflight()` in `scripts/check-assets.js` to emit "dist/ missing or empty" (was "dist/ missing or incomplete"), but the Internal-asset-check bullet at CLAUDE.md line 224 still quotes the old "dist/ missing or incomplete — run `npm run build` first" verbatim. The drift only materializes on merge (on pre-merge `main` both strings were in sync). Line 224 sits inside the `<!-- AUTO-MANAGED: patterns -->` region (CLAUDE.md 153–244), so route the fix through `/auto-memory:sync` rather than a hand-edit the next sync would clobber. (PR #75 code review, confidence 75, doc drift)
+- [ ] `validate-backlog-paths.js` sparse-checkout comment overstates the fallback — the pre-existing block comment in `readBacklog()` (line ~25) says a future "sparse-checkout or blob-filter mode in the lint job would cause this to fail and silently fall back to working-tree read", but with the `git rev-parse --is-inside-work-tree` guard that scenario returns `null` (skip — treated as absent); it does NOT reach the working-tree read (which — now warned by Edit F — only fires when git is entirely unavailable). Comment was not touched by PR #75; reword to say the file is skipped rather than read from the working tree. (PR #75 code review, confidence 25, comment accuracy)
+
 ### From Script Robustness & Observability Group C (2026-06-14)
 **Origin**: docs/archive/plans/2026-06-14_script-robustness.md
 
