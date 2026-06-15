@@ -42,6 +42,8 @@ User-facing feature work.
 - Project Detail Modal (Weekly Challenge — lazy-fetched data, focus management, axe-clean)
 - Contact Form (Weekly Challenge — Formspree, honeypot, full validation, accessible state machine)
 
+> _Phase versions group feature themes, not a strict delivery sequence: several v1.5 features (theme toggle, filtering, scroll animations, the 404 page) were committed as early as 2026-01-28 — in parallel with v1.1 — while "Completed 2026-03-21" marks when the v1.5 theme's headline work (Project Detail Modal, Contact Form) shipped._
+
 ### Quality & Hardening (🔧 In Progress, since 2026-04)
 
 Test reliability, CI/CD robustness, code quality, automated link/asset checking, validator hardening, runtime modernization. See [docs/planning/WEEKLY.md](WEEKLY.md) for the current sprint and [docs/planning/DONE.md](DONE.md) for the historical record.
