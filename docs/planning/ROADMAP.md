@@ -46,7 +46,9 @@ User-facing feature work.
 
 ### Quality & Hardening (🔧 In Progress, since 2026-04)
 
-Test reliability, CI/CD robustness, code quality, automated link/asset checking, validator hardening, runtime modernization. See [docs/planning/WEEKLY.md](WEEKLY.md) for the current sprint and [docs/planning/DONE.md](DONE.md) for the historical record.
+<!-- Transition convention: when this phase closes, change the header from "🔧 In Progress, since 2026-04" to "✅ Completed YYYY-MM-DD" to match the v1.x phase entries above. -->
+
+Test reliability, CI/CD robustness, code quality, automated link/asset checking, validator hardening, runtime modernization. See [WEEKLY.md](WEEKLY.md) for the current sprint and [DONE.md](DONE.md) for the historical record.
 
 Active themes:
 - Test infrastructure: deterministic DOM-state polling, browser-specific flake elimination
