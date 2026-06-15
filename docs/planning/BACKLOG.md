@@ -275,6 +275,12 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 ## 🟤 Auto-Generated Tech Debt
 
+### From Documentation Accuracy Sweep (2026-06-16)
+**Origin**: docs/archive/plans/2026-06-16_doc-accuracy-sweep.md
+
+- [ ] Tracking-doc item bodies cite absolute line numbers that drift — Group B found multiple stale line refs in BACKLOG/WEEKLY item bodies (WEEKLY's "line 948" when BACKLOG.md is 666 lines; BACKLOG items citing "line 19/33/60/84/112/224"). Absolute line numbers rot as files change and mislead the next reader/executor. Prefer a unique quoted anchor phrase or a section/header reference over absolute line numbers when writing BACKLOG/WEEKLY item bodies. (Group B task-completion EXTRACT, confidence 50, doc-hygiene/process)
+- [ ] Pruning a BACKLOG item can leave a dangling self-referential tracker — Group B item 5c (the "update parenthetical … actions/checkout@v4→v6" item) survived Group A's prune of its target observability item, becoming a no-op pointing at content that no longer exists. When pruning/resolving an item, also resolve any other item whose body exists only to track a change to the pruned one. (Group B task-completion EXTRACT, confidence 40, backlog-hygiene) [possible-dup-of: Prevent prune-on-audit backlog re-accumulation]
+
 ### From PR #75 Code Review (2026-06-15)
 **Origin**: docs/archive/plans/2026-06-14_script-robustness.md
 
