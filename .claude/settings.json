@@ -32,8 +32,6 @@
     "playwright@claude-plugins-official": true,
     "claude-code-setup@claude-plugins-official": true,
     "playground@claude-plugins-official": true,
-    "chrome-devtools-mcp@claude-plugins-official": true,
-    "prompt-improver@severity1-marketplace": true,
-    "auto-memory@severity1-marketplace": true
+    "chrome-devtools-mcp@claude-plugins-official": true
   }
 }
