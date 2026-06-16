@@ -63,15 +63,14 @@ goodalex223/
 
 ## MCP Servers
 
-Config in `.mcp.json` (gitignored). Template: `.mcp.json.example`.
+Project servers are configured in `.mcp.json` (gitignored; template `.mcp.json.example` ships `context7` + `playwright`) and as `enabledPlugins` in `.claude/settings.json` (`context7`, `playwright`, `chrome-devtools`). `github` is not configured in-repo — it comes from the user's global Claude Code setup.
 
 | Server | Purpose |
 |--------|---------|
 | context7 | Up-to-date library docs (Playwright, PostCSS, etc.) |
 | playwright | Browser automation — navigate, click, fill, screenshot |
-| github | GitHub API — issues, PRs, file contents |
-| firecrawl | Web scraping and crawling |
 | chrome-devtools | DevTools: Lighthouse, performance traces, memory snapshots |
+| github | GitHub API — issues, PRs, file contents (user-global, not in-repo) |
 
 **Browser tool selection**: `npm test` for full suite, playwright MCP for ad-hoc inspection, chrome-devtools MCP for Lighthouse/performance profiling.
 
