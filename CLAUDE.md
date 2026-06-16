@@ -48,31 +48,15 @@ npx serve              # Local server (or python -m http.server 8000)
 goodalex223/
 ├── index.html                    # Main portfolio page (single-page site)
 ├── 404.html                      # Custom 404 error page
-├── css/
-│   ├── main.css                  # Entry point (@import bundling + layout)
-│   ├── variables.css             # Design tokens (colors, spacing, typography)
-│   ├── reset.css, utilities.css  # Browser normalization + utility classes
-│   ├── components.css            # UI components (cards, buttons, filter)
-│   ├── modal.css                 # Project detail modal styles
-│   └── form.css                  # Contact form styles
+├── css/                          # main.css entry (@import bundle) → variables (tokens), reset, utilities, components, modal, form
 ├── js/main.js                    # All client JS (theme, filter, scroll animations, modal, form)
 ├── data/projects.json            # Project detail data (lazy-fetched by modal)
 ├── dist/                         # Built CSS/JS with content hashes (generated, gitignored)
 ├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-links, check-assets, validate-backlog-paths, check-backlog-structure)
-├── tests/
-│   ├── filter/                   # Filter system tests (9 spec files)
-│   ├── modal/                    # Modal tests (6 spec files)
-│   ├── form/                     # Contact form tests (4 spec files)
-│   ├── seo/                      # SEO meta tag tests
-│   ├── pages/                    # Page Object Models (FilterPage, ModalPage, FormPage)
-│   └── utils/                    # Timing helpers + axe-core accessibility helper
+├── tests/                        # Playwright E2E: filter/ modal/ form/ seo/ + pages/ (POMs) + utils/ (timing, axe helpers)
 ├── docs/                         # Documentation, planning, archives
 ├── .github/workflows/deploy.yml  # CI/CD pipeline
-├── lighthouserc.js               # Lighthouse CI config (≥90/100 threshold)
-├── .stylelintrc.json             # CSS linting rules
-├── eslint.config.js              # JS linting (3 environments: browser, Node CJS, Playwright ESM)
-├── commitlint.config.js          # Conventional Commits (72-char header max)
-└── playwright.config.js          # Test config (Chromium, Firefox, WebKit)
+└── (root config)                 # lighthouserc.js, .stylelintrc.json, eslint.config.js, commitlint.config.js, playwright.config.js — see Code Conventions
 ```
 
 <!-- END AUTO-MANAGED -->
@@ -83,7 +67,6 @@ Config in `.mcp.json` (gitignored). Template: `.mcp.json.example`.
 
 | Server | Purpose |
 |--------|---------|
-| memory | Persistent knowledge graph — session context, decisions |
 | context7 | Up-to-date library docs (Playwright, PostCSS, etc.) |
 | playwright | Browser automation — navigate, click, fill, screenshot |
 | github | GitHub API — issues, PRs, file contents |
@@ -122,33 +105,13 @@ Config in `.mcp.json` (gitignored). Template: `.mcp.json.example`.
 
 ## Backlog Intake Rules
 
-BACKLOG.md is split into three source sections. Authoritative rules live in
-`docs/planning/BACKLOG.md` 📌 Process Rules section — read it first. Summary:
+`BACKLOG.md` is source-split; authoritative rules live in its 📌 Process Rules section (`docs/planning/BACKLOG.md`) — read it before adding entries. Routing:
+- User-raised (conversation, idea, content request) → 🔵 User-Flagged
+- Claude/automation-surfaced (code-review, PR post-merge review, CLAUDE.md/doc hygiene, test backfill) → 🟤 Auto-Generated Tech Debt
+- Time-sensitive ops/watch (post-deploy, CI, Lighthouse/size, Bing-index, Formspree spam) → 🟡 Operational & Observation
+- Unsure → ask; default 🔵 if user-raised, 🟤 if Claude-surfaced
 
-### Where new entries go
-- User mentioned it (conversation, idea sharing, content request) → 🔵 User-Flagged
-- Claude/automation surfaced it (code-review finding, PR post-merge review, CLAUDE.md
-  staleness, doc hygiene, test backfill) → 🟤 Auto-Generated Tech Debt
-- Time-sensitive ops/watch (post-deploy, CI check, Lighthouse/size monitoring,
-  Bing-index verification, Formspree spam watch) → 🟡 Operational & Observation
-- Unsure → ask before adding; default-to-🔵 if user-raised, default-to-🟤 if Claude-surfaced
-
-### Intake format
-- Group by `### From <event> (YYYY-MM-DD)`
-- Keep the `**Origin**: docs/archive/plans/<file>` line when migrating from a completed
-  plan (validate-backlog-paths.js enforces archive paths)
-- One entry per concrete actionable item; never silently merge similar entries on
-  intake — tag `[possible-dup-of: <other-entry-title>]` instead
-- Required entry shape: `- [ ] **Short title** — body with context, cross-refs, affected files`
-
-### Rate limit on 🟤 Auto-Generated
-- PR post-merge review findings accumulate in a single `### From PR #N … review` section
-  per PR — they do NOT spread into the weekly plan unless this week is a Cleanup Week
-  (declared in WEEKLY.md header)
-- When 🟤 grows beyond ~20 SP of pending items, surface this in the next planning
-  conversation as a Cleanup Week trigger
-- Cleanup Week history (pre/post-drain bucket counts, trigger details, threshold calibration
-  decisions) is recorded in `docs/planning/cleanup-week-log.md`
+Entry shape `- [ ] **Short title** — body with context, cross-refs, affected files`, grouped by `### From <event> (YYYY-MM-DD)`. Keep the `**Origin**: docs/archive/plans/<file>` line when migrating from a completed plan (enforced by `validate-backlog-paths.js`). Never silently merge — tag `[possible-dup-of: …]`. 🟤 rate-limit + Cleanup-Week mechanics: see the 📌 Process Rules section + `docs/planning/cleanup-week-log.md`.
 
 <!-- AUTO-MANAGED: patterns -->
 ## Key Patterns & Gotchas
@@ -187,8 +150,7 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - Status icons (success/error) are inline SVGs injected via `icon.innerHTML` in `showFormStatus()` — not Unicode characters. SVGs use `stroke="currentColor"` to inherit color from modifier classes and `aria-hidden="true"` to hide from screen readers (consistent with all other inline SVGs in the codebase)
 
 ### Testing
-- Playwright E2E with Page Object Models (`FilterPage.js`, `ModalPage.js`, `FormPage.js`)
-- Test server on port 4173 (`scripts/serve.js`), started automatically by Playwright `webServer` config
+- Playwright E2E with Page Object Models (`FilterPage.js`, `ModalPage.js`, `FormPage.js`); test server on port 4173 (`scripts/serve.js`), auto-started by Playwright `webServer` config
 - `axe-core` WCAG 2.1 AA scanning in `axe-scan.spec.js` suites — tests light, dark, and reduced-motion explicitly. Modal suite scopes scans to `#project-modal` (`MODAL_SCOPE`) to avoid false positives from semi-transparent backdrop altering perceived contrast of background cards
 - **Scroll animation wait**: use `waitForScrollAnimations(page)` from `tests/utils/timing.js` — polls DOM until every `[data-animate]` element whose visible fraction meets the production IntersectionObserver threshold (`SCROLL_OBSERVER_THRESHOLD` (0.1) + `SCROLL_OBSERVER_ROOT_MARGIN_BOTTOM` (50px), exported constants in `timing.js` that mirror `js/main.js` — kept in sync by `timing-guards.spec.js`) has computed opacity 1, capturing both `.is-visible` class addition AND the 400ms opacity transition (class-only polling let axe-core sample mid-transition colors on WebKit; opacity polling without the threshold-match let sub-threshold elements like a focus-scrolled `contact__intro` hang the poll because the observer would never fire for them). Short-circuits instantly under reduced motion (no-op — CSS sets opacity:1 unconditionally there anyway). Filter-hidden cards (`.project-card--hidden` → `visibility: hidden; position: absolute`) are skipped via explicit class check mirroring `js/main.js:595`. Zero-dimension elements are skipped to prevent div-by-zero in the ratio. Used in outer `beforeEach` of filter, modal, and form axe-scan suites. Replaces `fp.waitForScrollAnimations()` / `mp.waitForScrollAnimations()` POM methods (700ms fixed timeout) for suite-level setup
 - **Opacity wait**: use `waitForOpacity(locator)` from `tests/utils/timing.js` — polls a single locator until its computed opacity reaches 1. Used by `ModalPage.expectOpen()` (replaces fixed 300ms wait — immune to browser timing variance) and `ModalPage.clickCard()` (waits for card scroll-animation to complete before clicking; works under both normal and reduced-motion modes)
@@ -237,9 +199,7 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - **Conditional grep + `&&` aborts the chain on no-match**: When a pre-commit hook or CI step uses `grep ... && some-action`, the `&&` short-circuits on grep's exit code 1 (no matches found). On a fresh repo or unstaged-file commit, this *blocks every commit*, not just ones that should trigger the action. Fix: use `if grep ...; then ...; fi` so a no-match exit is treated as "skip", not "fail". Triggered by `.husky/pre-commit` validate-backlog conditional. See the Pre-commit hook bullet under "Commits" for the concrete pattern.
 
 ### Adding New Projects
-1. Add `<article class="project-card" data-category="..." data-project="id" data-updated="YYYY-MM" data-animate data-animate-delay="NNN">` to `index.html` — copy structure from existing card. Increment `data-animate-delay` by 50ms per card (100, 150, 200, …)
-2. Include: header (category badge + links), title, description, tech list, footer (time + optional status badge + optional details-btn with `aria-haspopup="dialog"`)
-3. For modal support: add entry to `data/projects.json` keyed by `data-project` value, with `title`, `category`, `description[]`, `highlights[]`, `tech[]`, `links{}`, `screenshots[]`, `status`, `updated`
+Use the `add-project` skill (generates the `index.html` card + optional `data/projects.json` modal entry). Non-obvious invariants: increment `data-animate-delay` by 50ms per card (100, 150, 200, …); modal entries are keyed by `data-project`; sync new dates across all 4 locations (see "Project Cards — Date Sync").
 
 <!-- END AUTO-MANAGED -->
 
