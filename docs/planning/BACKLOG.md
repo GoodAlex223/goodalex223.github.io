@@ -275,6 +275,11 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 ## 🟤 Auto-Generated Tech Debt
 
+### From PR #76 Code Review (2026-06-16)
+**Origin**: docs/archive/plans/2026-06-16_doc-accuracy-sweep.md
+
+- [ ] BACKLOG entry-shape rule (CLAUDE.md) diverges from the file's actual 🟤 convention — CLAUDE.md's intake format mandates `- [ ] **Short title** — body with context, cross-refs, affected files` (a bolded short title before the em-dash), but the two new entries PR #76 added under `### From Documentation Accuracy Sweep (2026-06-16)` — and ~80% of existing 🟤 entries — open with sentence-case prose and no `**bold**` title. The `📌 Process Rules` § in BACKLOG.md does not restate the bold-title requirement, so it lives only in CLAUDE.md and is effectively unenforced. Reconcile the two: either relax CLAUDE.md's stated shape to match the established convention, or adopt the bold-title form going forward and document it in Process Rules. The only finding from the PR #76 /code-review; scored sub-threshold (25) precisely because the file's own practice already diverges. (PR #76 code review, confidence 25, doc-consistency/process)
+
 ### From Documentation Accuracy Sweep (2026-06-16)
 **Origin**: docs/archive/plans/2026-06-16_doc-accuracy-sweep.md
 
