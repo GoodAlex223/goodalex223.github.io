@@ -93,12 +93,13 @@ One PR. Recurring `docs/superpowers/` dead links in archived/frozen docs + the u
 
 ### Thursday — Documentation Accuracy (7 SP)
 
-**Group B — Documentation Accuracy Sweep** `[batch]` — 🟤 — 7 SP
-- [ ] ROADMAP.md — remove duplicate "Last Updated" *(1 SP)*
-- [ ] ROADMAP.md — v1.5 parallel-development / phase-ladder drift annotation *(2 SP)*
-- [ ] ROADMAP.md — cross-link display-text + in-progress-phase transition convention *(2 SP)*
-- [ ] DONE.md — fix "zero extra" undercount *(1 SP)*
-- [ ] CLAUDE.md AUTO-MANAGED sync via `/auto-memory:sync` (check-backlog-structure drift + checkout@v6 + Shell Gotchas wording) *(1 SP)*
+**Group B — Documentation Accuracy Sweep** `[batch]` — 🟤 — 7 SP — ✅ Done (PR pending)
+- [x] ROADMAP.md — remove duplicate "Last Updated" *(1 SP)* — done
+- [x] ROADMAP.md — v1.5 parallel-development / phase-ladder drift annotation *(2 SP)* — done (footnote)
+- [x] ROADMAP.md — cross-link display-text + in-progress-phase transition convention *(2 SP)* — done
+- [x] DONE.md — fix "zero extra" undercount *(1 SP)* — won't-do (verified correct in scope)
+- [x] CLAUDE.md AUTO-MANAGED sync via `/auto-memory:sync` (check-backlog-structure drift + checkout@v6 + Shell Gotchas wording) *(1 SP)* — done/closed (5a synced via 687940a; 5b sync-owned; checkout target obsolete)
+- **Outcome:** Verify-first sweep — 3 ROADMAP.md edits applied (duplicate footer removed; v1.5/v1.1 parallel-development footnote; bare-name cross-links + in-progress→completed transition comment); 4 items closed without edit (5a already synced via `687940a`; 5b sync-owned + wording accurate; 5c obsolete — checkout@v4 target pruned in Group A; DONE "zero extra" verified correct in scope). 9 🟤 BACKLOG items resolved (5 done / 3 won't-do / 1 obsolete). Single docs PR on `docs/accuracy-sweep`. CLAUDE.md AUTO-MANAGED regions intentionally untouched (no `/auto-memory:sync` needed).
 
 ### Friday — Dead-Link Cleanup (3 SP)
 
@@ -116,7 +117,7 @@ One PR. Recurring `docs/superpowers/` dead links in archived/frozen docs + the u
 | A. Backlog Drain & Cleanup Bootstrapping 🏆 | Planning/Docs | 🟤 Auto | 2 | 5 | Mon | ✅ Done |
 | D. Test Infrastructure Cleanup `[batch]` | Testing | 🟤 Auto | 4 | 6 | Tue | ✅ Done |
 | C. Script Robustness & Observability `[batch]` | CI/Build | 🟤 Auto | 4 | 5 | Wed | ✅ Done |
-| B. Documentation Accuracy Sweep `[batch]` | Docs | 🟤 Auto | 5 | 7 | Thu | ⏳ Planned |
+| B. Documentation Accuracy Sweep `[batch]` | Docs | 🟤 Auto | 5 | 7 | Thu | ✅ Done |
 | E. Archived-Doc Dead-Link Cleanup `[batch]` | Docs | 🟤 Auto | 3 | 3 | Fri | ⏳ Planned |
 | **Total** | | | **18** | **26** | | |
 
