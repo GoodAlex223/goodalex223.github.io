@@ -3,3 +3,6 @@ if git diff --cached --name-only | grep -qE '(^|/)BACKLOG\.md$'; then
   npm run validate-backlog || exit 1
   npm run check-backlog-structure || exit 1
 fi
+if git diff --cached --name-only | grep -qE '^docs/archive/'; then
+  npm run check-archived-links || exit 1
+fi
