@@ -28,12 +28,13 @@ npm run check-links       # Check all external links in index.html + projects.js
 npm run check-assets      # Check all internal asset refs in HTML + projects.json exist on disk (requires `npm run build` first)
 npm run validate-backlog  # Validate BACKLOG.md Origin paths (reads git index; prints OK/skipped/violations)
 npm run check-backlog-structure  # Validate BACKLOG.md structure (required bucket headers present)
+npm run check-archived-links     # Check archived docs (docs/archive/**) have no dead docs/superpowers/ nav-links
 npx serve              # Local server (or python -m http.server 8000)
 ```
 
 **Build pipeline**: `update-sitemap` → `build:css` (PostCSS + cssnano) → `unhash` → `inline:css` (Critters critical CSS) → `hash:assets` (SHA-256 content hashes + terser JS minification) → `report-sizes` (budget: CSS gzip 20 KB, JS gzip 10 KB; appends to `docs/size-history.json`). Outputs `dist/style.[hash].css` and `dist/main.[hash].js`.
 
-**CI/CD** (`.github/workflows/deploy.yml`): lint (CSS + JS + validate-backlog + check-backlog-structure) → build → (check-links + test + lighthouse in parallel) → deploy to GitHub Pages. The `check-links` job runs both the external URL checker and the internal asset checker after downloading the build artifact. All gates must pass.
+**CI/CD** (`.github/workflows/deploy.yml`): lint (CSS + JS + validate-backlog + check-backlog-structure + check-archived-links) → build → (check-links + test + lighthouse in parallel) → deploy to GitHub Pages. The `check-links` job runs both the external URL checker and the internal asset checker after downloading the build artifact. All gates must pass.
 
 ## Architecture
 
@@ -45,7 +46,7 @@ goodalex223/
 ├── js/main.js                    # All client JS (theme, filter, scroll animations, modal, form)
 ├── data/projects.json            # Project detail data (lazy-fetched by modal)
 ├── dist/                         # Built CSS/JS with content hashes (generated, gitignored)
-├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-links, check-assets, validate-backlog-paths, check-backlog-structure)
+├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-links, check-assets, validate-backlog-paths, check-backlog-structure, check-archived-links)
 ├── tests/                        # Playwright E2E: filter/ modal/ form/ seo/ + pages/ (POMs) + utils/ (timing, axe helpers)
 ├── docs/                         # Documentation, planning, archives
 ├── .github/workflows/deploy.yml  # CI/CD pipeline
@@ -179,6 +180,12 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - Runs three ways: pre-commit hook (when `BACKLOG.md` is staged), `npm run validate-backlog` (standalone/debug), and CI `lint` job step (closes `--no-verify` bypass). Prints `BACKLOG Origin paths: OK` on success, `skipped` message if absent, red violation block with `[matched: <path>]` annotation on failure
 - To add a new forbidden path: append to `FORBIDDEN_ORIGIN_PATHS` array in `scripts/validate-backlog-paths.js`
 - When extracting improvements to BACKLOG after task completion, always reference the archived path (plan moves to `docs/archive/plans/` during the Archive step of task completion workflow)
+
+### Archived-Doc Link Hygiene (`scripts/check-archived-links.js`)
+- Plans/specs are authored in `docs/superpowers/<plans|specs>/` then archived to `docs/archive/<plans|specs>/`; their internal navigational pointers (`**Spec:**` header, footer `Spec:`/`Plan:`/`Pass 1:`, `**Design spec**:` cross-ref) must be retargeted to the archived location with an **underscore** date during archival. `check-archived-links.js` scans `docs/archive/**/*.md` (working-tree read) and fails on any nav-pointer line still pointing at `docs/superpowers/`
+- **Nav-pointer detection is anchored**: `/^\s*(?:>\s*)?(?:[-*]\s*)?(?:\*\*)?(?:Spec|Plan|Pass 1[^:]*|Design spec)(?:\*\*)?\s*:/` — only lines that START (after optional blockquote/bullet/`**`) with a `Spec:`/`Plan:`/`Pass 1…:`/`Design spec:` label are checked. Historical command text (`git add docs/superpowers/…`), the `validate-backlog-paths.js` denylist literal, table-cell backlog-title quotes, and external-repo refs are intentionally NOT flagged
+- **Allowlist**: `ALLOWED_FILES = ['docs/archive/plans/2026-03-27_archive-cleanup.md']` — the migration record whose `docs/superpowers/` references document the consolidation itself. Add a file here only when its superpowers refs are genuinely historical, not stale pointers
+- Runs three ways: pre-commit hook (when any `docs/archive/` file is staged, via the `if/fi` pattern), `npm run check-archived-links` (standalone), and the CI `lint` job. Prints `Archived-doc links: OK`, a `skipped` note if `docs/archive/` is absent, or a red violation block (`path:line — <text>`) on failure
 
 ### Shell Gotchas
 
