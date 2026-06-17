@@ -4,10 +4,17 @@
  * docs/superpowers/<plans|specs>/ then archived to docs/archive/<plans|specs>/;
  * their internal Spec:/Plan:/Pass 1:/Design spec: pointers must be retargeted to
  * the archived location during archival. This guard catches the ones that slip
- * through and prevents recurrence. Reads the working tree (a directory scan; the
- * pre-commit conditional only fires when docs/archive/ files are staged, so the
- * on-disk content it reads is what is about to be committed). Invoked by the
- * pre-commit hook, the npm script, and CI.
+ * through and prevents recurrence.
+ *
+ * Scans the entire docs/archive/ tree on disk (working-tree read), not just
+ * staged files: on the pre-commit path the staged docs/archive/ files are the
+ * on-disk content; the CI and npm-script paths scan the full working-tree
+ * archive regardless of staging. Detection is anchored to navigational-pointer
+ * lines only — a Spec:/Plan:/Pass 1:/Design spec: label at line start after an
+ * optional blockquote, single bullet (- or *), and ** markup. Numbered-list
+ * (e.g. "1. Spec:") and plural ("Plans:") forms are intentionally not matched;
+ * no archived doc uses them. Invoked by the pre-commit hook, the npm script,
+ * and CI.
  *
  * Spec: docs/archive/specs/2026-06-17_archived-doc-dead-links-design.md
  */
