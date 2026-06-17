@@ -1,8 +1,25 @@
 # DONE
 
-**Last Updated**: 2026-06-16 (Documentation Accuracy Sweep — Cleanup Week #1 Group B)
+**Last Updated**: 2026-06-17 (Archived-Doc Dead-Link Cleanup — Cleanup Week #1 Group E)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-06-17
+
+### Archived-Doc Dead-Link Cleanup `[batch]` (Cleanup Week #1 — Group E)
+
+**Plan**: [docs/archive/plans/2026-06-17_archived-doc-dead-links.md](../archive/plans/2026-06-17_archived-doc-dead-links.md)
+**Spec**: [docs/archive/specs/2026-06-17_archived-doc-dead-links-design.md](../archive/specs/2026-06-17_archived-doc-dead-links-design.md)
+**PR**: pending (branch `docs/archived-dead-links`)
+**Summary**: Friday Group E (the week's light buffer day) — repaired every dead `docs/superpowers/` navigational pointer in the archived plans and added a repo-local CI/pre-commit guard so they can't recur. Brainstorming widened the WEEKLY scope from the 2 named files to a comprehensive 8-file sweep (the same defect existed in 6 more archived plans) and reframed the un-shippable item-3 ("fix the upstream `writing-plans` template" — plugin cache, out of repo) into `scripts/check-archived-links.js`. Surgical rule: fix navigational pointers (`**Spec:**` header, footer `Spec:`/`Plan:`/`Pass 1:`, `**Design spec**:` cross-ref) only; leave historical command text, the validator denylist literal, the external `rating_bot` ref, and the `2026-03-27` migration record untouched. Subagent-driven execution (4 tasks, two-stage spec+quality review each); opus whole-branch review returned Ready-to-merge. Verification was manual reproduction (no `scripts/` test harness — Group C/D precedent): guard RED (19) → GREEN across the sweep. A finishing-phase gap check (prompted by an open PR #73 BACKLOG item) caught one wrapped pointer the line-anchored guard missed (`2026-06-10:15`, a `## Spec` header with the link on the next line); the guard was hardened to catch markdown-link label/href forms and the miss fixed.
+**Key Changes**:
+- New `scripts/check-archived-links.js` — scans `docs/archive/**/*.md` (working-tree read) and fails on dead `docs/superpowers/` pointers in three forms: `NAV_POINTER` (a `Spec:`/`Plan:`/`Pass 1:`/`Design spec:` label at line start), `LINK_LABEL` (a markdown link whose label is a `docs/superpowers/(specs|plans)/` path — catches pointers wrapped onto a continuation line), and `LINK_HREF` (a markdown link whose href targets `superpowers/`). Two-entry `ALLOWED_FILES` allowlist (the `2026-03-27` migration record + this cleanup's own plan, which quotes dead-link examples). Wired into `package.json`, the CI `lint` job, and the husky pre-commit hook (`if/fi`, fires on staged `docs/archive/` files) — mirroring `validate-backlog`/`check-backlog-structure`.
+- Swept 20 navigational pointers across 9 archived plans: 19 across 8 plans in the main pass (`2026-04-05`, `2026-04-16`, `2026-04-20` [label-only], `2026-04-28`, `2026-05-02`, `2026-05-09`, `2026-05-16`, `2026-06-07`) plus 1 wrapped pointer in `2026-06-10_backlog-drain-cleanup-week.md:15` caught in the finishing-phase gap check. Each retargeted to the real archived file (hyphen→underscore dates, markup preserved).
+- `CLAUDE.md`: new "Archived-Doc Link Hygiene" Key-Patterns subsection (rule, 3 detection forms, allowlist, wiring) + sibling-enumeration consistency edits (build-commands table, CI/CD summary, `scripts/` architecture line). Plus a base `chore:` commit finishing the orphaned auto-memory marker/config removal (pre-existing working-tree edits, user-approved bundling).
+**Resolved BACKLOG items**: 3 closed in 🟤 — the PR #73 `2026-06-10` stale-label item (fixed + guard hardened to catch the wrapped-pointer class), the restructure-docs cross-ref item (navigational pointers fixed; historical bash commands + the design-spec's intentional refs preserved by design), and the `2026-04-28` test-stability cross-ref item.
+**Task-completion EXTRACT**: 2 new 🟤 follow-ups — guard reads the working tree vs. the git index the sibling guards use (cross-guard consistency, conf 35); upstream `superpowers` templates still emit `docs/superpowers/` hyphen-date paths so the root cause recurs each task (conf 40, can't fix in-repo). Net 🟤: 3 resolved − 2 new = −1.
 
 ---
 

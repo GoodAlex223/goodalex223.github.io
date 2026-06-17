@@ -103,10 +103,11 @@ One PR. Recurring `docs/superpowers/` dead links in archived/frozen docs + the u
 
 ### Friday — Dead-Link Cleanup (3 SP)
 
-**Group E — Archived-Doc Dead-Link Cleanup** `[batch]` — 🟤 — 3 SP *(light day — buffer/overflow for the week)*
-- [ ] Stale `docs/superpowers/` cross-refs in archived restructure plan + spec *(1 SP)*
-- [ ] Stale `docs/superpowers/` cross-refs in archived test-stability plan *(1 SP)*
-- [ ] writing-plans template → archive-form Spec/Plan links *(1 SP)*
+**Group E — Archived-Doc Dead-Link Cleanup** `[batch]` — 🟤 — 3 SP *(light day — buffer/overflow for the week)* — ✅ Done (PR pending)
+- [x] Stale `docs/superpowers/` cross-refs in archived restructure plan + spec *(1 SP)* — plan's 9 nav-pointers retargeted; the design spec needed none (its refs were all intentional — denylist literal, `rating_bot`, command records)
+- [x] Stale `docs/superpowers/` cross-refs in archived test-stability plan *(1 SP)* — lines 11, 581-582 retargeted
+- [x] writing-plans template → archive-form Spec/Plan links *(1 SP)* — **reframed**: the upstream template is out of repo (plugin cache, 5+ versions), so shipped `scripts/check-archived-links.js` (CI `lint` + husky pre-commit guard) as the repo-local recurrence-prevention instead
+- **Scope widened in brainstorming (2026-06-17):** WEEKLY named 2 files; the same dead-nav-pointer defect existed in 6 more archived plans → comprehensive **8-file / 19-pointer** sweep. A finishing-phase gap check (prompted by the open PR #73 `2026-06-10` BACKLOG item) caught a **9th** file — a pointer wrapped under a `## Spec` header that the line-anchored guard missed — so the guard was hardened (`LINK_LABEL`/`LINK_HREF`) and the miss fixed (20 pointers / 9 files total). Subagent-driven (4 tasks); opus whole-branch review Ready-to-merge. 3 🟤 resolved, 2 🟤 extracted.
 
 ---
 
@@ -118,7 +119,7 @@ One PR. Recurring `docs/superpowers/` dead links in archived/frozen docs + the u
 | D. Test Infrastructure Cleanup `[batch]` | Testing | 🟤 Auto | 4 | 6 | Tue | ✅ Done |
 | C. Script Robustness & Observability `[batch]` | CI/Build | 🟤 Auto | 4 | 5 | Wed | ✅ Done |
 | B. Documentation Accuracy Sweep `[batch]` | Docs | 🟤 Auto | 5 | 7 | Thu | ✅ Done |
-| E. Archived-Doc Dead-Link Cleanup `[batch]` | Docs | 🟤 Auto | 3 | 3 | Fri | ⏳ Planned |
+| E. Archived-Doc Dead-Link Cleanup `[batch]` | Docs | 🟤 Auto | 3 | 3 | Fri | ✅ Done |
 | **Total** | | | **18** | **26** | | |
 
 ---
