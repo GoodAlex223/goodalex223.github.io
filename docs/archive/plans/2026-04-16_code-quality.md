@@ -8,7 +8,7 @@
 
 **Tech Stack:** Node.js (CJS scripts), husky pre-commit hook, JSDoc
 
-**Spec:** `docs/superpowers/specs/2026-04-16_code-quality-design.md`
+**Spec:** `docs/archive/specs/2026-04-16_code-quality-design.md`
 
 ---
 
