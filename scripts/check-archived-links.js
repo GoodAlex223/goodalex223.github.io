@@ -29,11 +29,16 @@ const path = require('path');
 const ARCHIVE_REL_DIR = 'docs/archive';
 const FORBIDDEN = 'docs/superpowers/';
 
-// Files exempt from the check: genuinely-historical docs whose docs/superpowers/
-// references document the superpowers -> archive migration itself and must not
-// be rewritten. Repo-relative, POSIX-style paths. Add a file here only when its
-// superpowers refs are genuinely historical, not stale navigational pointers.
-const ALLOWED_FILES = ['docs/archive/plans/2026-03-27_archive-cleanup.md'];
+// Files exempt from the check: docs whose docs/superpowers/ references are
+// intentional, not stale navigational pointers — (1) the migration record that
+// documents the superpowers -> archive consolidation itself, and (2) this
+// cleanup's own plan, which quotes dead-link before/after examples and embeds
+// the guard's own source. Repo-relative, POSIX-style paths. Add a file here only
+// when its superpowers refs are genuinely historical or illustrative.
+const ALLOWED_FILES = [
+  'docs/archive/plans/2026-03-27_archive-cleanup.md',
+  'docs/archive/plans/2026-06-17_archived-doc-dead-links.md',
+];
 
 // A navigational pointer line: a Spec:/Plan:/Pass 1...:/Design spec: label at the
 // start of the line (after optional blockquote, bullet, and ** markup). Command
