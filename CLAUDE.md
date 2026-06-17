@@ -2,7 +2,6 @@
 
 This file provides guidance to Claude Code when working with code in this repository.
 
-<!-- AUTO-MANAGED: project-description -->
 ## Overview
 
 **Personal Portfolio Website** for Alexey Minakov — a static site showcasing software development projects.
@@ -12,9 +11,6 @@ This file provides guidance to Claude Code when working with code in this reposi
 - **Build Tools**: PostCSS (CSS bundling), Critters (critical CSS inlining), terser (JS minification), commitlint (Conventional Commits enforcement)
 - **Hosting**: GitHub Pages (deploys via GitHub Actions)
 
-<!-- END AUTO-MANAGED -->
-
-<!-- AUTO-MANAGED: build-commands -->
 ## Build & Development Commands
 
 ```bash
@@ -39,9 +35,6 @@ npx serve              # Local server (or python -m http.server 8000)
 
 **CI/CD** (`.github/workflows/deploy.yml`): lint (CSS + JS + validate-backlog + check-backlog-structure) → build → (check-links + test + lighthouse in parallel) → deploy to GitHub Pages. The `check-links` job runs both the external URL checker and the internal asset checker after downloading the build artifact. All gates must pass.
 
-<!-- END AUTO-MANAGED -->
-
-<!-- AUTO-MANAGED: architecture -->
 ## Architecture
 
 ```
@@ -59,8 +52,6 @@ goodalex223/
 └── (root config)                 # lighthouserc.js, .stylelintrc.json, eslint.config.js, commitlint.config.js, playwright.config.js — see Code Conventions
 ```
 
-<!-- END AUTO-MANAGED -->
-
 ## MCP Servers
 
 Project servers are configured in `.mcp.json` (gitignored; template `.mcp.json.example` ships `context7` + `playwright`) and as `enabledPlugins` in `.claude/settings.json` (`context7`, `playwright`, `chrome-devtools`). `github` is not configured in-repo — it comes from the user's global Claude Code setup.
@@ -74,7 +65,6 @@ Project servers are configured in `.mcp.json` (gitignored; template `.mcp.json.e
 
 **Browser tool selection**: `npm test` for full suite, playwright MCP for ad-hoc inspection, chrome-devtools MCP for Lighthouse/performance profiling.
 
-<!-- AUTO-MANAGED: conventions -->
 ## Code Conventions
 
 ### CSS
@@ -100,8 +90,6 @@ Project servers are configured in `.mcp.json` (gitignored; template `.mcp.json.e
 - Persisted in `localStorage.theme`, inline `<head>` script prevents FOUC
 - System preference sync when no explicit choice saved
 
-<!-- END AUTO-MANAGED -->
-
 ## Backlog Intake Rules
 
 `BACKLOG.md` is source-split; authoritative rules live in its 📌 Process Rules section (`docs/planning/BACKLOG.md`) — read it before adding entries. Routing:
@@ -112,7 +100,6 @@ Project servers are configured in `.mcp.json` (gitignored; template `.mcp.json.e
 
 Entry shape `- [ ] **Short title** — body with context, cross-refs, affected files`, grouped by `### From <event> (YYYY-MM-DD)`. Keep the `**Origin**: docs/archive/plans/<file>` line when migrating from a completed plan (enforced by `validate-backlog-paths.js`). Never silently merge — tag `[possible-dup-of: …]`. 🟤 rate-limit + Cleanup-Week mechanics: see the 📌 Process Rules section + `docs/planning/cleanup-week-log.md`.
 
-<!-- AUTO-MANAGED: patterns -->
 ## Key Patterns & Gotchas
 
 ### Project Cards — Date Sync (4 locations must agree)
@@ -199,12 +186,3 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 
 ### Adding New Projects
 Use the `add-project` skill (generates the `index.html` card + optional `data/projects.json` modal entry). Non-obvious invariants: increment `data-animate-delay` by 50ms per card (100, 150, 200, …); modal entries are keyed by `data-project`; sync new dates across all 4 locations (see "Project Cards — Date Sync").
-
-<!-- END AUTO-MANAGED -->
-
-<!-- MANUAL -->
-## Custom Notes
-
-Add project-specific notes here. This section is never auto-modified by the memory system.
-
-<!-- END MANUAL -->
