@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-06-17 (Archived-Doc Dead-Link Cleanup — Cleanup Week #1 Group E)
+**Last Updated**: 2026-06-18 (Weekly plan June 22-26 — parked missing planning-docs task)
 
 ---
 
@@ -63,6 +63,10 @@ _None currently_
 
 - [ ] Verify the local weekly-planning prompt against the 8-item checklist (spec §5) — add the 📌-Process-Rules-first instruction, 4 source/quota rules, carry-forward origin-quota rule, 🏆-defaults-to-🔵, `Source` summary column, mandatory `### Quota Check` subsection, and Cleanup-Week header awareness. Paste the prompt and I'll diff it.
 - [ ] Run the first weekly plan under the new rules and confirm `### Quota Check` shows ✅ (🔵 ≥ 50%). Given the 🟤 bucket holds ~149 items, this will likely need to be declared a Cleanup Week — see the 🟤 "Calibrate the Cleanup-Week threshold" BACKLOG item.
+
+**Planning infrastructure — missing strategic docs** (surfaced 2026-06-18 during the June 22-26 weekly planning):
+
+- [ ] Create `MILESTONES.md`, `GOALS.md`, and `REVIEW-QUEUE.md` in `docs/planning/` — all three are referenced by the weekly-planning template but don't exist (only ROADMAP.md does). `MILESTONES.md` (milestone targets + deadlines) and `GOALS.md` (KRs/objectives) are genuinely missing; `REVIEW-QUEUE.md` (cross-week state for the recurring Weekly Reviews batch) is likely auto-bootstrapped by the June 22-26 Group F run — if so, this task formalizes its structure and focuses on MILESTONES + GOALS. Ask user before creating from `.claude/TEMPLATES/` (per CLAUDE.md). Candidate for a future weekly plan (e.g. June 29-Jul 3).
 
 ---
 
