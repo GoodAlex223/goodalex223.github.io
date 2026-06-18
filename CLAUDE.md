@@ -2,7 +2,6 @@
 
 This file provides guidance to Claude Code when working with code in this repository.
 
-<!-- AUTO-MANAGED: project-description -->
 ## Overview
 
 **Personal Portfolio Website** for Alexey Minakov — a static site showcasing software development projects.
@@ -12,9 +11,6 @@ This file provides guidance to Claude Code when working with code in this reposi
 - **Build Tools**: PostCSS (CSS bundling), Critters (critical CSS inlining), terser (JS minification), commitlint (Conventional Commits enforcement)
 - **Hosting**: GitHub Pages (deploys via GitHub Actions)
 
-<!-- END AUTO-MANAGED -->
-
-<!-- AUTO-MANAGED: build-commands -->
 ## Build & Development Commands
 
 ```bash
@@ -32,16 +28,14 @@ npm run check-links       # Check all external links in index.html + projects.js
 npm run check-assets      # Check all internal asset refs in HTML + projects.json exist on disk (requires `npm run build` first)
 npm run validate-backlog  # Validate BACKLOG.md Origin paths (reads git index; prints OK/skipped/violations)
 npm run check-backlog-structure  # Validate BACKLOG.md structure (required bucket headers present)
+npm run check-archived-links     # Check archived docs (docs/archive/**) have no dead docs/superpowers/ nav-links
 npx serve              # Local server (or python -m http.server 8000)
 ```
 
 **Build pipeline**: `update-sitemap` → `build:css` (PostCSS + cssnano) → `unhash` → `inline:css` (Critters critical CSS) → `hash:assets` (SHA-256 content hashes + terser JS minification) → `report-sizes` (budget: CSS gzip 20 KB, JS gzip 10 KB; appends to `docs/size-history.json`). Outputs `dist/style.[hash].css` and `dist/main.[hash].js`.
 
-**CI/CD** (`.github/workflows/deploy.yml`): lint (CSS + JS + validate-backlog + check-backlog-structure) → build → (check-links + test + lighthouse in parallel) → deploy to GitHub Pages. The `check-links` job runs both the external URL checker and the internal asset checker after downloading the build artifact. All gates must pass.
+**CI/CD** (`.github/workflows/deploy.yml`): lint (CSS + JS + validate-backlog + check-backlog-structure + check-archived-links) → build → (check-links + test + lighthouse in parallel) → deploy to GitHub Pages. The `check-links` job runs both the external URL checker and the internal asset checker after downloading the build artifact. All gates must pass.
 
-<!-- END AUTO-MANAGED -->
-
-<!-- AUTO-MANAGED: architecture -->
 ## Architecture
 
 ```
@@ -52,14 +46,12 @@ goodalex223/
 ├── js/main.js                    # All client JS (theme, filter, scroll animations, modal, form)
 ├── data/projects.json            # Project detail data (lazy-fetched by modal)
 ├── dist/                         # Built CSS/JS with content hashes (generated, gitignored)
-├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-links, check-assets, validate-backlog-paths, check-backlog-structure)
+├── scripts/                      # Build utilities (hash-assets, inline-css, report-sizes, update-sitemap, serve, check-links, check-assets, validate-backlog-paths, check-backlog-structure, check-archived-links)
 ├── tests/                        # Playwright E2E: filter/ modal/ form/ seo/ + pages/ (POMs) + utils/ (timing, axe helpers)
 ├── docs/                         # Documentation, planning, archives
 ├── .github/workflows/deploy.yml  # CI/CD pipeline
 └── (root config)                 # lighthouserc.js, .stylelintrc.json, eslint.config.js, commitlint.config.js, playwright.config.js — see Code Conventions
 ```
-
-<!-- END AUTO-MANAGED -->
 
 ## MCP Servers
 
@@ -74,7 +66,6 @@ Project servers are configured in `.mcp.json` (gitignored; template `.mcp.json.e
 
 **Browser tool selection**: `npm test` for full suite, playwright MCP for ad-hoc inspection, chrome-devtools MCP for Lighthouse/performance profiling.
 
-<!-- AUTO-MANAGED: conventions -->
 ## Code Conventions
 
 ### CSS
@@ -100,8 +91,6 @@ Project servers are configured in `.mcp.json` (gitignored; template `.mcp.json.e
 - Persisted in `localStorage.theme`, inline `<head>` script prevents FOUC
 - System preference sync when no explicit choice saved
 
-<!-- END AUTO-MANAGED -->
-
 ## Backlog Intake Rules
 
 `BACKLOG.md` is source-split; authoritative rules live in its 📌 Process Rules section (`docs/planning/BACKLOG.md`) — read it before adding entries. Routing:
@@ -112,7 +101,6 @@ Project servers are configured in `.mcp.json` (gitignored; template `.mcp.json.e
 
 Entry shape `- [ ] **Short title** — body with context, cross-refs, affected files`, grouped by `### From <event> (YYYY-MM-DD)`. Keep the `**Origin**: docs/archive/plans/<file>` line when migrating from a completed plan (enforced by `validate-backlog-paths.js`). Never silently merge — tag `[possible-dup-of: …]`. 🟤 rate-limit + Cleanup-Week mechanics: see the 📌 Process Rules section + `docs/planning/cleanup-week-log.md`.
 
-<!-- AUTO-MANAGED: patterns -->
 ## Key Patterns & Gotchas
 
 ### Project Cards — Date Sync (4 locations must agree)
@@ -193,18 +181,15 @@ When updating project dates, sync all 4: `data-updated` attr on `<article>`, `<t
 - To add a new forbidden path: append to `FORBIDDEN_ORIGIN_PATHS` array in `scripts/validate-backlog-paths.js`
 - When extracting improvements to BACKLOG after task completion, always reference the archived path (plan moves to `docs/archive/plans/` during the Archive step of task completion workflow)
 
+### Archived-Doc Link Hygiene (`scripts/check-archived-links.js`)
+- Plans/specs are authored in `docs/superpowers/<plans|specs>/` then archived to `docs/archive/<plans|specs>/`; their internal navigational pointers (`**Spec:**` header, footer `Spec:`/`Plan:`/`Pass 1:`, `**Design spec**:` cross-ref) must be retargeted to the archived location with an **underscore** date during archival. `check-archived-links.js` scans `docs/archive/**/*.md` (working-tree read) and fails on any nav-pointer line still pointing at `docs/superpowers/`
+- **Detection covers three forms**: (1) `NAV_POINTER` — `/^\s*(?:>\s*)?(?:[-*]\s*)?(?:\*\*)?(?:Spec|Plan|Pass 1[^:]*|Design spec)(?:\*\*)?\s*:/` — only lines that START (after optional blockquote/bullet/`**`) with a `Spec:`/`Plan:`/`Pass 1…:`/`Design spec:` label mentioning `docs/superpowers/` are flagged; (2) `LINK_LABEL` — a markdown link whose visible label is a `docs/superpowers/(specs|plans)/` path (catches pointers wrapped onto a continuation line, e.g. under a `## Spec` header, which the line-anchored `NAV_POINTER` misses); (3) `LINK_HREF` — a markdown link whose href targets `superpowers/` (a genuinely broken href). Historical command text (`git add docs/superpowers/…`), the `validate-backlog-paths.js` denylist literal, table-cell backlog-title quotes, and external-repo refs are intentionally NOT flagged
+- **Allowlist**: `ALLOWED_FILES` exempts docs whose `docs/superpowers/` refs are intentional — `2026-03-27_archive-cleanup.md` (the migration record, documents the consolidation itself) and `2026-06-17_archived-doc-dead-links.md` (this cleanup's own plan, which quotes dead-link before/after examples and embeds the guard source). Add a file here only when its superpowers refs are genuinely historical or illustrative, not stale pointers
+- Runs three ways: pre-commit hook (when any `docs/archive/` file is staged, via the `if/fi` pattern), `npm run check-archived-links` (standalone), and the CI `lint` job. Prints `Archived-doc links: OK`, a `skipped` note if `docs/archive/` is absent, or a red violation block (`path:line — <text>`) on failure
+
 ### Shell Gotchas
 
 - **Conditional grep + `&&` aborts the chain on no-match**: When a pre-commit hook or CI step uses `grep ... && some-action`, the `&&` short-circuits on grep's exit code 1 (no matches found). On a fresh repo or unstaged-file commit, this *blocks every commit*, not just ones that should trigger the action. Fix: use `if grep ...; then ...; fi` so a no-match exit is treated as "skip", not "fail". Triggered by `.husky/pre-commit` validate-backlog conditional. See the Pre-commit hook bullet under "Commits" for the concrete pattern.
 
 ### Adding New Projects
 Use the `add-project` skill (generates the `index.html` card + optional `data/projects.json` modal entry). Non-obvious invariants: increment `data-animate-delay` by 50ms per card (100, 150, 200, …); modal entries are keyed by `data-project`; sync new dates across all 4 locations (see "Project Cards — Date Sync").
-
-<!-- END AUTO-MANAGED -->
-
-<!-- MANUAL -->
-## Custom Notes
-
-Add project-specific notes here. This section is never auto-modified by the memory system.
-
-<!-- END MANUAL -->

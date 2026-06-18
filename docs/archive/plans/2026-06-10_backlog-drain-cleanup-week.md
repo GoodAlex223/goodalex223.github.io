@@ -12,7 +12,7 @@
 
 ## Spec
 
-[docs/superpowers/specs/2026-06-10_backlog-drain-cleanup-week-design.md](../specs/2026-06-10_backlog-drain-cleanup-week-design.md)
+[docs/archive/specs/2026-06-10_backlog-drain-cleanup-week-design.md](../specs/2026-06-10_backlog-drain-cleanup-week-design.md)
 
 ## Authoritative inputs
 

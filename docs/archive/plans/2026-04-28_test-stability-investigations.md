@@ -8,7 +8,7 @@
 
 **Tech Stack:** Playwright (web-first assertions, route mocks, `test.fixme()`, `test.info().attach()`), ES modules.
 
-**Spec:** `docs/superpowers/specs/2026-04-28_test-stability-investigations-design.md`
+**Spec:** `docs/archive/specs/2026-04-28_test-stability-investigations-design.md`
 
 ---
 
@@ -578,8 +578,8 @@ gh pr create --title "test: Stabilize Firefox tabindex + WebKit loading-state fl
 - [ ] Firefox tabindex test verified locally with `--repeat-each=50` (or skipped on Firefox per quarantine)
 - [ ] Cross-engine sanity: `npm test` all green
 
-Spec: docs/superpowers/specs/2026-04-28_test-stability-investigations-design.md
-Plan: docs/superpowers/plans/2026-04-28_test-stability-investigations.md
+Spec: docs/archive/specs/2026-04-28_test-stability-investigations-design.md
+Plan: docs/archive/plans/2026-04-28_test-stability-investigations.md
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 EOF

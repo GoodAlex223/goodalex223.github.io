@@ -8,7 +8,7 @@
 
 **Tech Stack:** Markdown (BACKLOG.md, CLAUDE.md), Node.js (CommonJS, in the style of `scripts/validate-backlog-paths.js`), husky pre-commit, GitHub Actions (`.github/workflows/deploy.yml`), git. Commands below run via the Bash tool (git-bash on Windows); `grep`/`sed`/`sort`/`comm`/`wc` are available there.
 
-**Spec:** `docs/superpowers/specs/2026-06-07_backlog-restructure-design.md` (committed as `607cef9`).
+**Spec:** `docs/archive/specs/2026-06-07_backlog-restructure-design.md` (committed as `607cef9`).
 
 ---
 
@@ -277,7 +277,7 @@ Future ideas and improvements for the portfolio.
 
 **Active tasks**: See [TODO.md](TODO.md)
 **Completed work**: See [DONE.md](DONE.md)
-**Design spec**: See [docs/superpowers/specs/2026-06-07_backlog-restructure-design.md](../superpowers/specs/2026-06-07_backlog-restructure-design.md)
+**Design spec**: See [docs/archive/specs/2026-06-07_backlog-restructure-design.md](../specs/2026-06-07_backlog-restructure-design.md)
 
 ---
 
@@ -442,8 +442,8 @@ No-loss verification vs pre-migration baseline:
 - Structure: 4 required headers present
 - Pruned completed items: <dropped_completed_count>
 
-Spec: docs/superpowers/specs/2026-06-07_backlog-restructure-design.md
-Pass 1: docs/superpowers/specs/2026-06-07_backlog-restructure-classification.md
+Spec: docs/archive/specs/2026-06-07_backlog-restructure-design.md
+Pass 1: docs/archive/specs/2026-06-07_backlog-restructure-classification.md
 
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 EOF
@@ -522,7 +522,7 @@ docs/planning/BACKLOG.md. Documents intake routing defaults
 (user-raised → 🔵, Claude-surfaced → 🟤, ops → 🟡), the no-merge-on-intake
 rule, the **Origin** archive-path convention, and the 🟤 PR-review rate limit.
 
-Spec: docs/superpowers/specs/2026-06-07_backlog-restructure-design.md
+Spec: docs/archive/specs/2026-06-07_backlog-restructure-design.md
 
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 EOF
@@ -554,7 +554,7 @@ Create `scripts/check-backlog-structure.js` (mirrors `scripts/validate-backlog-p
  * back to the working tree. An optional path argument overrides both (used for
  * standalone checks and tests). Invoked by pre-commit hook, npm script, and CI.
  *
- * Spec: docs/superpowers/specs/2026-06-07_backlog-restructure-design.md
+ * Spec: docs/archive/specs/2026-06-07_backlog-restructure-design.md
  */
 
 const fs = require('fs');
@@ -720,7 +720,7 @@ Wired three ways, mirroring validate-backlog:
 
 Verified: positive smoke test (exit 0) + negative test (missing header → exit 1).
 
-Spec: docs/superpowers/specs/2026-06-07_backlog-restructure-design.md
+Spec: docs/archive/specs/2026-06-07_backlog-restructure-design.md
 
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 EOF
@@ -764,8 +764,8 @@ gh pr create --base main --title "Restructure BACKLOG: source-split + weekly quo
 - Adds `check-backlog-structure.js` guard (husky + npm + CI) protecting the 4 required headers
 
 ## Spec & classification
-- Spec: `docs/superpowers/specs/2026-06-07_backlog-restructure-design.md`
-- Pass 1 classification (user-audited): `docs/superpowers/specs/2026-06-07_backlog-restructure-classification.md`
+- Spec: `docs/archive/specs/2026-06-07_backlog-restructure-design.md`
+- Pass 1 classification (user-audited): `docs/archive/specs/2026-06-07_backlog-restructure-classification.md`
 
 ## Test plan
 - [ ] No-loss verification numbers in the BACKLOG rewrite commit match (open-item parity PASS)

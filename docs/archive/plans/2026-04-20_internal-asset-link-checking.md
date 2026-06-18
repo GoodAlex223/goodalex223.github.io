@@ -8,7 +8,7 @@
 
 **Tech Stack:** Node.js 20 built-ins (`fs`, `path`), no new dependencies. Mirrors `scripts/check-links.js` conventions (file-level JSDoc, ANSI color output, dedup via `Map<path, Set<source>>`).
 
-**Spec:** [docs/superpowers/specs/2026-04-20_internal-asset-link-checking-design.md](../specs/2026-04-20_internal-asset-link-checking-design.md)
+**Spec:** [docs/archive/specs/2026-04-20_internal-asset-link-checking-design.md](../specs/2026-04-20_internal-asset-link-checking-design.md)
 
 **Branch:** `challenge/internal-asset-link-checking`
 

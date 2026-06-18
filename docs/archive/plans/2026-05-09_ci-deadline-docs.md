@@ -595,8 +595,8 @@ gh pr create --title "chore: CI Deadline & Docs (Node 24 + docs refresh)" --body
 Medium. The 7 action bumps cross a runtime-deprecation boundary; the rest is documentation. `actions/upload-artifact@v5` is the highest-risk single bump (changed defaults around hidden files and compression). Rollback: revert the D1 commit on main and re-deploy.
 
 ## Spec / Plan
-- Spec: [docs/superpowers/specs/2026-05-09-ci-deadline-docs-design.md](docs/superpowers/specs/2026-05-09-ci-deadline-docs-design.md)
-- Plan: [docs/superpowers/plans/2026-05-09-ci-deadline-docs.md](docs/superpowers/plans/2026-05-09-ci-deadline-docs.md)
+- Spec: [docs/archive/specs/2026-05-09_ci-deadline-docs-design.md](docs/archive/specs/2026-05-09_ci-deadline-docs-design.md)
+- Plan: [docs/archive/plans/2026-05-09_ci-deadline-docs.md](docs/archive/plans/2026-05-09_ci-deadline-docs.md)
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 EOF

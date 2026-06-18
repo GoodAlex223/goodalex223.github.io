@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-06-16 (Documentation Accuracy Sweep — Cleanup Week #1 Group B)
+**Last Updated**: 2026-06-17 (Archived-Doc Dead-Link Cleanup — Cleanup Week #1 Group E)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **Archived-Doc Dead-Link Cleanup** (Cleanup Week #1, Group E): swept 20 dead `docs/superpowers/` navigational pointers across 9 archived plans, retargeting each to its real `docs/archive/<specs|plans>/` file (hyphen→underscore dates, markup preserved; historical command text left intact); added `scripts/check-archived-links.js` (CI lint + husky pre-commit guard, 3 detection forms + 2-file allowlist) so the dead links can't recur — reframing the un-shippable "fix the upstream writing-plans template" item into a repo-local guard. A finishing-phase gap check caught one wrapped-pointer (`2026-06-10:15`) the line-anchored guard missed; hardened the guard (`LINK_LABEL`/`LINK_HREF`) and fixed it. 3 BACKLOG items resolved. → moved to [DONE.md](DONE.md)
 - **Documentation Accuracy Sweep** (Cleanup Week #1, Group B): verify-first docs pass — 3 `ROADMAP.md` edits (duplicate "Last Updated" footer removed; v1.5/v1.1 parallel-development footnote; bare-name cross-links + in-progress→completed transition comment) plus 4 items closed without edit (5a `check-backlog-structure` already synced via `687940a`; 5b Shell Gotchas reword sync-owned + accurate; 5c checkout@v4→v6 target obsolete after Group A prune; DONE "zero extra" verified correct in scope). 9 🟤 BACKLOG items resolved (5 done / 3 won't-do / 1 obsolete) + 2 follow-ups extracted. CLAUDE.md AUTO-MANAGED regions intentionally untouched. → moved to [DONE.md](DONE.md)
 - **Script Robustness & Observability** (Cleanup Week #1, Group C): 6 defensive/observability edits across 2 CI scripts — `check-assets.js` dist-preflight non-directory guard (`readdirSync` try/catch) + "missing or empty" wording reconcile + `extractJsonRefs` JSDoc + stale-hash hint recolored RED→YELLOW; `validate-backlog-paths.js` working-tree-fallback `console.warn` + per-violation spec-vs-plans subtree fix-guidance. No happy-path change; manual-reproduction verification (no `scripts/` test harness); all 5 CI gates green. → moved to [DONE.md](DONE.md)
 - **Test Infrastructure Cleanup** (Cleanup Week #1, Group D): drained the last fixed-timeout smells from the Playwright suite — generic `waitForOpacity(locator)` replacing `ModalPage`'s 300ms wait + inline poll, deterministic url-hash negative tests (Promise.all `waitForResponse` + JS-init signal), exported `SCROLL_OBSERVER_*` constants with a runtime-intercept guard test + a filter-hidden regression test, reduced-motion consistency calls, and removal of unused timing fns. Investigated and disproved the hypothesized reduced-motion modal focus gap. → moved to [DONE.md](DONE.md)

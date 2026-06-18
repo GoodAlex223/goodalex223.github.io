@@ -22,6 +22,7 @@
     "check-assets": "node scripts/check-assets.js",
     "validate-backlog": "node scripts/validate-backlog-paths.js",
     "check-backlog-structure": "node scripts/check-backlog-structure.js",
+    "check-archived-links": "node scripts/check-archived-links.js",
     "prepare": "husky"
   },
   "lint-staged": {

@@ -8,7 +8,7 @@
 
 **Tech Stack:** Node.js 22 (CommonJS), `fs` module (`existsSync`, `readdirSync`, `realpathSync.native`), `path` module. Zero new dependencies. Lint via ESLint (Node CJS env, configured in `eslint.config.js`).
 
-**Spec:** `docs/superpowers/specs/2026-05-02-asset-checker-polish-design.md`
+**Spec:** `docs/archive/specs/2026-05-02_asset-checker-polish-design.md`
 
 **Branch:** `chore/asset-checker-polish`
 

@@ -8,7 +8,7 @@
 
 **Tech Stack:** Node.js 20 built-in `fetch()`, `fs`, `path`. No new npm dependencies.
 
-**Spec:** `docs/superpowers/specs/2026-04-05-automated-link-checking-design.md`
+**Spec:** `docs/archive/specs/2026-04-05_automated-link-checking-design.md`
 
 ---
 

@@ -8,7 +8,7 @@
 
 **Tech Stack:** Playwright (`@playwright/test` v1.x), ESM imports, plain JS. No production code changes.
 
-**Spec:** `docs/superpowers/specs/2026-05-16_scroll-animation-deterministic-polling-design.md`
+**Spec:** `docs/archive/specs/2026-05-16_scroll-animation-deterministic-polling-design.md`
 
 ---
 
