@@ -2,7 +2,7 @@
 
 Future ideas and improvements for the portfolio.
 
-**Last Updated**: 2026-06-20 (deploy.yml PR Trigger Group D — 2 EXTRACT follow-ups)
+**Last Updated**: 2026-06-20 (PR #78 merged — origin item reconciled + 1 code-review follow-up)
 
 **Active tasks**: See [TODO.md](TODO.md)
 **Completed work**: See [DONE.md](DONE.md)
@@ -225,7 +225,7 @@ concept; the weekly-planning prompt selected on priority + domain only).
 ### From CI Deadline & Docs (2026-05-10)
 **Origin**: docs/archive/plans/2026-05-09_ci-deadline-docs.md
 
-- [ ] `.github/workflows/deploy.yml` — add a `pull_request:` trigger so the `lint → build → check-links + test + lighthouse` pipeline runs on PR open/update, not just on push-to-main. Discovered during PR #70 Task 5: feature-branch pushes do not trigger CI today; merge-time is the only gate. Past PRs (#65, #66, #68, #69, #70) all had `statusCheckRollup: 0`. Adding the trigger would mean PR-time validation of action-bump risk and a tighter feedback loop on workflow YAML changes. Note: the `deploy` job should remain guarded so it does not deploy from feature branches (current `environment: github-pages` may suffice; verify). (PR #70 Task 5 process gap, confidence 70, important CI gap)
+- [x] `.github/workflows/deploy.yml` — add a `pull_request:` trigger so the `lint → build → check-links + test + lighthouse` pipeline runs on PR open/update, not just on push-to-main. Discovered during PR #70 Task 5: feature-branch pushes do not trigger CI today; merge-time is the only gate. Past PRs (#65, #66, #68, #69, #70) all had `statusCheckRollup: 0`. Adding the trigger would mean PR-time validation of action-bump risk and a tighter feedback loop on workflow YAML changes. Note: the `deploy` job should remain guarded so it does not deploy from feature branches (current `environment: github-pages` may suffice; verify). (PR #70 Task 5 process gap, confidence 70, important CI gap) **[DONE 2026-06-20, Group D: PR #78 (merge 9309015) added the `pull_request: branches:[main]` trigger + ref-scoped concurrency + `deploy` job `if:` guard — verified on PR #78's own run (gate ✅, `deploy` skipped). Residual least-privilege `permissions` scoping & "mark checks required" branch-protection work tracked as the 2 EXTRACT follow-ups under 🟤 From deploy.yml PR Trigger Group D.]**
 
 ### From BACKLOG Validator Hardening (2026-05-07)
 **Origin**: docs/archive/plans/2026-05-06_backlog-validator-hardening.md
@@ -280,6 +280,11 @@ concept; the weekly-planning prompt selected on priority + domain only).
 
 - [ ] `deploy.yml` grants `pages: write` + `id-token: write` at the workflow (top) level, so every PR run now carries those write scopes even though only the `deploy` job (skipped on PRs) uses them. Scope `pages: write` + `id-token: write` down to the `deploy` job's own `permissions:` block and leave only `contents: read` at the top level, so the `lint`/`build`/`check-links`/`test`/`lighthouse` runs that fire on PRs run least-privilege. Low risk; deliberately deferred from the PR-trigger PR to keep that change minimal (spec "Out of scope"). (Group D task-completion EXTRACT, confidence 40, least-privilege/security-hygiene)
 - [ ] The new PR checks are not yet *enforced* — adding the `pull_request:` trigger makes `lint`/`build`/`check-links`/`test`/`lighthouse` *appear* on PRs, but a red PR can still be merged until they are marked **required status checks** on the `main` branch-protection rule (GitHub repo Settings → Branches). This is a repo-settings/admin action (not a workflow-file change), so it cannot ship in the PR itself; tracked here so the gate actually blocks. (Group D task-completion EXTRACT, confidence 45, CI-gating/process)
+
+### From PR #78 Code Review (2026-06-20)
+**Origin**: docs/archive/plans/2026-06-20_deploy-pr-trigger.md
+
+- [ ] Task-completion left the resolved 🟡 origin item unchecked — PR #78 shipped the `deploy.yml` `pull_request:` trigger + `deploy` guard, but its origin item ("add a `pull_request:` trigger", 🟡 From CI Deadline & Docs) stayed `[ ]` through merge, so the BACKLOG briefly contradicted code state. Reconciled post-merge here (item now `[x]` with a PR-#78 DONE annotation; residual least-privilege/required-checks scope stays tracked as the 2 EXTRACT follow-ups). Forward fix: add "check off / annotate the resolved origin tracking item" to the EXTRACT step of task-completion so a deferred-then-shipped item doesn't linger open. (PR #78 code review, confidence 50, task-completion/backlog-hygiene)
 
 ### From PR #77 Code Review (2026-06-18)
 **Origin**: docs/archive/plans/2026-06-17_archived-doc-dead-links.md
