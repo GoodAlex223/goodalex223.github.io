@@ -1,113 +1,111 @@
 # Weekly Plan
 
-> 🧹 **CLEANUP WEEK** — quota inverted (≥50% SP from 🟤 Auto-Generated). First Cleanup Week under the new source-split BACKLOG. See Quota Check.
+**Week of**: June 22 - 26, 2026
+**Created**: 2026-06-18
+**Sources**: ROADMAP.md, BACKLOG.md (📌 Process Rules + 🔵/🟡/🟤 buckets), TODO.md, DONE.md, git log (Jun 4 - Jun 18), prior WEEKLY.md. _MILESTONES.md, GOALS.md, and REVIEW-QUEUE.md referenced by the planning template do not exist in this project — priorities drawn from ROADMAP + BACKLOG; REVIEW-QUEUE.md will be created on the first Weekly Reviews run (see Group F)._
 
-**Week of**: June 8 - 12, 2026
-**Created**: 2026-06-09
-**Sources**: ROADMAP.md, BACKLOG.md (📌 Process Rules + 🔵/🟡/🟤 buckets), TODO.md, DONE.md, git log (May 24 - Jun 9). _MILESTONES.md and GOALS.md referenced by the planning template do not exist in this project — only ROADMAP.md; priorities drawn from ROADMAP + BACKLOG._
-
-**Context**: First weekly plan under the source-split BACKLOG shipped by PR #72 (merged 2026-06-09). The 🟤 Auto-Generated bucket holds ~149 items (~63% of the backlog) — far over the ~20-SP Cleanup-Week trigger — so both the restructure follow-up and TODO.md "High Priority" call for declaring this a Cleanup Week to start draining it before the ≥50% 🔵 quota can be met sustainably. This week inverts the quota and drains 🟤 tech debt in five domain-batched PRs, anchored by a prune-on-audit pass (🏆) that shrinks the bucket directly. The un-executed May 25-29 content plan (CONTENT-005 screenshots, social-stats, external-repo work) was superseded by the restructure; those tasks already live in 🔵 BACKLOG and are deferred to the next normal/content week.
+**Context**: First **normal content week** after Cleanup Week #1 (June 8-12, all 5 groups A-E shipped via PRs #73-#77). This week executes the pivot the prior plan's transition note called for — back to 🔵 user-flagged **content** after the long Quality & Hardening streak. Centerpiece: fill the four projects with detail screenshots (restoring the stashed hardware-project WIP) and add a 9th project (`social-stats`) as the 🏆 challenge. Rounded out with the deferred 🟡 `deploy.yml` PR-trigger CI gap and the one accumulated 🟤 group (PR #77 review follow-ups). This re-confirms the source-split BACKLOG works as intended: with the 🟤 bucket drained, a normal week now sustainably clears the ≥50% 🔵 quota (75% this week).
 
 ---
 
 ## Parallel Work
 
-- Monitor Formspree spam dashboard — CHALLENGE-003 carry-forward (started ~Mar 21). 🟡 Operational watch; user-side reCAPTCHA v3 decision still pending. No SP (passive).
+- **Monitor Formspree spam dashboard** — CHALLENGE-003 carry-forward (started ~Mar 21). 🟡 Operational watch; user-side reCAPTCHA v3 decision still pending. No SP (passive).
+- **Bing indexing spot-check** — SEO-005 carry-forward; glance at Bing Webmaster Tools for index coverage. 🟡 Operational, passive. No SP.
 
 ---
 
 ## Task Groups
 
-All five groups draw from 🟤 Auto-Generated Tech Debt (Cleanup-Week focus). The normal ≤1-🟤-group cap is intentionally lifted for the Cleanup Week — draining 🟤 is the week's purpose.
+Normal-week quota in force: ≤1 group from 🟤 Auto-Generated (Group E only), 🟤 + 🟡 each ≤25% of weekly SP, 🔵 ≥50%. The Weekly Reviews batch (Group F) is ⚪ Overhead and excluded from the quota denominator.
 
-### A. Backlog Drain & Cleanup-Week Bootstrapping — 🟤 — 5 SP *(IMPORTANT)* 🏆
+### A. Project Screenshots & Conversion Utility `[batch]` — 🔵 — 7 SP — Domain: Content/Build *(IMPORTANT)*
 
-The Cleanup-Week centerpiece: directly shrink the 🟤 bucket and put the Cleanup-Week machinery on a real footing. Run **first** — the prune pass identifies already-shipped items, which de-risks the rest of the week (avoids re-doing work the audit may mark done).
+One PR. Fills the four `"screenshots": []` gaps in `data/projects.json` (lines 123/148/173/197 — dropshipping, lubrication, hx711-scale, svg-processor) with 2 detail screenshots each, matching the existing projects' pattern. Build the conversion tool **first**, then capture/process all four. Restores the stashed hardware-project WIP rather than redoing it.
 
-- 🏆 Verify-and-prune the ~25 "prune-on-audit candidates" — cross-check each `- [ ]` item that looks already-shipped (PERF-006 inline critical CSS, "Add automated link checking" in Technical Debt, QUALITY-010 commitlint, validator/asset-checker items from PRs #68/#69, the scroll-animation flake closed by PR #71) against DONE.md + git history; mark genuinely-done items complete and prune *(3 SP, conf 80)*
-- Calibrate the Cleanup-Week threshold and formally record this as the first Cleanup Week — revisit whether ~20 SP is the right trigger; log start state (~149 🟤 items) for the 2-3-week recalibration window *(2 SP, conf 70)*
+- Add `scripts/convert-screenshot.js` PNG→webp utility (resize + compress) — replaces the ad-hoc `sharp` install used in CONTENT-003; reused for all four projects below *(2 SP, 🔵 from CONTENT-003)*
+- Restore + finish the 2 stashed hardware projects (lubrication, hx711-scale): `git checkout content/content-005-hardware-screenshots && git stash pop` (stash@{0}), then wire `screenshots[]` into `projects.json` *(2 SP, 🔵 from CONTENT-005/CONTENT-001)*
+- Capture + wire dropshipping + svg-processor detail screenshots *(3 SP, 🔵 from CONTENT-005/CONTENT-001)*
 
-### B. Documentation Accuracy Sweep `[batch]` — 🟤 — 7 SP — Domain: Docs
+> Gotchas: run `npm run build && npm run check-assets` after wiring — the asset checker gates new `screenshots[].src` refs. No card-date change needed unless a project's "meaningful commit" date moved (see Date-Sync gotcha).
 
-One PR. ROADMAP/DONE hand-edits plus CLAUDE.md AUTO-MANAGED-region fixes routed through `/auto-memory:sync` (hand-edits there would be clobbered on next sync).
+### B. social-stats Showcase + 9th Project Card 🏆 — 🔵 — 5 SP — Domain: Content *(solo)*
 
-- ROADMAP.md — remove duplicate "Last Updated" field (header line 3 + trailing italic line 84) *(1 SP, conf 70)*
-- ROADMAP.md — annotate v1.5 "Completed 2026-03-21" with parallel-development note / fix the phase-ladder drift where v1.5 commits predate later v1.1 items *(2 SP, conf 60, structural)*
-- ROADMAP.md — align Quality & Hardening cross-link display-text with DONE.md convention; document the transition convention for the "🔧 In Progress" phase header *(2 SP, conf 40-50)*
-- DONE.md — fix the "zero extra" undercount in the Backlog Restructure entry (restructure added 3 net-new 🟤 follow-ups; final open count ~240, not 237) *(1 SP, conf 50)*
-- CLAUDE.md AUTO-MANAGED sync via `/auto-memory:sync` — `check-backlog-structure` guard drift at 3 sites (Pre-commit bullet, Build Commands block, scripts/ architecture line); BACKLOG line-948 `checkout@v4`→`@v6`; Shell Gotchas wording ("On a fresh repo" → "On any commit that doesn't stage BACKLOG.md", inline `.husky/pre-commit` path) *(1 SP, conf 40-60)*
+The weekly challenge. Strategic feature: expands the portfolio from 8 → 9 projects and exercises the "In Development" status path. Use the **`add-project` skill** (handles the card + modal entry + the per-card invariants).
 
-### C. Script Robustness & Observability `[batch]` — 🟤 — 5 SP — Domain: CI/Build (scripts/)
+- Create/refresh a public showcase repo for [social-stats](https://github.com/GoodAlex223) suitable for portfolio linking *(2 SP)*
+- Add the 9th project card (index.html) + `data/projects.json` modal entry with `status: "In Development"` — increment `data-animate-delay` by 50ms from the last card; sync the date across all 4 locations *(3 SP)*
 
-One PR. Small defensive hardening across `check-assets.js` and `validate-backlog-paths.js`.
+### C. Dropshipping Content Accuracy `[batch]` — 🔵 — 3 SP — Domain: Content
 
-- `check-assets.js` — guard `checkDistPreflight()` against `dist` existing as a non-directory (`statSync().isDirectory()` before `readdirSync`, mirroring `assetExists()` try/catch) *(1 SP, conf 50)*
-- `check-assets.js` — reconcile `checkDistPreflight()` JSDoc ("missing or empty") vs error message ("missing or incomplete") wording drift *(1 SP, conf 50)*
-- `check-assets.js` — update `extractJsonRefs()` JSDoc to mention the non-object guard; restyle the stale-hash `Hint:` label out of RED (it's a nudge, not an error) *(1 SP, conf 40-50)*
-- `validate-backlog-paths.js` — emit `console.warn` when `readBacklog()` falls back to working-tree read (silent-degradation hazard); make fix-guidance detect `plans/` vs `specs/` violation subtree *(2 SP, conf 30-50)*
+One PR. Two CONTENT-001 accuracy items on the dropshipping entry. Edits the `description`/`tech` fields (distinct from Group A's `screenshots[]` field on the same entry) — sequence **after** Group A merges (or rebase) to avoid a `projects.json` conflict.
 
-### D. Test Infrastructure Cleanup `[batch]` — 🟤 — 6 SP — Domain: Testing
+- Verify dropshipping description accuracy vs the actual repo (Next.js 14 App Router, BullMQ, Stripe, 249 unit-test claims) *(2 SP, 🔵)*
+- Reconcile dropshipping card tech vs modal tech — card shows 4 (`TypeScript, React, Docker, Vercel`); JSON has 6 (`…Next.js, PostgreSQL, Stripe…`, no `Vercel`); pick one canonical set *(1 SP, 🔵, code-review finding conf 50)*
 
-One PR. Closes the last fixed-timeout smell in the test infra (the recurring flake-reduction theme) plus small drift/lineage fixes.
+### D. deploy.yml PR Trigger — 🟡 — 3 SP — Domain: CI/Build *(solo, risk-heavy → front-load)*
 
-- `waitForModalOpen(page)` / generic `waitForOpacity(page, selector)` polling helper in `tests/utils/timing.js` — replaces `ModalPage.js:118` `waitForTimeout(300)`, the last fixed-timeout in the suite *(3 SP, conf 65)*
-- Automated guard test for the helper's observer-mirrored constants — `page.evaluate()` reads the production observer config and asserts `THRESHOLD`/`ROOT_MARGIN_BOTTOM` in `timing.js` match `js/main.js` *(1 SP, conf 60)*
-- Add `waitForScrollAnimations(page)` to form + modal reduced-motion `beforeEach` blocks for cross-suite consistency (free under reduced-motion short-circuit) *(1 SP, conf 50)*
-- Lineage/cleanup nits: inline comment for the omitted `waitForScrollAnimations` after `clickFilter()` in the reduced-motion filter test; preserve the deleted FilterPage stagger-budget rationale in the helper JSDoc; remove unused `getAnimationDuration()`/`getStaggerDelay()` from `timing.js` *(1 SP, conf 25-75)*
+The deferred operational CI gap (conf 70, important). Solo PR — CI-workflow edits have deploy blast radius, so isolate and run first.
 
-### E. Archived-Doc Dead-Link Cleanup `[batch]` — 🟤 — 3 SP — Domain: Docs
+- Add a `pull_request:` trigger so `lint → build → check-links + test + lighthouse` runs on PR open/update (today merge-time is the only gate — PRs #65/#66/#68/#69/#70 all had `statusCheckRollup: 0`) *(3 SP, 🟡 from CI Deadline & Docs)*
 
-One PR. Recurring `docs/superpowers/` dead links in archived/frozen docs + the upstream template fix that stops them recurring.
+> Guard the `deploy` job so it never deploys from a feature branch — verify the existing `environment: github-pages` gate suffices; add a branch condition if not.
 
-- Update stale `docs/superpowers/` cross-refs inside the archived restructure plan + design spec (`docs/archive/plans|specs/2026-06-07_*`) *(1 SP, conf 35)*
-- Update stale `docs/superpowers/` cross-refs in the archived test-stability plan (`docs/archive/plans/2026-04-28_test-stability-investigations.md` lines 11, 581-582) *(1 SP, conf 35)*
-- writing-plans skill template should emit `Spec / Plan` links in final archived form (underscored dates, `docs/archive/<specs|plans>/`) so live PR bodies and archived plans both ship clean *(1 SP, conf 75, process/template)*
+### E. PR #77 Review Follow-ups `[batch]` — 🟤 — 2 SP — Domain: Scripts/Docs
+
+The single permitted 🟤 group this week. Both items are PR #77 code-review follow-ups (accumulated, not spread). The LINK_HREF fix-recipe was already corrected in BACKLOG (commit `00a8e87`).
+
+- Fix `LINK_HREF` in `scripts/check-archived-links.js` to exclude external URLs via negative lookahead `/\]\((?!https?:)[^)]*superpowers\//` (keeps both local dead forms — `docs/superpowers/…` and relative `../superpowers/…`; do NOT anchor to `docs/superpowers/`, which drops the relative form) *(1 SP, 🟤 conf 50, latent correctness)*
+- Reword the CLAUDE.md "Archived-Doc Link Hygiene" intro so its scope matches the code (all three detection forms, not just nav-pointer lines) *(1 SP, 🟤 conf 50, doc consistency)*
+
+### F. Weekly Reviews `[batch]` — ⚪ Overhead — 4 SP — Domain: Research
+
+Recurring exempt overhead (excluded from the quota denominator). Read [REVIEW-QUEUE.md](REVIEW-QUEUE.md) first — it does not exist yet, so this first run **creates it** (Reviewed logs + Next-up parking per category). On any `adopt` verdict, file a 🟤 Auto-Generated BACKLOG entry.
+
+- **Plugins (2 SP)** — review two independent tops: best not-yet-reviewed plugin from the official Claude plugin store, and separately the best from the wider internet; log each with its `source:`
+- **Claude best-practices (1 SP)** — top not-yet-reviewed practice for Claude / Claude Code / Claude Design / Cowork
+- **Non-Claude AI best-practices (1 SP)** — same, for AI models/tools other than Claude
 
 ---
 
 ## Daily Schedule
 
-### Monday — Backlog Drain 🏆 (5 SP)
+### Monday — CI Gate + Screenshot Tooling (5 SP)
 
-**Group A — Backlog Drain & Cleanup-Week Bootstrapping** — 🟤 — 5 SP *(run first; de-risks the week)*
-- [x] 🏆 Verify-and-prune the ~25 prune-on-audit candidates against DONE.md + git *(3 SP)* — pruned 31 (🟤 24 · 🔵 5 · 🟡 2), kept 2 genuinely-open
-- [x] Calibrate Cleanup-Week threshold + formally record this as the first Cleanup Week *(2 SP)* — see [cleanup-week-log.md](cleanup-week-log.md); threshold deferred to ~2026-06-30
+**Group D — deploy.yml PR Trigger** — 🟡 — 3 SP *(run first; CI blast radius)*
+- [x] Add `pull_request:` trigger to `.github/workflows/deploy.yml`; verify/guard the deploy job against feature-branch deploys *(3 SP)* — PR [#78](https://github.com/GoodAlex223/goodalex223.github.io/pull/78), verified green (gate ran, `deploy` skipped), pending merge
 
-### Tuesday — Test Infrastructure (6 SP)
+**Group A (part 1) — Conversion Utility** — 🔵 — 2 SP
+- [ ] Add `scripts/convert-screenshot.js` PNG→webp utility (resize + compress) *(2 SP)*
 
-**Group D — Test Infrastructure Cleanup** `[batch]` — 🟤 — 6 SP *(meatiest code; front-loaded)* — ✅ Done (PR pending)
-- [x] `waitForModalOpen`/`waitForOpacity` polling helper → replace `ModalPage` `waitForTimeout(300)` *(3 SP)* — generic `waitForOpacity(locator)`; also absorbed `clickCard()`'s inline opacity poll
-- [x] Automated guard test for observer-mirrored constants *(1 SP)* — runtime `IntersectionObserver` intercept via `addInitScript`; constants exported from `timing.js` (single source); mutation-checked
-- [x] Add `waitForScrollAnimations` to form + modal reduced-motion `beforeEach` *(1 SP)* — plus the 2 reduced-motion `clickFilter()` sites (add-the-call decision, superseding the planned comment-the-omission nit)
-- [x] Lineage/cleanup nits (inline comment, stagger-budget JSDoc, remove unused timing fns) *(1 SP)* — stagger-budget JSDoc + `getAnimationDuration`/`getStaggerDelay` removal done
-- **Scope extensions (approved in brainstorming 2026-06-12):** url-hash negative tests dropped 2× `waitForTimeout(500)` for deterministic waits; filter-hidden regression test (BACKLOG-313). **Investigated, not filed:** the hypothesized reduced-motion modal close-button focus gap (design spec §5) did **not** reproduce — a throwaway probe confirmed `transitionend` still fires under reduced motion (universal `transition-duration: 0.01ms !important` at `css/main.css:244` keeps it firing despite `.project-modal { transition: none }`), so focus reaches the close button correctly. No BACKLOG entry filed.
+### Tuesday — Project Screenshots (5 SP)
 
-### Wednesday — Script Robustness (5 SP)
+**Group A (part 2-3) — Screenshots for 4 projects** `[batch]` — 🔵 — 5 SP
+- [ ] Restore stash@{0} on `content/content-005-hardware-screenshots`; wire lubrication + hx711-scale `screenshots[]` *(2 SP)*
+- [ ] Capture + wire dropshipping + svg-processor detail screenshots; `npm run build && npm run check-assets` *(3 SP)*
 
-**Group C — Script Robustness & Observability** `[batch]` — 🟤 — 5 SP
-- [x] `check-assets.js` — non-directory `dist` guard *(1 SP)* — Edit B (`readdirSync` try/catch; ENOENT+ENOTDIR)
-- [x] `check-assets.js` — JSDoc vs error wording reconcile *(1 SP)* — Edit C ("missing or empty")
-- [x] `check-assets.js` — `extractJsonRefs` JSDoc + stale-hash hint color *(1 SP)* — Edits D + E (new YELLOW constant)
-- [x] `validate-backlog-paths.js` — working-tree fallback `console.warn` + spec-targeted fix-guidance *(2 SP)* — Edits F + G
-- **Outcome:** 4 commits on `chore/script-robustness` (9e4dfee · c272129 · 0342697 · d2168a4); all 5 CI gates green (lint, build, check-assets 29/0, validate-backlog, check-backlog-structure). Subagent-driven, two-stage review per task + Ready-to-merge final whole-branch review. Spec/plan archived to `docs/archive/`. Low-confidence item 4b (conf 30) kept in-scope per brainstorming. 3 new 🟤 follow-ups extracted (EACCES `catch {}` swallow; `→` escape-style cross-file nit; `FORBIDDEN_ORIGIN_PATHS` comment).
+### Wednesday — New Project: social-stats 🏆 (5 SP)
 
-### Thursday — Documentation Accuracy (7 SP)
+**Group B — social-stats Showcase + 9th Card** 🏆 — 🔵 — 5 SP
+- [ ] Create/refresh public showcase repo for social-stats *(2 SP)*
+- [ ] Add 9th project card + modal entry (`status: "In Development"`, via `add-project` skill; sync 4 date locations, +50ms animate-delay) *(3 SP)*
 
-**Group B — Documentation Accuracy Sweep** `[batch]` — 🟤 — 7 SP — ✅ Done (PR pending)
-- [x] ROADMAP.md — remove duplicate "Last Updated" *(1 SP)* — done
-- [x] ROADMAP.md — v1.5 parallel-development / phase-ladder drift annotation *(2 SP)* — done (footnote)
-- [x] ROADMAP.md — cross-link display-text + in-progress-phase transition convention *(2 SP)* — done
-- [x] DONE.md — fix "zero extra" undercount *(1 SP)* — won't-do (verified correct in scope)
-- [x] CLAUDE.md AUTO-MANAGED sync via `/auto-memory:sync` (check-backlog-structure drift + checkout@v6 + Shell Gotchas wording) *(1 SP)* — done/closed (5a synced via 687940a; 5b sync-owned; checkout target obsolete)
-- **Outcome:** Verify-first sweep — 3 ROADMAP.md edits applied (duplicate footer removed; v1.5/v1.1 parallel-development footnote; bare-name cross-links + in-progress→completed transition comment); 4 items closed without edit (5a already synced via `687940a`; 5b sync-owned + wording accurate; 5c obsolete — checkout@v4 target pruned in Group A; DONE "zero extra" verified correct in scope). 9 🟤 BACKLOG items resolved (5 done / 3 won't-do / 1 obsolete). Single docs PR on `docs/accuracy-sweep`. CLAUDE.md AUTO-MANAGED regions intentionally untouched (no `/auto-memory:sync` needed).
+### Thursday — Content Accuracy + Review Follow-ups (5 SP)
 
-### Friday — Dead-Link Cleanup (3 SP)
+**Group C — Dropshipping Content Accuracy** `[batch]` — 🔵 — 3 SP *(sequence after Group A merges)*
+- [ ] Verify dropshipping description vs repo (Next.js 14, BullMQ, Stripe, 249 tests) *(2 SP)*
+- [ ] Reconcile dropshipping card tech (4) vs modal tech (6) to one canonical set *(1 SP)*
 
-**Group E — Archived-Doc Dead-Link Cleanup** `[batch]` — 🟤 — 3 SP *(light day — buffer/overflow for the week)* — ✅ Done (PR pending)
-- [x] Stale `docs/superpowers/` cross-refs in archived restructure plan + spec *(1 SP)* — plan's 9 nav-pointers retargeted; the design spec needed none (its refs were all intentional — denylist literal, `rating_bot`, command records)
-- [x] Stale `docs/superpowers/` cross-refs in archived test-stability plan *(1 SP)* — lines 11, 581-582 retargeted
-- [x] writing-plans template → archive-form Spec/Plan links *(1 SP)* — **reframed**: the upstream template is out of repo (plugin cache, 5+ versions), so shipped `scripts/check-archived-links.js` (CI `lint` + husky pre-commit guard) as the repo-local recurrence-prevention instead
-- **Scope widened in brainstorming (2026-06-17):** WEEKLY named 2 files; the same dead-nav-pointer defect existed in 6 more archived plans → comprehensive **8-file / 19-pointer** sweep. A finishing-phase gap check (prompted by the open PR #73 `2026-06-10` BACKLOG item) caught a **9th** file — a pointer wrapped under a `## Spec` header that the line-anchored guard missed — so the guard was hardened (`LINK_LABEL`/`LINK_HREF`) and the miss fixed (20 pointers / 9 files total). Subagent-driven (4 tasks); opus whole-branch review Ready-to-merge. 3 🟤 resolved, 2 🟤 extracted.
+**Group E — PR #77 Review Follow-ups** `[batch]` — 🟤 — 2 SP
+- [ ] `LINK_HREF` negative-lookahead fix in `check-archived-links.js` (excludes external URLs, keeps relative `../superpowers/`) *(1 SP)*
+- [ ] Reword CLAUDE.md "Archived-Doc Link Hygiene" intro to cover all three detection forms *(1 SP)*
+
+### Friday — Weekly Reviews (4 SP, buffer day)
+
+**Group F — Weekly Reviews** `[batch]` — ⚪ Overhead — 4 SP *(low-risk; also buffer for any Mon-Thu overflow)*
+- [ ] Plugins: official store top + wider-internet top (log each with `source:`) *(2 SP)*
+- [ ] Claude best-practices: top not-yet-reviewed *(1 SP)*
+- [ ] Non-Claude AI best-practices: top not-yet-reviewed *(1 SP)*
 
 ---
 
@@ -115,12 +113,13 @@ One PR. Recurring `docs/superpowers/` dead links in archived/frozen docs + the u
 
 | Group | Domain | Source | Tasks | Total SP | Day | Status |
 |-------|--------|--------|-------|----------|-----|--------|
-| A. Backlog Drain & Cleanup Bootstrapping 🏆 | Planning/Docs | 🟤 Auto | 2 | 5 | Mon | ✅ Done |
-| D. Test Infrastructure Cleanup `[batch]` | Testing | 🟤 Auto | 4 | 6 | Tue | ✅ Done |
-| C. Script Robustness & Observability `[batch]` | CI/Build | 🟤 Auto | 4 | 5 | Wed | ✅ Done |
-| B. Documentation Accuracy Sweep `[batch]` | Docs | 🟤 Auto | 5 | 7 | Thu | ✅ Done |
-| E. Archived-Doc Dead-Link Cleanup `[batch]` | Docs | 🟤 Auto | 3 | 3 | Fri | ✅ Done |
-| **Total** | | | **18** | **26** | | |
+| A. Project Screenshots & Conversion Utility `[batch]` | Content/Build | 🔵 User | 3 | 7 | Mon-Tue | ⬜ Planned |
+| B. social-stats Showcase + 9th Card 🏆 | Content | 🔵 User | 2 | 5 | Wed | ⬜ Planned |
+| C. Dropshipping Content Accuracy `[batch]` | Content | 🔵 User | 2 | 3 | Thu | ⬜ Planned |
+| D. deploy.yml PR Trigger | CI/Build | 🟡 Ops | 1 | 3 | Mon | 🔄 PR #78 (verified, pending merge) |
+| E. PR #77 Review Follow-ups `[batch]` | Scripts/Docs | 🟤 Auto | 2 | 2 | Thu | ⬜ Planned |
+| F. Weekly Reviews `[batch]` | Research | ⚪ Overhead | 3 | 4 | Fri | ⬜ Planned |
+| **Total** | | | **13** | **24** | | |
 
 ---
 
@@ -128,58 +127,61 @@ One PR. Recurring `docs/superpowers/` dead links in archived/frozen docs + the u
 
 ### Quota Check
 
-- 🔵 User-Flagged SP: 0 / 26 (0%) — normal ≥50% rule **inverted** for this Cleanup Week (by design)
-- 🟡 Operational SP: 0 / 26 (0%) — ✅ ≤25%
-- 🟤 Auto-Generated SP: 26 / 26 (100%) — ✅ Cleanup-Week inverted quota requires ≥50% 🟤; ≤1-group cap **lifted** (5 groups) as Cleanup-Week intent
-- Cleanup Week status: **active**
-- Last Cleanup Week: **never** (this is the first)
-- Compliance: ✅ all Cleanup-Week quotas met — 100% 🟤 satisfies the inverted ≥50% 🟤 rule; the lifted group cap and 0% 🔵 are the documented Cleanup-Week inversion, not a deviation
+Denominator **Y = 24 − 4 (⚪ Overhead Weekly Reviews) = 20 SP**. Percentages computed over Y.
 
-### Why a Cleanup Week (and why now)
+- 🔵 User-Flagged SP: **15 / 20 (75%)** — ✅ ≥50%
+- 🟡 Operational SP: **3 / 20 (15%)** — ✅ ≤25%
+- 🟤 Auto-Generated SP: **2 / 20 (10%)** — ✅ ≤25% AND ✅ exactly 1 group (Group E)
+- Cleanup Week status: **normal** (not due — see below)
+- Last Cleanup Week: **2026-06-08** (Cleanup Week #1, June 8-12)
+- Compliance: **✅ all quotas met.** No deviation; abundant 🔵 content available, so no shortfall justification needed. Weekly Reviews (4 SP) excluded from the denominator per the exempt-overhead rule.
 
-The source-split BACKLOG (PR #72) was built specifically so 🟤 tech debt could be drained deliberately instead of crowding out 🔵 feature work. The restructure exposed that ~63% of the backlog is 🟤 (~149 items). The restructure follow-up and TODO.md both state the first plan under the new rules should be a Cleanup Week. Running it now (a) validates the Cleanup-Week machinery end-to-end on real work, (b) shrinks the bucket so future weeks can sustainably hit ≥50% 🔵, and (c) starts the 2-3-week data window for recalibrating the ~20-SP trigger (Group A).
+### Why a normal week (not Cleanup)
 
-### Weekly Challenge: Verify-and-Prune the Backlog (Group A)
+Cleanup Week #1 closed only ~2 weeks ago and drained the 🟤 bucket of its already-shipped backlog. The cadence is every ~3 weeks (next ~early July), and the SP-vs-item-count trigger recalibration is itself deferred to ~2026-06-30 (see the 🟤 "Resolve the Cleanup-Week trigger units" item + [cleanup-week-log.md](cleanup-week-log.md)). This week is the prior plan's explicitly-planned normal content week.
 
-**Type**: Auto-generated correctness item — permitted as the challenge **only in Cleanup Weeks** (per template). 
-**Why chosen**: Highest-confidence 🟤 item (80) and the highest-leverage one this week — it directly reduces the bucket count and feeds the threshold-calibration task. Done first, it also prevents wasted effort: if the audit marks items in Groups B-E already-shipped, they drop out before execution. It is the most on-theme possible challenge for the inaugural Cleanup Week.
+### Weekly Challenge: social-stats Showcase + 9th Project Card (Group B)
 
-### Deferred from May 25-29 (un-executed content plan)
-
-The May 25-29 plan never ran (June 7-9 went to the Backlog Restructure). Its tasks remain tracked in BACKLOG and are **deferred to the next normal/content week** — no migration needed:
-- CONTENT-005 detail screenshots (4 projects) — 🔵 User-Flagged. The 2 hardware projects (lubrication, hx711-scale) were started and **remain stashed** at `stash@{0}` on `content/content-005-hardware-screenshots` (restore with `git checkout content/content-005-hardware-screenshots && git stash pop`).
-- `social-stats` showcase + 9th project card — 🔵 User-Flagged.
-- `rating_bot_showcase` refresh, svg-processor README fix — 🔵 User-Flagged.
-- `deploy.yml` `pull_request:` trigger — 🟡 Operational (important CI gap, conf 70). **Recommended centerpiece for the next normal week.**
+**Type**: 🔵 User-Flagged strategic feature — the default challenge source for a normal week.
+**Why chosen**: It is the most strategic 🔵 item available — it grows the portfolio's project surface (8 → 9), requires a net-new public showcase repo, and exercises the "In Development" status path, aligning with the ROADMAP's v2.0 Content Expansion direction. The prior plan floated the 🟡 `deploy.yml` PR-trigger as a challenge candidate, but the Weekly-Challenge rule defaults the 🏆 to 🔵 (auto/ops items only qualify in Cleanup Weeks), so `deploy.yml` ships as the normal Monday 🟡 task and the strategic 🔵 new-project is the stretch.
+**Risk/fallback**: showcase-repo creation depends on social-stats having presentable content; if it is not yet shippable, the card can still ship with `status: "In Development"` linking the existing repo, deferring the showcase polish.
 
 ### Dependencies & Sequencing
 
-- **Group A runs Monday, first.** The prune-on-audit pass may mark items in Groups B-E already-complete — finishing it before the batch PRs avoids re-doing shipped work.
-- **Group B's CLAUDE.md items must go through `/auto-memory:sync`**, not hand-edits — all three drift sites sit in `<!-- AUTO-MANAGED -->` regions that the next sync would clobber. ROADMAP/DONE edits in the same group are normal hand-edits; sequence the sync so it doesn't conflict.
-- Groups C, D, E are mutually independent — order is flexible; scheduled by descending code-risk (D test code → C scripts → docs).
-- Each group ships as one branch / one PR / one review cycle.
+- **Group D (deploy.yml) runs Monday, first and isolated** — CI-workflow edits have deploy blast radius; keep it out of the content PRs.
+- **Group A before Group C** — both edit the dropshipping `projects.json` entry (A the `screenshots[]` field, C the `description`/`tech` fields). Merge A first or rebase C to avoid a same-entry conflict.
+- **Group A internal order**: build `convert-screenshot.js` (Mon) before capturing screenshots (Tue) — the tool processes all four projects.
+- **Stash restore (Group A)**: the hardware-project WIP is `stash@{0}` on `content/content-005-hardware-screenshots`. Restore with `git checkout content/content-005-hardware-screenshots && git stash pop` — do not start the hardware screenshots from scratch.
+- **Group F (Weekly Reviews)** reads/creates [REVIEW-QUEUE.md](REVIEW-QUEUE.md); independent of all other groups; scheduled late per the exempt-overhead rule.
+- Each group ships as one branch / one PR / one review cycle (Group A spans a Mon-Tue contiguous block as a single PR).
 
 ### Risks
 
-- **Cleanup-Week timing**: this is a mid-week re-plan (created Tue Jun 9 after the Mon-Tue restructure wrap). The 26-SP / 5-day schedule assumes a fresh Mon-Fri; realistically Mon-Tue cleanup execution compresses. Friday is deliberately light (3 SP) as a buffer; if the week compresses, Group E (lowest-confidence, 35) is the first to defer.
-- **Group A prune scope creep**: cross-checking ~25 items against DONE.md + git can balloon. Time-box to the candidate list in the restructure classification artifact sign-off section; anything ambiguous stays `- [ ]` with a note rather than a guessed prune.
-- **`/auto-memory:sync` regenerating more than intended** (Group B): review the sync diff before committing — AUTO-MANAGED regeneration can touch adjacent lines.
-- **Low-confidence items (conf ≤35)** in Groups C/E may be judged not-worth-doing on inspection; that's an acceptable Cleanup-Week outcome — mark "won't-do" with rationale rather than forcing a change.
+- **External-dependency uncertainty**: screenshot capture (live apps / Wokwi / running the dropshipping app) and showcase-repo creation are fiddlier than pure-code SP suggest. The week is loaded to **24 SP (~4.8/day), below recent velocity** (May 4-8: 31 SP; Cleanup Week: 26 SP), and Friday is buffer — if Mon-Thu overflow, Group F or Group E (lowest stakes) slip first.
+- **Asset-checker gate**: new `screenshots[].src` refs must exist on disk post-build — always run `npm run build && npm run check-assets` before opening Group A's PR, or CI fails at merge.
+- **deploy.yml feature-branch deploy**: adding `pull_request:` must not let the `deploy` job run off a feature branch — verify the environment guard explicitly.
+- **Stash age**: `stash@{0}` predates the backlog-restructure; expect to reconcile it against the current `projects.json` structure when popping.
 
 ### Transition Notes
 
-- After this Cleanup Week, the next week should be a **normal content week** — pick up the deferred 🔵 CONTENT-005 (restore the stash) + `social-stats`, with the 🟡 `deploy.yml` `pull_request:` trigger as a strong challenge candidate.
-- Re-run the Quota Check next week against the **post-drain** 🟤 count from Group A to confirm ≥50% 🔵 is now sustainably achievable.
-- Record the actual SP drained and the recalibrated Cleanup-Week threshold (Group A) in next week's "Previous Week Summary".
+- **Deferred 🔵 content** (still tracked, not this week — keeps all PRs in the portfolio repo): `rating_bot_showcase` refresh + svg-processor README fixes (CairoSVG→svglib correction, EN translation) are **external-repo** work with a different workflow; pull them into a later content week.
+- After this week, re-run the Quota Check against the live bucket counts; with 🟤 drained, normal weeks should keep clearing ≥50% 🔵 comfortably.
+- The ~2026-06-30 Cleanup-Week-trigger recalibration (SP vs item-count) is approaching — fold it into next week's planning notes.
+- **Missing planning docs** (MILESTONES.md, GOALS.md, REVIEW-QUEUE.md) are parked in [TODO.md](TODO.md) High Priority for a future weekly plan (candidate: June 29-Jul 3). REVIEW-QUEUE.md may be auto-bootstrapped by this week's Group F; the TODO task then formalizes it and focuses on the genuinely-missing MILESTONES + GOALS.
+- Older stashes `stash@{1}`/`stash@{2}` (test-stability prep) remain dormant; not needed this week.
 
 ---
 
 ## Previous Week Summary
 
+### Week of June 8 - 12, 2026 — 🧹 CLEANUP WEEK #1 (✅ COMPLETE)
+
+The first Cleanup Week under the source-split BACKLOG. Inverted quota (100% 🟤) across five domain-batched groups, all shipped: **A** Backlog Drain & Cleanup-Week Bootstrapping 🏆 (pruned 31 verified-done items; established [cleanup-week-log.md](cleanup-week-log.md); PR #73), **D** Test Infrastructure Cleanup (generic `waitForOpacity`, runtime observer-constant guard test, deterministic url-hash negatives; PR #74), **C** Script Robustness & Observability (6 defensive edits across `check-assets.js` + `validate-backlog-paths.js`; PR #75), **B** Documentation Accuracy Sweep (verify-first ROADMAP/DONE pass, 9 🟤 resolved; PR #76), **E** Archived-Doc Dead-Link Cleanup (20 nav-pointers across 9 archived plans retargeted + new `scripts/check-archived-links.js` guard; PR #77). Planning + execution ran June 8-12; the PR review/merge cycle (#73-#77) spanned June 11-18. ~26 SP planned. All post-merge deploys green. Each PR's `/code-review` posted "No issues found"; sub-threshold follow-ups captured to BACKLOG 🟤 (the two open PR #77 items are scheduled this week as Group E).
+
 ### Week of May 25 - 29, 2026 — PLANNED, NOT EXECUTED
 
-The May 25-29 content-pivot plan (CONTENT-005 screenshots, `social-stats` showcase, external-repo maintenance, `deploy.yml` `pull_request:` challenge — 29 SP) **did not run**. The intervening effort (Jun 7-9) went to the **Backlog Restructure** (PR #72, merged 2026-06-09): source-split BACKLOG with 📌 Process Rules + 🔵/🟡/🟤 buckets and hard weekly SP quotas, a new `scripts/check-backlog-structure.js` guard (husky + CI), and a `CLAUDE.md` Backlog Intake Rules section. The un-executed content tasks remain in 🔵 BACKLOG (see "Deferred from May 25-29" above); the 2 hardware-screenshot batches remain stashed at `stash@{0}`.
+The May 25-29 content-pivot plan (CONTENT-005 screenshots, `social-stats` showcase, external-repo maintenance, `deploy.yml` challenge — 29 SP) did not run; the intervening effort (Jun 7-9) went to the Backlog Restructure (PR #72). Its content tasks are picked up **this week** (June 22-26, Groups A/B) and via the deferred-content note above.
 
 ### Week of May 4 - 8, 2026
 
-Completed 31 SP across 5 days (6.2 SP/day) — Test Stability (PR #66), Asset Checker Polish (PR #68), BACKLOG Validator Hardening (PR #69), CI Deadline & Docs (PR #70), and the 🏆 Scroll Animation Deterministic Polling challenge (PR #71). Full detail in git history and prior WEEKLY.md revisions. This was the close of the sustained Quality & Hardening test-infra streak; the Cleanup Week above continues draining that streak's accumulated review follow-ups.
+Completed 31 SP across 5 days (6.2 SP/day) — Test Stability (PR #66), Asset Checker Polish (PR #68), BACKLOG Validator Hardening (PR #69), CI Deadline & Docs (PR #70), and the 🏆 Scroll Animation Deterministic Polling challenge (PR #71). Close of the sustained Quality & Hardening test-infra streak.

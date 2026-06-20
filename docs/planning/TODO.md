@@ -2,7 +2,7 @@
 
 Active tasks and backlog.
 
-**Last Updated**: 2026-06-17 (Archived-Doc Dead-Link Cleanup — Cleanup Week #1 Group E)
+**Last Updated**: 2026-06-20 (deploy.yml PR Trigger — Monday Group D shipped to PR #78)
 
 ---
 
@@ -12,6 +12,7 @@ _None currently_
 
 ## Recently Completed
 
+- **deploy.yml PR Trigger** (Monday — Group D): added a `pull_request: branches: [main]` trigger so the full CI gate runs on PRs to main (closing the `statusCheckRollup: 0` gap), with an explicit main-only `deploy`-job guard and ref-scoped concurrency. PR #78 self-verified green (gate ran, `deploy` skipped). → moved to [DONE.md](DONE.md)
 - **Archived-Doc Dead-Link Cleanup** (Cleanup Week #1, Group E): swept 20 dead `docs/superpowers/` navigational pointers across 9 archived plans, retargeting each to its real `docs/archive/<specs|plans>/` file (hyphen→underscore dates, markup preserved; historical command text left intact); added `scripts/check-archived-links.js` (CI lint + husky pre-commit guard, 3 detection forms + 2-file allowlist) so the dead links can't recur — reframing the un-shippable "fix the upstream writing-plans template" item into a repo-local guard. A finishing-phase gap check caught one wrapped-pointer (`2026-06-10:15`) the line-anchored guard missed; hardened the guard (`LINK_LABEL`/`LINK_HREF`) and fixed it. 3 BACKLOG items resolved. → moved to [DONE.md](DONE.md)
 - **Documentation Accuracy Sweep** (Cleanup Week #1, Group B): verify-first docs pass — 3 `ROADMAP.md` edits (duplicate "Last Updated" footer removed; v1.5/v1.1 parallel-development footnote; bare-name cross-links + in-progress→completed transition comment) plus 4 items closed without edit (5a `check-backlog-structure` already synced via `687940a`; 5b Shell Gotchas reword sync-owned + accurate; 5c checkout@v4→v6 target obsolete after Group A prune; DONE "zero extra" verified correct in scope). 9 🟤 BACKLOG items resolved (5 done / 3 won't-do / 1 obsolete) + 2 follow-ups extracted. CLAUDE.md AUTO-MANAGED regions intentionally untouched. → moved to [DONE.md](DONE.md)
 - **Script Robustness & Observability** (Cleanup Week #1, Group C): 6 defensive/observability edits across 2 CI scripts — `check-assets.js` dist-preflight non-directory guard (`readdirSync` try/catch) + "missing or empty" wording reconcile + `extractJsonRefs` JSDoc + stale-hash hint recolored RED→YELLOW; `validate-backlog-paths.js` working-tree-fallback `console.warn` + per-violation spec-vs-plans subtree fix-guidance. No happy-path change; manual-reproduction verification (no `scripts/` test harness); all 5 CI gates green. → moved to [DONE.md](DONE.md)
@@ -63,6 +64,10 @@ _None currently_
 
 - [ ] Verify the local weekly-planning prompt against the 8-item checklist (spec §5) — add the 📌-Process-Rules-first instruction, 4 source/quota rules, carry-forward origin-quota rule, 🏆-defaults-to-🔵, `Source` summary column, mandatory `### Quota Check` subsection, and Cleanup-Week header awareness. Paste the prompt and I'll diff it.
 - [ ] Run the first weekly plan under the new rules and confirm `### Quota Check` shows ✅ (🔵 ≥ 50%). Given the 🟤 bucket holds ~149 items, this will likely need to be declared a Cleanup Week — see the 🟤 "Calibrate the Cleanup-Week threshold" BACKLOG item.
+
+**Planning infrastructure — missing strategic docs** (surfaced 2026-06-18 during the June 22-26 weekly planning):
+
+- [ ] Create `MILESTONES.md`, `GOALS.md`, and `REVIEW-QUEUE.md` in `docs/planning/` — all three are referenced by the weekly-planning template but don't exist (only ROADMAP.md does). `MILESTONES.md` (milestone targets + deadlines) and `GOALS.md` (KRs/objectives) are genuinely missing; `REVIEW-QUEUE.md` (cross-week state for the recurring Weekly Reviews batch) is likely auto-bootstrapped by the June 22-26 Group F run — if so, this task formalizes its structure and focuses on MILESTONES + GOALS. Ask user before creating from `.claude/TEMPLATES/` (per CLAUDE.md). Candidate for a future weekly plan (e.g. June 29-Jul 3).
 
 ---
 

@@ -2,7 +2,7 @@
 
 Future ideas and improvements for the portfolio.
 
-**Last Updated**: 2026-06-10 (Cleanup Week #1 — verify-and-prune drain)
+**Last Updated**: 2026-06-20 (deploy.yml PR Trigger Group D — 2 EXTRACT follow-ups)
 
 **Active tasks**: See [TODO.md](TODO.md)
 **Completed work**: See [DONE.md](DONE.md)
@@ -274,6 +274,12 @@ concept; the weekly-planning prompt selected on priority + domain only).
 ---
 
 ## 🟤 Auto-Generated Tech Debt
+
+### From deploy.yml PR Trigger Group D (2026-06-20)
+**Origin**: docs/archive/plans/2026-06-20_deploy-pr-trigger.md
+
+- [ ] `deploy.yml` grants `pages: write` + `id-token: write` at the workflow (top) level, so every PR run now carries those write scopes even though only the `deploy` job (skipped on PRs) uses them. Scope `pages: write` + `id-token: write` down to the `deploy` job's own `permissions:` block and leave only `contents: read` at the top level, so the `lint`/`build`/`check-links`/`test`/`lighthouse` runs that fire on PRs run least-privilege. Low risk; deliberately deferred from the PR-trigger PR to keep that change minimal (spec "Out of scope"). (Group D task-completion EXTRACT, confidence 40, least-privilege/security-hygiene)
+- [ ] The new PR checks are not yet *enforced* — adding the `pull_request:` trigger makes `lint`/`build`/`check-links`/`test`/`lighthouse` *appear* on PRs, but a red PR can still be merged until they are marked **required status checks** on the `main` branch-protection rule (GitHub repo Settings → Branches). This is a repo-settings/admin action (not a workflow-file change), so it cannot ship in the PR itself; tracked here so the gate actually blocks. (Group D task-completion EXTRACT, confidence 45, CI-gating/process)
 
 ### From PR #77 Code Review (2026-06-18)
 **Origin**: docs/archive/plans/2026-06-17_archived-doc-dead-links.md
