@@ -73,7 +73,7 @@ Recurring exempt overhead (excluded from the quota denominator). Read [REVIEW-QU
 ### Monday — CI Gate + Screenshot Tooling (5 SP)
 
 **Group D — deploy.yml PR Trigger** — 🟡 — 3 SP *(run first; CI blast radius)*
-- [ ] Add `pull_request:` trigger to `.github/workflows/deploy.yml`; verify/guard the deploy job against feature-branch deploys *(3 SP)*
+- [x] Add `pull_request:` trigger to `.github/workflows/deploy.yml`; verify/guard the deploy job against feature-branch deploys *(3 SP)* — PR [#78](https://github.com/GoodAlex223/goodalex223.github.io/pull/78), verified green (gate ran, `deploy` skipped), pending merge
 
 **Group A (part 1) — Conversion Utility** — 🔵 — 2 SP
 - [ ] Add `scripts/convert-screenshot.js` PNG→webp utility (resize + compress) *(2 SP)*
@@ -116,7 +116,7 @@ Recurring exempt overhead (excluded from the quota denominator). Read [REVIEW-QU
 | A. Project Screenshots & Conversion Utility `[batch]` | Content/Build | 🔵 User | 3 | 7 | Mon-Tue | ⬜ Planned |
 | B. social-stats Showcase + 9th Card 🏆 | Content | 🔵 User | 2 | 5 | Wed | ⬜ Planned |
 | C. Dropshipping Content Accuracy `[batch]` | Content | 🔵 User | 2 | 3 | Thu | ⬜ Planned |
-| D. deploy.yml PR Trigger | CI/Build | 🟡 Ops | 1 | 3 | Mon | ⬜ Planned |
+| D. deploy.yml PR Trigger | CI/Build | 🟡 Ops | 1 | 3 | Mon | 🔄 PR #78 (verified, pending merge) |
 | E. PR #77 Review Follow-ups `[batch]` | Scripts/Docs | 🟤 Auto | 2 | 2 | Thu | ⬜ Planned |
 | F. Weekly Reviews `[batch]` | Research | ⚪ Overhead | 3 | 4 | Fri | ⬜ Planned |
 | **Total** | | | **13** | **24** | | |

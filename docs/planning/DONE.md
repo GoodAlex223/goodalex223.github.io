@@ -1,8 +1,23 @@
 # DONE
 
-**Last Updated**: 2026-06-17 (Archived-Doc Dead-Link Cleanup — Cleanup Week #1 Group E)
+**Last Updated**: 2026-06-20 (deploy.yml PR Trigger — Monday Group D)
 
 Completed tasks for the portfolio project.
+
+---
+
+## 2026-06-20
+
+### deploy.yml PR Trigger (Monday — Group D)
+
+**Plan**: [docs/archive/plans/2026-06-20_deploy-pr-trigger.md](../archive/plans/2026-06-20_deploy-pr-trigger.md)
+**Spec**: [docs/archive/specs/2026-06-20_deploy-pr-trigger-design.md](../archive/specs/2026-06-20_deploy-pr-trigger-design.md)
+**PR**: [#78](https://github.com/GoodAlex223/goodalex223.github.io/pull/78) — open, CI verified green (gate ✅, `deploy` skipped), pending merge
+**Summary**: Monday Group D — run first and isolated because CI-workflow edits carry deploy blast radius. Added a `pull_request: branches: [main]` trigger so the full gate (`lint → build → check-links + test + lighthouse`) runs on PRs to main, closing the `statusCheckRollup: 0` gap where PRs #65/#66/#68/#69/#70 had no checks attached and regressions surfaced only post-merge. The naive "just add `pull_request:`" was avoided two ways: an explicit `deploy`-job guard (so it never deploys from a PR/feature branch) and ref-scoped concurrency (so PR runs stop sharing the serialized `pages` deploy lane). brainstorm→spec→plan→inline execution; the change is self-verifying because `pull_request` runs the workflow from the PR's merge ref, so the new trigger fires on its own PR.
+**Key Changes**:
+- `.github/workflows/deploy.yml` — three coordinated hunks: (1) `pull_request: branches: [main]` added to `on:`; (2) `concurrency` ref-scoped to `${{ github.workflow }}-${{ github.ref }}` with `cancel-in-progress: ${{ github.event_name == 'pull_request' }}` (main deploys stay serialized and are never cancelled mid-flight; PR runs are independent and a new push cancels the stale run); (3) `if: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}` guard on the `deploy` job (belt-and-suspenders alongside the unversioned `environment: github-pages` gate).
+**Verification**: PR #78 run `27870530329` (`event: pull_request`) — `lint`/`build`/`check-links`/`test`/`lighthouse` all ✅ and `deploy` **skipped**; the PR's `statusCheckRollup` is now populated (the gap is closed). Workflow YAML parsed locally via `js-yaml`; `actionlint` had no runnable npm executable, so it was skipped per the plan (live PR run is the authoritative gate). Post-merge push-to-`main` deploy confirmation is pending (proves the guard does not over-block).
+**Task-completion EXTRACT**: 2 new 🟤 — scope `pages: write`/`id-token: write` down to the `deploy` job so PR runs are least-privilege (conf 40); mark the new PR checks **required** on the `main` branch-protection rule so a red PR can't merge (conf 45, repo-settings action). Out-of-scope by design: no `paths-ignore`, no permissions refactor, no `node-version` bump.
 
 ---
 
